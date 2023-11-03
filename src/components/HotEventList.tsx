@@ -9,30 +9,33 @@ const HotEventList = async () => {
   const otherEvents = hotEvents?.splice(1);
 
   return (
-    <section>
-      <h1>타이틀1</h1>
-      <div className="flex">
+    <section className="p-10 flex flex-col gap-6">
+      <h1 className="text-3xl">인기순</h1>
+      <div className="flex gap-4">
         <Image
           src={HottestEvent?.thumbnail || ""}
           alt={HottestEvent?.title || "포스터"}
-          width={100}
-          height={100}
+          width={500}
+          height={550}
+          className="object-cover w-[388px] h-[550px]"
         />
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 gap-4 flex-grow">
           {otherEvents?.map((event) => (
             <Image
               key={event.id}
               src={event.thumbnail}
               alt={event.title}
-              width={100}
-              height={100}
+              width={550}
+              height={550}
+              className="object-cover h-[267px]"
             />
           ))}
         </div>
       </div>
-      <Button>
-        <Link href={"/events?"}>인기순으로 전체보기</Link>
-      </Button>
+
+      <Link href={"/events?"} className="m-auto">
+        <Button>{`인기순으로 전체보기 >`}</Button>
+      </Link>
     </section>
   );
 };

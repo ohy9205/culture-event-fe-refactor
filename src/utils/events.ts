@@ -4,7 +4,16 @@ import { Event } from "../types/events";
 export async function getAllEvents() {}
 
 // 최신순
-export async function getRecentEvents() {}
+export async function getRecentEvents(): Promise<Event[] | undefined> {
+  try {
+    const recentEvents = fetch(
+      "https://web-production-d139.up.railway.app/v1/events?latest=today&pageIndex=1&pageSize=10"
+    )
+      .then((rs) => rs.json())
+      .then((data) => data.payload.rows);
+    return recentEvents;
+  } catch (e) {}
+}
 
 //인기순
 export async function getHotEvents(): Promise<Event[] | undefined> {

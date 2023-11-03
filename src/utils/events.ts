@@ -28,4 +28,35 @@ export async function getHotEvents(): Promise<Event[] | undefined> {
 }
 
 // 필터링
-export async function getFilteredEvents() {}
+export async function getFilteredEvents(
+  location?: string,
+  category?: string,
+  cost?: string,
+  startDate?: string,
+  endDate?: string
+): Promise<Event[] | undefined> {
+  console.log(category, cost, location, startDate, endDate);
+  try {
+    const filteredEvents = fetch(
+      `https://web-production-d139.up.railway.app/v1/events?
+      ${category ? `category=${category}&` : ""}
+      ${cost ? `isFree=${cost}&` : ""}
+      ${location ? `location=${location}&` : ""}
+      ${startDate ? `start=${startDate}&` : ""}
+      ${endDate ? `end=${endDate}&` : ""}
+      `,
+      {
+        method: "GET",
+        mode: "no-cors",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((rs) => rs.json())
+      .then((data) => data.payload);
+
+    return filteredEvents;
+  } catch (e) {}
+}

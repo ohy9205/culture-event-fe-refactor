@@ -1,14 +1,33 @@
-import GridContainer from "./GridContainer";
+"use client";
+
+import { useState } from "react";
+import ControlBox from "./ControlBox";
+import EventList from "./EventList";
 
 const FilteredEventList = () => {
+  const [filters, setFilters] = useState({
+    location: "",
+    category: "",
+    cost: "",
+    startDate: "",
+    endDate: "",
+  });
+
+  const onfiltersChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
-    <GridContainer>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
-    </GridContainer>
+    <>
+      <ControlBox onFilterChange={onfiltersChange} />
+      <EventList filters={{ ...filters }} />
+    </>
   );
 };
 

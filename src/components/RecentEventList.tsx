@@ -3,23 +3,26 @@ import MultiCarousel from "./MultiCarousel";
 import Button from "./Button";
 import Link from "next/link";
 import { getRecentEvents } from "../utils/events";
+import ToggleModalCard from "./ToggleModalCard";
 
 const RecentEventList = async () => {
   const recentEvents = await getRecentEvents();
 
   return (
     <section className="p-10 flex flex-col gap-6">
-      <h1 className="text-3xl">최신순</h1>
+      <h1 className="text-3xl text-center">최신순</h1>
       <MultiCarousel>
-        {recentEvents?.map(({ id, title, thumbnail }) => (
-          <Image
-            key={id}
-            src={thumbnail}
-            alt={title}
-            width={400}
-            height={400}
-            className="object-cover h-[324px]"
-          />
+        {recentEvents?.map((event) => (
+          <ToggleModalCard event={event} key={event.id}>
+            <Image
+              key={event.id}
+              src={event.thumbnail}
+              alt={event.title}
+              width={400}
+              height={400}
+              className="object-cover h-[324px]"
+            />
+          </ToggleModalCard>
         ))}
       </MultiCarousel>
       <Link href={"/events"} className="m-auto">

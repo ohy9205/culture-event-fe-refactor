@@ -3,7 +3,7 @@ import RecentEventList from "../components/RecentEventList";
 
 export default function Home() {
   return (
-    <main>
+    <main className="w-[1200px]">
       <HotEventList />
       <RecentEventList />
     </main>

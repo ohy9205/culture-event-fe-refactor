@@ -17,7 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} max-w-[1200px] m-auto`}>
+      <body
+        className={`${inter.className} flex flex-col justify-center items-center`}
+      >
+        <div id="modal"></div>
+
         <Header />
         {children}
       </body>

@@ -14,7 +14,7 @@ const Button = ({ children, color = "dark", onClick }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`${colorStyle(color)} px-6 py-3 rounded-md`}
+      className={`${colorStyle(color)} px-7 py-4 rounded-md`}
     >
       {children}
     </button>

@@ -4,14 +4,15 @@ export type Event = {
   location: EventLocatino;
   isFree: boolean;
   title: string;
-  evnetPeriod: string;
+  eventPeriod: string;
   place: string;
   hostOrganization: string;
+  targetAudiend: string;
   fee: string;
   performerInfo: string;
   programInfo: string;
   otherInfo: string;
-  homPage: string;
+  homePage: string;
   latitude: string;
   longitude: string;
   thumbnail: string;
@@ -55,4 +56,6 @@ type EventLocatino =
   | "축제-문화/예술"
   | "축제-자연/경관"
   | "축제-전통/역사"
-  | "축제-시민화합";
+  | "축제-시민화합"
+  | "교육/체험"
+  | "기타";

@@ -8,22 +8,23 @@ const RecentEventList = async () => {
   const recentEvents = await getRecentEvents();
 
   return (
-    <section>
-      <h1>타이틀</h1>
+    <section className="p-10 flex flex-col gap-6">
+      <h1 className="text-3xl">최신순</h1>
       <MultiCarousel>
         {recentEvents?.map(({ id, title, thumbnail }) => (
           <Image
             key={id}
             src={thumbnail}
             alt={title}
-            width={100}
-            height={100}
+            width={400}
+            height={400}
+            className="object-cover h-[324px]"
           />
         ))}
       </MultiCarousel>
-      <Button>
-        <Link href={"/events"}>최신순으로 전체보기</Link>
-      </Button>
+      <Link href={"/events"} className="m-auto">
+        <Button>{`최신순으로 전체보기 >`}</Button>
+      </Link>
     </section>
   );
 };

@@ -7,6 +7,7 @@ type Props = {
 };
 
 const LOCATION = [
+  "지역구",
   "강남구",
   "강동구",
   "강북구",
@@ -27,8 +28,9 @@ const LOCATION = [
   "송파구",
   "양천구",
 ];
-const COST = ["무료", "유료"];
+const COST = ["비용", "무료", "유료"];
 const CATEGORY = [
+  "카테고리",
   "콘서트",
   "클래식",
   "뮤지컬/오페라",
@@ -50,35 +52,22 @@ const ControlBox = ({ onFilterChange }: Props) => {
   return (
     <section>
       <select onChange={onFilterChange} name="location">
-        <option>지역구</option>
         {LOCATION.map((it) => (
           <option key={it}>{it}</option>
         ))}
       </select>
       <select onChange={onFilterChange} name="category">
-        <option>카테고리</option>
         {CATEGORY.map((it) => (
           <option key={it}>{it}</option>
         ))}
       </select>
-      <select onChange={onFilterChange} name="isFree">
-        <option>비용</option>
+      <select onChange={onFilterChange} name="cost">
         {COST.map((it) => (
           <option key={it}>{it}</option>
         ))}
       </select>
-      <input
-        type="date"
-        name="startDate"
-        value={"2023-11-02"}
-        onChange={onFilterChange}
-      />
-      <input
-        type="date"
-        name="endDate"
-        value={"2023-12-02"}
-        onChange={onFilterChange}
-      />
+      <input type="date" name="startDate" onChange={onFilterChange} />
+      <input type="date" name="endDate" onChange={onFilterChange} />
     </section>
   );
 };

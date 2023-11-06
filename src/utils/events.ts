@@ -27,7 +27,18 @@ export async function getHotEvents(): Promise<Event[] | undefined> {
   } catch (e) {}
 }
 
+type Props = {
+  filters: {
+    location: string;
+    category: string;
+    cost: string;
+    startDate: string;
+    endDate: string;
+  };
+};
+
 // 필터링
+
 export async function getFilteredEvents(
   location?: string,
   category?: string,
@@ -35,24 +46,21 @@ export async function getFilteredEvents(
   startDate?: string,
   endDate?: string
 ): Promise<Event[] | undefined> {
-  console.log(category, cost, location, startDate, endDate);
+  const locationQuery =
+    location && (location === "지역구" ? "" : `location=${location}&`);
+  const categoryQuery =
+    category && (category === "카테고리" ? "" : `category=${category}&`);
+  const costQuery = cost && (cost === "비용" ? "" : `isfree=${cost}&`);
+  const startDateQuery = startDate && `start=${startDate}&`;
+  const endDateQuery = endDate && `end=${endDate}`;
+
+  console.log(
+    `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}`
+  );
+
   try {
     const filteredEvents = fetch(
-      `https://web-production-d139.up.railway.app/v1/events?
-      ${category ? `category=${category}&` : ""}
-      ${cost ? `isFree=${cost}&` : ""}
-      ${location ? `location=${location}&` : ""}
-      ${startDate ? `start=${startDate}&` : ""}
-      ${endDate ? `end=${endDate}&` : ""}
-      `,
-      {
-        method: "GET",
-        mode: "no-cors",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}`
     )
       .then((rs) => rs.json())
       .then((data) => data.payload);

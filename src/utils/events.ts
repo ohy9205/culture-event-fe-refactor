@@ -27,18 +27,7 @@ export async function getHotEvents(): Promise<Event[] | undefined> {
   } catch (e) {}
 }
 
-type Props = {
-  filters: {
-    location: string;
-    category: string;
-    cost: string;
-    startDate: string;
-    endDate: string;
-  };
-};
-
 // 필터링
-
 export async function getFilteredEvents(
   location?: string,
   category?: string,

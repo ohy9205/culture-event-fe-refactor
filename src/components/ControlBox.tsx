@@ -1,5 +1,7 @@
 "use client";
 
+import { getFormattedPeriod } from "../utils/date";
+
 type Props = {
   onFilterChange: (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -49,25 +51,42 @@ const CATEGORY = [
 ];
 
 const ControlBox = ({ onFilterChange }: Props) => {
+  const eventPeriod = getFormattedPeriod();
+
   return (
-    <section>
-      <select onChange={onFilterChange} name="location">
-        {LOCATION.map((it) => (
-          <option key={it}>{it}</option>
-        ))}
-      </select>
-      <select onChange={onFilterChange} name="category">
-        {CATEGORY.map((it) => (
-          <option key={it}>{it}</option>
-        ))}
-      </select>
-      <select onChange={onFilterChange} name="cost">
-        {COST.map((it) => (
-          <option key={it}>{it}</option>
-        ))}
-      </select>
-      <input type="date" name="startDate" onChange={onFilterChange} />
-      <input type="date" name="endDate" onChange={onFilterChange} />
+    <section className="flex">
+      <div>
+        <select onChange={onFilterChange} name="location">
+          {LOCATION.map((it) => (
+            <option key={it}>{it}</option>
+          ))}
+        </select>
+        <select onChange={onFilterChange} name="category">
+          {CATEGORY.map((it) => (
+            <option key={it}>{it}</option>
+          ))}
+        </select>
+        <select onChange={onFilterChange} name="cost">
+          {COST.map((it) => (
+            <option key={it}>{it}</option>
+          ))}
+        </select>
+      </div>
+      <div className="flex">
+        <input
+          type="date"
+          name="startDate"
+          onChange={onFilterChange}
+          // defaultValue={eventPeriod.startDate}
+        />
+        <div>-</div>
+        <input
+          type="date"
+          name="endDate"
+          onChange={onFilterChange}
+          // defaultValue={eventPeriod.endDate}
+        />
+      </div>
     </section>
   );
 };

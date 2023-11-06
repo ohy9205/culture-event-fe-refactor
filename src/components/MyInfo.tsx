@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUserMe } from "../utils/auth";
+import { getRefreshToken, getUserMe } from "../utils/auth";
 
 const MyInfo = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +13,12 @@ const MyInfo = () => {
       const myInfo = await getUserMe(token);
 
       console.log("myInfo", myInfo);
+      if (myInfo.code === 403) {
+        // access token 만료
+        const refreshToken = await getRefreshToken(token);
+        console.log("refreshToken", refreshToken);
+        await getMyInfo();
+      }
     };
     getMyInfo();
   }, []);

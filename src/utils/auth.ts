@@ -67,3 +67,25 @@ export async function getUserMe(token: string | null) {
     console.error(err);
   }
 }
+
+export async function getRefreshToken(token: string | null) {
+  if (token === null) {
+    console.log("token null");
+    return;
+  }
+
+  try {
+    const refreshToken = fetch("http://127.0.0.1:3030/auth/token/refresh", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => data);
+    return refreshToken;
+  } catch (err) {
+    console.error(err);
+  }
+}

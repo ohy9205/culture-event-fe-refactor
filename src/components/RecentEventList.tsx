@@ -25,7 +25,7 @@ const RecentEventList = async () => {
           </ToggleModalCard>
         ))}
       </MultiCarousel>
-      <Link href={"/events"} className="m-auto">
+      <Link href={"/event"} className="m-auto">
         <Button>{`최신순으로 전체보기 >`}</Button>
       </Link>
     </section>

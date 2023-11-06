@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getFilteredEvents } from "../utils/events";
 import GridContainer from "./GridContainer";
 import { Event } from "../types/events";
+import ToggleModalCard from "./ToggleModalCard";
+import EventCard from "./EventCard";
 
 type Props = {
   filters: {
@@ -39,7 +41,9 @@ const EventList = ({ filters }: Props) => {
     <div>
       <GridContainer>
         {events.map((event) => (
-          <div key={event.id}>{event.title}</div>
+          <ToggleModalCard event={event} key={event.id}>
+            <EventCard event={event} />
+          </ToggleModalCard>
         ))}
       </GridContainer>
     </div>

@@ -1,12 +1,25 @@
 import Image from "next/image";
+import { Event } from "../types/events";
 
-const EventCard = () => {
+type Props = {
+  event: Event;
+};
+
+const EventCard = ({
+  event: { thumbnail, title, eventPeriod, favorite },
+}: Props) => {
   return (
     <div className="flex flex-col">
-      <Image src={"/"} alt={` 포스터`} width={100} height={100} />
-      <h2>타이틀</h2>
-      <h3>날짜</h3>
-      <div>좋아요 등..</div>
+      <Image
+        src={thumbnail}
+        alt={`${title} 포스터`}
+        width={500}
+        height={500}
+        className="w-full h-[370px] object-cover"
+      />
+      <h2>{title}</h2>
+      <h3>{eventPeriod}</h3>
+      <div>{favorite}</div>
     </div>
   );
 };

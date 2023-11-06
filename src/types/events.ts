@@ -1,7 +1,7 @@
 export type Event = {
   id: number;
   category: EventCategory;
-  location: EventLocatino;
+  location: EventLocation;
   isFree: boolean;
   title: string;
   eventPeriod: string;
@@ -43,7 +43,7 @@ type EventCategory =
   | "성북구"
   | "송파구"
   | "양천구";
-type EventLocatino =
+type EventLocation =
   | "콘서트"
   | "클래식"
   | "뮤지컬/오페라"

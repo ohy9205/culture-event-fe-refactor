@@ -1,32 +1,30 @@
 import { useState, useEffect } from "react";
 import { getFilteredEvents } from "../utils/events";
 import GridContainer from "./GridContainer";
-import { Event } from "../types/events";
+import { SimpleEvent } from "../types/events";
 import ToggleModalCard from "./ToggleModalCard";
 import EventCard from "./EventCard";
+import { Filter } from "./FilteredEventList";
 
 type Props = {
-  filters: {
-    location: string;
-    category: string;
-    cost: string;
-    startDate: string;
-    endDate: string;
-  };
+  filter: Filter;
 };
 
-const EventList = ({ filters }: Props) => {
-  const [events, setEvents] = useState<Event[]>([]);
+const EventList = ({ filter }: Props) => {
+  const [events, setEvents] = useState<SimpleEvent[]>([]);
 
   useEffect(() => {
-    const { location, category, cost, startDate, endDate } = filters;
+    const { location, category, cost, startDate, endDate, orderBy, latest } =
+      filter;
     const fetchingData = async () => {
       const data = await getFilteredEvents(
         location,
         category,
         cost,
         startDate,
-        endDate
+        endDate,
+        orderBy,
+        latest
       );
 
       if (data) {
@@ -35,13 +33,13 @@ const EventList = ({ filters }: Props) => {
     };
 
     fetchingData();
-  }, [filters]);
+  }, [filter]);
 
   return (
     <div>
       <GridContainer>
         {events.map((event) => (
-          <ToggleModalCard event={event} key={event.id}>
+          <ToggleModalCard id={event.id.toString()} key={event.id}>
             <EventCard event={event} />
           </ToggleModalCard>
         ))}

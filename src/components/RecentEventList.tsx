@@ -13,7 +13,7 @@ const RecentEventList = async () => {
       <h1 className="text-3xl text-center">최신순</h1>
       <MultiCarousel>
         {recentEvents?.map((event) => (
-          <ToggleModalCard event={event} key={event.id}>
+          <ToggleModalCard id={event.id.toString()} key={event.id}>
             <Image
               key={event.id}
               src={event.thumbnail}
@@ -25,7 +25,11 @@ const RecentEventList = async () => {
           </ToggleModalCard>
         ))}
       </MultiCarousel>
-      <Link href={"/event"} className="m-auto">
+      <Link
+        href={{ pathname: "/event", query: { latest: "today" } }}
+        // as={"/event"}
+        className="m-auto"
+      >
         <Button>{`최신순으로 전체보기 >`}</Button>
       </Link>
     </section>

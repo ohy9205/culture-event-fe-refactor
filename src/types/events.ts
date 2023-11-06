@@ -7,7 +7,7 @@ export type Event = {
   eventPeriod: string;
   place: string;
   hostOrganization: string;
-  targetAudiend: string;
+  targetAudience: string;
   fee: string;
   performerInfo: string;
   programInfo: string;
@@ -18,10 +18,31 @@ export type Event = {
   thumbnail: string;
   startDate: string;
   endDate: string;
-  favorite: number;
+  views: number;
   createdAt: string;
   updatedAt: string;
 };
+
+export type DetailEvent = Pick<
+  Event,
+  | "id"
+  | "thumbnail"
+  | "title"
+  | "category"
+  | "place"
+  | "eventPeriod"
+  | "targetAudience"
+  | "homePage"
+  | "fee"
+  | "isFree"
+>;
+
+export type SimpleEvent = Pick<
+  Event,
+  "id" | "title" | "thumbnail" | "eventPeriod" | "views"
+>;
+
+export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 
 type EventCategory =
   | "강남구"

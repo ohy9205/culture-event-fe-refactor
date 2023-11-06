@@ -14,7 +14,10 @@ const HotEventList = async () => {
     <section className="p-10 flex flex-col gap-6">
       <h1 className="text-3xl text-center">인기순</h1>
       <div className="flex gap-4">
-        <ToggleModalCard event={hottestEvent!} className="w-[388px] h-[550px]">
+        <ToggleModalCard
+          id={hottestEvent?.id.toString()!}
+          className="w-[388px] h-[550px]"
+        >
           <Image
             src={hottestEvent?.thumbnail || ""}
             alt={hottestEvent?.title || "포스터"}
@@ -25,7 +28,11 @@ const HotEventList = async () => {
         </ToggleModalCard>
         <GridContainer cols="few">
           {otherEvents?.map((event) => (
-            <ToggleModalCard event={event} key={event.id} className="h-[267px]">
+            <ToggleModalCard
+              id={event.id.toString()}
+              key={event.id}
+              className="h-[267px]"
+            >
               <Image
                 key={event.id}
                 src={event.thumbnail}
@@ -39,7 +46,10 @@ const HotEventList = async () => {
         </GridContainer>
       </div>
 
-      <Link href={"/event"} className="m-auto">
+      <Link
+        href={{ pathname: "/event", query: { orderBy: "views" } }}
+        className="m-auto"
+      >
         <Button>{`인기순으로 전체보기 >`}</Button>
       </Link>
     </section>

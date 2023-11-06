@@ -2,15 +2,14 @@
 
 import { useState, useEffect } from "react";
 import DetailModal from "./DetailModal";
-import { Event } from "../types/events";
 
 type Props = {
   children: React.ReactNode;
-  event: Event;
+  id: string;
   className?: string;
 };
 
-const ToggleModalCard = ({ children, event, className }: Props) => {
+const ToggleModalCard = ({ children, id, className }: Props) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const onToggleShowModal = () => {
@@ -24,7 +23,7 @@ const ToggleModalCard = ({ children, event, className }: Props) => {
   return (
     <div onClick={onToggleShowModal} className={className}>
       {children}
-      {isShowModal && <DetailModal event={event} onClick={onToggleShowModal} />}
+      {isShowModal && <DetailModal id={id} onClick={onToggleShowModal} />}
     </div>
   );
 };

@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Event } from "../types/events";
 import EventDetail from "./EventDetail";
 
 type Props = {
   onClick: () => void;
-  event: Event;
+  id: string;
 };
 
 const DetailModalBack = ({ onClick }: Pick<Props, "onClick">) => {
@@ -17,15 +16,15 @@ const DetailModalBack = ({ onClick }: Pick<Props, "onClick">) => {
   );
 };
 
-const DetailModalOverlay = ({ event }: Pick<Props, "event">) => {
+const DetailModalOverlay = ({ id }: Pick<Props, "id">) => {
   return (
     <div className="w-4/5 max-w-[1100px] h-[80vh] bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] overflow-scroll">
-      <EventDetail event={event} />
+      <EventDetail id={id} />
     </div>
   );
 };
 
-const DetailModal = ({ onClick, event }: Props) => {
+const DetailModal = ({ onClick, id }: Props) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -33,7 +32,7 @@ const DetailModal = ({ onClick, event }: Props) => {
         document.getElementById("modal")!
       )}
       {ReactDOM.createPortal(
-        <DetailModalOverlay event={event} />,
+        <DetailModalOverlay id={id} />,
         // document.getElementById("modal-overlay")!
         document.getElementById("modal")!
       )}

@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { Event } from "../types/events";
+import { SimpleEvent } from "../types/events";
 
 type Props = {
-  event: Event;
+  event: SimpleEvent;
 };
 
 const EventCard = ({
-  event: { thumbnail, title, eventPeriod, favorite },
+  event: { thumbnail, title, eventPeriod, views },
 }: Props) => {
   return (
     <div className="flex flex-col">
@@ -19,7 +19,7 @@ const EventCard = ({
       />
       <h2>{title}</h2>
       <h3>{eventPeriod}</h3>
-      <div>{favorite}</div>
+      <div>{views}</div>
     </div>
   );
 };

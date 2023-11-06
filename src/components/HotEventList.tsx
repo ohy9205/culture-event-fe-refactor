@@ -3,6 +3,7 @@ import Button from "./Button";
 import Link from "next/link";
 import { getHotEvents } from "../utils/events";
 import ToggleModalCard from "./ToggleModalCard";
+import GridContainer from "./GridContainer";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();
@@ -22,7 +23,7 @@ const HotEventList = async () => {
             className="object-cover w-full h-full"
           />
         </ToggleModalCard>
-        <div className="grid grid-cols-3 gap-4">
+        <GridContainer cols="few">
           {otherEvents?.map((event) => (
             <ToggleModalCard event={event} key={event.id} className="h-[267px]">
               <Image
@@ -35,10 +36,10 @@ const HotEventList = async () => {
               />
             </ToggleModalCard>
           ))}
-        </div>
+        </GridContainer>
       </div>
 
-      <Link href={"/events?"} className="m-auto">
+      <Link href={"/event"} className="m-auto">
         <Button>{`인기순으로 전체보기 >`}</Button>
       </Link>
     </section>

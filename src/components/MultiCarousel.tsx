@@ -9,8 +9,8 @@ type Props = {
 
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 5,
+    breakpoint: { max: 3000, min: 0 },
+    items: 4,
   },
 };
 
@@ -20,7 +20,8 @@ const MultiCarousel = ({ children }: Props) => {
       responsive={responsive}
       infinite
       autoPlay
-      itemClass="p-2"
+      autoPlaySpeed={3000}
+      itemClass="w-1/4 p-2"
       centerMode={true}
     >
       {children}

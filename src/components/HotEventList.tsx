@@ -1,9 +1,9 @@
 import Image from "next/image";
-import Button from "./Button";
 import Link from "next/link";
 import { getHotEvents } from "../utils/events";
-import ToggleModalCard from "./ToggleModalCard";
+import Button from "./Button";
 import GridContainer from "./GridContainer";
+import ToggleModalCard from "./ToggleModalCard";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();

@@ -12,18 +12,30 @@ const MyInfo = () => {
       const token = localStorage.getItem("at");
       const myInfo = await getUserMe(token);
 
-      console.log("myInfo", myInfo);
       if (myInfo.code === 403) {
-        // access token 만료
-        const refreshToken = await getRefreshToken(token);
-        console.log("refreshToken", refreshToken);
-        await getMyInfo();
+        const refreshToken = localStorage.getItem("rt");
+        const getMyInfoByRT = await getRefreshToken(refreshToken);
+        localStorage.setItem("at", getMyInfoByRT.at);
+        // await getMyInfo();
+        const newToken = getMyInfoByRT.at;
+        const myInfo = await getUserMe(newToken);
+        console.log("my info by New Token", myInfo);
+        setNickname(myInfo.payload.nick);
+        setEmail(myInfo.payload.email);
+      } else {
+        setNickname(myInfo.payload.nick);
+        setEmail(myInfo.payload.email);
       }
     };
     getMyInfo();
   }, []);
 
-  return <div>Hello</div>;
+  return (
+    <div>
+      <h1>Hello {nickname}</h1>
+      <h2>email: {email}</h2>
+    </div>
+  );
 };
 
 export default MyInfo;

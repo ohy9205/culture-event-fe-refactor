@@ -3,21 +3,34 @@
 import { useState } from "react";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
+import { useSearchParams } from "next/navigation";
+
+export type Filter = {
+  location: string;
+  category: string;
+  cost: string;
+  startDate: string;
+  endDate: string;
+  orderBy: string;
+};
 
 const FilteredEventList = () => {
-  const [filters, setFilters] = useState({
-    location: "",
-    category: "",
-    cost: "",
+  const params = useSearchParams();
+
+  const [filter, setFilter] = useState<Filter>({
+    location: "지역구",
+    category: "카테고리",
+    cost: "비용",
     startDate: "",
     endDate: "",
+    orderBy: "",
   });
 
   const onfiltersChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    setFilters((prev) => ({
+    setFilter((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -26,7 +39,7 @@ const FilteredEventList = () => {
   return (
     <>
       <ControlBox onFilterChange={onfiltersChange} />
-      <EventList filters={{ ...filters }} />
+      <EventList filter={{ ...filter }} />
     </>
   );
 };

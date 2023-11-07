@@ -1,7 +1,5 @@
 "use client";
 
-import { getFormattedPeriod } from "../utils/date";
-
 type Props = {
   onFilterChange: (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -49,45 +47,76 @@ const CATEGORY = [
   "교축/체험",
   "기타",
 ];
+const ORDER_BY = [
+  { text: "빠른 시작일 순", value: "" },
+  { text: "곧 시작할 순", value: "latest" },
+  { text: "조회 순", value: "views" },
+];
+
+const SELECT_STYLE = `px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = ({ onFilterChange }: Props) => {
-  const eventPeriod = getFormattedPeriod();
-
   return (
-    <section className="flex">
-      <div>
-        <select onChange={onFilterChange} name="location">
-          {LOCATION.map((it) => (
-            <option key={it}>{it}</option>
-          ))}
-        </select>
-        <select onChange={onFilterChange} name="category">
-          {CATEGORY.map((it) => (
-            <option key={it}>{it}</option>
-          ))}
-        </select>
-        <select onChange={onFilterChange} name="cost">
-          {COST.map((it) => (
-            <option key={it}>{it}</option>
-          ))}
-        </select>
-      </div>
-      <div className="flex">
-        <input
-          type="date"
-          name="startDate"
+    <>
+      <section className="flex gap-5">
+        <div className="flex gap-5">
+          <select
+            onChange={onFilterChange}
+            name="location"
+            className={SELECT_STYLE}
+          >
+            {LOCATION.map((it) => (
+              <option key={it}>{it}</option>
+            ))}
+          </select>
+          <select
+            onChange={onFilterChange}
+            name="category"
+            className={SELECT_STYLE}
+          >
+            {CATEGORY.map((it) => (
+              <option key={it}>{it}</option>
+            ))}
+          </select>
+          <select
+            onChange={onFilterChange}
+            name="cost"
+            className={SELECT_STYLE}
+          >
+            {COST.map((it) => (
+              <option key={it}>{it}</option>
+            ))}
+          </select>
+        </div>
+        <div className="flex gap-2 justify-center items-center">
+          <input
+            type="date"
+            name="startDate"
+            onChange={onFilterChange}
+            className={SELECT_STYLE}
+          />
+          <div>-</div>
+          <input
+            type="date"
+            name="endDate"
+            onChange={onFilterChange}
+            className={SELECT_STYLE}
+          />
+        </div>
+
+        <select
           onChange={onFilterChange}
-          // defaultValue={eventPeriod.startDate}
-        />
-        <div>-</div>
-        <input
-          type="date"
-          name="endDate"
-          onChange={onFilterChange}
-          // defaultValue={eventPeriod.endDate}
-        />
-      </div>
-    </section>
+          name="orderBy"
+          className={SELECT_STYLE}
+        >
+          {ORDER_BY.map((it) => (
+            <option key={it.text} value={it.value}>
+              {it.text}
+            </option>
+          ))}
+        </select>
+      </section>
+    </>
   );
 };
 

@@ -57,8 +57,7 @@ export async function getFilteredEvents(
   cost?: string,
   startDate?: string,
   endDate?: string,
-  orderBy?: string,
-  latest?: string
+  orderBy?: string
 ): Promise<Event[] | undefined> {
   const locationQuery =
     location && (location === "지역구" ? "" : `location=${location}&`);
@@ -67,17 +66,15 @@ export async function getFilteredEvents(
   const costQuery = cost && (cost === "비용" ? "" : `isfree=${cost}&`);
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
-  const orderByQuery =
-    orderBy && (orderBy === "views" ? `orderBy=${orderBy}&` : "");
-  const latestQuery = latest && (latest === "today" ? `latest=${latest}&` : "");
+  const orderByQuery = orderBy && `orderBy=${orderBy}`;
 
   console.log(
-    `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${latestQuery}`
+    `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`
   );
 
   try {
     const filteredEvents = fetch(
-      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${latestQuery}`,
+      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`,
       { cache: "no-store" }
     )
       .then((rs) => rs.json())

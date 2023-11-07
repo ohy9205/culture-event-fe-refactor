@@ -5,9 +5,14 @@ type signupBody = {
   password: string;
 };
 
+const API_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3030"
+    : "https://web-production-d139.up.railway.app";
+
 export async function postSignup(body: signupBody) {
   try {
-    const signupResult = fetch("http://localhost:3030/auth/signUp", {
+    const signupResult = fetch(`${API_URL}/auth/signUp`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,8 +35,9 @@ type signinBody = {
 // 로그인
 export async function postSignin(body: signinBody) {
   console.log("body", body);
+  console.log("API URL", API_URL);
   try {
-    const signinResult = fetch("http://localhost:3030/auth/signIn", {
+    const signinResult = fetch(`${API_URL}/auth/signIn`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +60,7 @@ export async function getUserMe(token: string | null) {
   }
   console.log("token", token);
   try {
-    const userInfo = fetch("http://localhost:3030/user/me", {
+    const userInfo = fetch(`${API_URL}/user/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -67,26 +73,5 @@ export async function getUserMe(token: string | null) {
     return userInfo;
   } catch (err) {
     console.error("fetch error", err);
-  }
-}
-
-export async function getRefreshToken(token: string | null) {
-  if (token === null) {
-    console.log("token null");
-    return;
-  }
-  try {
-    const refreshToken = fetch("http://localhost:3030/auth/token/refresh", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => data);
-    return refreshToken;
-  } catch (err) {
-    console.error(err);
   }
 }

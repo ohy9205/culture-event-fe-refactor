@@ -26,8 +26,7 @@ const RecentEventList = async () => {
         ))}
       </MultiCarousel>
       <Link
-        href={{ pathname: "/event", query: { latest: "today" } }}
-        // as={"/event"}
+        href={{ pathname: "/event", query: { orderBy: "latest" } }}
         className="m-auto"
       >
         <Button>{`최신순으로 전체보기 >`}</Button>

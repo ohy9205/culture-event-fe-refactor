@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export type Filter = {
   location: string;
@@ -15,7 +15,8 @@ export type Filter = {
 };
 
 const FilteredEventList = () => {
-  const params = useSearchParams();
+  const router = useRouter();
+  const query = useSearchParams().get("orderBy");
 
   const [filter, setFilter] = useState<Filter>({
     location: "지역구",
@@ -23,8 +24,14 @@ const FilteredEventList = () => {
     cost: "비용",
     startDate: "",
     endDate: "",
-    orderBy: "",
+    orderBy: query ? query : "",
   });
+
+  useEffect(() => {
+    if (query) {
+      router.push("/event");
+    }
+  }, [query, router]);
 
   const onfiltersChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -38,7 +45,7 @@ const FilteredEventList = () => {
 
   return (
     <>
-      <ControlBox onFilterChange={onfiltersChange} />
+      <ControlBox onFilterChange={onfiltersChange} filter={{ ...filter }} />
       <EventList filter={{ ...filter }} />
     </>
   );

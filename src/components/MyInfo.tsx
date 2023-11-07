@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getRefreshToken, getUserMe } from "../utils/auth";
+import { getUserMe } from "../utils/auth";
 
 const MyInfo = () => {
   const [email, setEmail] = useState("");
@@ -12,19 +12,12 @@ const MyInfo = () => {
       const token = localStorage.getItem("at");
       const myInfo = await getUserMe(token);
 
-      if (myInfo.code === 403) {
-        const refreshToken = localStorage.getItem("rt");
-        const getMyInfoByRT = await getRefreshToken(refreshToken);
-        localStorage.setItem("at", getMyInfoByRT.at);
-        // await getMyInfo();
-        const newToken = getMyInfoByRT.at;
-        const myInfo = await getUserMe(newToken);
-        console.log("my info by New Token", myInfo);
+      if (myInfo.code === 200) {
         setNickname(myInfo.payload.nick);
         setEmail(myInfo.payload.email);
-      } else {
-        setNickname(myInfo.payload.nick);
-        setEmail(myInfo.payload.email);
+        if (myInfo.at) {
+          localStorage.setItem("at", myInfo.at);
+        }
       }
     };
     getMyInfo();

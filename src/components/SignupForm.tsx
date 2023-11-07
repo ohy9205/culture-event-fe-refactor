@@ -16,9 +16,9 @@ const SignupForm = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("at");
-    if (token) {
-      router.push("/");
-    }
+    // if (token) {
+    //   router.push("/");
+    // }
   }, []);
 
   const signup = async () => {

@@ -24,7 +24,6 @@ const SigninForm = () => {
     } else {
       console.log("result", result);
       localStorage.setItem("at", result.at);
-      localStorage.setItem("rt", result.rt);
       router.push("/");
     }
   };

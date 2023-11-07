@@ -36,6 +36,7 @@ export async function postSignin(body: signinBody) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(body),
     })
       .then((response) => response.json())
@@ -53,18 +54,19 @@ export async function getUserMe(token: string | null) {
   }
   console.log("token", token);
   try {
-    const userInfo = fetch("http://127.0.0.1:3030/user/me", {
+    const userInfo = fetch("http://localhost:3030/user/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include",
     })
       .then((response) => response.json())
       .then((data) => data);
     return userInfo;
   } catch (err) {
-    console.error(err);
+    console.error("fetch error", err);
   }
 }
 
@@ -73,9 +75,8 @@ export async function getRefreshToken(token: string | null) {
     console.log("token null");
     return;
   }
-
   try {
-    const refreshToken = fetch("http://127.0.0.1:3030/auth/token/refresh", {
+    const refreshToken = fetch("http://localhost:3030/auth/token/refresh", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

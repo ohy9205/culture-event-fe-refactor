@@ -1,13 +1,30 @@
-import Image from "next/image";
+"use client";
 
-const EventCard = () => {
+import { useState } from "react";
+import Image from "next/image";
+import DetailModal from "./DetailModal";
+import { Event } from "../types/events";
+
+type Props = {
+  children: React.ReactNode;
+  id: number;
+};
+
+const EventCard = ({ children, id }: Props) => {
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+
+  const onToggleShowModal = () => {
+    setIsShowModal((prev) => !prev);
+  };
+
   return (
-    <div className="flex flex-col">
-      <Image src={"/"} alt={` 포스터`} width={100} height={100} />
-      <h2>타이틀</h2>
-      <h3>날짜</h3>
-      <div>좋아요 등..</div>
-    </div>
+    <>
+      <div className="flex flex-col" onClick={onToggleShowModal}>
+        {children}
+      </div>
+
+      {isShowModal && <DetailModal id={id} onClick={onToggleShowModal} />}
+    </>
   );
 };
 

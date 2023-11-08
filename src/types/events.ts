@@ -1,13 +1,13 @@
 export type Event = {
   id: number;
   category: EventCategory;
-  location: EventLocatino;
+  location: EventLocation;
   isFree: boolean;
   title: string;
   eventPeriod: string;
   place: string;
   hostOrganization: string;
-  targetAudiend: string;
+  targetAudience: string;
   fee: string;
   performerInfo: string;
   programInfo: string;
@@ -18,10 +18,31 @@ export type Event = {
   thumbnail: string;
   startDate: string;
   endDate: string;
-  favorite: number;
+  views: number;
   createdAt: string;
   updatedAt: string;
 };
+
+export type DetailEvent = Pick<
+  Event,
+  | "id"
+  | "thumbnail"
+  | "title"
+  | "category"
+  | "place"
+  | "eventPeriod"
+  | "targetAudience"
+  | "homePage"
+  | "fee"
+  | "isFree"
+>;
+
+export type SimpleEventList = {
+  events: Pick<Event, "id" | "title" | "thumbnail" | "eventPeriod" | "views">[];
+  totalPage?: number;
+};
+
+export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 
 type EventCategory =
   | "강남구"
@@ -43,7 +64,7 @@ type EventCategory =
   | "성북구"
   | "송파구"
   | "양천구";
-type EventLocatino =
+type EventLocation =
   | "콘서트"
   | "클래식"
   | "뮤지컬/오페라"

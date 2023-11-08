@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import Header from "../components/Header";
+import SWRProvider from "../provider/swrProvider";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
       <body
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
-        <div id="modal"></div>
+        <SWRProvider>
+          <div id="modal"></div>
 
-        <Header />
-        {children}
+          <Header />
+          {children}
+        </SWRProvider>
       </body>
     </html>
   );

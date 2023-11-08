@@ -1,6 +1,9 @@
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 const Header = () => {
+  const cookieStore = cookies();
+  console.log(cookieStore.get("rt"));
   return (
     <header className="bg-slate-200 w-[1200px] h-[50px] flex justify-center items-center">
       <nav className="flex gap-5 text-xl">

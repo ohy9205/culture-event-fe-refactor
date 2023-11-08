@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getHotEvents } from "../utils/events";
-import GridContainer from "./GridContainer";
+import Button from "./Button";
 import EventCard from "./EventCard";
-
+import GridContainer from "./GridContainer";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();

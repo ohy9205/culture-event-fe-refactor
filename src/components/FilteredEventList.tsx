@@ -19,9 +19,9 @@ const FilteredEventList = () => {
   const query = useSearchParams().get("orderBy");
 
   const [filter, setFilter] = useState<Filter>({
-    location: "지역구",
-    category: "카테고리",
-    cost: "비용",
+    location: "",
+    category: "",
+    cost: "",
     startDate: "",
     endDate: "",
     orderBy: query ? query : "",

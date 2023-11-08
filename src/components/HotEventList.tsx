@@ -2,8 +2,8 @@ import Image from "next/image";
 import Button from "./Button";
 import Link from "next/link";
 import { getHotEvents } from "../utils/events";
-import ToggleModalCard from "./ToggleModalCard";
 import GridContainer from "./GridContainer";
+import EventCard from "./EventCard";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();
@@ -14,36 +14,35 @@ const HotEventList = async () => {
     <section className="p-10 flex flex-col gap-6">
       <h1 className="text-3xl text-center">인기순</h1>
       <div className="flex gap-4">
-        <ToggleModalCard
-          id={hottestEvent?.id.toString()!}
-          className="w-[388px] h-[550px]"
-        >
-          <Image
-            src={hottestEvent?.thumbnail || ""}
-            alt={hottestEvent?.title || "포스터"}
-            width={500}
-            height={550}
-            className="object-cover w-full h-full"
-          />
-        </ToggleModalCard>
-        <GridContainer cols="few">
-          {otherEvents?.map((event) => (
-            <ToggleModalCard
-              id={event.id.toString()}
-              key={event.id}
-              className="h-[267px]"
-            >
-              <Image
-                key={event.id}
-                src={event.thumbnail}
-                alt={event.title}
-                width={550}
-                height={550}
-                className="object-cover w-full h-full"
-              />
-            </ToggleModalCard>
-          ))}
-        </GridContainer>
+        <EventCard id={hottestEvent?.id!}>
+          <div className="w-[388px] h-[550px]">
+            <Image
+              src={hottestEvent?.thumbnail || ""}
+              alt={hottestEvent?.title || "포스터"}
+              width={500}
+              height={550}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </EventCard>
+        <div className="flex-grow">
+          <GridContainer cols="few">
+            {otherEvents?.map((event) => (
+              <EventCard id={event.id} key={event.id}>
+                <div key={event.id} className="h-[267px]">
+                  <Image
+                    key={event.id}
+                    src={event.thumbnail}
+                    alt={event.title}
+                    width={550}
+                    height={550}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              </EventCard>
+            ))}
+          </GridContainer>
+        </div>
       </div>
 
       <Link

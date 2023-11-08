@@ -6,7 +6,7 @@ import { getEventDetail } from "../utils/events";
 import { useEffect, useState } from "react";
 
 type Props = {
-  id: string;
+  id: number;
 };
 
 const LIST_STYLE = "w-full flex";
@@ -34,7 +34,7 @@ const EventDetail = ({ id }: Props) => {
             alt={eventDetail?.title || ""}
             width={700}
             height={700}
-            className="object-cover w-2/5 rounded-lg"
+            className="w-2/5 rounded-lg object-contain"
           />
           <div className="w-full p-2 flex flex-col gap-6">
             <h2 className="mb-6 text-2xl font-semibold">
@@ -65,7 +65,7 @@ const EventDetail = ({ id }: Props) => {
                 </p>
               </li>
             </ul>
-            <Link href={eventDetail?.homePage || "/"}>
+            <Link href={eventDetail?.homePage || "/"} className="w-fit">
               <Button>{`상세정보 보러가기 >`}</Button>
             </Link>
           </div>

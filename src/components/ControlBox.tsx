@@ -37,7 +37,7 @@ const COST = [
   { text: "유료", value: "유료" },
 ];
 const CATEGORY = [
-  { text: "카테고리", value: "카테고리" },
+  { text: "카테고리", value: "" },
   { text: "콘서트", value: "콘서트" },
   { text: "클래식", value: "클래식" },
   { text: "뮤지컬/오페라", value: "뮤지컬/오페라" },
@@ -75,7 +75,7 @@ const ControlBox = ({ onFilterChange, filter }: Props) => {
           >
             {LOCATION.map((it) => (
               <option key={it.text} value={it.value}>
-                {it.value}
+                {it.text}
               </option>
             ))}
           </select>
@@ -87,7 +87,7 @@ const ControlBox = ({ onFilterChange, filter }: Props) => {
           >
             {CATEGORY.map((it) => (
               <option key={it.text} value={it.value}>
-                {it.value}
+                {it.text}
               </option>
             ))}
           </select>

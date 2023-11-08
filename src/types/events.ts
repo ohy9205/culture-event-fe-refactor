@@ -37,10 +37,10 @@ export type DetailEvent = Pick<
   | "isFree"
 >;
 
-export type SimpleEvent = Pick<
-  Event,
-  "id" | "title" | "thumbnail" | "eventPeriod" | "views"
->;
+export type SimpleEventList = {
+  events: Pick<Event, "id" | "title" | "thumbnail" | "eventPeriod" | "views">[];
+  totalPage?: number;
+};
 
 export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 

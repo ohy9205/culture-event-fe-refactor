@@ -8,7 +8,7 @@ export async function getAllEvents() {}
 export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
   try {
     const recentEvents = fetch(
-      "https://web-production-d139.up.railway.app/v1/events?latest=today&pageIndex=1&pageSize=10",
+      "https://web-production-d139.up.railway.app/v1/events?orderBy=latest&pageIndex=1&pageSize=10",
       { cache: "no-store" }
     )
       .then((rs) => rs.json())

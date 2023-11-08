@@ -1,21 +1,38 @@
 import { useState, useEffect } from "react";
 import { getFilteredEvents } from "../utils/events";
 import GridContainer from "./GridContainer";
-import { SimpleEvent } from "../types/events";
-import ToggleModalCard from "./ToggleModalCard";
+import { SimpleEventList } from "../types/events";
 import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
+import Image from "next/image";
 
 type Props = {
   filter: Filter;
 };
 
 const EventList = ({ filter }: Props) => {
-  const [events, setEvents] = useState<SimpleEvent[]>([]);
+  const [events, setEvents] = useState<SimpleEventList>({
+    events: [],
+    totalPage: 0,
+  });
+  const [pagination, setPagenation] = useState({
+    totalPage: 0,
+    pageIndex: 0,
+    pageSize: 10,
+    totalPagingGroup: 0,
+    pagingGroupIndex: 0,
+  });
+
+  const onClickHandler = (curIndex: number, curPagingGroupIndex: number) => {
+    setPagenation((prev) => ({
+      ...prev,
+      pageIndex: curIndex,
+      pagingGroupIndex: curPagingGroupIndex,
+    }));
+  };
 
   useEffect(() => {
-    const { location, category, cost, startDate, endDate, orderBy, latest } =
-      filter;
+    const { location, category, cost, startDate, endDate, orderBy } = filter;
     const fetchingData = async () => {
       const data = await getFilteredEvents(
         location,
@@ -24,11 +41,17 @@ const EventList = ({ filter }: Props) => {
         startDate,
         endDate,
         orderBy,
-        latest
+        pagination.pageIndex,
+        pagination.pageSize
       );
 
       if (data) {
         setEvents(data);
+        setPagenation((prev) => ({
+          ...prev,
+          totalPage: data?.totalPage || 0,
+          totalPagingGroup: (data?.totalPage || 0) / 5 + 1,
+        }));
       }
     };
 
@@ -38,10 +61,19 @@ const EventList = ({ filter }: Props) => {
   return (
     <div>
       <GridContainer>
-        {events.map((event) => (
-          <ToggleModalCard id={event.id.toString()} key={event.id}>
-            <EventCard event={event} />
-          </ToggleModalCard>
+        {events.events.map((event) => (
+          <EventCard key={event.id} id={event.id}>
+            <Image
+              src={event.thumbnail}
+              alt={`${event.title} 포스터`}
+              width={500}
+              height={500}
+              className="w-full h-[370px] object-cover"
+            />
+            <h2>{event.title}</h2>
+            <h3>{event.eventPeriod}</h3>
+            <div>{event.views}</div>
+          </EventCard>
         ))}
       </GridContainer>
     </div>

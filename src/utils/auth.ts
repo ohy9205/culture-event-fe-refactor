@@ -10,6 +10,8 @@ const API_URL =
     ? "http://localhost:3030"
     : "https://web-production-d139.up.railway.app";
 
+console.log("API_URL", API_URL);
+
 export async function postSignup(body: signupBody) {
   try {
     const signupResult = fetch(`${API_URL}/auth/signUp`, {

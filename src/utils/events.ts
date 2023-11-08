@@ -7,7 +7,7 @@ export async function getAllEvents() {}
 export async function getRecentEvents(): Promise<Event[] | undefined> {
   try {
     const recentEvents = fetch(
-      "http://127.0.0.1:3030/v1/events?latest=today&pageIndex=1&pageSize=10"
+      "https://web-production-d139.up.railway.app/v1/events?latest=today&pageIndex=1&pageSize=10"
     )
       .then((rs) => rs.json())
       .then((data) => data.payload.rows);
@@ -19,7 +19,7 @@ export async function getRecentEvents(): Promise<Event[] | undefined> {
 export async function getHotEvents(): Promise<Event[] | undefined> {
   try {
     const hotEvents = fetch(
-      "http://127.0.0.1:3030/v1/events?orderBy=views&pageIndex=1&pageSize=7"
+      "https://web-production-d139.up.railway.app/v1/events?orderBy=views&pageIndex=1&pageSize=7"
     )
       .then((rs) => rs.json())
       .then((data) => {

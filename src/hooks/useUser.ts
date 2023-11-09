@@ -1,18 +1,19 @@
 import useSWR from "swr";
-import { postSignin } from "../utils/auth";
+import { getUserMe } from "../utils/auth";
 
 const useUser = () => {
-  const { data, mutate, error } = useSWR("user", (url) =>
-    postSignin(url as any)
+  const { data, mutate, isLoading, isValidating } = useSWR(
+    "userInfo",
+    getUserMe
   );
 
-  const loading = !data && !error;
-  const loggedOut = error && error.status === 403;
+  const loggedOut = data && data.code !== 200;
 
   return {
-    loading,
+    isLoading,
+    isValidating,
     loggedOut,
-    user: data,
+    user: data && data.payload,
     mutate,
   };
 };

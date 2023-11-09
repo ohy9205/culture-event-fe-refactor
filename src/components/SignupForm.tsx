@@ -2,9 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
+import useUser from "../hooks/useUser";
 import { postSignup } from "../utils/auth";
-
-// TODO email, nick, password
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
@@ -13,13 +12,13 @@ const SignupForm = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const router = useRouter();
+  const { user } = useUser();
 
   useEffect(() => {
-    const token = localStorage.getItem("at");
-    // if (token) {
-    //   router.push("/");
-    // }
-  }, []);
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
 
   const signup = async () => {
     const requestBody = {
@@ -29,7 +28,6 @@ const SignupForm = () => {
     };
 
     const result = await postSignup(requestBody);
-    console.log("result", result);
 
     if (result.code !== 200) {
       alert(result.message);
@@ -37,8 +35,6 @@ const SignupForm = () => {
     } else {
       router.push("/signin");
     }
-    // 성공이면 로그인 페이지로 이동
-    // 실패면 그냥 메인페이지
   };
 
   return (

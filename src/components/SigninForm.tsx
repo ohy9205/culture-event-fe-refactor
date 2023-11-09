@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import useUser from "../hooks/useUser";
 import { postSignin } from "../utils/auth";
 
 // TODO email, nick, password
@@ -25,6 +26,8 @@ const SigninForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { user, mutate, loading } = useUser();
+  console.log("user", user);
 
   const signin = async () => {
     const requestBody = {
@@ -39,6 +42,7 @@ const SigninForm = () => {
     } else {
       console.log("result", result);
       localStorage.setItem("at", result.at);
+      mutate();
       router.push("/");
     }
   };

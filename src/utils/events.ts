@@ -9,7 +9,10 @@ export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
   try {
     const recentEvents = fetch(
       "https://web-production-d139.up.railway.app/v1/events?orderBy=latest&pageIndex=1&pageSize=10",
-      { cache: "no-store" }
+      {
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
     )
       .then((rs) => rs.json())
       .then((data) => data.payload.rows);
@@ -22,7 +25,10 @@ export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
   try {
     const hotEvents = fetch(
       "https://web-production-d139.up.railway.app/v1/events?orderBy=views&pageIndex=1&pageSize=7",
-      { cache: "no-store" }
+      {
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
     )
       .then((rs) => rs.json())
       .then((data) => data.payload.rows)
@@ -42,7 +48,11 @@ export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
 export async function getEventDetail(id: number): Promise<Event | undefined> {
   try {
     const detailEvent = fetch(
-      `https://web-production-d139.up.railway.app/v1/events/${id}`
+      `https://web-production-d139.up.railway.app/v1/events/${id}`,
+      {
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
     )
       .then((rs) => rs.json())
       .then((data) => data.payload);
@@ -78,7 +88,10 @@ export async function getFilteredEvents(
   try {
     const filteredEvents = fetch(
       `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`,
-      { cache: "no-store" }
+      {
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
     )
       .then((rs) => rs.json())
       .then((data) => ({

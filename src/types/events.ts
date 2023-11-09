@@ -35,6 +35,8 @@ export type DetailEvent = Pick<
   | "homePage"
   | "fee"
   | "isFree"
+  | "longitude"
+  | "latitude"
 >;
 
 export type SimpleEventList = {

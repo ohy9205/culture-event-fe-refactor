@@ -54,7 +54,7 @@ const Pagination = ({
     }));
   };
 
-  const renderButton = useMemo(() => {
+  const renderButton = () => {
     let arr = [];
     for (let i = 1; i <= pagePerSize; i++) {
       let curButtonNum = pagingGroupIndex * pagePerSize + i;
@@ -63,18 +63,22 @@ const Pagination = ({
         return arr;
       }
       arr.push(
-        <button onClick={() => onPagingHandler(curButtonNum)}>
+        <button
+          key={curButtonNum}
+          onClick={() => onPagingHandler(curButtonNum)}
+          className={curButtonNum === pageIndex + 1 ? "font-bold" : ""}
+        >
           {curButtonNum}
         </button>
       );
     }
     return arr;
-  }, [pagingGroupIndex]);
+  };
 
   return (
     <section className="flex gap-5 justify-center m-auto mb-10">
       <button onClick={onPrevBtnHandler}>[이전]</button>
-      {renderButton}
+      {renderButton()}
       <button onClick={onNextBtnHandler}>[이후]</button>
     </section>
   );

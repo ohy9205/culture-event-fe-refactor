@@ -39,7 +39,7 @@ export type DetailEvent = Pick<
 
 export type SimpleEventList = {
   events: Pick<Event, "id" | "title" | "thumbnail" | "eventPeriod" | "views">[];
-  totalPage?: number;
+  totalPage: number;
 };
 
 export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;

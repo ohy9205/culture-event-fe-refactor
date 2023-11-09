@@ -4,8 +4,11 @@ import Link from "next/link";
 import useUser from "../hooks/useUser";
 
 const AuthLinks = () => {
-  const { loggedOut } = useUser();
+  const { loggedOut, isLoading } = useUser();
   console.log("loggedOut", loggedOut);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <>
       {loggedOut ? ( // 로그아웃 상태

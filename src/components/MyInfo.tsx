@@ -4,33 +4,26 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
-import { getUserMe } from "../utils/auth";
 
 const MyInfo = () => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const { mutate } = useUser();
+  const { mutate, user } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    const getMyInfo = async () => {
-      const myInfo = await getUserMe();
-
-      if (myInfo.code === 200) {
-        setNickname(myInfo.payload.nick);
-        setEmail(myInfo.payload.email);
-        if (myInfo.at) {
-          localStorage.setItem("at", myInfo.at);
-        }
-      }
-    };
-    getMyInfo();
-  }, []);
+    if (!user) {
+      router.push("/");
+    } else {
+      setNickname(user.nick);
+      setEmail(user.email);
+    }
+  }, [user]);
 
   const logoutHanlder = () => {
     localStorage.removeItem("at");
     mutate(null, {
-      optimisticData: { email: "", nickname: "" },
+      optimisticData: { email: "", nick: "" },
     });
     router.push("/");
   };

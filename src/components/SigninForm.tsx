@@ -7,27 +7,11 @@ import { postSignin } from "../utils/auth";
 
 // TODO email, nick, password
 
-type FetchResponse = {
-  code: number;
-  message: string;
-  at: string;
-};
-
-async function customFetch(
-  input: RequestInfo,
-  init?: RequestInit | undefined
-): Promise<FetchResponse> {
-  const response = await fetch(input, init);
-  const data: FetchResponse = await response.json();
-  return data;
-}
-
 const SigninForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { user, mutate, loading } = useUser();
-  console.log("user", user);
+  const { mutate } = useUser();
 
   const signin = async () => {
     const requestBody = {
@@ -40,7 +24,6 @@ const SigninForm = () => {
     if (result.code !== 200) {
       alert(result.message);
     } else {
-      console.log("result", result);
       localStorage.setItem("at", result.at);
       mutate();
       router.push("/");

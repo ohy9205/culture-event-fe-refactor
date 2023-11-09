@@ -53,9 +53,7 @@ export async function postSignin(body: signinBody) {
 
 export async function getUserMe() {
   const accessToken = localStorage.getItem("at");
-  console.log("access token", accessToken);
   if (accessToken === null) {
-    console.log("token null");
     const data = {
       code: 403,
       message: "access token이 없습니다",

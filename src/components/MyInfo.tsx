@@ -22,9 +22,12 @@ const MyInfo = () => {
 
   const logoutHanlder = () => {
     localStorage.removeItem("at");
-    mutate(null, {
-      optimisticData: { email: "", nick: "" },
-    });
+    mutate(
+      { email: "", nick: "" },
+      {
+        optimisticData: { email: "", nick: "" },
+      }
+    );
     router.push("/");
   };
 

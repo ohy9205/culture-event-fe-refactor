@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Script from "next/script";
+import { useEffect, useRef } from "react";
 
 type Props = {
   latitude: string;
@@ -25,11 +24,7 @@ const StaticMap = ({ latitude, longitude }: Props) => {
     });
   }, [latitude, longitude]);
 
-  return (
-    <section>
-      <div id="map" ref={mapRef} className="w-full h-[500px]"></div>
-    </section>
-  );
+  return <div id="map" ref={mapRef} className="w-full h-[500px]"></div>;
 };
 
 export default StaticMap;

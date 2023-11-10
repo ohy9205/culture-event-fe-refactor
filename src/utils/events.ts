@@ -1,8 +1,5 @@
-import { SimpleEventList } from "./../types/events";
+import { SimpleEvent, SimpleEventListWithPagination } from "./../types/events";
 import { Event, EventThumbnail } from "../types/events";
-
-// 전체
-export async function getAllEvents() {}
 
 // 최신순
 export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
@@ -71,7 +68,7 @@ export async function getFilteredEvents(
   orderBy: string,
   pageIndex: number,
   pageSize: number
-): Promise<SimpleEventList | undefined> {
+): Promise<SimpleEventListWithPagination | undefined> {
   const locationQuery = location && `location=${location}&`;
   const categoryQuery = category && `category=${category}&`;
   const costQuery = cost && `isfree=${cost}&`;
@@ -98,6 +95,36 @@ export async function getFilteredEvents(
         events: data.payload.rows,
         totalPage: data.totalPage,
       }));
+
+    return filteredEvents;
+  } catch (e) {}
+}
+
+export async function getFilteredEventsWithoutPagination(
+  location: string,
+  category: string,
+  cost: string,
+  startDate: string,
+  endDate: string,
+  orderBy: string
+): Promise<SimpleEvent[] | undefined> {
+  const locationQuery = location && `location=${location}&`;
+  const categoryQuery = category && `category=${category}&`;
+  const costQuery = cost && `isfree=${cost}&`;
+  const startDateQuery = startDate && `start=${startDate}&`;
+  const endDateQuery = endDate && `end=${endDate}&`;
+  const orderByQuery = orderBy && `orderBy=${orderBy}&`;
+
+  try {
+    const filteredEvents = fetch(
+      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`,
+      {
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
+    )
+      .then((rs) => rs.json())
+      .then((data) => data.payload);
 
     return filteredEvents;
   } catch (e) {}

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { getFilteredEvents } from "../utils/events";
 import GridContainer from "./GridContainer";
-import { SimpleEventList } from "../types/events";
 import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
 import Image from "next/image";
 import Pagination from "./Pagination";
+import { SimpleEventListWithPagination } from "../types/events";
 
 type Props = {
   filter: Filter;
@@ -14,7 +14,7 @@ type Props = {
 const PAGE_PER_SIZE = 10;
 
 const EventList = ({ filter }: Props) => {
-  const [events, setEvents] = useState<SimpleEventList>({
+  const [events, setEvents] = useState<SimpleEventListWithPagination>({
     events: [],
     totalPage: 0,
   });
@@ -49,16 +49,18 @@ const EventList = ({ filter }: Props) => {
       <GridContainer>
         {events.events.map((event) => (
           <EventCard key={event.id} id={event.id}>
-            <Image
-              src={event.thumbnail}
-              alt={`${event.title} 포스터`}
-              width={500}
-              height={500}
-              className="w-full h-[370px] object-cover"
-            />
-            <h2>{event.title}</h2>
-            <h3>{event.eventPeriod}</h3>
-            <div>{event.views}</div>
+            <div className="flex flex-col">
+              <Image
+                src={event.thumbnail}
+                alt={`${event.title} 포스터`}
+                width={500}
+                height={500}
+                className="w-full h-[370px] object-cover"
+              />
+              <h2>{event.title}</h2>
+              <h3>{event.eventPeriod}</h3>
+              <div>{event.views}</div>
+            </div>
           </EventCard>
         ))}
       </GridContainer>
@@ -89,7 +91,3 @@ const fetchData = async (filter: Filter, pageIndex: number) => {
 
   return data;
 };
-
-// if (data) {
-//   setEvents(data);
-// }

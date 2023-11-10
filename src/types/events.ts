@@ -39,10 +39,21 @@ export type DetailEvent = Pick<
   | "latitude"
 >;
 
-export type SimpleEventList = {
-  events: Pick<Event, "id" | "title" | "thumbnail" | "eventPeriod" | "views">[];
+export type SimpleEventListWithPagination = {
+  events: SimpleEvent[];
   totalPage: number;
 };
+
+export type SimpleEvent = Pick<
+  Event,
+  | "id"
+  | "title"
+  | "thumbnail"
+  | "eventPeriod"
+  | "views"
+  | "latitude"
+  | "longitude"
+>;
 
 export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 

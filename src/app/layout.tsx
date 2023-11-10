@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "../components/Header";
+import Script from "next/script";
 import SWRProvider from "../provider/swrProvider";
 import "./globals.css";
 
@@ -18,12 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          strategy="beforeInteractive"
+          src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2bye4zyjsa`}
+        />
+      </head>
       <body
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
         <SWRProvider>
           <div id="modal"></div>
-
           <Header />
           {children}
         </SWRProvider>

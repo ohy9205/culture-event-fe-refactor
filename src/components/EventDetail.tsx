@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { DetailEvent } from "../types/events";
 import Button from "./Button";
 import Link from "next/link";
 import { getEventDetail } from "../utils/events";
 import { useEffect, useState } from "react";
+import StaticMap from "./StaticMap";
 
 type Props = {
   id: number;
@@ -65,15 +68,23 @@ const EventDetail = ({ id }: Props) => {
                 </p>
               </li>
             </ul>
-            <Link href={eventDetail?.homePage || "/"} className="w-fit">
+            <Link
+              href={eventDetail?.homePage || "/"}
+              target="_blank"
+              className="w-fit"
+            >
               <Button>{`상세정보 보러가기 >`}</Button>
             </Link>
           </div>
         </section>
+        <StaticMap
+          longitude={eventDetail.latitude}
+          latitude={eventDetail.longitude}
+        />
       </div>
     );
   } else {
-    return <div></div>;
+    return <div>내용X</div>;
   }
 };
 

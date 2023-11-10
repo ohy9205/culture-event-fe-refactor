@@ -17,10 +17,7 @@ const EventCard = ({ children, id }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col" onClick={onToggleShowModal}>
-        {children}
-      </div>
-
+      <div onClick={onToggleShowModal}>{children}</div>
       {isShowModal && <DetailModal id={id} onClick={onToggleShowModal} />}
     </>
   );

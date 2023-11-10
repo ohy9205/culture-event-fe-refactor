@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import { useRouter, useSearchParams } from "next/navigation";
+import MapList from "./MapList";
 
 export type Filter = {
   location: string;
@@ -13,6 +14,11 @@ export type Filter = {
   endDate: string;
   orderBy: string;
 };
+
+const TAB_LIST = [
+  { text: "리스트로보기", isListMode: true },
+  { text: "지도로보기", isListMode: false },
+];
 
 const FilteredEventList = () => {
   const router = useRouter();
@@ -26,6 +32,8 @@ const FilteredEventList = () => {
     endDate: "",
     orderBy: query ? query : "",
   });
+
+  const [isListMode, setIsListMode] = useState(TAB_LIST[0].isListMode);
 
   useEffect(() => {
     if (query) {
@@ -46,7 +54,17 @@ const FilteredEventList = () => {
   return (
     <>
       <ControlBox onFilterChange={onfiltersChange} filter={{ ...filter }} />
-      <EventList filter={{ ...filter }} />
+      <section className="w-full flex flex-col">
+        <div className="w-full flex gap-5">
+          {TAB_LIST.map((it) => (
+            <button key={it.text} onClick={() => setIsListMode(it.isListMode)}>
+              {it.text}
+            </button>
+          ))}
+        </div>
+        {isListMode && <EventList filter={{ ...filter }} />}
+        {!isListMode && <MapList filter={{ ...filter }} />}
+      </section>
     </>
   );
 };

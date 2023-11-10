@@ -1,5 +1,5 @@
-import { SimpleEvent, SimpleEventListWithPagination } from "./../types/events";
 import { Event, EventThumbnail } from "../types/events";
+import { SimpleEvent, SimpleEventListWithPagination } from "./../types/events";
 
 // 최신순
 export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {

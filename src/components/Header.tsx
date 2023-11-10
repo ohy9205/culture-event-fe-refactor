@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AuthLinks from "./AuthLinks";
 
 const Header = () => {
   return (
@@ -7,6 +8,7 @@ const Header = () => {
         <Link href={"/"}>Home</Link>
         <Link href={"/event"}>Event</Link>
         {/* profile avatar 들어갈 자리 */}
+        <AuthLinks/>
       </nav>
     </header>
   );

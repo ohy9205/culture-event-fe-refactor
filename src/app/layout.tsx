@@ -21,7 +21,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          strategy="beforeInteractive"
           src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2bye4zyjsa`}
         />
       </head>

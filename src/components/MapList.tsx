@@ -42,30 +42,28 @@ const MapList = ({ filter }: Props) => {
     <div className="flex">
       <div className="flex flex-col gap-2 w-1/3 h-[500px] overflow-scroll p-2">
         {events.map((event) => (
-          <>
-            <div
-              key={event.id}
-              className="flex gap-4 bg-slate-200"
-              onClick={() => setCurEvent(event)}
-            >
-              <Image
-                src={event.thumbnail}
-                alt={`${event.title} 포스터`}
-                width={500}
-                height={500}
-                className="w-1/4 h-[150px] object-cover"
-              />
-              <div className="w-2/4">
-                <h2>{event.title}</h2>
-                <h3>{event.eventPeriod}</h3>
-                <div>{event.views}</div>
-              </div>
-
-              <EventCard id={event.id}>
-                <Button size="sm">{`상세정보`}</Button>
-              </EventCard>
+          <div
+            key={event.id}
+            className="flex gap-4 bg-slate-200"
+            onClick={() => setCurEvent(event)}
+          >
+            <Image
+              src={event.thumbnail}
+              alt={`${event.title} 포스터`}
+              width={500}
+              height={500}
+              className="w-1/4 h-[150px] object-cover"
+            />
+            <div className="w-2/4">
+              <h2>{event.title}</h2>
+              <h3>{event.eventPeriod}</h3>
+              <div>{event.views}</div>
             </div>
-          </>
+
+            <EventCard id={event.id}>
+              <Button size="sm">{`상세정보`}</Button>
+            </EventCard>
+          </div>
         ))}
       </div>
       <div className="w-2/3">

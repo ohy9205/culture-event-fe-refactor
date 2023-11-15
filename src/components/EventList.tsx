@@ -1,3 +1,5 @@
+"use  client";
+
 import { useState, useEffect } from "react";
 import { getFilteredEvents } from "../utils/events";
 import GridContainer from "./GridContainer";
@@ -59,7 +61,6 @@ const EventList = ({ filter }: Props) => {
               />
               <h2>{event.title}</h2>
               <h3>{event.eventPeriod}</h3>
-              <div>{event.views}</div>
             </div>
           </EventCard>
         ))}
@@ -85,7 +86,7 @@ const fetchData = async (filter: Filter, pageIndex: number) => {
     startDate,
     endDate,
     orderBy,
-    pageIndex, //
+    pageIndex,
     PAGE_PER_SIZE
   );
 

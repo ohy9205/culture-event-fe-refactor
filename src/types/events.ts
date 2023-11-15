@@ -23,6 +23,21 @@ export type Event = {
   updatedAt: string;
 };
 
+export type Comment = {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  eventId: number;
+  commenter: number;
+  User: CommentUser;
+};
+
+type CommentUser = {
+  nick: string;
+  email: string;
+};
+
 export type DetailEvent = Pick<
   Event,
   | "id"

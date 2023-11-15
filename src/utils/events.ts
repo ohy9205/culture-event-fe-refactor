@@ -1,16 +1,17 @@
 import { Event, EventThumbnail } from "../types/events";
 import { SimpleEvent, SimpleEventListWithPagination } from "./../types/events";
 
+const API_BASE_URL = "https://web-production-d139.up.railway.app";
+const API_V1 = `${API_BASE_URL}/v1/events`;
+const API_V2 = `${API_BASE_URL}/v2/events`;
+
 // 최신순
 export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
   try {
-    const recentEvents = fetch(
-      "https://web-production-d139.up.railway.app/v1/events?orderBy=latest&pageIndex=1&pageSize=10",
-      {
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    )
+    const recentEvents = fetch(`${API_V1}/latest`, {
+      credentials: "include",
+      next: { revalidate: 3600 },
+    })
       .then((rs) => rs.json())
       .then((data) => data.payload.rows);
     return recentEvents;
@@ -20,15 +21,15 @@ export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
 //인기순
 export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
   try {
-    const hotEvents = fetch(
-      "https://web-production-d139.up.railway.app/v1/events?orderBy=views&pageIndex=1&pageSize=7",
-      {
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    )
+    const hotEvents = fetch(`${API_V1}/popular`, {
+      credentials: "include",
+      next: { revalidate: 3600 },
+    })
       .then((rs) => rs.json())
-      .then((data) => data.payload.rows)
+      .then((data) => {
+        console.log(data);
+        return data.payload.rows;
+      })
       .then((rows) =>
         rows.map((event: Event) => ({
           thumbnail: event.thumbnail,
@@ -44,21 +45,17 @@ export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
 // 상세정보
 export async function getEventDetail(id: number): Promise<Event | undefined> {
   try {
-    const detailEvent = fetch(
-      `https://web-production-d139.up.railway.app/v1/events/${id}`,
-      {
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    )
+    const detailEvent = fetch(`${API_V1}/${id}`, {
+      credentials: "include",
+      next: { revalidate: 3600 },
+    })
       .then((rs) => rs.json())
       .then((data) => data.payload);
-
     return detailEvent;
   } catch (e) {}
 }
 
-// 필터링
+// 필터링-페이지네이션
 export async function getFilteredEvents(
   location: string,
   category: string,
@@ -78,14 +75,19 @@ export async function getFilteredEvents(
   const pageIndexQuery = `pageIndex=${pageIndex + 1}&`;
   const pageSizeQuery = `pageSize=${pageSize}`;
 
+  const accessToken = localStorage.getItem("at");
+
   console.log(
-    `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`
+    `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`
   );
 
   try {
     const filteredEvents = fetch(
-      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`,
+      `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`,
       {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
         credentials: "include",
         next: { revalidate: 3600 },
       }
@@ -100,6 +102,7 @@ export async function getFilteredEvents(
   } catch (e) {}
 }
 
+// 필터링-전체
 export async function getFilteredEventsWithoutPagination(
   location: string,
   category: string,
@@ -115,10 +118,15 @@ export async function getFilteredEventsWithoutPagination(
   const endDateQuery = endDate && `end=${endDate}&`;
   const orderByQuery = orderBy && `orderBy=${orderBy}&`;
 
+  const accessToken = localStorage.getItem("at");
+
   try {
     const filteredEvents = fetch(
-      `https://web-production-d139.up.railway.app/v1/events?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`,
+      `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`,
       {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
         credentials: "include",
         next: { revalidate: 3600 },
       }

@@ -1,39 +1,22 @@
 "use client";
 
-import { FormEvent, MouseEvent, useEffect, useState } from "react";
-import { Comment } from "../types/events";
+import { FormEvent, useState } from "react";
 import { getFormattedTime } from "../utils/date";
 import Button from "./Button";
-import {
-  addComment,
-  deleteComment,
-  getComments,
-  patchComment,
-} from "../utils/events";
-import useUser from "../hooks/useUser";
+import { addComment, deleteComment, patchComment } from "../utils/events";
+import useComment from "../hooks/useComment";
 
 type Props = {
   eventId: number;
 };
 
 const Comment = ({ eventId }: Props) => {
-  const [comments, setComments] = useState<Comment[]>();
+  const { eventComments: comments, isMyComment, mutate } = useComment(eventId);
   const [commentInput, setCommentInput] = useState("");
   const [isModify, setIsModify] = useState({
     status: false,
     commentId: -1,
   });
-
-  const {
-    user: { email },
-  } = useUser();
-
-  const fetchingData = async () => {
-    const data = await getComments(eventId);
-    if (data) {
-      setComments(data);
-    }
-  };
 
   const onIsModifyHandler = (
     status: boolean,
@@ -56,14 +39,14 @@ const Comment = ({ eventId }: Props) => {
     const result = await addComment(commentInput, eventId);
     if (result.code === 200) {
       setCommentInput("");
-      fetchingData();
+      mutate();
     }
   };
 
   const onRemoveHandler = async (commentId: number) => {
     const result = await deleteComment(commentId);
     if (result.code === 200) {
-      fetchingData();
+      mutate();
     }
   };
 
@@ -74,15 +57,11 @@ const Comment = ({ eventId }: Props) => {
     e.preventDefault();
     const result = await patchComment(commentInput, commentId);
     if (result.code === 200) {
-      fetchingData();
+      mutate();
       setIsModify({ status: false, commentId: -1 });
       setCommentInput("");
     }
   };
-
-  useEffect(() => {
-    fetchingData();
-  }, []);
 
   return (
     <div>
@@ -125,7 +104,7 @@ const Comment = ({ eventId }: Props) => {
             </div>
 
             {/* 수정모드X */}
-            {!isModify.status && commenterUser.email === email && (
+            {!isModify.status && isMyComment && (
               <div>
                 <Button
                   size="sm"

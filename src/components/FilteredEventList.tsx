@@ -5,6 +5,7 @@ import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import { useRouter, useSearchParams } from "next/navigation";
 import MapList from "./MapList";
+import Button from "./Button";
 
 export type Filter = {
   location: string;
@@ -54,12 +55,17 @@ const FilteredEventList = () => {
   return (
     <>
       <ControlBox onFilterChange={onfiltersChange} filter={{ ...filter }} />
-      <section className="w-full flex flex-col">
-        <div className="w-full flex gap-5">
+      <section className="w-full flex flex-col py-5 gap-5">
+        <div className="w-[1200px] flex gap-5 justify-start border-b-4 pb-2">
           {TAB_LIST.map((it) => (
-            <button key={it.text} onClick={() => setIsListMode(it.isListMode)}>
+            <Button
+              key={it.text}
+              onClick={() => setIsListMode(it.isListMode)}
+              size={`${it.isListMode === isListMode ? "md" : "sm"}`}
+              color={`${it.isListMode === isListMode ? "dark" : "light"}`}
+            >
               {it.text}
-            </button>
+            </Button>
           ))}
         </div>
         {isListMode && <EventList filter={{ ...filter }} />}

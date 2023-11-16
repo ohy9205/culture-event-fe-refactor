@@ -1,22 +1,22 @@
 type Props = {
   children: React.ReactNode;
-  cols?: ColsStyle;
+  isReponsive?: boolean;
 };
 
-type ColsStyle = "few" | "little" | "many";
+const GridContainer = ({ children, isReponsive = true }: Props) => {
+  return (
+    <div
+      className={`grid ${
+        isReponsive ? responsiveGridStyle() : "grid-cols-3 gap-4"
+      } }`}
+    >
+      {children}
+    </div>
+  );
+};
 
-const GridContainer = ({ children, cols = "little" }: Props) => {
-  return <div className={`grid ${colsStyle(cols)}`}>{children}</div>;
+const responsiveGridStyle = () => {
+  return `md:grid-cols-4 md:gap-7 grid-cols-2 gap-4 `;
 };
 
 export default GridContainer;
-
-const colsStyle = (cols: ColsStyle) => {
-  if (cols === "few") {
-    return `grid-cols-3 gap-4`;
-  } else if (cols === "little") {
-    return `grid-cols-5 gap-7`;
-  } else if (cols === "many") {
-    return `grid-cols-7`;
-  }
-};

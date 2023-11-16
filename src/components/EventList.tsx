@@ -13,7 +13,7 @@ type Props = {
   filter: Filter;
 };
 
-const PAGE_PER_SIZE = 10;
+const PAGE_PER_SIZE = 16;
 
 const EventList = ({ filter }: Props) => {
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
@@ -47,11 +47,11 @@ const EventList = ({ filter }: Props) => {
   }, [pagination]);
 
   return (
-    <div>
+    <div className="w-full flex flex-col gap-5">
       <GridContainer>
         {events.events.map((event) => (
           <EventCard key={event.id} id={event.id}>
-            <div className="flex flex-col">
+            <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-md">
               <Image
                 src={event.thumbnail}
                 alt={`${event.title} 포스터`}
@@ -59,8 +59,10 @@ const EventList = ({ filter }: Props) => {
                 height={500}
                 className="w-full h-[370px] object-cover"
               />
-              <h2>{event.title}</h2>
-              <h3>{event.eventPeriod}</h3>
+              <div className="flex flex-col p-5">
+                <h2 className="truncate font-bold mb-4">{event.title}</h2>
+                <h3 className="text-small">{event.eventPeriod}</h3>
+              </div>
             </div>
           </EventCard>
         ))}

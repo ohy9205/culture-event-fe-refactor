@@ -26,7 +26,7 @@ const HotEventList = async () => {
           </div>
         </EventCard>
         <div className="flex-grow">
-          <GridContainer cols="few">
+          <GridContainer isReponsive={false}>
             {otherEvents?.map((event) => (
               <EventCard id={event.id} key={event.id}>
                 <div key={event.id} className="h-[267px]">

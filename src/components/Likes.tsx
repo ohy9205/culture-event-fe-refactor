@@ -16,14 +16,15 @@ const Likes = ({ eventId, mutate, isMyLikes, likesCount }: Props) => {
   // 좋아요 토글
   const onToggleLikesHandler = async () => {
     const result = await toggleLikes(eventId);
-    console.log(result);
     mutate();
   };
 
   return (
-    <div>
-      <Button onClick={onToggleLikesHandler}>{isMyLikes ? "❤️" : "🤍"}</Button>
-      {likesCount}
+    <div className="flex gap-3 items-center">
+      <Button size="lg" onClick={onToggleLikesHandler}>
+        {isMyLikes ? "❤️" : "🤍"}
+      </Button>
+      <span>{likesCount}</span>
     </div>
   );
 };

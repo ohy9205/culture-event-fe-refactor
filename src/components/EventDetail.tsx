@@ -37,22 +37,16 @@ const EventDetail = ({ id }: Props) => {
     } = eventDetail;
 
     return (
-      <div className="p-10">
+      <div className="flex flex-col gap-10 p-10">
         <section className="flex gap-5">
           <Image
             src={thumbnail || ""}
             alt={title || ""}
             width={700}
             height={700}
-            className="w-2/5 rounded-lg object-contain"
+            className="object-contain w-2/5 rounded-xl"
           />
           <div className="w-full p-2 flex flex-col gap-6">
-            <Likes
-              likesCount={likesUsers.length}
-              eventId={id}
-              mutate={mutate}
-              isMyLikes={isMyLikes}
-            />
             <h2 className="mb-6 text-2xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
               <li className={LIST_STYLE}>
@@ -78,14 +72,22 @@ const EventDetail = ({ id }: Props) => {
                 </p>
               </li>
             </ul>
-            <Link href={homePage || "/"} target="_blank" className="w-fit">
-              <Button>{`상세정보 보러가기 >`}</Button>
-            </Link>
+            <div className="flex justify-between">
+              <Likes
+                likesCount={likesUsers.length}
+                eventId={id}
+                mutate={mutate}
+                isMyLikes={isMyLikes}
+                isShowCount
+              />
+              <Link href={homePage || "/"} target="_blank" className="w-fit">
+                <Button>{`상세정보 보러가기 >`}</Button>
+              </Link>
+            </div>
           </div>
         </section>
-        <Comment eventId={id} />
-
         <StaticMap longitude={latitude} latitude={longitude} />
+        <Comment eventId={id} />
       </div>
     );
   } else {

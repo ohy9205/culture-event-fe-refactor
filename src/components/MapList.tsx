@@ -39,12 +39,12 @@ const MapList = ({ filter }: Props) => {
   }, [filter]);
 
   return (
-    <div className="flex">
-      <div className="flex flex-col gap-2 w-1/3 h-[500px] overflow-scroll p-2">
+    <div className="w-full flex">
+      <div className="flex flex-col gap-4 w-1/3 h-[500px] overflow-scroll py-2 px-5">
         {events.map((event) => (
           <div
             key={event.id}
-            className="flex gap-4 bg-slate-200"
+            className="flex justify-between shadow-md"
             onClick={() => setCurEvent(event)}
           >
             <Image
@@ -54,10 +54,9 @@ const MapList = ({ filter }: Props) => {
               height={500}
               className="w-1/4 h-[150px] object-cover"
             />
-            <div className="w-2/4">
-              <h2>{event.title}</h2>
-              <h3>{event.eventPeriod}</h3>
-              <div>{event.views}</div>
+            <div className="w-2/4 py-4">
+              <h2 className="truncate font-bold mb-4">{event.title}</h2>
+              <h3 className="text-sm">{event.eventPeriod}</h3>
             </div>
 
             <EventCard id={event.id}>

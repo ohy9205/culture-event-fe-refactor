@@ -41,6 +41,6 @@ const sizeStyle = (size: ButtonSize) => {
   } else if (size === "md") {
     return "px-5 py-2 text-sm ";
   } else if (size === "lg") {
-    return "px-7 py-4 ";
+    return "px-7 py-4 text-lg ";
   }
 };

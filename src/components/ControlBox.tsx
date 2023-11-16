@@ -64,78 +64,76 @@ const SELECT_STYLE = `px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = ({ onFilterChange, filter }: Props) => {
   return (
-    <>
-      <section className="flex gap-5">
-        <div className="flex gap-5">
-          <select
-            onChange={onFilterChange}
-            name="location"
-            className={SELECT_STYLE}
-            value={filter.location}
-          >
-            {LOCATION.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
-            ))}
-          </select>
-          <select
-            onChange={onFilterChange}
-            name="category"
-            className={SELECT_STYLE}
-            value={filter.category}
-          >
-            {CATEGORY.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
-            ))}
-          </select>
-          <select
-            onChange={onFilterChange}
-            name="cost"
-            className={SELECT_STYLE}
-            value={filter.cost}
-          >
-            {COST.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="flex gap-2 justify-center items-center">
-          <input
-            type="date"
-            name="startDate"
-            onChange={onFilterChange}
-            value={filter.startDate}
-            className={SELECT_STYLE}
-          />
-          <div>-</div>
-          <input
-            type="date"
-            name="endDate"
-            onChange={onFilterChange}
-            value={filter.endDate}
-            className={SELECT_STYLE}
-          />
-        </div>
-
+    <section className="max-w-[1200px] flex gap-5 justify-center my-5">
+      <div className="flex gap-5">
         <select
           onChange={onFilterChange}
-          name="orderBy"
+          name="location"
           className={SELECT_STYLE}
-          value={filter.orderBy}
+          value={filter.location}
         >
-          {ORDER_BY.map((it) => (
+          {LOCATION.map((it) => (
             <option key={it.text} value={it.value}>
               {it.text}
             </option>
           ))}
         </select>
-      </section>
-    </>
+        <select
+          onChange={onFilterChange}
+          name="category"
+          className={SELECT_STYLE}
+          value={filter.category}
+        >
+          {CATEGORY.map((it) => (
+            <option key={it.text} value={it.value}>
+              {it.text}
+            </option>
+          ))}
+        </select>
+        <select
+          onChange={onFilterChange}
+          name="cost"
+          className={SELECT_STYLE}
+          value={filter.cost}
+        >
+          {COST.map((it) => (
+            <option key={it.text} value={it.value}>
+              {it.text}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex gap-2 justify-center items-center">
+        <input
+          type="date"
+          name="startDate"
+          onChange={onFilterChange}
+          value={filter.startDate}
+          className={SELECT_STYLE}
+        />
+        <div>-</div>
+        <input
+          type="date"
+          name="endDate"
+          onChange={onFilterChange}
+          value={filter.endDate}
+          className={SELECT_STYLE}
+        />
+      </div>
+
+      <select
+        onChange={onFilterChange}
+        name="orderBy"
+        className={SELECT_STYLE}
+        value={filter.orderBy}
+      >
+        {ORDER_BY.map((it) => (
+          <option key={it.text} value={it.value}>
+            {it.text}
+          </option>
+        ))}
+      </select>
+    </section>
   );
 };
 

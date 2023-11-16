@@ -1,15 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { DetailEvent } from "../types/events";
 import Button from "./Button";
 import Link from "next/link";
-import { getEventDetail } from "../utils/events";
-import { useEffect, useState } from "react";
 import StaticMap from "./StaticMap";
 import Comment from "./Comment";
-import useUser from "../hooks/useUser";
-import { getLikesCount } from "../utils/likes";
+import Likes from "./Likes";
+import useEventDetail from "../hooks/useEventDetail";
 
 type Props = {
   id: number;
@@ -20,21 +17,7 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 mr-4";
 const INFO_STYLE = "flex justify-center items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const [eventDetail, setEventDetail] = useState<DetailEvent>();
-
-  const { loggedOut } = useUser();
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      const eventInfo = await getEventDetail(id, loggedOut);
-
-      if (eventInfo) {
-        setEventDetail(eventInfo);
-      }
-    };
-
-    fetchEvent();
-  }, [id, loggedOut]);
+  const { eventDetail, mutate, isMyLikes } = useEventDetail(id);
 
   if (eventDetail) {
     const {
@@ -50,6 +33,7 @@ const EventDetail = ({ id }: Props) => {
       isFree,
       targetAudience,
       longitude,
+      Users: likesUsers,
     } = eventDetail;
 
     return (
@@ -63,6 +47,12 @@ const EventDetail = ({ id }: Props) => {
             className="w-2/5 rounded-lg object-contain"
           />
           <div className="w-full p-2 flex flex-col gap-6">
+            <Likes
+              likesCount={likesUsers.length}
+              eventId={id}
+              mutate={mutate}
+              isMyLikes={isMyLikes}
+            />
             <h2 className="mb-6 text-2xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
               <li className={LIST_STYLE}>

@@ -55,11 +55,9 @@ export async function getEventDetail(
   const accessToken = getAccessToken();
   let detailEvent;
 
-  console.log("요청");
-
   if (loggedOut) {
     try {
-      detailEvent = fetch(`${loggedOut ? API_V1 : API_V2}/${id}`, {
+      detailEvent = fetch(`${API_V1}/${id}`, {
         credentials: "include",
         next: { revalidate: 3600 },
       })
@@ -249,6 +247,25 @@ export async function patchComment(content: string, commentId: number) {
       },
       credentials: "include",
       body: JSON.stringify({ content }),
+    }).then((rs) => rs.json());
+
+    return result;
+  } catch {}
+}
+
+/**
+ * Likes
+ */
+export async function toggleLikes(eventId: number) {
+  const accessToken = getAccessToken();
+  try {
+    const result = fetch(`${API_V2}/${eventId}/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
     }).then((rs) => rs.json());
 
     return result;

@@ -21,6 +21,7 @@ export type Event = {
   views: number;
   createdAt: string;
   updatedAt: string;
+  Comments: Comment[];
 };
 
 export type Comment = {
@@ -38,6 +39,8 @@ type CommentUser = {
   email: string;
 };
 
+export type LikesUser = CommentUser;
+
 export type DetailEvent = Pick<
   Event,
   | "id"
@@ -52,7 +55,9 @@ export type DetailEvent = Pick<
   | "isFree"
   | "longitude"
   | "latitude"
->;
+> & {
+  Users: LikesUser[];
+};
 
 export type SimpleEventListWithPagination = {
   events: SimpleEvent[];

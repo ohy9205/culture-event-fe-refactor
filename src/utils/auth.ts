@@ -5,10 +5,7 @@ type signupBody = {
   password: string;
 };
 
-const API_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3030"
-    : "https://web-production-d139.up.railway.app";
+const API_URL = "https://web-production-d139.up.railway.app";
 
 export async function postSignup(body: signupBody) {
   try {
@@ -76,4 +73,22 @@ export async function getUserMe() {
   } catch (err) {
     console.error("fetch error", err);
   }
+}
+
+export async function getMyLikedEvents() {
+  const accessToken = localStorage.getItem("at");
+
+  try {
+    const likedList = fetch(`${API_URL}/user/liked-events`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      next: { revalidate: 3600 },
+    })
+      .then((rs) => rs.json())
+      .then((data) => data.payload);
+
+    return likedList;
+  } catch {}
 }

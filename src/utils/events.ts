@@ -185,7 +185,6 @@ export async function getComments(
     })
       .then((rs) => rs.json())
       .then((data) => {
-        console.log(data);
         return data.comments;
       });
 

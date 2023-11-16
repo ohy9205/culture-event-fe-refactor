@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { Comment } from "../types/events";
 import { getFormattedTime } from "../utils/date";
 import Button from "./Button";
@@ -25,15 +19,14 @@ type Props = {
 const Comment = ({ eventId }: Props) => {
   const [comments, setComments] = useState<Comment[]>();
   const [commentInput, setCommentInput] = useState("");
-  const [isModify, setIsModify] = useState(false);
+  const [isModify, setIsModify] = useState({
+    status: false,
+    commentId: -1,
+  });
+
   const {
     user: { email },
   } = useUser();
-
-  const onIsModifyHandler = (status: boolean) => {
-    setIsModify(status);
-    setCommentInput("");
-  };
 
   const fetchingData = async () => {
     const data = await getComments(eventId);
@@ -42,9 +35,18 @@ const Comment = ({ eventId }: Props) => {
     }
   };
 
-  useEffect(() => {
-    fetchingData();
-  }, []);
+  const onIsModifyHandler = (
+    status: boolean,
+    commentId: number,
+    content?: string
+  ) => {
+    setIsModify({ status, commentId });
+    if (status) {
+      setCommentInput(content || "");
+    } else {
+      setCommentInput("");
+    }
+  };
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,13 +67,22 @@ const Comment = ({ eventId }: Props) => {
     }
   };
 
-  const onModifyHandler = async (commentId: number) => {
-    // 코멘트 업뎃
+  const onModifyHandler = async (
+    e: FormEvent<HTMLFormElement>,
+    commentId: number
+  ) => {
+    e.preventDefault();
     const result = await patchComment(commentInput, commentId);
     if (result.code === 200) {
       fetchingData();
+      setIsModify({ status: false, commentId: -1 });
+      setCommentInput("");
     }
   };
+
+  useEffect(() => {
+    fetchingData();
+  }, []);
 
   return (
     <div>
@@ -79,39 +90,47 @@ const Comment = ({ eventId }: Props) => {
         {comments?.map(({ id, content, createdAt, User: commenterUser }) => (
           <li key={id}>
             <div className="flex justify-between">
-              {isModify && (
-                <form onSubmit={onSubmitHandler}>
+              {/* 수정모드 */}
+              {isModify.status && isModify.commentId === id && (
+                <form onSubmit={(e) => onModifyHandler(e, id)}>
                   <textarea
                     onChange={(e) => {
                       setCommentInput(e.target.value);
                     }}
-                    value={commentInput || content}
+                    value={commentInput}
                     className="w-full h-[100px] border resize-none"
                   />
                   <div>
                     <Button
                       size="sm"
                       color="light"
-                      onClick={() => onIsModifyHandler(false)}
+                      onClick={() => onIsModifyHandler(false, -1)}
                     >
                       나가기
                     </Button>
-                    <Button size="sm" onClick={() => onModifyHandler(id)}>
-                      수정
-                    </Button>
+                    <Button size="sm">수정</Button>
                   </div>
                 </form>
               )}
-              {!isModify && <div>{content}</div>}
+
+              {/* 수정모드 & 수정안하는 코멘트 */}
+              {isModify.commentId !== id && (
+                <div className="flex flex-col">
+                  <div>{content}</div>
+                  <div>{getFormattedTime(createdAt)}</div>
+                </div>
+              )}
+
               <div>{commenterUser.nick}</div>
             </div>
-            <div>{getFormattedTime(createdAt)}</div>
-            {commenterUser.email === email && (
+
+            {/* 수정모드X */}
+            {!isModify.status && commenterUser.email === email && (
               <div>
                 <Button
                   size="sm"
                   color="light"
-                  onClick={() => onIsModifyHandler(true)}
+                  onClick={() => onIsModifyHandler(true, id, content)}
                 >
                   수정
                 </Button>
@@ -124,7 +143,7 @@ const Comment = ({ eventId }: Props) => {
         ))}
       </ul>
 
-      {!isModify && (
+      {!isModify.status && (
         <form onSubmit={onSubmitHandler}>
           <textarea
             onChange={(e) => {

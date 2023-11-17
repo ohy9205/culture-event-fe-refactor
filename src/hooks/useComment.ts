@@ -9,15 +9,15 @@ const useComment = (eventId: number) => {
     getComments(eventId)
   );
 
-  const isMyComment = data?.find((comment) => comment.User.email === user.email)
-    ? true
-    : false;
+  const newCommentData = data?.map((comment) => ({
+    ...comment,
+    isMyComment: comment.commenter === user.id,
+  }));
 
   return {
-    eventComments: data,
+    eventComments: newCommentData,
     mutate,
     isLoading,
-    isMyComment,
   };
 };
 

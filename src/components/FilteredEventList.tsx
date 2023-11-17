@@ -56,7 +56,7 @@ const FilteredEventList = () => {
     <>
       <ControlBox onFilterChange={onfiltersChange} filter={{ ...filter }} />
       <section className="w-full flex flex-col py-5 gap-5">
-        <div className="w-[1200px] flex gap-5 justify-start border-b-4 pb-2">
+        <div className="w-full flex gap-5 justify-start border-b-4 pb-2">
           {TAB_LIST.map((it) => (
             <Button
               key={it.text}

@@ -13,9 +13,9 @@ const HotEventList = async () => {
   return (
     <section className="p-10 flex flex-col gap-6">
       <h1 className="text-3xl text-center">인기순</h1>
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <EventCard id={hottestEvent?.id!}>
-          <div className="w-[388px] h-[550px]">
+          <div className="w-full h-[550px]">
             <Image
               src={hottestEvent?.thumbnail || ""}
               alt={hottestEvent?.title || "포스터"}

@@ -30,7 +30,6 @@ const MapList = ({ filter }: Props) => {
         orderBy
       );
       if (data) {
-        console.log(data);
         setEvents(data);
         setCurEvent(data[0]);
       }
@@ -39,8 +38,8 @@ const MapList = ({ filter }: Props) => {
   }, [filter]);
 
   return (
-    <div className="w-full flex">
-      <div className="flex flex-col gap-4 w-1/3 h-[500px] overflow-scroll py-2 px-5">
+    <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
+      <div className="flex flex-col gap-4 w-full h-[500px] md:w-1/3  overflow-scroll py-2 md:pr-5">
         {events.map((event) => (
           <div
             key={event.id}
@@ -65,7 +64,7 @@ const MapList = ({ filter }: Props) => {
           </div>
         ))}
       </div>
-      <div className="w-2/3">
+      <div className="w-full md:w-2/3">
         <StaticMap
           latitude={curEvent?.longitude || ""}
           longitude={curEvent?.latitude || ""}

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  pagePerSize: number;
   totalPage: number;
   pagination: {
     pageIndex: number;
@@ -17,12 +16,9 @@ type Props = {
   >;
 };
 
-const Pagination = ({
-  pagePerSize,
-  totalPage,
-  pagination,
-  setPagination,
-}: Props) => {
+const PAGE_BUTTON_SIZE = 10;
+
+const Pagination = ({ totalPage, pagination, setPagination }: Props) => {
   const { pageIndex, pagingGroupIndex } = pagination;
 
   const onPagingHandler = (curIndex: number) => {
@@ -37,12 +33,13 @@ const Pagination = ({
     setPagination((prev) => ({
       ...prev,
       pagingGroupIndex: --prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex - 1) * pagePerSize + pagePerSize - 1,
+      pageIndex:
+        (pagingGroupIndex - 1) * PAGE_BUTTON_SIZE + PAGE_BUTTON_SIZE - 1,
     }));
   };
 
   const onNextBtnHandler = () => {
-    const TOTAL_PAGING_GROUP_COUNT = Math.ceil(totalPage / pagePerSize);
+    const TOTAL_PAGING_GROUP_COUNT = Math.ceil(totalPage / PAGE_BUTTON_SIZE);
     if (pagingGroupIndex === TOTAL_PAGING_GROUP_COUNT - 1) {
       return;
     }
@@ -50,14 +47,14 @@ const Pagination = ({
     setPagination((prev) => ({
       ...prev,
       pagingGroupIndex: ++prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex + 1) * pagePerSize,
+      pageIndex: (pagingGroupIndex + 1) * PAGE_BUTTON_SIZE,
     }));
   };
 
   const renderButton = () => {
     let arr = [];
-    for (let i = 1; i <= pagePerSize; i++) {
-      let curButtonNum = pagingGroupIndex * pagePerSize + i;
+    for (let i = 1; i <= PAGE_BUTTON_SIZE; i++) {
+      let curButtonNum = pagingGroupIndex * PAGE_BUTTON_SIZE + i;
 
       if (curButtonNum > totalPage) {
         return arr;
@@ -84,4 +81,4 @@ const Pagination = ({
   );
 };
 
-export default React.memo(Pagination);
+export default Pagination;

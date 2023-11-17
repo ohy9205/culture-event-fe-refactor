@@ -96,12 +96,12 @@ const Comment = ({ eventId }: Props) => {
               {/* 수정모드 & 수정안하는 코멘트 */}
               {isModify.commentId !== id && (
                 <div className="flex flex-col gap-2">
-                  <div className="flex gap-4 items-center">
+                  <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
                     <div className="text-sm">{getFormattedTime(createdAt)}</div>
                     {/* 수정모드X */}
                     {!isModify.status && isMyComment && (
-                      <div className="flex gap-2">
+                      <div className="flex grow gap-2 md:justify-end">
                         <Button
                           size="sm"
                           color="light"

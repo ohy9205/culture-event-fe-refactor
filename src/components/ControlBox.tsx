@@ -60,11 +60,11 @@ const ORDER_BY = [
   { text: "조회 순", value: "views" },
 ];
 
-const SELECT_STYLE = `px-4 py-2 rounded-md bg-slate-100`;
+const SELECT_STYLE = `w-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = ({ onFilterChange, filter }: Props) => {
   return (
-    <section className="max-w-[1200px] flex gap-5 justify-center my-5">
+    <section className="w-full flex md:flex-row flex-col gap-5 justify-center my-5">
       <div className="flex gap-5">
         <select
           onChange={onFilterChange}
@@ -103,7 +103,7 @@ const ControlBox = ({ onFilterChange, filter }: Props) => {
           ))}
         </select>
       </div>
-      <div className="flex gap-2 justify-center items-center">
+      <div className="flex gap-2 items-center">
         <input
           type="date"
           name="startDate"
@@ -121,18 +121,20 @@ const ControlBox = ({ onFilterChange, filter }: Props) => {
         />
       </div>
 
-      <select
-        onChange={onFilterChange}
-        name="orderBy"
-        className={SELECT_STYLE}
-        value={filter.orderBy}
-      >
-        {ORDER_BY.map((it) => (
-          <option key={it.text} value={it.value}>
-            {it.text}
-          </option>
-        ))}
-      </select>
+      <div className="">
+        <select
+          onChange={onFilterChange}
+          name="orderBy"
+          className={SELECT_STYLE}
+          value={filter.orderBy}
+        >
+          {ORDER_BY.map((it) => (
+            <option key={it.text} value={it.value}>
+              {it.text}
+            </option>
+          ))}
+        </select>
+      </div>
     </section>
   );
 };

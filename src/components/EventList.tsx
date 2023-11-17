@@ -7,6 +7,7 @@ import { getFilteredEvents } from "../utils/events";
 import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
 import GridContainer from "./GridContainer";
+import Likes from "./Likes";
 import Pagination from "./Pagination";
 
 type Props = {
@@ -14,6 +15,22 @@ type Props = {
 };
 
 const PAGE_PER_SIZE = 16;
+
+const fetchData = async (filter: Filter, pageIndex: number) => {
+  const { location, category, cost, startDate, endDate, orderBy } = filter;
+  const data = await getFilteredEvents(
+    location,
+    category,
+    cost,
+    startDate,
+    endDate,
+    orderBy,
+    pageIndex,
+    PAGE_PER_SIZE
+  );
+
+  return data;
+};
 
 const EventList = ({ filter }: Props) => {
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
@@ -49,26 +66,32 @@ const EventList = ({ filter }: Props) => {
   return (
     <div className="w-full flex flex-col gap-5">
       <GridContainer>
-        {events.events.map((event) => (
-          <EventCard key={event.id} id={event.id}>
-            <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-md">
-              <Image
-                src={event.thumbnail}
-                alt={`${event.title} 포스터`}
-                width={500}
-                height={500}
-                className="w-full h-[370px] object-cover"
-              />
-              <div className="flex flex-col p-5">
-                <h2 className="truncate font-bold mb-4">{event.title}</h2>
-                <h3 className="text-small">{event.eventPeriod}</h3>
+        {events.events.map((event) => {
+          return (
+            <div key={event.id} className="relative">
+              <EventCard key={event.id} id={event.id}>
+                <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-md ">
+                  <Image
+                    src={event.thumbnail}
+                    alt={`${event.title} 포스터`}
+                    width={500}
+                    height={500}
+                    className="w-full h-[370px] object-cover"
+                  />
+                  <div className="flex flex-col p-5">
+                    <h2 className="truncate font-bold mb-4">{event.title}</h2>
+                    <h3 className="text-small">{event.eventPeriod}</h3>
+                  </div>
+                </div>
+              </EventCard>
+              <div className="absolute top-0 right-0">
+                <Likes eventId={event.id} />
               </div>
             </div>
-          </EventCard>
-        ))}
+          );
+        })}
       </GridContainer>
       <Pagination
-        pagePerSize={PAGE_PER_SIZE}
         pagination={pagination}
         setPagination={setPagination}
         totalPage={events.totalPage || 0}
@@ -78,19 +101,3 @@ const EventList = ({ filter }: Props) => {
 };
 
 export default EventList;
-
-const fetchData = async (filter: Filter, pageIndex: number) => {
-  const { location, category, cost, startDate, endDate, orderBy } = filter;
-  const data = await getFilteredEvents(
-    location,
-    category,
-    cost,
-    startDate,
-    endDate,
-    orderBy,
-    pageIndex,
-    PAGE_PER_SIZE
-  );
-
-  return data;
-};

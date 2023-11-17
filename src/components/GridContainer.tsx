@@ -6,7 +6,7 @@ type Props = {
 const GridContainer = ({ children, isReponsive = true }: Props) => {
   return (
     <div
-      className={`grid ${
+      className={`w-full grid ${
         isReponsive ? responsiveGridStyle() : "grid-cols-3 gap-4"
       } }`}
     >

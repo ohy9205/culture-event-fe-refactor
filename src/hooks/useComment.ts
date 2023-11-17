@@ -1,9 +1,10 @@
 import useSWR from "swr";
-import useUser from "./useUser";
 import { getComments } from "../utils/events";
+import useUser from "./useUser";
 
 const useComment = (eventId: number) => {
-  const { user, loggedOut } = useUser();
+  const { user } = useUser();
+
   const { data, mutate, isLoading } = useSWR(`eventComment/${eventId}`, () =>
     getComments(eventId)
   );

@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Button from "./Button";
 import Link from "next/link";
-import StaticMap from "./StaticMap";
+import useEventDetail from "../hooks/useEventDetail";
+import Button from "./Button";
 import Comment from "./Comment";
 import Likes from "./Likes";
-import useEventDetail from "../hooks/useEventDetail";
+import StaticMap from "./StaticMap";
 
 type Props = {
   id: number;
@@ -78,7 +78,6 @@ const EventDetail = ({ id }: Props) => {
                 eventId={id}
                 mutate={mutate}
                 isMyLikes={isMyLikes}
-                isShowCount
               />
               <Link href={homePage || "/"} target="_blank" className="w-fit">
                 <Button>{`상세정보 보러가기 >`}</Button>

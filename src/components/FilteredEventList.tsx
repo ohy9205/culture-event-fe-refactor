@@ -1,11 +1,11 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Button from "./Button";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
-import { useRouter, useSearchParams } from "next/navigation";
 import MapList from "./MapList";
-import Button from "./Button";
 
 export type Filter = {
   location: string;

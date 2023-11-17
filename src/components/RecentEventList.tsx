@@ -1,9 +1,9 @@
 import Image from "next/image";
-import MultiCarousel from "./MultiCarousel";
-import Button from "./Button";
 import Link from "next/link";
 import { getRecentEvents } from "../utils/events";
+import Button from "./Button";
 import EventCard from "./EventCard";
+import MultiCarousel from "./MultiCarousel";
 
 const RecentEventList = async () => {
   const recentEvents = await getRecentEvents();

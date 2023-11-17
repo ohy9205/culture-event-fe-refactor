@@ -1,10 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { getFormattedTime } from "../utils/date";
-import Button from "./Button";
-import { addComment, deleteComment, patchComment } from "../utils/events";
 import useComment from "../hooks/useComment";
+import { getFormattedTime } from "../utils/date";
+import { addComment, deleteComment, patchComment } from "../utils/events";
+import Button from "./Button";
 
 type Props = {
   eventId: number;

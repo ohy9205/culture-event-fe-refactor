@@ -1,13 +1,13 @@
 "use  client";
 
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { SimpleEventListWithPagination } from "../types/events";
 import { getFilteredEvents } from "../utils/events";
-import GridContainer from "./GridContainer";
 import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
-import Image from "next/image";
+import GridContainer from "./GridContainer";
 import Pagination from "./Pagination";
-import { SimpleEventListWithPagination } from "../types/events";
 
 type Props = {
   filter: Filter;

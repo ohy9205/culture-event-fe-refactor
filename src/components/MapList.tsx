@@ -1,13 +1,13 @@
 "use  client";
 
-import { useEffect, useState } from "react";
-import { Filter } from "./FilteredEventList";
-import { SimpleEvent } from "../types/events";
-import StaticMap from "./StaticMap";
-import EventCard from "./EventCard";
-import { getFilteredEventsWithoutPagination } from "../utils/events";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { SimpleEvent } from "../types/events";
+import { getFilteredEventsWithoutPagination } from "../utils/events";
 import Button from "./Button";
+import EventCard from "./EventCard";
+import { Filter } from "./FilteredEventList";
+import StaticMap from "./StaticMap";
 
 type Props = {
   filter: Filter;

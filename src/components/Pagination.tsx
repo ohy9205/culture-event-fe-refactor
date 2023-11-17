@@ -1,6 +1,6 @@
 "use client";
 
-import React, { SetStateAction, Dispatch, useMemo } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 type Props = {
   pagePerSize: number;

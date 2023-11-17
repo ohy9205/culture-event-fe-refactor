@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "./Button";
+import { KeyedMutator } from "swr";
 import { DetailEvent } from "../types/events";
 import { toggleLikes } from "../utils/events";
-import { KeyedMutator } from "swr";
+import Button from "./Button";
 
 type Props = {
   eventId: number;
@@ -15,7 +15,7 @@ type Props = {
 const Likes = ({ eventId, mutate, isMyLikes, likesCount }: Props) => {
   // 좋아요 토글
   const onToggleLikesHandler = async () => {
-    const result = await toggleLikes(eventId);
+    await toggleLikes(eventId);
     mutate();
   };
 

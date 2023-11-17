@@ -39,7 +39,7 @@ const EventDetail = ({ id }: Props) => {
     return (
       <div className="flex flex-col gap-10 p-10">
         <section className="flex flex-col md:flex-row gap-5">
-          <div className="w-full md:w-2/5 rounded-xl relative">
+          <div className="w-full md:w-2/5 rounded-xl overflow-hidden relative">
             <Image
               src={thumbnail || ""}
               alt={title || ""}
@@ -82,11 +82,9 @@ const EventDetail = ({ id }: Props) => {
                 </p>
               </li>
             </ul>
-            <div className="flex justify-between">
-              <Link href={homePage || "/"} target="_blank" className="w-fit">
-                <Button>{`상세정보 보러가기 >`}</Button>
-              </Link>
-            </div>
+            <Link href={homePage || "/"} target="_blank" className="w-fit">
+              <Button>{`상세정보 보러가기 >`}</Button>
+            </Link>
           </div>
         </section>
         <StaticMap longitude={latitude} latitude={longitude} />

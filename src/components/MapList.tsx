@@ -7,6 +7,7 @@ import { getFilteredEventsWithoutPagination } from "../utils/events";
 import Button from "./Button";
 import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
+import Likes from "./Likes";
 import StaticMap from "./StaticMap";
 
 type Props = {
@@ -39,32 +40,32 @@ const MapList = ({ filter }: Props) => {
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
-      <div className="flex flex-col gap-4 w-full h-[500px] md:w-1/3  overflow-scroll py-2 md:pr-5">
+      <ul className="flex flex-col gap-4 w-full h-[500px] md:w-2/5  overflow-scroll py-2 md:pr-5">
         {events.map((event) => (
-          <div
-            key={event.id}
-            className="flex justify-between shadow-md"
-            onClick={() => setCurEvent(event)}
-          >
-            <Image
-              src={event.thumbnail}
-              alt={`${event.title} 포스터`}
-              width={500}
-              height={500}
-              className="w-1/4 h-[150px] object-cover"
-            />
-            <div className="w-2/4 py-4">
-              <h2 className="truncate font-bold mb-4">{event.title}</h2>
-              <h3 className="text-sm">{event.eventPeriod}</h3>
+          <li key={event.id} className="shadow-md rounded-lg relative">
+            <div className="absolute top-0 right-0">
+              <Likes eventId={event.id} />
             </div>
-
-            <EventCard id={event.id}>
-              <Button size="sm">{`상세정보`}</Button>
-            </EventCard>
-          </div>
+            <div className="flex " onClick={() => setCurEvent(event)}>
+              <Image
+                src={event.thumbnail}
+                alt={`${event.title} 포스터`}
+                width={500}
+                height={500}
+                className="w-1/4 h-[150px] object-cover"
+              />
+              <div className="flex flex-col w-2/4 py-4 pl-4">
+                <h2 className="truncate font-bold mb-2">{event.title}</h2>
+                <h3 className="text-sm mb-4">{event.eventPeriod}</h3>
+                <EventCard id={event.id}>
+                  <Button size="sm">{`상세정보`}</Button>
+                </EventCard>
+              </div>
+            </div>
+          </li>
         ))}
-      </div>
-      <div className="w-full md:w-2/3">
+      </ul>
+      <div className="w-full md:w-3/5">
         <StaticMap
           latitude={curEvent?.longitude || ""}
           longitude={curEvent?.latitude || ""}

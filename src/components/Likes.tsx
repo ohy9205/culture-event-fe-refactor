@@ -1,30 +1,38 @@
 "use client";
 
 import { KeyedMutator } from "swr";
+import useMyLikes from "../hooks/useMyLikes";
 import { DetailEvent } from "../types/events";
 import { toggleLikes } from "../utils/events";
 import Button from "./Button";
 
 type Props = {
   eventId: number;
-  mutate: KeyedMutator<DetailEvent | undefined>;
-  isMyLikes: boolean;
-  likesCount: number;
+  detailMutate?: KeyedMutator<DetailEvent | undefined>;
+  isMyLikes?: boolean;
+  likesCount?: number;
 };
 
-const Likes = ({ eventId, mutate, isMyLikes, likesCount }: Props) => {
-  // 좋아요 토글
+const Likes = ({ eventId, detailMutate, isMyLikes, likesCount }: Props) => {
+  const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
+  console.log(myLikes);
+
   const onToggleLikesHandler = async () => {
     await toggleLikes(eventId);
+    detailMutate && detailMutate();
     mutate();
   };
 
   return (
-    <div className="flex gap-3 items-center">
-      <Button size="lg" onClick={onToggleLikesHandler}>
-        {isMyLikes ? "❤️" : "🤍"}
+    <div
+      className={`flex gap-3 items-center ${
+        likesCount !== undefined ? "bg-slate-100" : ""
+      } p-2`}
+    >
+      <Button size="md" onClick={onToggleLikesHandler}>
+        {myLikes ? "❤️" : "🤍"}
       </Button>
-      <span>{likesCount}</span>
+      {likesCount !== undefined && <span>{likesCount}</span>}
     </div>
   );
 };

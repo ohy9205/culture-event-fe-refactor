@@ -75,11 +75,11 @@ export async function getUserMe() {
   }
 }
 
-export async function getMyLikedEvents() {
+export async function getMyLikes() {
   const accessToken = localStorage.getItem("at");
 
   try {
-    const likedList = fetch(`${API_URL}/user/liked-events`, {
+    const likesList = fetch(`${API_URL}/user/liked-events`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -89,6 +89,6 @@ export async function getMyLikedEvents() {
       .then((rs) => rs.json())
       .then((data) => data.payload);
 
-    return likedList;
+    return likesList;
   } catch {}
 }

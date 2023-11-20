@@ -57,6 +57,7 @@ const EventDetail = ({ id }: Props) => {
                   detailMutate={mutate}
                   eventId={id}
                   isMyLikes={isMyLikes}
+                  useBackground
                 />
               </li>
               <li className={LIST_STYLE}>
@@ -83,7 +84,7 @@ const EventDetail = ({ id }: Props) => {
               </li>
             </ul>
             <Link href={homePage || "/"} target="_blank" className="w-fit">
-              <Button>{`상세정보 보러가기 >`}</Button>
+              <Button size="lg" color="dark">{`상세정보 보러가기 >`}</Button>
             </Link>
           </div>
         </section>

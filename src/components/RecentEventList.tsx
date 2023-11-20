@@ -22,9 +22,9 @@ const RecentEventList = async () => {
               key={event.id}
               src={event.thumbnail}
               alt={event.title}
-              width={400}
-              height={400}
-              className="object-cover h-[324px]"
+              width={600}
+              height={600}
+              className="object-cover h-[350px]"
             />
           </ModalToggleCard>
         ))}
@@ -33,7 +33,7 @@ const RecentEventList = async () => {
         href={{ pathname: "/event", query: { orderBy: "latest" } }}
         className="m-auto"
       >
-        <Button>{`최신순으로 전체보기 >`}</Button>
+        <Button size="lg" color="dark">{`최신순으로 전체보기 >`}</Button>
       </Link>
     </section>
   );

@@ -29,7 +29,7 @@ const MultiCarousel = ({ children }: Props) => {
       infinite
       autoPlay
       autoPlaySpeed={3000}
-      itemClass="w-1/4 p-2"
+      itemClass="p-2"
       centerMode={true}
     >
       {children}

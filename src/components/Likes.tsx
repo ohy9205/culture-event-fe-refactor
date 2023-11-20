@@ -11,9 +11,16 @@ type Props = {
   detailMutate?: KeyedMutator<DetailEvent | undefined>;
   isMyLikes?: boolean;
   likesCount?: number;
+  useBackground?: boolean;
 };
 
-const Likes = ({ eventId, detailMutate, isMyLikes, likesCount }: Props) => {
+const Likes = ({
+  eventId,
+  detailMutate,
+  isMyLikes,
+  likesCount,
+  useBackground,
+}: Props) => {
   const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
 
   const onToggleLikesHandler = async () => {
@@ -24,9 +31,15 @@ const Likes = ({ eventId, detailMutate, isMyLikes, likesCount }: Props) => {
 
   return (
     <div className={`flex gap-3 items-center`}>
-      <Button size="md" onClick={onToggleLikesHandler}>
-        {myLikes ? "❤️" : "🤍"}
-      </Button>
+      {useBackground && (
+        <Button size="md" color="dark" onClick={onToggleLikesHandler}>
+          {myLikes ? "❤️" : "🤍"}
+        </Button>
+      )}
+      {!useBackground && (
+        <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
+      )}
+
       {likesCount !== undefined && <span>{likesCount}</span>}
     </div>
   );

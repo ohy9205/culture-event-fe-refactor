@@ -9,16 +9,18 @@ type Props = {
   onClick?: MouseEventHandler;
 };
 
-type ButtonColor = "dark" | "light" | "normal";
-type ButtonSize = "sm" | "md" | "lg";
+type ButtonColor = "dark" | "light" | "normal" | undefined;
+type ButtonSize = "sm" | "md" | "lg" | undefined;
 
 const colorStyle = (color: ButtonColor) => {
   if (color === "dark") {
     return "bg-slate-900 text-white";
   } else if (color === "light") {
     return "bg-slate-200 ";
-  } else {
+  } else if (color === "normal") {
     return "bg-slate-500 text-white";
+  } else {
+    return "text-xl";
   }
 };
 
@@ -29,10 +31,12 @@ const sizeStyle = (size: ButtonSize) => {
     return "px-5 py-2 text-sm ";
   } else if (size === "lg") {
     return "px-7 py-4 text-lg ";
+  } else {
+    return "";
   }
 };
 
-const Button = ({ children, color = "dark", size = "lg", onClick }: Props) => {
+const Button = ({ children, color, size, onClick }: Props) => {
   return (
     <button
       onClick={onClick}

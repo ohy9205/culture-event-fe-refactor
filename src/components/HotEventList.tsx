@@ -53,7 +53,7 @@ const HotEventList = async () => {
         href={{ pathname: "/event", query: { orderBy: "views" } }}
         className="m-auto"
       >
-        <Button>{`인기순으로 전체보기 >`}</Button>
+        <Button size="lg" color="dark">{`인기순으로 전체보기 >`}</Button>
       </Link>
     </section>
   );

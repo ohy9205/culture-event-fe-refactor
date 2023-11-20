@@ -67,21 +67,23 @@ const EventList = ({ filter }: Props) => {
                 key={event.id}
                 modalContent={<EventDetail id={event.id} />}
               >
-                <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-md ">
-                  <Image
-                    src={event.thumbnail}
-                    alt={`${event.title} 포스터`}
-                    width={500}
-                    height={500}
-                    className="h-[370px] object-contain"
-                  />
+                <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-lg">
+                  <div className="h-[370px]">
+                    <Image
+                      src={event.thumbnail}
+                      alt={`${event.title} 포스터`}
+                      width={500}
+                      height={500}
+                      className="h-[370px] object-contain"
+                    />
+                  </div>
                   <div className="flex flex-col p-5">
                     <h2 className="truncate font-bold mb-4">{event.title}</h2>
                     <h3 className="text-small">{event.eventPeriod}</h3>
                   </div>
                 </div>
               </ModalToggleCard>
-              <div className="absolute top-0 right-0">
+              <div className="absolute bottom-4 right-4">
                 <Likes eventId={event.id} />
               </div>
             </div>

@@ -3,7 +3,6 @@ import { getEventDetail } from "../utils/events";
 import useUser from "./useUser";
 
 const useEventDetail = (eventId: number) => {
-  console.log("useEventDetail 호출");
   const { user, loggedOut } = useUser();
   const { data, mutate, isLoading } = useSWR(`eventDetail/${eventId}`, () =>
     getEventDetail(eventId, loggedOut)

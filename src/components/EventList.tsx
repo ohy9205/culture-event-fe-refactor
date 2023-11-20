@@ -44,13 +44,6 @@ const EventList = ({ filter }: Props) => {
 
   useEffect(() => {
     setPagination((prev) => ({ ...prev, pageIndex: 0, pagingGroupIndex: 0 }));
-    const fetchingData = async () => {
-      const data = await fetchData(filter, 0);
-      if (data) {
-        setEvents(data);
-      }
-    };
-    fetchingData();
   }, [filter]);
 
   useEffect(() => {

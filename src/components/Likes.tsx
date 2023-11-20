@@ -15,7 +15,6 @@ type Props = {
 
 const Likes = ({ eventId, detailMutate, isMyLikes, likesCount }: Props) => {
   const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
-  console.log(myLikes);
 
   const onToggleLikesHandler = async () => {
     await toggleLikes(eventId);

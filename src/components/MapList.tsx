@@ -21,6 +21,7 @@ const MapList = ({ filter }: Props) => {
   // 필터변경시
   useEffect(() => {
     const fetchingData = async () => {
+      console.log("패칭");
       const { location, category, cost, startDate, endDate, orderBy } = filter;
       const data = await getFilteredEventsWithoutPagination(
         location,

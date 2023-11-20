@@ -8,7 +8,6 @@ type Props = {
 };
 
 const StaticMap = ({ latitude, longitude }: Props) => {
-  // console.log(`latitude-${latitude} / longitude-${longitude}`);
   const mapRef = useRef<HTMLElement | null | any>(null);
 
   useEffect(() => {

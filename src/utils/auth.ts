@@ -92,3 +92,22 @@ export async function getMyLikes() {
     return likesList;
   } catch {}
 }
+
+export async function getMyComments() {
+  const accessToken = localStorage.getItem("at");
+
+  try {
+    const commentList = fetch(`${API_URL}/user/comments`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    })
+      .then((rs) => rs.json())
+      .then((data) => data.payload);
+
+    return commentList;
+  } catch (err) {
+    console.error(err);
+  }
+}

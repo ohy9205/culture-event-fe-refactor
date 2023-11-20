@@ -5,10 +5,34 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
 
+// TODO 나중에 types 폴더에 정의
+type FavoriteEvent = {
+  id: number;
+  period: string;
+  thumbnail: string;
+  title: string;
+};
+
+type MyComment = {
+  id: number;
+  User: {
+    id: number;
+    email: string;
+    nick: string;
+  };
+  eventId: number;
+  commenter: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 const MyInfo = () => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const { mutate, user } = useUser();
+  const [myFavoriteEvents, setMyFavoriteEvents] = useState<FavoriteEvent[]>([]);
+  const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +53,39 @@ const MyInfo = () => {
       }
     );
     router.push("/");
+  };
+
+  const getMyFavoriteEvents = async () => {
+    const accessToken = localStorage.getItem("at");
+    const response = await fetch(
+      "https://web-production-d139.up.railway.app/user/liked-events",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+        next: { revalidate: 3600 },
+      }
+    );
+    const data = await response.json();
+    console.log("data", data);
+    setMyFavoriteEvents(data.payload);
+  };
+
+  const getMyComments = async () => {
+    const accessToken = localStorage.getItem("at");
+    const response = await fetch(
+      "https://web-production-d139.up.railway.app/user/comments",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        credentials: "include",
+      }
+    );
+    const data = await response.json();
+    console.log("data", data);
+    setMyComments(data.payload);
   };
 
   return (
@@ -58,6 +115,36 @@ const MyInfo = () => {
       >
         로그아웃
       </button>
+      <button
+        className="border p-2 rounded-lg bg-blue-500 text-white"
+        onClick={getMyFavoriteEvents}
+      >
+        내가 좋아하는 이벤트 가져오기
+      </button>
+      {myFavoriteEvents.map((event) => {
+        return (
+          <div key={event.id}>
+            <Image
+              src={event.thumbnail}
+              alt={`${event.title} 포스터`}
+              width={500}
+              height={500}
+              className="h-[370px] object-contain"
+            />
+            {event.period}
+            {event.title}
+          </div>
+        );
+      })}
+      <button
+        className="border p-2 rounded-lg bg-green-500 text-white"
+        onClick={getMyComments}
+      >
+        내가 작성한 댓글 가져오기
+      </button>
+      {myComments.map((comment) => {
+        return <div key={comment.id}>{comment.content}</div>;
+      })}
     </div>
   );
 };

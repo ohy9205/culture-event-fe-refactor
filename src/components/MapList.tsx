@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { SimpleEvent } from "../types/events";
 import { getFilteredEventsWithoutPagination } from "../utils/events";
 import Button from "./Button";
+import EventDetail from "./EventDetail";
 import { Filter } from "./FilteredEventList";
 import Likes from "./Likes";
 import ModalToggleCard from "./ModalToggleCard";
@@ -57,7 +58,7 @@ const MapList = ({ filter }: Props) => {
               <div className="flex flex-col w-2/4 py-4 pl-4">
                 <h2 className="truncate font-bold mb-2">{event.title}</h2>
                 <h3 className="text-sm mb-4">{event.eventPeriod}</h3>
-                <ModalToggleCard id={event.id}>
+                <ModalToggleCard modalContent={<EventDetail id={event.id} />}>
                   <Button size="sm">{`상세정보`}</Button>
                 </ModalToggleCard>
               </div>

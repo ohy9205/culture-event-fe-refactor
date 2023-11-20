@@ -1,15 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import EventDetail from "./EventDetail";
 import Modal from "./Modal";
 
 type Props = {
   children: React.ReactNode;
-  id: number;
+  modalContent: React.ReactNode;
 };
 
-const ModalToggleCard = ({ children, id }: Props) => {
+const ModalToggleCard = ({ children, modalContent }: Props) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const onToggleShowModal = () => {
@@ -20,10 +19,7 @@ const ModalToggleCard = ({ children, id }: Props) => {
     <>
       <div onClick={onToggleShowModal}>{children}</div>
       {isShowModal && (
-        <Modal
-          onClick={onToggleShowModal}
-          modalContent={<EventDetail id={id} />}
-        />
+        <Modal onClick={onToggleShowModal} modalContent={modalContent} />
       )}
     </>
   );

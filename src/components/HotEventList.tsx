@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHotEvents } from "../utils/events";
 import Button from "./Button";
+import EventDetail from "./EventDetail";
 import GridContainer from "./GridContainer";
 import ModalToggleCard from "./ModalToggleCard";
 
@@ -14,7 +15,7 @@ const HotEventList = async () => {
     <section className="p-10 flex flex-col gap-6">
       <h1 className="text-3xl text-center">인기순</h1>
       <div className="flex flex-col md:flex-row gap-4">
-        <ModalToggleCard id={hottestEvent?.id!}>
+        <ModalToggleCard modalContent={<EventDetail id={hottestEvent?.id!} />}>
           <div className="w-full h-[550px]">
             <Image
               src={hottestEvent?.thumbnail || ""}
@@ -28,7 +29,10 @@ const HotEventList = async () => {
         <div className="flex-grow">
           <GridContainer isReponsive={false}>
             {otherEvents?.map((event) => (
-              <ModalToggleCard id={event.id} key={event.id}>
+              <ModalToggleCard
+                key={event.id}
+                modalContent={<EventDetail id={event.id} />}
+              >
                 <div key={event.id} className="h-[267px]">
                   <Image
                     key={event.id}

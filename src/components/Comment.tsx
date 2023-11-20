@@ -67,40 +67,18 @@ const Comment = ({ eventId }: Props) => {
     <div className="flex flex-col gap-3">
       <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
       <ul className="flex flex-col gap-3">
+        {/* 댓글 목록 */}
         {comments?.map(
           ({ id, content, createdAt, User: commenterUser, isMyComment }) => (
             <li key={id} className="bg-slate-50 rounded-lg p-2">
-              {/* 수정모드 */}
-              {isModify.status && isModify.commentId === id && (
-                <form onSubmit={(e) => onModifyHandler(e, id)}>
-                  <textarea
-                    onChange={(e) => {
-                      setCommentInput(e.target.value);
-                    }}
-                    value={commentInput}
-                    className="w-full h-[100px] border resize-none"
-                  />
-                  <div>
-                    <Button
-                      size="sm"
-                      color="light"
-                      onClick={() => onIsModifyHandler(false, -1)}
-                    >
-                      나가기
-                    </Button>
-                    <Button size="sm">수정</Button>
-                  </div>
-                </form>
-              )}
-
-              {/* 수정모드 & 수정안하는 코멘트 */}
-              {isModify.commentId !== id && (
+              {/* 일반모드 */}
+              {!isModify.status && (
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
                     <div className="text-sm">{getFormattedTime(createdAt)}</div>
-                    {/* 수정모드X */}
-                    {!isModify.status && isMyComment && (
+                    {/* 내가 쓴 댓글 */}
+                    {isMyComment && (
                       <div className="flex grow gap-2 md:justify-end">
                         <Button
                           size="sm"
@@ -118,25 +96,136 @@ const Comment = ({ eventId }: Props) => {
                   <div>{content}</div>
                 </div>
               )}
+
+              {/* 수정모드 */}
+              {isModify.status && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex flex-col md:flex-row md:items-center gap-3">
+                    <div className="font-bold">{commenterUser.nick}</div>
+                    <div className="text-sm">{getFormattedTime(createdAt)}</div>
+                  </div>
+                  {/* 수정 안하는 댓글 */}
+                  {isModify.commentId !== id && <div>{content}</div>}
+                  {/* 수정중인 댓글 */}
+                  {isModify.commentId === id && (
+                    <form onSubmit={(e) => onModifyHandler(e, id)}>
+                      <textarea
+                        onChange={(e) => {
+                          setCommentInput(e.target.value);
+                        }}
+                        value={commentInput}
+                        className="w-full h-[100px] border resize-none"
+                      />
+                      <div>
+                        <Button
+                          size="sm"
+                          color="light"
+                          onClick={() => onIsModifyHandler(false, -1)}
+                        >
+                          나가기
+                        </Button>
+                        <Button size="sm">수정</Button>
+                      </div>
+                    </form>
+                  )}
+                </div>
+              )}
             </li>
           )
         )}
-      </ul>
 
-      {!isModify.status && (
-        <form onSubmit={onSubmitHandler}>
-          <textarea
-            onChange={(e) => {
-              setCommentInput(e.target.value);
-            }}
-            value={commentInput}
-            className="w-full h-[100px] border resize-none"
-          ></textarea>
-          <Button size="sm">댓글</Button>
-        </form>
-      )}
+        {/* 댓글 입력 폼 */}
+        <li>
+          {!isModify.status && (
+            <form onSubmit={onSubmitHandler}>
+              <textarea
+                onChange={(e) => {
+                  setCommentInput(e.target.value);
+                }}
+                value={commentInput}
+                className="w-full h-[100px] border resize-none"
+              ></textarea>
+              <Button size="sm">댓글</Button>
+            </form>
+          )}
+        </li>
+      </ul>
     </div>
   );
+  // return (
+  //   <div className="flex flex-col gap-3">
+  //     <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
+  //     <ul className="flex flex-col gap-3">
+  //       {comments?.map(
+  //         ({ id, content, createdAt, User: commenterUser, isMyComment }) => (
+  //           <li key={id} className="bg-slate-50 rounded-lg p-2">
+  //             {/* 수정모드 */}
+  //             {isModify.status && isModify.commentId === id && (
+  //               <form onSubmit={(e) => onModifyHandler(e, id)}>
+  //                 <textarea
+  //                   onChange={(e) => {
+  //                     setCommentInput(e.target.value);
+  //                   }}
+  //                   value={commentInput}
+  //                   className="w-full h-[100px] border resize-none"
+  //                 />
+  //                 <div>
+  //                   <Button
+  //                     size="sm"
+  //                     color="light"
+  //                     onClick={() => onIsModifyHandler(false, -1)}
+  //                   >
+  //                     나가기
+  //                   </Button>
+  //                   <Button size="sm">수정</Button>
+  //                 </div>
+  //               </form>
+  //             )}
+
+  //             {/* 수정모드 & 수정안하는 코멘트 */}
+  //             {isModify.commentId !== id && (
+  //               <div className="flex flex-col gap-2">
+  //                 <div className="flex flex-col md:flex-row md:items-center gap-3">
+  //                   <div className="font-bold">{commenterUser.nick}</div>
+  //                   <div className="text-sm">{getFormattedTime(createdAt)}</div>
+  //                   {/* 수정모드X */}
+  //                   {!isModify.status && isMyComment && (
+  //                     <div className="flex grow gap-2 md:justify-end">
+  //                       <Button
+  //                         size="sm"
+  //                         color="light"
+  //                         onClick={() => onIsModifyHandler(true, id, content)}
+  //                       >
+  //                         수정
+  //                       </Button>
+  //                       <Button size="sm" onClick={() => onRemoveHandler(id)}>
+  //                         삭제
+  //                       </Button>
+  //                     </div>
+  //                   )}
+  //                 </div>
+  //                 <div>{content}</div>
+  //               </div>
+  //             )}
+  //           </li>
+  //         )
+  //       )}
+  //     </ul>
+
+  //     {!isModify.status && (
+  //       <form onSubmit={onSubmitHandler}>
+  //         <textarea
+  //           onChange={(e) => {
+  //             setCommentInput(e.target.value);
+  //           }}
+  //           value={commentInput}
+  //           className="w-full h-[100px] border resize-none"
+  //         ></textarea>
+  //         <Button size="sm">댓글</Button>
+  //       </form>
+  //     )}
+  //   </div>
+  // );
 };
 
 export default Comment;

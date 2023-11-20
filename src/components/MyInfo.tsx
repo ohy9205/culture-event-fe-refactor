@@ -20,11 +20,24 @@ type MyComment = {
     email: string;
     nick: string;
   };
+  Event: {
+    title: string;
+    eventPeriod: string;
+    thumbnail: string;
+  };
   eventId: number;
   commenter: number;
   content: string;
   createdAt: string;
   updatedAt: string;
+};
+
+const convertKRTime = (dateTime: string): string => {
+  const utcDate = new Date(dateTime);
+
+  const krDate = utcDate.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+
+  return krDate;
 };
 
 const MyInfo = () => {
@@ -74,15 +87,12 @@ const MyInfo = () => {
 
   const getMyComments = async () => {
     const accessToken = localStorage.getItem("at");
-    const response = await fetch(
-      "https://web-production-d139.up.railway.app/user/comments",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-      }
-    );
+    const response = await fetch("http://localhost:3030/user/comments", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    });
     const data = await response.json();
     console.log("data", data);
     setMyComments(data.payload);
@@ -143,7 +153,24 @@ const MyInfo = () => {
         내가 작성한 댓글 가져오기
       </button>
       {myComments.map((comment) => {
-        return <div key={comment.id}>{comment.content}</div>;
+        const createDate = convertKRTime(comment.createdAt);
+        return (
+          <div
+            key={comment.id}
+            className="w-full border border-gray-600 flex flex-col gap-4 p-4 rounded-md"
+          >
+            <div className="">{createDate}</div>
+            <div className="flex gap-4">
+              <Image
+                src={comment.Event.thumbnail}
+                alt="image"
+                width={50}
+                height={50}
+              />
+              {comment.content}
+            </div>
+          </div>
+        );
       })}
     </div>
   );

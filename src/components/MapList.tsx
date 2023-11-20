@@ -53,10 +53,10 @@ const MapList = ({ filter }: Props) => {
                 alt={`${event.title} 포스터`}
                 width={500}
                 height={500}
-                className="w-1/4 h-[150px] object-cover"
+                className="w-1/4 object-contain"
               />
               <div className="flex flex-col w-2/4 py-4 pl-4">
-                <h2 className="truncate font-bold mb-2">{event.title}</h2>
+                <h2 className="font-bold mb-2">{event.title}</h2>
                 <h3 className="text-sm mb-4">{event.eventPeriod}</h3>
                 <ModalToggleCard modalContent={<EventDetail id={event.id} />}>
                   <Button size="sm">{`상세정보`}</Button>

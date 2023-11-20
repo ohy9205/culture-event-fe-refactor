@@ -47,18 +47,18 @@ const EventDetail = ({ id }: Props) => {
               height={700}
               className="object-contain w-full h-full"
             />
-            <div className="absolute top-0 right-0">
-              <Likes
-                likesCount={likesUsers.length}
-                detailMutate={mutate}
-                eventId={id}
-                isMyLikes={isMyLikes}
-              />
-            </div>
           </div>
           <div className="w-full md:w-3/5 p-2 flex flex-col gap-6">
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
+              <li className={LIST_STYLE}>
+                <Likes
+                  likesCount={likesUsers.length}
+                  detailMutate={mutate}
+                  eventId={id}
+                  isMyLikes={isMyLikes}
+                />
+              </li>
               <li className={LIST_STYLE}>
                 <span className={LABEL_STYLE}>장르</span>
                 <p className={INFO_STYLE}>{category}</p>

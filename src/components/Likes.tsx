@@ -23,11 +23,7 @@ const Likes = ({ eventId, detailMutate, isMyLikes, likesCount }: Props) => {
   };
 
   return (
-    <div
-      className={`flex gap-3 items-center ${
-        likesCount !== undefined ? "bg-slate-100" : ""
-      } p-2`}
-    >
+    <div className={`flex gap-3 items-center`}>
       <Button size="md" onClick={onToggleLikesHandler}>
         {myLikes ? "❤️" : "🤍"}
       </Button>

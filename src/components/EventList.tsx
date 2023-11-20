@@ -73,7 +73,7 @@ const EventList = ({ filter }: Props) => {
                     alt={`${event.title} 포스터`}
                     width={500}
                     height={500}
-                    className="w-full h-[370px] object-cover"
+                    className="h-[370px] object-contain"
                   />
                   <div className="flex flex-col p-5">
                     <h2 className="truncate font-bold mb-4">{event.title}</h2>

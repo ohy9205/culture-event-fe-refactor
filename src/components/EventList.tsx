@@ -4,10 +4,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { SimpleEventListWithPagination } from "../types/events";
 import { getFilteredEvents } from "../utils/events";
-import EventCard from "./EventCard";
 import { Filter } from "./FilteredEventList";
 import GridContainer from "./GridContainer";
 import Likes from "./Likes";
+import ModalToggleCard from "./ModalToggleCard";
 import Pagination from "./Pagination";
 
 type Props = {
@@ -62,7 +62,7 @@ const EventList = ({ filter }: Props) => {
         {events.events.map((event) => {
           return (
             <div key={event.id} className="relative">
-              <EventCard key={event.id} id={event.id}>
+              <ModalToggleCard key={event.id} id={event.id}>
                 <div className="flex flex-col rounded-lg overflow-hidden h-[470px] shadow-md ">
                   <Image
                     src={event.thumbnail}
@@ -76,7 +76,7 @@ const EventList = ({ filter }: Props) => {
                     <h3 className="text-small">{event.eventPeriod}</h3>
                   </div>
                 </div>
-              </EventCard>
+              </ModalToggleCard>
               <div className="absolute top-0 right-0">
                 <Likes eventId={event.id} />
               </div>

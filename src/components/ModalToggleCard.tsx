@@ -9,7 +9,7 @@ type Props = {
   id: number;
 };
 
-const EventCard = ({ children, id }: Props) => {
+const ModalToggleCard = ({ children, id }: Props) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const onToggleShowModal = () => {
@@ -29,4 +29,4 @@ const EventCard = ({ children, id }: Props) => {
   );
 };
 
-export default EventCard;
+export default ModalToggleCard;

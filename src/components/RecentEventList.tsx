@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getRecentEvents } from "../utils/events";
 import Button from "./Button";
-import EventCard from "./EventCard";
+import ModalToggleCard from "./ModalToggleCard";
 import MultiCarousel from "./MultiCarousel";
 
 const RecentEventList = async () => {
@@ -13,7 +13,7 @@ const RecentEventList = async () => {
       <h1 className="text-3xl text-center">최신순</h1>
       <MultiCarousel>
         {recentEvents?.map((event) => (
-          <EventCard key={event.id} id={event.id}>
+          <ModalToggleCard key={event.id} id={event.id}>
             <Image
               key={event.id}
               src={event.thumbnail}
@@ -22,7 +22,7 @@ const RecentEventList = async () => {
               height={400}
               className="object-cover h-[324px]"
             />
-          </EventCard>
+          </ModalToggleCard>
         ))}
       </MultiCarousel>
       <Link

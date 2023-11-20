@@ -3,6 +3,10 @@ type Props = {
   isReponsive?: boolean;
 };
 
+const responsiveGridStyle = () => {
+  return `md:grid-cols-4 md:gap-7 grid-cols-2 gap-4 `;
+};
+
 const GridContainer = ({ children, isReponsive = true }: Props) => {
   return (
     <div
@@ -13,10 +17,6 @@ const GridContainer = ({ children, isReponsive = true }: Props) => {
       {children}
     </div>
   );
-};
-
-const responsiveGridStyle = () => {
-  return `md:grid-cols-4 md:gap-7 grid-cols-2 gap-4 `;
 };
 
 export default GridContainer;

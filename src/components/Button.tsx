@@ -12,19 +12,6 @@ type Props = {
 type ButtonColor = "dark" | "light" | "normal";
 type ButtonSize = "sm" | "md" | "lg";
 
-const Button = ({ children, color = "dark", size = "lg", onClick }: Props) => {
-  return (
-    <button
-      onClick={onClick}
-      className={`${colorStyle(color)} ${sizeStyle(size)} rounded-md`}
-    >
-      {children}
-    </button>
-  );
-};
-
-export default Button;
-
 const colorStyle = (color: ButtonColor) => {
   if (color === "dark") {
     return "bg-slate-900 text-white";
@@ -44,3 +31,16 @@ const sizeStyle = (size: ButtonSize) => {
     return "px-7 py-4 text-lg ";
   }
 };
+
+const Button = ({ children, color = "dark", size = "lg", onClick }: Props) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`${colorStyle(color)} ${sizeStyle(size)} rounded-md`}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default Button;

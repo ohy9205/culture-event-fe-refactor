@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import DetailModal from "./DetailModal";
+import EventDetail from "./EventDetail";
+import Modal from "./Modal";
 
 type Props = {
   children: React.ReactNode;
@@ -18,7 +19,12 @@ const EventCard = ({ children, id }: Props) => {
   return (
     <>
       <div onClick={onToggleShowModal}>{children}</div>
-      {isShowModal && <DetailModal id={id} onClick={onToggleShowModal} />}
+      {isShowModal && (
+        <Modal
+          onClick={onToggleShowModal}
+          modalContent={<EventDetail id={id} />}
+        />
+      )}
     </>
   );
 };

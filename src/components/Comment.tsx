@@ -25,8 +25,10 @@ const Comment = ({ eventId }: Props) => {
   ) => {
     setIsModify({ status, commentId });
     if (status) {
+      // 수정모드면 '현재댓글내용'이 textarea기본값으로 들어감
       setCommentInput(content || "");
     } else {
+      // 일반모드면 textarea의 내용이 초기화됨
       setCommentInput("");
     }
   };
@@ -152,80 +154,6 @@ const Comment = ({ eventId }: Props) => {
       </ul>
     </div>
   );
-  // return (
-  //   <div className="flex flex-col gap-3">
-  //     <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
-  //     <ul className="flex flex-col gap-3">
-  //       {comments?.map(
-  //         ({ id, content, createdAt, User: commenterUser, isMyComment }) => (
-  //           <li key={id} className="bg-slate-50 rounded-lg p-2">
-  //             {/* 수정모드 */}
-  //             {isModify.status && isModify.commentId === id && (
-  //               <form onSubmit={(e) => onModifyHandler(e, id)}>
-  //                 <textarea
-  //                   onChange={(e) => {
-  //                     setCommentInput(e.target.value);
-  //                   }}
-  //                   value={commentInput}
-  //                   className="w-full h-[100px] border resize-none"
-  //                 />
-  //                 <div>
-  //                   <Button
-  //                     size="sm"
-  //                     color="light"
-  //                     onClick={() => onIsModifyHandler(false, -1)}
-  //                   >
-  //                     나가기
-  //                   </Button>
-  //                   <Button size="sm">수정</Button>
-  //                 </div>
-  //               </form>
-  //             )}
-
-  //             {/* 수정모드 & 수정안하는 코멘트 */}
-  //             {isModify.commentId !== id && (
-  //               <div className="flex flex-col gap-2">
-  //                 <div className="flex flex-col md:flex-row md:items-center gap-3">
-  //                   <div className="font-bold">{commenterUser.nick}</div>
-  //                   <div className="text-sm">{getFormattedTime(createdAt)}</div>
-  //                   {/* 수정모드X */}
-  //                   {!isModify.status && isMyComment && (
-  //                     <div className="flex grow gap-2 md:justify-end">
-  //                       <Button
-  //                         size="sm"
-  //                         color="light"
-  //                         onClick={() => onIsModifyHandler(true, id, content)}
-  //                       >
-  //                         수정
-  //                       </Button>
-  //                       <Button size="sm" onClick={() => onRemoveHandler(id)}>
-  //                         삭제
-  //                       </Button>
-  //                     </div>
-  //                   )}
-  //                 </div>
-  //                 <div>{content}</div>
-  //               </div>
-  //             )}
-  //           </li>
-  //         )
-  //       )}
-  //     </ul>
-
-  //     {!isModify.status && (
-  //       <form onSubmit={onSubmitHandler}>
-  //         <textarea
-  //           onChange={(e) => {
-  //             setCommentInput(e.target.value);
-  //           }}
-  //           value={commentInput}
-  //           className="w-full h-[100px] border resize-none"
-  //         ></textarea>
-  //         <Button size="sm">댓글</Button>
-  //       </form>
-  //     )}
-  //   </div>
-  // );
 };
 
 export default Comment;

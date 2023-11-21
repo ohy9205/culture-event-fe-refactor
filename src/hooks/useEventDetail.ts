@@ -9,7 +9,7 @@ const useEventDetail = (eventId: number) => {
   );
 
   const isMyLikes = data?.Users.find(
-    (likesUser) => likesUser.email === user.email
+    (likesUser) => likesUser?.email === user?.email
   )
     ? true
     : false;

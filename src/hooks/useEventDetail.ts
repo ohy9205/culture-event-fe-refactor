@@ -8,17 +8,11 @@ const useEventDetail = (eventId: number) => {
     getEventDetail(eventId, loggedOut)
   );
 
-  const isMyLikes = data?.Users.find(
-    (likesUser) => likesUser?.email === user?.email
-  )
-    ? true
-    : false;
-
   return {
     eventDetail: data,
     mutate,
     isLoading,
-    isMyLikes,
+    loginUser: user,
   };
 };
 

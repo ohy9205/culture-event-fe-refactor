@@ -24,6 +24,12 @@ export type Event = {
   Comments: Comment[];
 };
 
+export type User = {
+  id: number;
+  email: string;
+  nick: string;
+};
+
 export type Comment = {
   id: number;
   content: string;
@@ -55,6 +61,7 @@ export type DetailEvent = Pick<
   | "isFree"
   | "longitude"
   | "latitude"
+  | "Comments"
 > & {
   Users: LikesUser[];
 };

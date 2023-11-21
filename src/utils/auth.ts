@@ -6,6 +6,7 @@ type signupBody = {
 };
 
 const API_URL = "https://web-production-d139.up.railway.app";
+// const API_URL = "http://localhost:3030";
 
 export async function postSignup(body: signupBody) {
   try {
@@ -91,4 +92,23 @@ export async function getMyLikes() {
 
     return likesList;
   } catch {}
+}
+
+export async function getMyComments() {
+  const accessToken = localStorage.getItem("at");
+
+  try {
+    const commentList = fetch(`${API_URL}/user/comments`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    })
+      .then((rs) => rs.json())
+      .then((data) => data.payload);
+
+    return commentList;
+  } catch (err) {
+    console.error(err);
+  }
 }

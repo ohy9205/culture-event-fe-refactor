@@ -32,7 +32,6 @@ export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
     })
       .then((rs) => rs.json())
       .then((data) => {
-        console.log(data);
         return data.payload.rows;
       })
       .then((rows) =>
@@ -66,7 +65,7 @@ export async function getEventDetail(
     } catch {}
   } else {
     try {
-      detailEvent = fetch(`${loggedOut ? API_V1 : API_V2}/${id}`, {
+      detailEvent = await fetch(`${loggedOut ? API_V1 : API_V2}/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -102,9 +101,9 @@ export async function getFilteredEvents(
 
   const accessToken = getAccessToken();
 
-  console.log(
-    `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`
-  );
+  // console.log(
+  //   `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`
+  // );
 
   try {
     const filteredEvents = fetch(
@@ -163,10 +162,6 @@ export async function getFilteredEventsWithoutPagination(
   } catch (e) {}
 }
 
-/**
- * Comment
- */
-
 // 해당 이벤트 코멘트
 export async function getComments(
   eventId: number
@@ -194,7 +189,7 @@ export async function getComments(
 
 // 코멘트 추가
 export async function addComment(content: string, eventId: number) {
-  const accessToken = localStorage.getItem("at");
+  const accessToken = getAccessToken();
   const data = { content, eventId };
 
   try {
@@ -253,9 +248,7 @@ export async function patchComment(content: string, commentId: number) {
   } catch {}
 }
 
-/**
- * Likes
- */
+// 좋아요 토글
 export async function toggleLikes(eventId: number) {
   const accessToken = getAccessToken();
   try {

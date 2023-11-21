@@ -8,18 +8,17 @@ import Button from "./Button";
 
 type Props = {
   eventId: number;
-  detailMutate?: KeyedMutator<DetailEvent | undefined>;
-  likesCount?: number;
   useBackground?: boolean;
+  detailMutate?: KeyedMutator<DetailEvent | undefined>;
 };
 
-const Likes = ({ eventId, detailMutate, likesCount, useBackground }: Props) => {
+const Likes = ({ eventId, detailMutate, useBackground }: Props) => {
   const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
 
   const onToggleLikesHandler = async () => {
     await toggleLikes(eventId);
-    detailMutate && detailMutate();
     mutate();
+    detailMutate && detailMutate();
   };
 
   return (
@@ -32,8 +31,6 @@ const Likes = ({ eventId, detailMutate, likesCount, useBackground }: Props) => {
       {!useBackground && (
         <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
       )}
-
-      {likesCount !== undefined && <span>{likesCount}</span>}
     </div>
   );
 };

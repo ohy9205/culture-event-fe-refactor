@@ -17,22 +17,6 @@ type Props = {
 
 const PAGE_PER_SIZE = 16;
 
-const fetchData = async (filter: Filter, pageIndex: number) => {
-  const { location, category, cost, startDate, endDate, orderBy } = filter;
-  const data = await getFilteredEvents(
-    location,
-    category,
-    cost,
-    startDate,
-    endDate,
-    orderBy,
-    pageIndex,
-    PAGE_PER_SIZE
-  );
-
-  return data;
-};
-
 const EventList = ({ filter }: Props) => {
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
     events: [],
@@ -49,7 +33,18 @@ const EventList = ({ filter }: Props) => {
 
   useEffect(() => {
     const fetchingData = async () => {
-      const data = await fetchData(filter, pagination.pageIndex);
+      const { location, category, cost, startDate, endDate, orderBy } = filter;
+      const data = await getFilteredEvents(
+        location,
+        category,
+        cost,
+        startDate,
+        endDate,
+        orderBy,
+        pagination.pageIndex,
+        PAGE_PER_SIZE
+      );
+
       if (data) {
         setEvents(data);
       }

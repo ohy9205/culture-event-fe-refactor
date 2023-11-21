@@ -5,9 +5,10 @@ import { useEffect, useRef } from "react";
 type Props = {
   latitude: string;
   longitude: string;
+  heightStyle: string;
 };
 
-const StaticMap = ({ latitude, longitude }: Props) => {
+const StaticMap = ({ latitude, longitude, heightStyle }: Props) => {
   const mapRef = useRef<HTMLElement | null | any>(null);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const StaticMap = ({ latitude, longitude }: Props) => {
     });
   }, [latitude, longitude]);
 
-  return <div id="map" ref={mapRef} className="w-full h-[500px]"></div>;
+  return <div id="map" ref={mapRef} className={`w-full ${heightStyle}`}></div>;
 };
 
 export default StaticMap;

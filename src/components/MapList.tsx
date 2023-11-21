@@ -41,7 +41,7 @@ const MapList = ({ filter }: Props) => {
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
-      <ul className="flex flex-col gap-4 w-full h-[500px] md:w-2/5  overflow-scroll py-2 md:pr-5">
+      <ul className="flex flex-col gap-4 w-full h-[800px] md:w-2/5  overflow-scroll py-2 md:pr-5">
         {events.map((event) => (
           <li key={event.id} className="shadow-lg rounded-lg relative">
             <div className="absolute top-3 right-5">
@@ -70,6 +70,7 @@ const MapList = ({ filter }: Props) => {
         <StaticMap
           latitude={curEvent?.longitude || ""}
           longitude={curEvent?.latitude || ""}
+          heightStyle="h-[800px]"
         />
       </div>
     </div>

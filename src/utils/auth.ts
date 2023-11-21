@@ -5,8 +5,8 @@ type signupBody = {
   password: string;
 };
 
-// const API_URL = "https://web-production-d139.up.railway.app";
-const API_URL = "http://localhost:3030";
+const API_URL = "https://web-production-d139.up.railway.app";
+// const API_URL = "http://localhost:3030";
 
 export async function postSignup(body: signupBody) {
   try {

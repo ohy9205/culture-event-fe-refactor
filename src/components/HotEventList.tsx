@@ -50,7 +50,7 @@ const HotEventList = async () => {
       </div>
 
       <Link
-        href={{ pathname: "/event", query: { orderBy: "views" } }}
+        href={{ pathname: "/event", query: { orderBy: "likes" } }}
         className="m-auto"
       >
         <Button size="lg" color="dark">{`인기순으로 전체보기 >`}</Button>

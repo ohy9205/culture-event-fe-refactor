@@ -27,7 +27,7 @@ export async function getRecentEvents(): Promise<EventThumbnail[] | undefined> {
 //인기순
 export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
   try {
-    const hotEvents = fetch(`${API_V1}/popular`, {
+    const hotEvents = fetch(`${API_V1}/likes`, {
       credentials: "include",
       next: { revalidate: 3600 },
     })
@@ -44,6 +44,29 @@ export async function getHotEvents(): Promise<EventThumbnail[] | undefined> {
       );
 
     return hotEvents;
+  } catch (e) {}
+}
+
+//조회순
+export async function getViewEvents(): Promise<EventThumbnail[] | undefined> {
+  try {
+    const viewEvents = fetch(`${API_V1}/views`, {
+      credentials: "include",
+      next: { revalidate: 3600 },
+    })
+      .then((rs) => rs.json())
+      .then((data) => {
+        return data.payload.rows;
+      })
+      .then((rows) =>
+        rows.map((event: Event) => ({
+          thumbnail: event.thumbnail,
+          id: event.id,
+          title: event.title,
+        }))
+      );
+
+    return viewEvents;
   } catch (e) {}
 }
 

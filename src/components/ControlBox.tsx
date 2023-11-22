@@ -57,6 +57,7 @@ const CATEGORY = [
 const ORDER_BY = [
   { text: "빠른 시작일 순", value: "" },
   { text: "곧 시작할 순", value: "latest" },
+  { text: "인기 순", value: "likes" },
   { text: "조회 순", value: "views" },
 ];
 

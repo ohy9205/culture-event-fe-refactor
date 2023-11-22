@@ -80,7 +80,7 @@ const EventList = ({ filter }: Props) => {
               </ModalToggleCard>
               <div className="absolute bottom-4 left-5 flex gap-1 text-sm">
                 <span>조회수</span>
-                <span>{event.views}</span>
+                <span className="font-semibold">{event.views}</span>
               </div>
               <div className="absolute bottom-3 right-5">
                 <Likes eventId={event.id} />

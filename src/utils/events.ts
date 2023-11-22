@@ -66,7 +66,7 @@ export async function getEventDetail(
     } catch {}
   } else {
     try {
-      detailEvent = await fetch(`${loggedOut ? API_V1 : API_V2}/${id}`, {
+      detailEvent = await fetch(`${API_V2}/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

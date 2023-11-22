@@ -60,7 +60,7 @@ const MapList = ({ filter }: Props) => {
                 <h3 className="text-sm mb-2">{event.eventPeriod}</h3>
                 <div className="flex gap-1 items-center text-sm mb-2">
                   <span className="">조회수</span>
-                  {event.views}
+                  <span className="font-semibold"> {event.views}</span>
                 </div>
                 <ModalToggleCard modalContent={<EventDetail id={event.id} />}>
                   <Button size="sm" color="dark">{`상세정보`}</Button>

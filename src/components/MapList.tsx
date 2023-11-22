@@ -57,7 +57,11 @@ const MapList = ({ filter }: Props) => {
               />
               <div className="flex flex-col w-3/5 py-4 pl-4">
                 <h2 className="font-bold mb-2">{event.title}</h2>
-                <h3 className="text-sm mb-4">{event.eventPeriod}</h3>
+                <h3 className="text-sm mb-2">{event.eventPeriod}</h3>
+                <div className="flex gap-1 items-center text-sm mb-2">
+                  <span className="">조회수</span>
+                  {event.views}
+                </div>
                 <ModalToggleCard modalContent={<EventDetail id={event.id} />}>
                   <Button size="sm" color="dark">{`상세정보`}</Button>
                 </ModalToggleCard>

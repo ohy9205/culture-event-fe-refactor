@@ -4,7 +4,7 @@ type Props = {
 };
 
 const responsiveGridStyle = () => {
-  return `md:grid-cols-4 md:gap-7 grid-cols-2 gap-4 `;
+  return `lg:grid-cols-4 lg:gap-7 md:grid-cols-3 md:gap-5 grid-cols-2 gap-4 `;
 };
 
 const GridContainer = ({ children, isReponsive = true }: Props) => {

@@ -62,6 +62,7 @@ export type DetailEvent = Pick<
   | "longitude"
   | "latitude"
   | "Comments"
+  | "views"
 > & {
   Users: LikesUser[];
 };

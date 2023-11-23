@@ -1,34 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
-import { postSignin } from "../apis/auth";
-import useUser from "../hooks/useUser";
+import { ChangeEvent } from "react";
+import useSignin from "../hooks/useSignin";
 
 // TODO email, nick, password
 
 const SigninForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const router = useRouter();
-  const { mutate } = useUser();
-
-  const signin = async () => {
-    const requestBody = {
-      email,
-      password,
-    };
-
-    const result = await postSignin(requestBody);
-
-    if (result.code !== 200) {
-      alert(result.message);
-    } else {
-      localStorage.setItem("at", result.at);
-      mutate();
-      router.push("/");
-    }
-  };
+  const { email, password, setEmail, setPassword, signin } = useSignin();
 
   return (
     <div className="max-w-[1200px] min-w-[800px] py-[30px]">

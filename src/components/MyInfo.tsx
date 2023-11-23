@@ -1,105 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import useUser from "../hooks/useUser";
+import useMyInfo from "../hooks/useMyInfo";
 import { convertKRTime } from "../utils/date";
 import EventDetail from "./EventDetail";
 import ModalToggleCard from "./container/ModalToggleCard";
 
-// TODO 나중에 types 폴더에 정의
-type FavoriteEvent = {
-  id: number;
-  period: string;
-  thumbnail: string;
-  title: string;
-};
-
-type MyComment = {
-  id: number;
-  User: {
-    id: number;
-    email: string;
-    nick: string;
-  };
-  Event: {
-    title: string;
-    eventPeriod: string;
-    thumbnail: string;
-  };
-  eventId: number;
-  commenter: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
 const MyInfo = () => {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const { mutate, user } = useUser();
-  const [myFavoriteEvents, setMyFavoriteEvents] = useState<FavoriteEvent[]>([]);
-  const [myComments, setMyComments] = useState<MyComment[]>([]);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/");
-    } else {
-      setNickname(user.nick);
-      setEmail(user.email);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    getMyFavoriteEvents();
-    getMyComments();
-  }, []);
-
-  const logoutHanlder = () => {
-    localStorage.removeItem("at");
-    mutate(
-      { email: "", nick: "" },
-      {
-        optimisticData: { email: "", nick: "" },
-      }
-    );
-    router.push("/");
-  };
-
-  const getMyFavoriteEvents = async () => {
-    const accessToken = localStorage.getItem("at");
-    const response = await fetch(
-      "https://web-production-d139.up.railway.app/user/liked-events",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    );
-    const data = await response.json();
-    console.log("data", data);
-    setMyFavoriteEvents(data.payload);
-  };
-
-  const getMyComments = async () => {
-    const accessToken = localStorage.getItem("at");
-    const response = await fetch(
-      "https://web-production-d139.up.railway.app/user/comments",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-      }
-    );
-    const data = await response.json();
-    console.log("data", data);
-    setMyComments(data.payload);
-  };
+  const {
+    user: { nickname, email },
+    myComments,
+    myFavoriteEvents,
+    getMyFavoriteEvents,
+    logoutHanlder,
+  } = useMyInfo();
 
   return (
     <div className="flex flex-col max-w-[900px] overflow-x-scroll w-full items-center gap-10 mt-[100px]">

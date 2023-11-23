@@ -1,41 +1,20 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
-import { postSignup } from "../apis/auth";
-import useUser from "../hooks/useUser";
+import { ChangeEvent } from "react";
+import useSignup from "../hooks/useSignup";
 
 const SignupForm = () => {
-  const [email, setEmail] = useState("");
-  const [nick, setNick] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
-
-  const router = useRouter();
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user]);
-
-  const signup = async () => {
-    const requestBody = {
-      email,
-      nick,
-      password,
-    };
-
-    const result = await postSignup(requestBody);
-
-    if (result.code !== 200) {
-      alert(result.message);
-      router.push("/");
-    } else {
-      router.push("/signin");
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    nick,
+    setNick,
+    passwordConfirm,
+    setPasswordConfirm,
+    signup,
+  } = useSignup();
 
   return (
     <div className="max-w-[1200px] min-w-[800px] py-[30px]">

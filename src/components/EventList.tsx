@@ -6,10 +6,10 @@ import { getFilteredEvents } from "../apis/event/v2";
 import { SimpleEventListWithPagination } from "../types/events";
 import EventDetail from "./EventDetail";
 import { Filter } from "./FilteredEventList";
-import GridContainer from "./GridContainer";
-import Likes from "./Likes";
-import ModalToggleCard from "./ModalToggleCard";
 import Pagination from "./Pagination";
+import Likes from "./common/Likes";
+import GridContainer from "./container/GridContainer";
+import ModalToggleCard from "./container/ModalToggleCard";
 
 type Props = {
   filter: Filter;

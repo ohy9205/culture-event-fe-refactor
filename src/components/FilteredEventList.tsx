@@ -2,10 +2,10 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Button from "./Button";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import MapList from "./MapList";
+import Button from "./common/Button";
 
 export type Filter = {
   location: string;

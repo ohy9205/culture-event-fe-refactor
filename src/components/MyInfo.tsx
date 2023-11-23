@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
 import EventDetail from "./EventDetail";
-import ModalToggleCard from "./ModalToggleCard";
+import ModalToggleCard from "./container/ModalToggleCard";
 
 // TODO 나중에 types 폴더에 정의
 type FavoriteEvent = {

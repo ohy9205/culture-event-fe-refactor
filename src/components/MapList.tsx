@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
 import { SimpleEvent } from "../types/events";
-import Button from "./Button";
 import EventDetail from "./EventDetail";
 import { Filter } from "./FilteredEventList";
-import Likes from "./Likes";
-import ModalToggleCard from "./ModalToggleCard";
-import StaticMap from "./StaticMap";
+import Button from "./common/Button";
+import Likes from "./common/Likes";
+import StaticMap from "./common/StaticMap";
+import ModalToggleCard from "./container/ModalToggleCard";
 
 type Props = {
   filter: Filter;

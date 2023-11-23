@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getRecentEvents } from "../apis/event/v1";
-import Button from "./Button";
 import EventDetail from "./EventDetail";
-import ModalToggleCard from "./ModalToggleCard";
-import MultiCarousel from "./MultiCarousel";
+import Button from "./common/Button";
+import ModalToggleCard from "./container/ModalToggleCard";
+import MultiCarousel from "./container/MultiCarousel";
 
 const RecentEventList = async () => {
   const recentEvents = await getRecentEvents();

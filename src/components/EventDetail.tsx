@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import useEventDetail from "../hooks/useEventDetail";
-import Button from "./Button";
 import Comment from "./Comment";
-import Likes from "./Likes";
-import StaticMap from "./StaticMap";
+import Button from "./common/Button";
+import Likes from "./common/Likes";
+import StaticMap from "./common/StaticMap";
 
 type Props = {
   id: number;

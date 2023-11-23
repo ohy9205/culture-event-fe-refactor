@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { getMyLikes } from "../utils/auth";
+import { getMyLikes } from "../apis/user";
 
 export const useMyLikes = (eventId: number) => {
   const { data, mutate } = useSWR(`likesEvent`, getMyLikes);

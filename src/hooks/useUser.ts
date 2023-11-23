@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { getUserMe } from "../utils/auth";
+import { getUserMe } from "../apis/user";
 
 const useUser = () => {
   const { data, mutate, isLoading, isValidating } = useSWR(

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
 import { SimpleEvent } from "../types/events";
-import { getFilteredEventsWithoutPagination } from "../utils/events";
 import Button from "./Button";
 import EventDetail from "./EventDetail";
 import { Filter } from "./FilteredEventList";

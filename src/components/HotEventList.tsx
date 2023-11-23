@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getHotEvents } from "../utils/events";
+import { getHotEvents } from "../apis/event/v1";
 import Button from "./Button";
 import EventDetail from "./EventDetail";
 import GridContainer from "./GridContainer";

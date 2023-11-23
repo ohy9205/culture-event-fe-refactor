@@ -1,9 +1,9 @@
 "use client";
 
 import { KeyedMutator } from "swr";
+import { toggleLikes } from "../apis/event/v2";
 import useMyLikes from "../hooks/useMyLikes";
 import { DetailEvent } from "../types/events";
-import { toggleLikes } from "../utils/events";
 import Button from "./Button";
 
 type Props = {

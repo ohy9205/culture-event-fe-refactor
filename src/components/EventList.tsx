@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { getFilteredEvents } from "../apis/event/v2";
 import { SimpleEventListWithPagination } from "../types/events";
-import { getFilteredEvents } from "../utils/events";
 import EventDetail from "./EventDetail";
 import { Filter } from "./FilteredEventList";
 import GridContainer from "./GridContainer";

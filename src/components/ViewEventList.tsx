@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getViewEvents } from "../utils/events";
+import { getViewEvents } from "../apis/event/v1";
 import Button from "./Button";
 import EventDetail from "./EventDetail";
 import ModalToggleCard from "./ModalToggleCard";

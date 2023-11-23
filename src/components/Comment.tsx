@@ -2,9 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { KeyedMutator } from "swr";
+import { addComment, deleteComment, patchComment } from "../apis/comment";
 import { Comment, DetailEvent, User } from "../types/events";
 import { convertKRTime } from "../utils/date";
-import { addComment, deleteComment, patchComment } from "../utils/events";
 import Button from "./Button";
 
 type Props = {

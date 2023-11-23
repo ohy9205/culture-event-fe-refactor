@@ -1,3 +1,5 @@
+"use client";
+
 type Props = {
   children: React.ReactNode;
   isReponsive?: boolean;
@@ -8,6 +10,7 @@ const responsiveGridStyle = () => {
 };
 
 const GridContainer = ({ children, isReponsive = true }: Props) => {
+  console.log("useclient?");
   return (
     <div
       className={`w-full grid ${

@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
+import { postSignup } from "../apis/auth";
 import useUser from "../hooks/useUser";
-import { postSignup } from "../utils/auth";
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");

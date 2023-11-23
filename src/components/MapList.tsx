@@ -1,11 +1,9 @@
 "use  client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
-import { SimpleEvent } from "../types/events";
+import { Filter } from "../hooks/useFilter";
+import useMapList from "../hooks/useMapList";
 import EventDetail from "./EventDetail";
-import { Filter } from "./FilteredEventList";
 import Button from "./common/Button";
 import Likes from "./common/Likes";
 import StaticMap from "./common/StaticMap";
@@ -16,28 +14,7 @@ type Props = {
 };
 
 const MapList = ({ filter }: Props) => {
-  const [events, setEvents] = useState<SimpleEvent[]>([]);
-  const [curEvent, setCurEvent] = useState<SimpleEvent>();
-
-  // 필터변경시
-  useEffect(() => {
-    const fetchingData = async () => {
-      const { location, category, cost, startDate, endDate, orderBy } = filter;
-      const data = await getFilteredEventsWithoutPagination(
-        location,
-        category,
-        cost,
-        startDate,
-        endDate,
-        orderBy
-      );
-      if (data) {
-        setEvents(data);
-        setCurEvent(data[0]);
-      }
-    };
-    fetchingData();
-  }, [filter]);
+  const { curEvent, events, setCurEvent } = useMapList(filter);
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">

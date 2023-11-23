@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
+import { convertKRTime } from "../utils/date";
 import EventDetail from "./EventDetail";
 import ModalToggleCard from "./container/ModalToggleCard";
 
@@ -32,14 +33,6 @@ type MyComment = {
   content: string;
   createdAt: string;
   updatedAt: string;
-};
-
-const convertKRTime = (dateTime: string): string => {
-  const utcDate = new Date(dateTime);
-
-  const krDate = utcDate.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-
-  return krDate;
 };
 
 const MyInfo = () => {

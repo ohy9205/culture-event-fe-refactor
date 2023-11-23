@@ -17,7 +17,7 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { eventDetail, mutate, loginUser } = useEventDetail(id);
+  const { eventDetail, mutate } = useEventDetail(id);
 
   if (eventDetail) {
     const {
@@ -99,7 +99,6 @@ const EventDetail = ({ id }: Props) => {
             eventId={id}
             mutate={mutate}
             comments={eventDetail.Comments}
-            loginUser={loginUser}
           />
         </section>
       </div>

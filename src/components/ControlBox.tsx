@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "./FilteredEventList";
+import { Filter } from "../hooks/useFilter";
 
 type Props = {
   onFilterChange: (

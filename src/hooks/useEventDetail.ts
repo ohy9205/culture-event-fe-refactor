@@ -4,7 +4,7 @@ import { getEventDetailWithLogin } from "../apis/event/v2";
 import useUser from "./useUser";
 
 const useEventDetail = (eventId: number) => {
-  const { user, loggedOut } = useUser();
+  const { loggedOut } = useUser();
   const { data, mutate, isLoading } = useSWR(`eventDetail/${eventId}`, () =>
     loggedOut
       ? getEventDetailWithoutLogin(eventId)
@@ -15,7 +15,6 @@ const useEventDetail = (eventId: number) => {
     eventDetail: data,
     mutate,
     isLoading,
-    loginUser: user,
   };
 };
 

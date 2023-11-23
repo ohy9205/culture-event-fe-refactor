@@ -1,55 +1,27 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import usePagination, {
+  Pagination,
+  SetPagination,
+} from "../hooks/usePagination";
 
 type Props = {
   totalPage: number;
-  pagination: {
-    pageIndex: number;
-    pagingGroupIndex: number;
-  };
-  setPagination: Dispatch<
-    SetStateAction<{
-      pageIndex: number;
-      pagingGroupIndex: number;
-    }>
-  >;
+  pagination: Pagination;
+  setPagination: SetPagination;
 };
 
 const PAGE_BUTTON_SIZE = 10;
 
 const Pagination = ({ totalPage, pagination, setPagination }: Props) => {
+  const { onPagingHandler, onPrevBtnHandler, onNextBtnHandler } = usePagination(
+    pagination,
+    setPagination,
+    totalPage,
+    PAGE_BUTTON_SIZE
+  );
+
   const { pageIndex, pagingGroupIndex } = pagination;
-
-  const onPagingHandler = (curIndex: number) => {
-    setPagination((prev) => ({ ...prev, pageIndex: curIndex - 1 }));
-  };
-
-  const onPrevBtnHandler = () => {
-    if (pagingGroupIndex < 1) {
-      return;
-    }
-
-    setPagination((prev) => ({
-      ...prev,
-      pagingGroupIndex: --prev.pagingGroupIndex,
-      pageIndex:
-        (pagingGroupIndex - 1) * PAGE_BUTTON_SIZE + PAGE_BUTTON_SIZE - 1,
-    }));
-  };
-
-  const onNextBtnHandler = () => {
-    const TOTAL_PAGING_GROUP_COUNT = Math.ceil(totalPage / PAGE_BUTTON_SIZE);
-    if (pagingGroupIndex === TOTAL_PAGING_GROUP_COUNT - 1) {
-      return;
-    }
-
-    setPagination((prev) => ({
-      ...prev,
-      pagingGroupIndex: ++prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex + 1) * PAGE_BUTTON_SIZE,
-    }));
-  };
 
   const renderButton = () => {
     let arr = [];

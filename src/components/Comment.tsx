@@ -1,72 +1,29 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { KeyedMutator } from "swr";
-import { addComment, deleteComment, patchComment } from "../apis/comment";
-import { Comment, DetailEvent, User } from "../types/events";
+import useComment from "../hooks/useComment";
+import useUser from "../hooks/useUser";
+import { Comment, DetailEvent } from "../types/events";
 import { convertKRTime } from "../utils/date";
-import Button from "./Button";
+import Button from "./common/Button";
 
 type Props = {
   eventId: number;
   mutate: KeyedMutator<DetailEvent | undefined>;
   comments: Comment[];
-  loginUser: User;
 };
 
-const Comment = ({ eventId, mutate, comments, loginUser }: Props) => {
-  const [commentInput, setCommentInput] = useState(``);
-  const [isModify, setIsModify] = useState({
-    status: false,
-    commentId: -1,
-  });
-
-  const onIsModifyHandler = (
-    status: boolean,
-    commentId: number,
-    content?: string
-  ) => {
-    setIsModify({ status, commentId });
-    if (status) {
-      // 수정모드면 '현재댓글내용'이 textarea기본값으로 들어감
-      setCommentInput(content || ``);
-    } else {
-      // 일반모드면 textarea의 내용이 초기화됨
-      setCommentInput("");
-    }
-  };
-
-  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (commentInput.length === 0 || commentInput === "") {
-      return;
-    }
-    const result = await addComment(commentInput, eventId);
-    if (result.code === 200) {
-      setCommentInput("");
-      mutate();
-    }
-  };
-
-  const onRemoveHandler = async (commentId: number) => {
-    const result = await deleteComment(commentId);
-    if (result.code === 200) {
-      mutate();
-    }
-  };
-
-  const onModifyHandler = async (
-    e: FormEvent<HTMLFormElement>,
-    commentId: number
-  ) => {
-    e.preventDefault();
-    const result = await patchComment(commentInput, commentId);
-    if (result.code === 200) {
-      mutate();
-      setIsModify({ status: false, commentId: -1 });
-      setCommentInput("");
-    }
-  };
+const Comment = ({ eventId, mutate, comments }: Props) => {
+  const { user: loginUser } = useUser();
+  const {
+    commentInput,
+    setCommentInput,
+    isModify,
+    onIsModifyHandler,
+    onModifyHandler,
+    onRemoveHandler,
+    onSubmitHandler,
+  } = useComment(eventId, mutate);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;

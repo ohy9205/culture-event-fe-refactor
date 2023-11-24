@@ -1,27 +1,21 @@
 "use client";
-
-import usePagination, {
-  Pagination,
-  SetPagination,
-} from "../hooks/usePagination";
-
-type Props = {
-  totalPage: number;
-  pagination: Pagination;
-  setPagination: SetPagination;
-};
+import { useContext } from "react";
+import useEventList from "../hooks/useEvnetList";
+import { PaginationContext } from "./context/PaginationContext";
 
 const PAGE_BUTTON_SIZE = 10;
 
-const Pagination = ({ totalPage, pagination, setPagination }: Props) => {
-  const { onPagingHandler, onPrevBtnHandler, onNextBtnHandler } = usePagination(
-    pagination,
-    setPagination,
-    totalPage,
-    PAGE_BUTTON_SIZE
-  );
+const Pagination = () => {
+  const {
+    onNextBtnHandler,
+    onPagingHandler,
+    onPrevBtnHandler,
+    pagination: { pageIndex, pagingGroupIndex },
+  } = useContext(PaginationContext);
 
-  const { pageIndex, pagingGroupIndex } = pagination;
+  const {
+    events: { totalPage },
+  } = useEventList();
 
   const renderButton = () => {
     let arr = [];
@@ -48,7 +42,7 @@ const Pagination = ({ totalPage, pagination, setPagination }: Props) => {
     <section className="flex gap-5 justify-center m-auto mb-10">
       <button onClick={onPrevBtnHandler}>[이전]</button>
       {renderButton()}
-      <button onClick={onNextBtnHandler}>[이후]</button>
+      <button onClick={() => onNextBtnHandler(totalPage)}>[이후]</button>
     </section>
   );
 };

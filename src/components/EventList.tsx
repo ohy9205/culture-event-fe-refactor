@@ -3,13 +3,12 @@
 import Image from "next/image";
 import useEventList from "../hooks/useEvnetList";
 import EventDetail from "./EventDetail";
-import Pagination from "./Pagination";
 import Likes from "./common/Likes";
 import GridContainer from "./container/GridContainer";
 import ModalToggleCard from "./container/ModalToggleCard";
 
 const EventList = () => {
-  const { events, pagination, setPagination } = useEventList();
+  const { events } = useEventList();
 
   return (
     <div className="w-full flex flex-col gap-5">
@@ -48,11 +47,6 @@ const EventList = () => {
           );
         })}
       </GridContainer>
-      <Pagination
-        pagination={pagination}
-        setPagination={setPagination}
-        totalPage={events.totalPage || 0}
-      />
     </div>
   );
 };

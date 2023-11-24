@@ -1,23 +1,21 @@
 import { useContext, useEffect, useState } from "react";
 import { getFilteredEvents } from "../apis/event/v2";
 import { FilterContext } from "../components/context/FilterContext";
+import { PaginationContext } from "../components/context/PaginationContext";
 import { SimpleEventListWithPagination } from "../types/events";
 
 const PAGE_PER_SIZE = 16;
 
 const useEventList = () => {
   const { filter } = useContext(FilterContext);
+  const { pagination, onInitPagingHandler } = useContext(PaginationContext);
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
     events: [],
     totalPage: 0,
   });
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pagingGroupIndex: 0,
-  });
 
   useEffect(() => {
-    setPagination((prev) => ({ ...prev, pageIndex: 0, pagingGroupIndex: 0 }));
+    onInitPagingHandler();
   }, [filter]);
 
   useEffect(() => {
@@ -43,8 +41,6 @@ const useEventList = () => {
 
   return {
     events,
-    pagination,
-    setPagination,
   };
 };
 

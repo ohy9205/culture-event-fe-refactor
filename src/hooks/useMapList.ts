@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
-import { FilterContext } from "../components/context/FilterContext";
+import { FilterContext } from "../context/FilterContext";
 import { SimpleEvent } from "../types/events";
 
 const useMapList = () => {

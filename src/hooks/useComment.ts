@@ -1,12 +1,9 @@
 import { FormEvent, useState } from "react";
-import { KeyedMutator } from "swr";
 import { addComment, deleteComment, patchComment } from "../apis/comment";
-import { DetailEvent } from "../types/events";
+import useEventDetail from "./useEventDetail";
 
-const useComment = (
-  eventId: number,
-  mutate: KeyedMutator<DetailEvent | undefined>
-) => {
+const useComment = (eventId: number) => {
+  const { eventDetail, mutate } = useEventDetail(eventId);
   const [commentInput, setCommentInput] = useState(``);
   const [isModify, setIsModify] = useState({
     status: false,
@@ -61,6 +58,7 @@ const useComment = (
   };
 
   return {
+    comments: eventDetail?.Comments,
     commentInput,
     setCommentInput,
     isModify,

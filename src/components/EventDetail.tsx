@@ -95,11 +95,7 @@ const EventDetail = ({ id }: Props) => {
           />
         </section>
         <section>
-          <Comment
-            eventId={id}
-            mutate={mutate}
-            comments={eventDetail.Comments}
-          />
+          <Comment eventId={id} />
         </section>
       </div>
     );

@@ -1,7 +1,7 @@
 "use  client";
 
 import Image from "next/image";
-import useEventList from "../hooks/useEvnetList";
+import useEventList from "../hooks/useEventList";
 import EventDetail from "./EventDetail";
 import Likes from "./common/Likes";
 import GridContainer from "./container/GridContainer";

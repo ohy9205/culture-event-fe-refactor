@@ -1,7 +1,7 @@
 "use client";
 import { useContext } from "react";
-import useEventList from "../hooks/useEvnetList";
-import { PaginationContext } from "./context/PaginationContext";
+import { PaginationContext } from "../context/PaginationContext";
+import useEventList from "../hooks/useEventList";
 
 const PAGE_BUTTON_SIZE = 10;
 

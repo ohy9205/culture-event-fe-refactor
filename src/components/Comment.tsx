@@ -1,21 +1,18 @@
 "use client";
 
-import { KeyedMutator } from "swr";
 import useComment from "../hooks/useComment";
 import useUser from "../hooks/useUser";
-import { Comment, DetailEvent } from "../types/events";
 import { convertKRTime } from "../utils/date";
 import Button from "./common/Button";
 
 type Props = {
   eventId: number;
-  mutate: KeyedMutator<DetailEvent | undefined>;
-  comments: Comment[];
 };
 
-const Comment = ({ eventId, mutate, comments }: Props) => {
+const Comment = ({ eventId }: Props) => {
   const { user: loginUser } = useUser();
   const {
+    comments,
     commentInput,
     setCommentInput,
     isModify,
@@ -23,7 +20,7 @@ const Comment = ({ eventId, mutate, comments }: Props) => {
     onModifyHandler,
     onRemoveHandler,
     onSubmitHandler,
-  } = useComment(eventId, mutate);
+  } = useComment(eventId);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;

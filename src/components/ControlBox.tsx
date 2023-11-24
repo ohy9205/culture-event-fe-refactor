@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { FilterContext } from "./context/FilterContext";
+import { FilterContext } from "../context/FilterContext";
 
 const LOCATION = [
   { text: "지역구", value: "" },

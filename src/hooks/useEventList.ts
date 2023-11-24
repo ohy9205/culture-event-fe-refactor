@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { getFilteredEvents } from "../apis/event/v2";
-import { FilterContext } from "../components/context/FilterContext";
-import { PaginationContext } from "../components/context/PaginationContext";
+import { FilterContext } from "../context/FilterContext";
+import { PaginationContext } from "../context/PaginationContext";
 import { SimpleEventListWithPagination } from "../types/events";
 
 const PAGE_PER_SIZE = 16;

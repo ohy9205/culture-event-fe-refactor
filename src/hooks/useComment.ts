@@ -1,5 +1,9 @@
 import { FormEvent, useState } from "react";
-import { addComment, deleteComment, patchComment } from "../apis/comment";
+import {
+  addComment,
+  deleteComment,
+  patchComment,
+} from "../apis/comment/comment";
 import useEventDetail from "./useEventDetail";
 
 const useComment = (eventId: number) => {

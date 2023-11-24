@@ -7,6 +7,8 @@ import { SimpleEventListWithPagination } from "../types/events";
 const PAGE_PER_SIZE = 16;
 
 const useEventList = () => {
+  const [check, setCheck] = useState(true);
+
   const { filter } = useContext(FilterContext);
   const { pagination, onInitPagingHandler } = useContext(PaginationContext);
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
@@ -41,6 +43,8 @@ const useEventList = () => {
 
   return {
     events,
+    check,
+    setCheck,
   };
 };
 

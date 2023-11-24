@@ -2,16 +2,18 @@
 
 import Image from "next/image";
 import useEventList from "../../hooks/useEventList";
-import Likes from "../common/Likes";
-import GridContainer from "../container/GridContainer";
-import ModalToggleCard from "../container/ModalToggleCard";
+import GridContainer from "../common/container/GridContainer";
+import ModalToggleCard from "../common/container/ModalToggleCard";
 import EventDetail from "./EventDetail";
+import Likes from "./Likes";
 
 const EventList = () => {
-  const { events } = useEventList();
+  const { events, check, setCheck } = useEventList();
+  console.log(`check-EventList : ${check}`);
 
   return (
     <div className="w-full flex flex-col gap-5">
+      <button onClick={() => setCheck(false)}>check 토글!!!</button>
       <GridContainer>
         {events.events.map((event) => {
           return (

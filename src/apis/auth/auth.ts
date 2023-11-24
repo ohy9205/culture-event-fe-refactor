@@ -1,5 +1,5 @@
-import { signinBody, signupBody } from "../types/auth";
-import { API_AUTH } from "./common/url";
+import { signinBody, signupBody } from "../../types/auth";
+import { API_AUTH } from "../common/url";
 
 export async function postSignup(body: signupBody) {
   try {

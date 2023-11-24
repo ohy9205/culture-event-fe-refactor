@@ -4,7 +4,7 @@ import { KeyedMutator } from "swr";
 import { toggleLikes } from "../../apis/event/v2";
 import useMyLikes from "../../hooks/useMyLikes";
 import { DetailEvent } from "../../types/events";
-import Button from "./Button";
+import Button from "../common/Button";
 
 type Props = {
   eventId: number;

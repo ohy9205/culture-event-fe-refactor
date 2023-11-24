@@ -1,5 +1,5 @@
-import getAccessToken from "../utils/getAccessToken";
-import { API_USER } from "./common/url";
+import getAccessToken from "../../utils/getAccessToken";
+import { API_USER } from "../common/url";
 
 export async function getUserMe() {
   const accessToken = getAccessToken();

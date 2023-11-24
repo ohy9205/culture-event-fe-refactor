@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { postSignup } from "../apis/auth";
+import { postSignup } from "../apis/auth/auth";
 import useUser from "./useUser";
 
 const useSignup = () => {

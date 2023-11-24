@@ -1,5 +1,5 @@
-import getAccessToken from "../utils/getAccessToken";
-import { API_COMMENT } from "./common/url";
+import getAccessToken from "../../utils/getAccessToken";
+import { API_COMMENT } from "../common/url";
 
 // 코멘트 추가
 export async function addComment(content: string, eventId: number) {

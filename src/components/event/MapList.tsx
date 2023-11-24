@@ -1,15 +1,18 @@
 "use  client";
 
+import useEventList from "@/src/hooks/useEventList";
 import Image from "next/image";
 import useMapList from "../../hooks/useMapList";
 import Button from "../common/Button";
-import Likes from "../common/Likes";
 import StaticMap from "../common/StaticMap";
-import ModalToggleCard from "../container/ModalToggleCard";
+import ModalToggleCard from "../common/container/ModalToggleCard";
 import EventDetail from "./EventDetail";
+import Likes from "./Likes";
 
 const MapList = () => {
   const { curEvent, events, setCurEvent } = useMapList();
+  const { check } = useEventList();
+  console.log(`check-MapList : ${check}`);
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">

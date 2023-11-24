@@ -32,8 +32,8 @@ const FilteredEventList = () => {
             </Button>
           ))}
         </div>
-        {isListMode && <EventList filter={{ ...filter }} />}
-        {!isListMode && <MapList filter={{ ...filter }} />}
+        {isListMode && <EventList filter={filter} />}
+        {!isListMode && <MapList filter={filter} />}
       </section>
     </>
   );

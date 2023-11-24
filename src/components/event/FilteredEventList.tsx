@@ -2,13 +2,13 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FilterProvider } from "../../context/FilterContext";
+import { PaginationProvider } from "../../context/PaginationContext";
+import Button from "../common/Button";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import MapList from "./MapList";
 import Pagination from "./Pagination";
-import Button from "./common/Button";
-import { FilterProvider } from "../context/FilterContext";
-import { PaginationProvider } from "../context/PaginationContext";
 
 const TAB_LIST = [
   { text: "리스트로보기", isListMode: true },

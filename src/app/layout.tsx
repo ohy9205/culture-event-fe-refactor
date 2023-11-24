@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import Header from "../components/Header";
+import Header from "../components/common/Header";
 import SWRProvider from "../provider/swrProvider";
 import "./globals.css";
 

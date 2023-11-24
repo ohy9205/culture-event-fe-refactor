@@ -1,12 +1,12 @@
 "use  client";
 
 import Image from "next/image";
-import useMapList from "../hooks/useMapList";
+import useMapList from "../../hooks/useMapList";
+import Button from "../common/Button";
+import Likes from "../common/Likes";
+import StaticMap from "../common/StaticMap";
+import ModalToggleCard from "../container/ModalToggleCard";
 import EventDetail from "./EventDetail";
-import Button from "./common/Button";
-import Likes from "./common/Likes";
-import StaticMap from "./common/StaticMap";
-import ModalToggleCard from "./container/ModalToggleCard";
 
 const MapList = () => {
   const { curEvent, events, setCurEvent } = useMapList();

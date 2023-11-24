@@ -1,6 +1,6 @@
-import HotEventList from "../components/HotEventList";
-import RecentEventList from "../components/RecentEventList";
-import ViewEventList from "../components/ViewEventList";
+import HotEventList from "../components/event/HotEventList";
+import RecentEventList from "../components/event/RecentEventList";
+import ViewEventList from "../components/event/ViewEventList";
 
 export default function Home() {
   return (

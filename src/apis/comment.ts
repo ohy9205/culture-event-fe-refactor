@@ -1,4 +1,4 @@
-import getAccessToken from "./common/getAccessToken";
+import getAccessToken from "../utils/getAccessToken";
 import { API_COMMENT } from "./common/url";
 
 // 코멘트 추가

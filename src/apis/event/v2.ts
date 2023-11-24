@@ -3,7 +3,7 @@ import {
   SimpleEvent,
   SimpleEventListWithPagination,
 } from "@/src/types/events";
-import getAccessToken from "../common/getAccessToken";
+import getAccessToken from "@/src/utils/getAccessToken";
 import { API_V2 } from "../common/url";
 
 // 필터링-페이지네이션

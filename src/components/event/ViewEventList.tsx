@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getViewEvents } from "../apis/event/v1";
+import { getViewEvents } from "../../apis/event/v1";
+import Button from "../common/Button";
 import EventCarousel from "./EventCarousel";
-import Button from "./common/Button";
 
 const ViewEventList = async () => {
   const viewEvents = await getViewEvents();

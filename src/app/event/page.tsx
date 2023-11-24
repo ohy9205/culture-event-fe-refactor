@@ -1,4 +1,4 @@
-import FilteredEventList from "@/src/components/FilteredEventList";
+import FilteredEventList from "@/src/components/event/FilteredEventList";
 
 export default function Event() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import useUser from "../hooks/useUser";
+import useUser from "../../hooks/useUser";
 
 const AuthLinks = () => {
   const { loggedOut, isLoading } = useUser();

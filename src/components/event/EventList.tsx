@@ -1,11 +1,11 @@
 "use  client";
 
 import Image from "next/image";
-import useEventList from "../hooks/useEventList";
+import useEventList from "../../hooks/useEventList";
+import Likes from "../common/Likes";
+import GridContainer from "../container/GridContainer";
+import ModalToggleCard from "../container/ModalToggleCard";
 import EventDetail from "./EventDetail";
-import Likes from "./common/Likes";
-import GridContainer from "./container/GridContainer";
-import ModalToggleCard from "./container/ModalToggleCard";
 
 const EventList = () => {
   const { events } = useEventList();

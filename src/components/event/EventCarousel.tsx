@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { EventThumbnail } from "../types/events";
+import { EventThumbnail } from "../../types/events";
+import ModalToggleCard from "../container/ModalToggleCard";
+import MultiCarousel from "../container/MultiCarousel";
 import EventDetail from "./EventDetail";
-import ModalToggleCard from "./container/ModalToggleCard";
-import MultiCarousel from "./container/MultiCarousel";
 
 type Props = {
   events?: EventThumbnail[];

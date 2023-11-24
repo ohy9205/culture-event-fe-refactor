@@ -1,7 +1,6 @@
 "use  client";
 
 import Image from "next/image";
-import { Filter } from "../hooks/useFilter";
 import useMapList from "../hooks/useMapList";
 import EventDetail from "./EventDetail";
 import Button from "./common/Button";
@@ -9,12 +8,8 @@ import Likes from "./common/Likes";
 import StaticMap from "./common/StaticMap";
 import ModalToggleCard from "./container/ModalToggleCard";
 
-type Props = {
-  filter: Filter;
-};
-
-const MapList = ({ filter }: Props) => {
-  const { curEvent, events, setCurEvent } = useMapList(filter);
+const MapList = () => {
+  const { curEvent, events, setCurEvent } = useMapList();
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">

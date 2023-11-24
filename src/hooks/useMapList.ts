@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
+import { FilterContext } from "../components/context/FilterContext";
 import { SimpleEvent } from "../types/events";
-import { Filter } from "./useFilter";
 
-const useMapList = (filter: Filter) => {
+const useMapList = () => {
+  const { filter } = useContext(FilterContext);
   const [events, setEvents] = useState<SimpleEvent[]>([]);
   const [curEvent, setCurEvent] = useState<SimpleEvent>();
 

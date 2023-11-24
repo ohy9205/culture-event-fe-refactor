@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFilteredEvents } from "../apis/event/v2";
+import { FilterContext } from "../components/context/FilterContext";
 import { SimpleEventListWithPagination } from "../types/events";
-import { Filter } from "./useFilter";
 
 const PAGE_PER_SIZE = 16;
 
-const useEventList = (filter: Filter) => {
+const useEventList = () => {
+  const { filter } = useContext(FilterContext);
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
     events: [],
     totalPage: 0,

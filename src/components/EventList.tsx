@@ -2,19 +2,14 @@
 
 import Image from "next/image";
 import useEventList from "../hooks/useEvnetList";
-import { Filter } from "../hooks/useFilter";
 import EventDetail from "./EventDetail";
 import Pagination from "./Pagination";
 import Likes from "./common/Likes";
 import GridContainer from "./container/GridContainer";
 import ModalToggleCard from "./container/ModalToggleCard";
 
-type Props = {
-  filter: Filter;
-};
-
-const EventList = ({ filter }: Props) => {
-  const { events, pagination, setPagination } = useEventList(filter);
+const EventList = () => {
+  const { events, pagination, setPagination } = useEventList();
 
   return (
     <div className="w-full flex flex-col gap-5">

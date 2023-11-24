@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import useFilter from "../hooks/useFilter";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import MapList from "./MapList";
 import Button from "./common/Button";
+import { FilterProvider } from "./context/FilterContext";
 
 const TAB_LIST = [
   { text: "리스트로보기", isListMode: true },
@@ -13,12 +14,19 @@ const TAB_LIST = [
 ];
 
 const FilteredEventList = () => {
-  const { filter, onFilterChange } = useFilter();
+  const query = useSearchParams().get("orderBy") || "";
+  const router = useRouter();
   const [isListMode, setIsListMode] = useState(TAB_LIST[0].isListMode);
 
+  useEffect(() => {
+    if (query) {
+      router.replace("/event");
+    }
+  }, [query]);
+
   return (
-    <>
-      <ControlBox filter={filter} onFilterChange={onFilterChange} />
+    <FilterProvider query={query}>
+      <ControlBox />
       <section className="w-full flex flex-col py-5 gap-5">
         <div className="w-full flex gap-5 justify-start border-b-4 pb-2">
           {TAB_LIST.map((it) => (
@@ -32,10 +40,10 @@ const FilteredEventList = () => {
             </Button>
           ))}
         </div>
-        {isListMode && <EventList filter={filter} />}
-        {!isListMode && <MapList filter={filter} />}
+        {isListMode && <EventList />}
+        {!isListMode && <MapList />}
       </section>
-    </>
+    </FilterProvider>
   );
 };
 

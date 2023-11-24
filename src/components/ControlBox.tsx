@@ -1,13 +1,7 @@
 "use client";
 
-import { Filter } from "../hooks/useFilter";
-
-type Props = {
-  onFilterChange: (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => void;
-  filter: Filter;
-};
+import { useContext } from "react";
+import { FilterContext } from "./context/FilterContext";
 
 const LOCATION = [
   { text: "지역구", value: "" },
@@ -63,7 +57,9 @@ const ORDER_BY = [
 
 const SELECT_STYLE = `w-full px-4 py-2 rounded-md bg-slate-100`;
 
-const ControlBox = ({ onFilterChange, filter }: Props) => {
+const ControlBox = () => {
+  const { filter, onFilterChange } = useContext(FilterContext);
+
   return (
     <section className="w-full flex md:flex-row flex-col gap-5 justify-center my-5">
       <div className="flex gap-5">

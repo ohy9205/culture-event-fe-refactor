@@ -1,5 +1,3 @@
-"use client";
-
 type Props = {
   children: React.ReactNode;
   isReponsive?: boolean;

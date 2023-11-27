@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import useMyInfo from "../../hooks/useMyInfo";
-import { convertKRTime } from "../../utils/convertKRTime";
-import ModalToggleCard from "../common/container/ModalToggleCard";
-import EventDetail from "../event/EventDetail";
+import useMyInfo from "../../../hooks/useMyInfo";
+import { convertKRTime } from "../../../utils/convertKRTime";
+import ModalToggleCard from "../../container/ModalToggleCard";
+import EventDetail from "../../event/client/EventDetail";
 
 const MyInfo = () => {
   const {

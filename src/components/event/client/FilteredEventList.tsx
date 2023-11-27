@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FilterProvider } from "../../context/FilterContext";
-import { PaginationProvider } from "../../context/PaginationContext";
-import Button from "../common/Button";
+import { FilterProvider } from "../../../context/FilterContext";
+import { PaginationProvider } from "../../../context/PaginationContext";
+import Button from "../../UI/common/Button";
 import ControlBox from "./ControlBox";
 import EventList from "./EventList";
 import MapList from "./MapList";

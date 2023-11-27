@@ -1,9 +1,9 @@
 "use client";
 
-import useComment from "../../hooks/useComment";
-import useUser from "../../hooks/useUser";
-import { convertKRTime } from "../../utils/convertKRTime";
-import Button from "../common/Button";
+import useComment from "@/src/hooks/useComment";
+import useUser from "@/src/hooks/useUser";
+import { convertKRTime } from "@/src/utils/convertKRTime";
+import Button from "../../UI/common/Button";
 
 type Props = {
   eventId: number;

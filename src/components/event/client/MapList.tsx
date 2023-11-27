@@ -2,12 +2,12 @@
 
 import useEventList from "@/src/hooks/useEventList";
 import Image from "next/image";
-import useMapList from "../../hooks/useMapList";
-import Button from "../common/Button";
-import StaticMap from "../common/StaticMap";
-import ModalToggleCard from "../common/container/ModalToggleCard";
+import useMapList from "../../../hooks/useMapList";
+import Button from "../../UI/common/Button";
+import ModalToggleCard from "../../container/ModalToggleCard";
 import EventDetail from "./EventDetail";
 import Likes from "./Likes";
+import StaticMap from "./StaticMap";
 
 const MapList = () => {
   const { curEvent, events, setCurEvent } = useMapList();

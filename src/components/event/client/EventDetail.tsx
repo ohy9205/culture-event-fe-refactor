@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useEventDetail from "../../hooks/useEventDetail";
-import Button from "../common/Button";
-import StaticMap from "../common/StaticMap";
+import useEventDetail from "../../../hooks/useEventDetail";
+import Button from "../../UI/common/Button";
 import Comment from "./Comment";
 import Likes from "./Likes";
+import StaticMap from "./StaticMap";
 
 type Props = {
   id: number;

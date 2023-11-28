@@ -67,9 +67,13 @@ export async function getFilteredEventsWithoutPagination(
   const costQuery = cost && `isfree=${cost}&`;
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
-  const orderByQuery = orderBy && `orderBy=${orderBy}&`;
+  const orderByQuery = orderBy && `orderBy=${orderBy}`;
 
   const accessToken = getAccessToken();
+
+  // console.log(
+  //   `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`
+  // );
 
   try {
     const filteredEvents = fetch(

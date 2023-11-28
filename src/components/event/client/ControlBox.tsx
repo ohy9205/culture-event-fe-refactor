@@ -55,13 +55,13 @@ const ORDER_BY = [
   { text: "조회 순", value: "views" },
 ];
 
-const SELECT_STYLE = `w-full px-4 py-2 rounded-md bg-slate-100`;
+const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = () => {
   const { filter, onFilterChange } = useContext(FilterContext);
 
   return (
-    <section className="w-full flex md:flex-row flex-col gap-5 justify-center my-5">
+    <section className="w-full h-full flex md:flex-row flex-col gap-5 justify-center my-5">
       <div className="flex gap-5">
         <select
           onChange={onFilterChange}

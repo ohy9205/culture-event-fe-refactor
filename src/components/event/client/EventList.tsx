@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import useEventList from "../../../hooks/useEventList";
-import GridContainer from "../../container/GridContainer";
-import ModalToggleCard from "../../container/ModalToggleCard";
+import GridContainer from "../../UI/container/GridContainer";
+import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventDetail from "./EventDetail";
 import Likes from "./Likes";
 

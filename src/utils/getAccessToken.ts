@@ -1,5 +1,3 @@
-const getAccessToken = () => {
+export const getAccessToken = () => {
   return localStorage.getItem("at");
 };
-
-export default getAccessToken;

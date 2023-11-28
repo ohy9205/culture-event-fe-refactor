@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getHotEvents } from "../../../apis/event/v1";
 import Button from "../../UI/common/Button";
-import GridContainer from "../../container/GridContainer";
-import ModalToggleCard from "../../container/ModalToggleCard";
+import GridContainer from "../../UI/container/GridContainer";
+import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventDetail from "../client/EventDetail";
 
 const HotEventList = async () => {

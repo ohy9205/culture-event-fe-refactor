@@ -44,7 +44,7 @@ export const APIFetch = async (
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: method !== "GET" ? JSON.stringify(body) : null,
+    body: body ? JSON.stringify(body) : null,
   });
   const data = await rs.json();
 

@@ -1,24 +1,24 @@
 "use client";
 
-import { KeyedMutator } from "swr";
+import { useState } from "react";
 import { toggleLikes } from "../../../apis/event/v2";
 import useMyLikes from "../../../hooks/useMyLikes";
-import { DetailEvent } from "../../../types/events";
 import Button from "../../UI/common/Button";
 
 type Props = {
   eventId: number;
   useBackground?: boolean;
-  detailMutate?: KeyedMutator<DetailEvent | undefined>;
+  likesCount?: number;
 };
 
-const Likes = ({ eventId, detailMutate, useBackground }: Props) => {
+const Likes = ({ eventId, useBackground, likesCount }: Props) => {
   const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
+  const [count, setCount] = useState(likesCount);
 
   const onToggleLikesHandler = async () => {
-    await toggleLikes(eventId);
+    const count = await toggleLikes(eventId);
+    setCount(count);
     mutate();
-    detailMutate && detailMutate();
   };
 
   return (
@@ -31,6 +31,7 @@ const Likes = ({ eventId, detailMutate, useBackground }: Props) => {
       {!useBackground && (
         <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
       )}
+      {count && <p>{count}</p>}
     </div>
   );
 };

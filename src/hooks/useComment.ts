@@ -4,15 +4,24 @@ import {
   deleteComment,
   patchComment,
 } from "../apis/comment/comment";
-import useEventDetail from "./useEventDetail";
+import { getComments } from "../apis/event/v2";
+import { Comment } from "../types/events";
 
-const useComment = (eventId: number) => {
-  const { eventDetail, mutate } = useEventDetail(eventId);
+const useComment = (eventId: number, initComments: Comment[]) => {
   const [commentInput, setCommentInput] = useState(``);
   const [isModify, setIsModify] = useState({
     status: false,
     commentId: -1,
   });
+  const [comments, setComments] = useState(initComments);
+
+  // comments 데이터 패칭
+  const fetchComment = async () => {
+    const rs = await getComments(eventId);
+    if (rs) {
+      setComments(rs);
+    }
+  };
 
   const onIsModifyHandler = (
     status: boolean,
@@ -34,18 +43,19 @@ const useComment = (eventId: number) => {
     if (commentInput.length === 0 || commentInput === "") {
       return;
     }
-    const result = await addComment(commentInput, eventId);
-    if (result.code === 200) {
+    const rs = await addComment(commentInput, eventId);
+    if (rs.commentId) {
       setCommentInput("");
-      mutate();
     }
+    setCommentInput("");
+
+    fetchComment();
   };
 
   const onRemoveHandler = async (commentId: number) => {
     const result = await deleteComment(commentId);
-    if (result.code === 200) {
-      mutate();
-    }
+
+    fetchComment();
   };
 
   const onModifyHandler = async (
@@ -54,15 +64,14 @@ const useComment = (eventId: number) => {
   ) => {
     e.preventDefault();
     const result = await patchComment(commentInput, commentId);
-    if (result.code === 200) {
-      mutate();
-      setIsModify({ status: false, commentId: -1 });
-      setCommentInput("");
-    }
+    setIsModify({ status: false, commentId: -1 });
+    setCommentInput("");
+
+    fetchComment();
   };
 
   return {
-    comments: eventDetail?.Comments,
+    comments,
     commentInput,
     setCommentInput,
     isModify,

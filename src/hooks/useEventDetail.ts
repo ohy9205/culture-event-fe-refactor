@@ -5,7 +5,7 @@ import useUser from "./useUser";
 
 const useEventDetail = (eventId: number) => {
   const { loggedOut } = useUser();
-  const { data, mutate, isLoading } = useSWR(`eventDetail/${eventId}`, () =>
+  const { data, isLoading } = useSWR(`eventDetail/${eventId}`, () =>
     loggedOut
       ? getEventDetailWithoutLogin(eventId)
       : getEventDetailWithLogin(eventId)
@@ -13,7 +13,6 @@ const useEventDetail = (eventId: number) => {
 
   return {
     eventDetail: data,
-    mutate,
     isLoading,
   };
 };

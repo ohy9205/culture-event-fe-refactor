@@ -2,14 +2,16 @@
 
 import useComment from "@/src/hooks/useComment";
 import useUser from "@/src/hooks/useUser";
+import { Comment } from "@/src/types/events";
 import { convertKRTime } from "@/src/utils/convertKRTime";
 import Button from "../../UI/common/Button";
 
 type Props = {
   eventId: number;
+  initComments: Comment[];
 };
 
-const Comment = ({ eventId }: Props) => {
+const Comment = ({ eventId, initComments }: Props) => {
   const { user: loginUser } = useUser();
   const {
     comments,
@@ -20,7 +22,7 @@ const Comment = ({ eventId }: Props) => {
     onModifyHandler,
     onRemoveHandler,
     onSubmitHandler,
-  } = useComment(eventId);
+  } = useComment(eventId, initComments);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;

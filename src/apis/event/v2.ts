@@ -1,4 +1,5 @@
 import {
+  Comment,
   DetailEvent,
   SimpleEvent,
   SimpleEventListWithPagination,
@@ -84,5 +85,5 @@ export async function toggleLikes(eventId: number) {
   const url = `${API_V2}/${eventId}/likes`;
   const rs = await authorizedAPIFetch(url, "POST");
 
-  return rs.payload;
+  return rs.payload.eventLikesCount;
 }

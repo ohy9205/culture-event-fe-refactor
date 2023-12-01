@@ -17,10 +17,9 @@ const useSignin = () => {
 
     const result = await postSignin(requestBody);
 
-    if (result.code !== 200) {
+    if (result.status !== 200) {
       alert(result.message);
     } else {
-      localStorage.setItem("at", result.at);
       mutate();
       router.push("/");
     }

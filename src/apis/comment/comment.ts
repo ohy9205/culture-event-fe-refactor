@@ -1,63 +1,26 @@
-import { getAccessToken } from "@/src/utils/getAccessToken";
+import { authorizedAPIFetch } from "../common/commonAPIFetch";
 import { API_COMMENT } from "../common/url";
 
 // 코멘트 추가
 export async function addComment(content: string, eventId: number) {
-  const accessToken = getAccessToken();
-  const data = { content, eventId };
+  const url = `${API_COMMENT}`;
+  const rs = await authorizedAPIFetch(url, "POST", { eventId, content });
 
-  try {
-    const result = fetch(`${API_COMMENT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    }).then((rs) => {
-      return rs.json();
-    });
-
-    return result;
-  } catch {
-    console.log("에러?");
-  }
+  return rs.payload;
 }
 
 // 코멘트 제거
 export async function deleteComment(commentId: number) {
-  const accessToken = getAccessToken();
+  const url = `${API_COMMENT}/${commentId}`;
+  const rs = await authorizedAPIFetch(url, "DELETE");
 
-  try {
-    const result = fetch(`${API_COMMENT}/${commentId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-    }).then((rs) => rs.json());
-
-    return result;
-  } catch {}
+  return rs.payload;
 }
 
 // 코멘트 수정
 export async function patchComment(content: string, commentId: number) {
-  const accessToken = getAccessToken();
+  const url = `${API_COMMENT}/${commentId}`;
+  const rs = await authorizedAPIFetch(url, "PATCH", { content });
 
-  try {
-    const result = fetch(`${API_COMMENT}/${commentId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      body: JSON.stringify({ content }),
-    }).then((rs) => rs.json());
-
-    return result;
-  } catch {}
+  return rs.payload;
 }

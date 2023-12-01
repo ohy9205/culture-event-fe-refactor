@@ -3,7 +3,7 @@ import {
   SimpleEvent,
   SimpleEventListWithPagination,
 } from "@/src/types/events";
-import { getAccessToken } from "@/src/utils/getAccessToken";
+import { authorizedAPIFetch } from "../common/commonAPIFetch";
 import { API_V2 } from "../common/url";
 
 // 필터링-페이지네이션
@@ -25,32 +25,15 @@ export async function getFilteredEvents(
   const orderByQuery = orderBy && `orderBy=${orderBy}&`;
   const pageIndexQuery = `pageIndex=${pageIndex + 1}&`;
   const pageSizeQuery = `pageSize=${pageSize}`;
+  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`;
 
-  const accessToken = getAccessToken();
+  const rs = await authorizedAPIFetch(url, "GET");
+  const payload = rs.payload;
 
-  // console.log(
-  //   `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`
-  // );
-
-  try {
-    const filteredEvents = fetch(
-      `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    )
-      .then((rs) => rs.json())
-      .then((data) => ({
-        events: data.payload.rows,
-        totalPage: data.totalPage,
-      }));
-
-    return filteredEvents;
-  } catch (e) {}
+  return {
+    events: payload.events.rows,
+    totalPage: payload.totalPage,
+  };
 }
 
 // 필터링-전체
@@ -68,90 +51,38 @@ export async function getFilteredEventsWithoutPagination(
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
   const orderByQuery = orderBy && `orderBy=${orderBy}`;
+  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`;
 
-  const accessToken = getAccessToken();
+  const rs = await authorizedAPIFetch(url, "GET");
 
-  // console.log(
-  //   `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`
-  // );
-
-  try {
-    const filteredEvents = fetch(
-      `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    )
-      .then((rs) => rs.json())
-      .then((data) => data.payload);
-
-    return filteredEvents;
-  } catch (e) {}
+  return rs.payload.events;
 }
 
 // 상세정보
 export async function getEventDetailWithLogin(
   id: number
 ): Promise<DetailEvent | undefined> {
-  const accessToken = getAccessToken();
-  let detailEvent;
+  const url = `${API_V2}/${id}`;
+  const rs = await authorizedAPIFetch(url, "GET");
 
-  try {
-    detailEvent = await fetch(`${API_V2}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      next: { revalidate: 3600 },
-    })
-      .then((rs) => rs.json())
-      .then((data) => data.payload);
-  } catch {}
-  return detailEvent;
+  return rs.payload.event;
 }
 
 // 해당 이벤트 코멘트
 export async function getComments(
   eventId: number
 ): Promise<Comment[] | undefined> {
-  const accessToken = getAccessToken();
+  const url = `${API_V2}/${eventId}/comments`;
 
-  try {
-    const result = fetch(`${API_V2}/${eventId}/comments`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-      next: { revalidate: 3600 },
-    })
-      .then((rs) => rs.json())
-      .then((data) => {
-        return data.comments;
-      });
+  const rs = await authorizedAPIFetch(url, "GET");
 
-    return result;
-  } catch {
-    console.log("에러");
-  }
+  return rs.payload.comments;
 }
 
 // 좋아요 토글
 export async function toggleLikes(eventId: number) {
-  const accessToken = getAccessToken();
-  try {
-    const result = fetch(`${API_V2}/${eventId}/likes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      credentials: "include",
-    }).then((rs) => rs.json());
+  const url = `${API_V2}/${eventId}/likes`;
+  const rs = await authorizedAPIFetch(url, "POST");
 
-    return result;
-  } catch {}
+  return rs.payload;
 }

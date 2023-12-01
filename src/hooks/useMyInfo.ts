@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getMyComments, getMyLikes } from "../apis/user/user";
 import { FavoriteEvent, MyComment } from "../types/user";
 import useUser from "./useUser";
 
@@ -21,8 +22,23 @@ const useMyInfo = () => {
   }, [user]);
 
   useEffect(() => {
-    getMyFavoriteEvents();
-    getMyComments();
+    const likesFetch = async () => {
+      const data = await getMyLikes();
+
+      if (data) {
+        setMyFavoriteEvents(data);
+      }
+    };
+
+    const commentsFetch = async () => {
+      const data = await getMyComments();
+      if (data) {
+        setMyComments(data);
+      }
+    };
+
+    likesFetch();
+    commentsFetch();
   }, []);
 
   const logoutHanlder = () => {
@@ -36,44 +52,11 @@ const useMyInfo = () => {
     router.push("/");
   };
 
-  const getMyFavoriteEvents = async () => {
-    const accessToken = localStorage.getItem("at");
-    const response = await fetch(
-      "https://web-production-d139.up.railway.app/user/liked-events",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-        next: { revalidate: 3600 },
-      }
-    );
-    const data = await response.json();
-    console.log("data", data);
-    setMyFavoriteEvents(data.payload);
-  };
-
-  const getMyComments = async () => {
-    const accessToken = localStorage.getItem("at");
-    const response = await fetch(
-      "https://web-production-d139.up.railway.app/user/comments",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: "include",
-      }
-    );
-    const data = await response.json();
-    console.log("data", data);
-    setMyComments(data.payload);
-  };
-
   return {
     myFavoriteEvents,
     myComments,
     logoutHanlder,
-    getMyFavoriteEvents,
+    getMyLikes,
     user: { nickname, email },
   };
 };

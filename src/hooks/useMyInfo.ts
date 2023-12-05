@@ -12,6 +12,12 @@ const useMyInfo = () => {
   const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
 
+  const responseHandler = (status: number) => {
+    if (status !== 200) {
+      router.push(`/error/${status}`);
+    }
+  };
+
   useEffect(() => {
     if (!user) {
       router.push("/");
@@ -26,14 +32,17 @@ const useMyInfo = () => {
       const data = await getMyLikes();
 
       if (data) {
-        setMyFavoriteEvents(data);
+        console.log(data);
+        responseHandler;
+        setMyFavoriteEvents(data.payload.data);
       }
     };
 
     const commentsFetch = async () => {
       const data = await getMyComments();
       if (data) {
-        setMyComments(data);
+        console.log(data);
+        setMyComments(data.payload.commentsWithEvents);
       }
     };
 
@@ -43,12 +52,13 @@ const useMyInfo = () => {
 
   const logoutHanlder = () => {
     localStorage.removeItem("at");
-    mutate(
-      { email: "", nick: "" },
-      {
-        optimisticData: { email: "", nick: "" },
-      }
-    );
+    mutate({
+      ...user,
+      payload: {
+        email: "",
+        nick: "",
+      },
+    });
     router.push("/");
   };
 

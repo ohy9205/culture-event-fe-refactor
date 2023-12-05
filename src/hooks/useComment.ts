@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
   addComment,
@@ -6,20 +7,40 @@ import {
 } from "../apis/comment/comment";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
+import useUser from "./useUser";
 
 const useComment = (eventId: number, initComments: Comment[]) => {
+  const { loggedOut } = useUser();
   const [commentInput, setCommentInput] = useState(``);
   const [isModify, setIsModify] = useState({
     status: false,
     commentId: -1,
   });
   const [comments, setComments] = useState(initComments);
+  const router = useRouter();
+
+  // response 핸들러
+  const responseHandler = (status: number, message: string) => {
+    if (status === 200 || status === 201) {
+      setCommentInput("");
+    } else if (status === 403) {
+      alert(message);
+    } else if (status === 404) {
+      router.push("/error/404");
+    } else {
+      router.push(`/error/${status}`);
+    }
+  };
 
   // comments 데이터 패칭
   const fetchComment = async () => {
     const rs = await getComments(eventId);
+
     if (rs) {
-      setComments(rs);
+      responseHandler(rs.status, rs.message);
+      if (rs.status === 200) {
+        setComments(rs.payload.comments);
+      }
     }
   };
 
@@ -30,10 +51,8 @@ const useComment = (eventId: number, initComments: Comment[]) => {
   ) => {
     setIsModify({ status, commentId });
     if (status) {
-      // 수정모드면 '현재댓글내용'이 textarea기본값으로 들어감
       setCommentInput(content || ``);
     } else {
-      // 일반모드면 textarea의 내용이 초기화됨
       setCommentInput("");
     }
   };
@@ -44,17 +63,13 @@ const useComment = (eventId: number, initComments: Comment[]) => {
       return;
     }
     const rs = await addComment(commentInput, eventId);
-    if (rs.commentId) {
-      setCommentInput("");
-    }
-    setCommentInput("");
-
+    responseHandler(rs.status, rs.message);
     fetchComment();
   };
 
   const onRemoveHandler = async (commentId: number) => {
-    const result = await deleteComment(commentId);
-
+    const rs = await deleteComment(commentId);
+    responseHandler(rs.status, rs.message);
     fetchComment();
   };
 
@@ -63,10 +78,10 @@ const useComment = (eventId: number, initComments: Comment[]) => {
     commentId: number
   ) => {
     e.preventDefault();
-    const result = await patchComment(commentInput, commentId);
+    const rs = await patchComment(commentInput, commentId);
+    responseHandler(rs.status, rs.message);
     setIsModify({ status: false, commentId: -1 });
     setCommentInput("");
-
     fetchComment();
   };
 

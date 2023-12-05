@@ -19,10 +19,7 @@ export const PaginationContext = createContext({
 
 export const PaginationProvider = ({ children }: Props) => {
   const pageButtonSize = 10;
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pagingGroupIndex: 0,
-  });
+  const [pagination, setPagination] = useState(initialPagination);
   const { pageIndex, pagingGroupIndex } = pagination;
 
   const onInitPagingHandler = () => {

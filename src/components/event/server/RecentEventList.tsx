@@ -9,7 +9,7 @@ const RecentEventList = async () => {
   return (
     <section className="p-10 flex flex-col gap-6">
       <h1 className="text-3xl text-center">최신순</h1>
-      <EventCarousel events={recentEvents} />
+      <EventCarousel events={recentEvents.payload} />
       <Link
         href={{ pathname: "/event", query: { orderBy: "latest" } }}
         className="m-auto"

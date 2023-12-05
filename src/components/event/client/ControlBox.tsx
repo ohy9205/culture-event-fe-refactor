@@ -132,6 +132,14 @@ const ControlBox = () => {
           ))}
         </select>
       </div>
+
+      <div>
+        <input
+          value={filter.keyword}
+          name="keyword"
+          onChange={onFilterChange}
+        />
+      </div>
     </section>
   );
 };

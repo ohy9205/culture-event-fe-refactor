@@ -10,6 +10,7 @@ export async function getFilteredEvents(
   startDate: string,
   endDate: string,
   orderBy: string,
+  keyword: string,
   pageIndex: number,
   pageSize: number
 ): Promise<APIResponse> {
@@ -19,9 +20,10 @@ export async function getFilteredEvents(
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
   const orderByQuery = orderBy && `orderBy=${orderBy}&`;
+  const keywordQuery = `keyword=${keyword} &`;
   const pageIndexQuery = `pageIndex=${pageIndex + 1}&`;
   const pageSizeQuery = `pageSize=${pageSize}`;
-  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`;
+  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${keywordQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`;
 
   const rs = await authorizedAPIFetch(url, "GET");
   const payload =

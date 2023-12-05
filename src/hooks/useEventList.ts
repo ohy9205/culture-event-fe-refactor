@@ -33,7 +33,8 @@ const useEventList = () => {
 
   useEffect(() => {
     const fetchingData = async () => {
-      const { location, category, cost, startDate, endDate, orderBy } = filter;
+      const { location, category, cost, startDate, endDate, orderBy, keyword } =
+        filter;
       const data = await getFilteredEvents(
         location,
         category,
@@ -41,6 +42,7 @@ const useEventList = () => {
         startDate,
         endDate,
         orderBy,
+        keyword,
         pagination.pageIndex,
         PAGE_PER_SIZE
       );

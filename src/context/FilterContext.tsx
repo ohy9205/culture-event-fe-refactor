@@ -12,6 +12,7 @@ export type Filter = {
   startDate: string;
   endDate: string;
   orderBy: string;
+  keyword: string;
 };
 
 export const initialFilter = {
@@ -21,6 +22,7 @@ export const initialFilter = {
   startDate: "",
   endDate: "",
   orderBy: "",
+  keyword: "",
 };
 
 export const FilterContext = createContext({
@@ -39,6 +41,7 @@ export const FilterProvider = ({ children, query }: Props) => {
     startDate: "",
     endDate: "",
     orderBy: query ? query : "",
+    keyword: "",
   });
 
   const onFilterChange = (

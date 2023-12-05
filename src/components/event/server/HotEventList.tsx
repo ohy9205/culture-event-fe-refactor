@@ -1,3 +1,4 @@
+import { Event } from "@/src/types/events";
 import Image from "next/image";
 import Link from "next/link";
 import { getHotEvents } from "../../../apis/event/v1";
@@ -8,8 +9,8 @@ import EventDetail from "../client/EventDetail";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();
-  const hottestEvent = hotEvents && hotEvents[0];
-  const otherEvents = hotEvents?.splice(1);
+  const hottestEvent = hotEvents.payload[0];
+  const otherEvents = hotEvents.payload.splice(1);
 
   return (
     <section className="p-10 flex flex-col gap-6">
@@ -28,7 +29,7 @@ const HotEventList = async () => {
         </ModalToggleCard>
         <div className="flex-grow">
           <GridContainer isReponsive={false}>
-            {otherEvents?.map((event) => (
+            {otherEvents?.map((event: Event) => (
               <ModalToggleCard
                 key={event.id}
                 modalContent={<EventDetail id={event.id} />}

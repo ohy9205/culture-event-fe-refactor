@@ -27,7 +27,6 @@ const EventDetail = ({ id }: Props) => {
       eventPeriod,
       fee,
       homePage,
-      id,
       latitude,
       isFree,
       targetAudience,
@@ -103,7 +102,7 @@ const EventDetail = ({ id }: Props) => {
       </div>
     );
   } else {
-    return <div>내용X</div>;
+    return <div>엥</div>;
   }
 };
 

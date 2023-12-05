@@ -10,6 +10,20 @@ const useSignin = () => {
   const router = useRouter();
   const { mutate } = useUser();
 
+  const responseHandler = (status: number, message: string) => {
+    if (status === 403) {
+      setEmailValid(message);
+    } else if (status === 409) {
+      alert(`${message} 이메일 또는 비밀번호를 확인해주세요`);
+      setEmail("");
+      setPassword("");
+      setEmailValid("");
+    } else if (status === 200) {
+      mutate();
+      router.push("/");
+    }
+  };
+
   const signin = async () => {
     const requestBody = {
       email,
@@ -18,16 +32,8 @@ const useSignin = () => {
 
     const result = await postSignin(requestBody);
 
-    if (result.status === 403) {
-      setEmailValid(result.message);
-    } else if (result.status === 409) {
-      alert(`${result.message} 이메일 또는 비밀번호를 확인해주세요`);
-      setEmail("");
-      setPassword("");
-      setEmailValid("");
-    } else {
-      mutate();
-      router.push("/");
+    if (result) {
+      responseHandler(result.status, result.message);
     }
   };
 

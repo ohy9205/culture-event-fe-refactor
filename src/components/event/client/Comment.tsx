@@ -114,22 +114,25 @@ const Comment = ({ eventId, initComments }: Props) => {
         )}
 
         {/* 댓글 입력 폼 */}
-        <li>
-          {!isModify.status && (
-            <form onSubmit={onSubmitHandler}>
-              <textarea
-                onChange={(e) => {
-                  setCommentInput(e.target.value);
-                }}
-                value={commentInput}
-                className="w-full h-[100px] border resize-none"
-              ></textarea>
-              <Button size="sm" color="dark">
-                댓글
-              </Button>
-            </form>
-          )}
-        </li>
+        {loginUser && (
+          <li>
+            {!isModify.status && (
+              <form onSubmit={onSubmitHandler}>
+                <textarea
+                  onChange={(e) => {
+                    setCommentInput(e.target.value);
+                  }}
+                  value={commentInput}
+                  className="w-full h-[100px] border resize-none"
+                ></textarea>
+                <Button size="sm" color="dark">
+                  댓글
+                </Button>
+              </form>
+            )}
+          </li>
+        )}
+        {!loginUser && <li>댓글 작성을 위해 로그인하세요</li>}
       </ul>
     </div>
   );

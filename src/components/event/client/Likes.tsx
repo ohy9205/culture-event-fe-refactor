@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { toggleLikes } from "../../../apis/event/v2";
 import useMyLikes from "../../../hooks/useMyLikes";
 import Button from "../../UI/common/Button";
 
@@ -12,14 +10,11 @@ type Props = {
 };
 
 const Likes = ({ eventId, useBackground, likesCount }: Props) => {
-  const { isMyLikes: myLikes, mutate } = useMyLikes(eventId);
-  const [count, setCount] = useState(likesCount);
-
-  const onToggleLikesHandler = async () => {
-    const count = await toggleLikes(eventId);
-    setCount(count);
-    mutate();
-  };
+  const {
+    isMyLikes: myLikes,
+    count,
+    onToggleLikesHandler,
+  } = useMyLikes(eventId, likesCount);
 
   return (
     <div className={`flex gap-3 items-center`}>
@@ -31,7 +26,7 @@ const Likes = ({ eventId, useBackground, likesCount }: Props) => {
       {!useBackground && (
         <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
       )}
-      {count && <p>{count}</p>}
+      {likesCount && <p>{count}</p>}
     </div>
   );
 };

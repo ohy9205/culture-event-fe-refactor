@@ -1,9 +1,4 @@
-import {
-  Comment,
-  DetailEvent,
-  SimpleEvent,
-  SimpleEventListWithPagination,
-} from "@/src/types/events";
+import { APIResponse } from "@/src/types/APIResponse";
 import { authorizedAPIFetch } from "../common/commonAPIFetch";
 import { API_V2 } from "../common/url";
 
@@ -17,7 +12,7 @@ export async function getFilteredEvents(
   orderBy: string,
   pageIndex: number,
   pageSize: number
-): Promise<SimpleEventListWithPagination | undefined> {
+): Promise<APIResponse> {
   const locationQuery = location && `location=${location}&`;
   const categoryQuery = category && `category=${category}&`;
   const costQuery = cost && `isfree=${cost}&`;
@@ -29,11 +24,17 @@ export async function getFilteredEvents(
   const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`;
 
   const rs = await authorizedAPIFetch(url, "GET");
-  const payload = rs.payload;
+  const payload =
+    rs.status === 200
+      ? {
+          events: rs.payload.events.rows,
+          totalPage: rs.payload.totalPage,
+        }
+      : rs.payload;
 
   return {
-    events: payload.events.rows,
-    totalPage: payload.totalPage,
+    ...rs,
+    payload,
   };
 }
 
@@ -45,7 +46,7 @@ export async function getFilteredEventsWithoutPagination(
   startDate: string,
   endDate: string,
   orderBy: string
-): Promise<SimpleEvent[] | undefined> {
+): Promise<APIResponse> {
   const locationQuery = location && `location=${location}&`;
   const categoryQuery = category && `category=${category}&`;
   const costQuery = cost && `isfree=${cost}&`;
@@ -55,35 +56,34 @@ export async function getFilteredEventsWithoutPagination(
   const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`;
 
   const rs = await authorizedAPIFetch(url, "GET");
-
-  return rs.payload.events;
+  return rs;
 }
 
 // 상세정보
 export async function getEventDetailWithLogin(
   id: number
-): Promise<DetailEvent | undefined> {
+): Promise<APIResponse> {
+  // ): Promise<DetailEvent | undefined> {
   const url = `${API_V2}/${id}`;
   const rs = await authorizedAPIFetch(url, "GET");
 
-  return rs.payload.event;
+  return rs;
 }
 
 // 해당 이벤트 코멘트
-export async function getComments(
-  eventId: number
-): Promise<Comment[] | undefined> {
+export async function getComments(eventId: number): Promise<APIResponse> {
   const url = `${API_V2}/${eventId}/comments`;
 
   const rs = await authorizedAPIFetch(url, "GET");
 
-  return rs.payload.comments;
+  // return rs.payload.comments;
+  return rs;
 }
 
 // 좋아요 토글
-export async function toggleLikes(eventId: number) {
+export async function toggleLikes(eventId: number): Promise<APIResponse> {
   const url = `${API_V2}/${eventId}/likes`;
   const rs = await authorizedAPIFetch(url, "POST");
 
-  return rs.payload.eventLikesCount;
+  return rs;
 }

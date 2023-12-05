@@ -7,13 +7,13 @@ const useUser = () => {
     getUserMe
   );
 
-  const loggedOut = data && data.code !== 200;
+  const loggedOut = data ? false : true;
 
   return {
     isLoading,
     isValidating,
     loggedOut,
-    user: data && data.payload,
+    user: data,
     mutate,
   };
 };

@@ -1,39 +1,17 @@
 import { signinBody, signupBody } from "../../types/auth";
+import { APIFetch } from "../common/commonAPIFetch";
 import { API_AUTH } from "../common/url";
 
 export async function postSignup(body: signupBody) {
-  try {
-    const signupResult = fetch(`${API_AUTH}/signUp`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((data) => data);
+  const url = `${API_AUTH}/signUp`;
+  const rs = await APIFetch(url, "POST", body);
 
-    return signupResult;
-  } catch (err) {
-    console.error(err);
-  }
+  return rs;
 }
 
 // 로그인
 export async function postSignin(body: signinBody) {
-  try {
-    const signinResult = fetch(`${API_AUTH}/signIn`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((data) => data);
-    return signinResult;
-  } catch (err) {
-    console.error(err);
-  }
+  const url = `${API_AUTH}/signIn`;
+  const rs = await APIFetch(url, "POST", body);
+  return rs;
 }

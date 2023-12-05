@@ -11,7 +11,7 @@ const MyInfo = () => {
     user: { nickname, email },
     myComments,
     myFavoriteEvents,
-    getMyFavoriteEvents,
+    getMyLikes,
     logoutHanlder,
   } = useMyInfo();
 
@@ -44,7 +44,7 @@ const MyInfo = () => {
       </button>
       <div
         className="border p-2 rounded-lg bg-blue-500 text-white"
-        onClick={getMyFavoriteEvents}
+        onClick={getMyLikes}
       >
         내가 좋아하는 이벤트
       </div>

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import useEventDetail from "../../../hooks/useEventDetail";
-import Button from "../../UI/common/Button";
 import Comment from "./Comment";
 import Likes from "./Likes";
 import StaticMap from "./StaticMap";
@@ -17,7 +16,7 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { eventDetail, mutate } = useEventDetail(id);
+  const { eventDetail } = useEventDetail(id);
 
   if (eventDetail) {
     const {
@@ -35,6 +34,7 @@ const EventDetail = ({ id }: Props) => {
       longitude,
       Users: likesUsers,
       views,
+      Comments,
     } = eventDetail;
 
     return (
@@ -51,8 +51,11 @@ const EventDetail = ({ id }: Props) => {
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
               <li className="flex gap-2">
-                <Likes eventId={id} useBackground detailMutate={mutate} />
-                <p className={INFO_STYLE}>{likesUsers.length}</p>
+                <Likes
+                  eventId={id}
+                  useBackground
+                  likesCount={likesUsers.length}
+                />
 
                 <div className="flex gap-1 items-center ml-10">
                   <span>조회수</span>
@@ -83,7 +86,7 @@ const EventDetail = ({ id }: Props) => {
               </li>
             </ul>
             <Link href={homePage || "/"} target="_blank" className="w-fit">
-              <Button size="lg" color="dark">{`상세정보 보러가기 >`}</Button>
+              {/* <Button size="lg" color="dark">{`상세정보 보러가기 >`}</Button> */}
             </Link>
           </div>
         </section>
@@ -95,7 +98,7 @@ const EventDetail = ({ id }: Props) => {
           />
         </section>
         <section>
-          <Comment eventId={id} />
+          <Comment eventId={id} initComments={Comments} />
         </section>
       </div>
     );

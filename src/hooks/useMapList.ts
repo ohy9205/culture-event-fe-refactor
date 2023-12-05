@@ -22,14 +22,16 @@ const useMapList = () => {
   // 필터변경시
   useEffect(() => {
     const fetchingData = async () => {
-      const { location, category, cost, startDate, endDate, orderBy } = filter;
+      const { location, category, cost, startDate, endDate, orderBy, keyword } =
+        filter;
       const data = await getFilteredEventsWithoutPagination(
         location,
         category,
         cost,
         startDate,
         endDate,
-        orderBy
+        orderBy,
+        keyword
       );
 
       if (data) {

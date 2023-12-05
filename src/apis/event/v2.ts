@@ -20,7 +20,7 @@ export async function getFilteredEvents(
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
   const orderByQuery = orderBy && `orderBy=${orderBy}&`;
-  const keywordQuery = `keyword=${keyword} &`;
+  const keywordQuery = `keyword=${keyword}&`;
   const pageIndexQuery = `pageIndex=${pageIndex + 1}&`;
   const pageSizeQuery = `pageSize=${pageSize}`;
   const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${keywordQuery}${endDateQuery}${orderByQuery}${pageIndexQuery}${pageSizeQuery}`;
@@ -47,15 +47,17 @@ export async function getFilteredEventsWithoutPagination(
   cost: string,
   startDate: string,
   endDate: string,
-  orderBy: string
+  orderBy: string,
+  keyword: string
 ): Promise<APIResponse> {
   const locationQuery = location && `location=${location}&`;
   const categoryQuery = category && `category=${category}&`;
   const costQuery = cost && `isfree=${cost}&`;
   const startDateQuery = startDate && `start=${startDate}&`;
   const endDateQuery = endDate && `end=${endDate}&`;
-  const orderByQuery = orderBy && `orderBy=${orderBy}`;
-  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}`;
+  const orderByQuery = orderBy && `orderBy=${orderBy}&`;
+  const keywordQuery = keyword && `keyword=${keyword}`;
+  const url = `${API_V2}?${locationQuery}${categoryQuery}${costQuery}${startDateQuery}${endDateQuery}${orderByQuery}${keywordQuery}`;
 
   const rs = await authorizedAPIFetch(url, "GET");
   return rs;

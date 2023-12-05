@@ -8,6 +8,7 @@ const useSignup = () => {
   const [nick, setNick] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [valid, setValid] = useState("");
 
   const router = useRouter();
   const { user } = useUser();
@@ -27,10 +28,9 @@ const useSignup = () => {
 
     const result = await postSignup(requestBody);
 
-    if (result.code !== 200) {
-      alert(result.message);
-      router.push("/");
-    } else {
+    if (result.status === 409 || result.status === 403) {
+      setValid(result.message);
+    } else if (result.status === 200) {
       router.push("/signin");
     }
   };
@@ -45,6 +45,7 @@ const useSignup = () => {
     passwordConfirm,
     setPasswordConfirm,
     signup,
+    valid,
   };
 };
 

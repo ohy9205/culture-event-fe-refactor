@@ -14,6 +14,7 @@ const SignupForm = () => {
     passwordConfirm,
     setPasswordConfirm,
     signup,
+    valid,
   } = useSignup();
 
   return (
@@ -71,6 +72,9 @@ const SignupForm = () => {
           }}
         />
       </form>
+      {valid && (
+        <p className="text-center text-sm text-red-800 mb-4">{valid}</p>
+      )}
       <button
         className="w-full font-semibold text-xl border rounded-md py-[12px]"
         onClick={signup}

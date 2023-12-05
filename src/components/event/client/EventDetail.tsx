@@ -16,7 +16,7 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { eventDetail } = useEventDetail(id);
+  const { eventDetail, isLoading } = useEventDetail(id);
 
   if (eventDetail) {
     const {
@@ -101,8 +101,16 @@ const EventDetail = ({ id }: Props) => {
         </section>
       </div>
     );
+  } else if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <h1>Loading...</h1>
+      </div>
+    );
   } else {
-    return <div>엥</div>;
+    <div className="flex justify-center items-center">
+      내용을 불러올 수 없습니다.
+    </div>;
   }
 };
 

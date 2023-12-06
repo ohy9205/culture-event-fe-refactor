@@ -11,7 +11,6 @@ const useUser = () => {
 
   // response 핸들러
   const responseHandler = (status: number, message: string) => {
-    console.log("호출");
     if (!status) {
       return;
     }

@@ -49,7 +49,6 @@ const useMyInfo = () => {
   }, []);
 
   const logoutHanlder = () => {
-    console.log(user);
     localStorage.removeItem("at");
     mutate();
   };

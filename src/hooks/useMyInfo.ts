@@ -32,8 +32,7 @@ const useMyInfo = () => {
       const data = await getMyLikes();
 
       if (data) {
-        console.log(data);
-        responseHandler;
+        responseHandler(data.status);
         setMyFavoriteEvents(data.payload.data);
       }
     };
@@ -41,7 +40,6 @@ const useMyInfo = () => {
     const commentsFetch = async () => {
       const data = await getMyComments();
       if (data) {
-        console.log(data);
         setMyComments(data.payload.commentsWithEvents);
       }
     };

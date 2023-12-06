@@ -6,7 +6,9 @@ import useUser from "../../../hooks/useUser";
 const AuthLinks = () => {
   const { loggedOut, isLoading } = useUser();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>

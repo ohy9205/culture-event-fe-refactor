@@ -22,7 +22,7 @@ const useEventList = () => {
   ) => {
     if (status === 200) {
       setEvents(events);
-    } else {
+    } else if (status !== 401) {
       router.push(`/error/${status}`);
     }
   };

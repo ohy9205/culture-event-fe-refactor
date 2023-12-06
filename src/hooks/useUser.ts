@@ -17,6 +17,7 @@ const useUser = () => {
       router.push("/error/404");
     } else if (status !== 401 && status !== 200) {
       router.push(`/error/${status}`);
+    } else {
     }
   };
 

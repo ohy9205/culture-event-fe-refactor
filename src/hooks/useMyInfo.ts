@@ -41,7 +41,6 @@ const useMyInfo = () => {
     const commentsFetch = async () => {
       const data = await getMyComments();
       if (data) {
-        console.log(data);
         setMyComments(data.payload.commentsWithEvents);
       }
     };

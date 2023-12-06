@@ -61,83 +61,86 @@ const ControlBox = () => {
   const { filter, onFilterChange } = useContext(FilterContext);
 
   return (
-    <section className="w-full h-full flex md:flex-row flex-col gap-5 justify-center my-5">
-      <div className="flex gap-5">
-        <select
-          onChange={onFilterChange}
-          name="location"
-          className={SELECT_STYLE}
-          value={filter.location}
-        >
-          {LOCATION.map((it) => (
-            <option key={it.text} value={it.value}>
-              {it.text}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={onFilterChange}
-          name="category"
-          className={SELECT_STYLE}
-          value={filter.category}
-        >
-          {CATEGORY.map((it) => (
-            <option key={it.text} value={it.value}>
-              {it.text}
-            </option>
-          ))}
-        </select>
-        <select
-          onChange={onFilterChange}
-          name="cost"
-          className={SELECT_STYLE}
-          value={filter.cost}
-        >
-          {COST.map((it) => (
-            <option key={it.text} value={it.value}>
-              {it.text}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex gap-2 items-center">
-        <input
-          type="date"
-          name="startDate"
-          onChange={onFilterChange}
-          value={filter.startDate}
-          className={SELECT_STYLE}
-        />
-        <div>-</div>
-        <input
-          type="date"
-          name="endDate"
-          onChange={onFilterChange}
-          value={filter.endDate}
-          className={SELECT_STYLE}
-        />
-      </div>
+    <section className="mb-5">
+      <div className="w-full h-full flex md:flex-row flex-col gap-5 my-5">
+        <div className="flex gap-5">
+          <select
+            onChange={onFilterChange}
+            name="location"
+            className={SELECT_STYLE}
+            value={filter.location}
+          >
+            {LOCATION.map((it) => (
+              <option key={it.text} value={it.value}>
+                {it.text}
+              </option>
+            ))}
+          </select>
+          <select
+            onChange={onFilterChange}
+            name="category"
+            className={SELECT_STYLE}
+            value={filter.category}
+          >
+            {CATEGORY.map((it) => (
+              <option key={it.text} value={it.value}>
+                {it.text}
+              </option>
+            ))}
+          </select>
+          <select
+            onChange={onFilterChange}
+            name="cost"
+            className={SELECT_STYLE}
+            value={filter.cost}
+          >
+            {COST.map((it) => (
+              <option key={it.text} value={it.value}>
+                {it.text}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex gap-2 items-center">
+          <input
+            type="date"
+            name="startDate"
+            onChange={onFilterChange}
+            value={filter.startDate}
+            className={SELECT_STYLE}
+          />
+          <div>-</div>
+          <input
+            type="date"
+            name="endDate"
+            onChange={onFilterChange}
+            value={filter.endDate}
+            className={SELECT_STYLE}
+          />
+        </div>
 
-      <div className="">
-        <select
-          onChange={onFilterChange}
-          name="orderBy"
-          className={SELECT_STYLE}
-          value={filter.orderBy}
-        >
-          {ORDER_BY.map((it) => (
-            <option key={it.text} value={it.value}>
-              {it.text}
-            </option>
-          ))}
-        </select>
+        <div className="">
+          <select
+            onChange={onFilterChange}
+            name="orderBy"
+            className={SELECT_STYLE}
+            value={filter.orderBy}
+          >
+            {ORDER_BY.map((it) => (
+              <option key={it.text} value={it.value}>
+                {it.text}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-
       <div>
         <input
           value={filter.keyword}
           name="keyword"
           onChange={onFilterChange}
+          placeholder="검색어를 입력하세요"
+          className={SELECT_STYLE}
         />
       </div>
     </section>

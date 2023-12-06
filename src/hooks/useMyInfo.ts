@@ -32,8 +32,7 @@ const useMyInfo = () => {
       const data = await getMyLikes();
 
       if (data) {
-        console.log(data);
-        responseHandler;
+        responseHandler(data.status);
         setMyFavoriteEvents(data.payload.data);
       }
     };

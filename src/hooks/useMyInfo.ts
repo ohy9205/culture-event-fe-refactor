@@ -7,7 +7,7 @@ import useUser from "./useUser";
 const useMyInfo = () => {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
-  const { mutate, user } = useUser();
+  const { mutate, loggedOut, user, isLoading } = useUser();
   const [myFavoriteEvents, setMyFavoriteEvents] = useState<FavoriteEvent[]>([]);
   const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
@@ -19,7 +19,7 @@ const useMyInfo = () => {
   };
 
   useEffect(() => {
-    if (!user) {
+    if (!isLoading && loggedOut) {
       router.push("/");
     } else {
       setNickname(user.nick);
@@ -49,15 +49,9 @@ const useMyInfo = () => {
   }, []);
 
   const logoutHanlder = () => {
+    console.log(user);
     localStorage.removeItem("at");
-    mutate({
-      ...user,
-      payload: {
-        email: "",
-        nick: "",
-      },
-    });
-    router.push("/");
+    mutate();
   };
 
   return {

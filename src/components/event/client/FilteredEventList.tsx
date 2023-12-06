@@ -26,8 +26,6 @@ const FilteredEventList = () => {
     if (!isLoading && loggedOut) {
       alert("로그인이 필요한 페이지입니다.");
       router.push("/signin");
-    } else if (query) {
-      router.push("/event");
     }
   }, [query, loggedOut, isLoading, router]);
 

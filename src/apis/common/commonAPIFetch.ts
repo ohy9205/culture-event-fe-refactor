@@ -19,6 +19,9 @@ export const authorizedAPIFetch = async (
     },
     credentials: "include",
     body: body ? JSON.stringify(body) : null,
+    next: {
+      revalidate: 36000,
+    },
   });
 
   const data = await rs.json();
@@ -45,6 +48,9 @@ export const APIFetch = async (
     },
     credentials: "include",
     body: body ? JSON.stringify(body) : null,
+    next: {
+      revalidate: 36000,
+    },
   });
   const data = await rs.json();
 

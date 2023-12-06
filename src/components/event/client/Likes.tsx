@@ -16,6 +16,17 @@ const Likes = ({ eventId, useBackground, likesCount }: Props) => {
     onToggleLikesHandler,
   } = useMyLikes(eventId, likesCount);
 
+  const countRender = () => {
+    if (likesCount === undefined || count === undefined) {
+      return;
+    }
+    if (count !== undefined) {
+      return count;
+    } else if (likesCount) {
+      return likesCount;
+    }
+  };
+
   return (
     <div className={`flex gap-3 items-center`}>
       {useBackground && (
@@ -26,7 +37,7 @@ const Likes = ({ eventId, useBackground, likesCount }: Props) => {
       {!useBackground && (
         <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
       )}
-      {likesCount && <p>{count}</p>}
+      {countRender()}
     </div>
   );
 };

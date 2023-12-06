@@ -15,7 +15,7 @@ export const useMyLikes = (eventId: number, likesCount?: number) => {
   const responseHandler = (status: number, message: string) => {
     if (status === 403) {
       alert(message);
-    } else if (status !== 200 && status !== 401) {
+    } else if (status !== 200 && status !== 201 && status !== 401) {
       router.push(`/error/${status}`);
     }
   };
@@ -34,9 +34,13 @@ export const useMyLikes = (eventId: number, likesCount?: number) => {
     if (loggedOut) {
       return;
     }
-    const count = await toggleLikes(eventId);
-    setCount(count.payload.eventLikesCount);
+    const rs = await toggleLikes(eventId);
+
+    if (rs) {
+      responseHandler(rs.status, rs.message);
+    }
     mutate();
+    setCount(rs.payload.eventLikesCount);
   };
 
   return {

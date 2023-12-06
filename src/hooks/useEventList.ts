@@ -35,6 +35,7 @@ const useEventList = () => {
     const fetchingData = async () => {
       const { location, category, cost, startDate, endDate, orderBy, keyword } =
         filter;
+
       const data = await getFilteredEvents(
         location,
         category,
@@ -53,7 +54,7 @@ const useEventList = () => {
     };
 
     fetchingData();
-  }, [pagination]);
+  }, [pagination, filter]);
 
   return {
     events,

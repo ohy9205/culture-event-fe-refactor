@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import useDebounce from "../hooks/useDebounce";
 
 type Props = {
   query: string;
@@ -44,18 +45,26 @@ export const FilterProvider = ({ children, query }: Props) => {
     keyword: "",
   });
 
+  const debounceValue = useDebounce(filter, 200);
+
   const onFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
+
     setFilter((prev: Filter) => ({
       ...prev,
       [name]: value,
     }));
   };
-
   return (
-    <FilterContext.Provider value={{ filter, setFilter, onFilterChange }}>
+    <FilterContext.Provider
+      value={{
+        filter: debounceValue,
+        setFilter,
+        onFilterChange,
+      }}
+    >
       {children}
     </FilterContext.Provider>
   );

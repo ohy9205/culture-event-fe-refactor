@@ -8,7 +8,7 @@ type FetchOption = {
   credentials?: RequestCredentials;
   body?: Record<string, any> | null;
   cache?: RequestCache;
-  next?: Record<string, any>;
+  next?: NextFetchRequestConfig;
 };
 
 // 액션

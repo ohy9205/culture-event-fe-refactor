@@ -7,13 +7,10 @@ import useUser from "./useUser";
 const useEventDetail = (eventId: number) => {
   const router = useRouter();
   const { loggedOut } = useUser();
-  const { data, isLoading } = useSWR(
-    `eventDetail/${eventId}`,
-    () =>
-      loggedOut
-        ? getEventDetailWithoutLogin(eventId)
-        : getEventDetailWithLogin(eventId),
-    { revalidateOnFocus: false }
+  const { data, isLoading } = useSWR(`eventDetail/${eventId}`, () =>
+    loggedOut
+      ? getEventDetailWithoutLogin(eventId)
+      : getEventDetailWithLogin(eventId)
   );
 
   const responseHandler = (status: number, message: string) => {

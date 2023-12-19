@@ -10,12 +10,12 @@ const MyInfoContainer = () => {
   const { state } = useAuthContext();
 
   useEffect(() => {
-    console.log(state.isLoggedIn);
-    if (!state.isLoggedIn) {
+    console.log(state);
+    if (state.isLoggedIn !== undefined && !state.isLoggedIn) {
       alert("로그인이 필요한 페이지입니다.");
       router.push("/signin");
     }
-  }, [state.isLoggedIn, router]);
+  }, [state.isLoggedIn]);
 
   return <>{state.isLoggedIn && <MyInfo />}</>;
 };

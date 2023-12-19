@@ -47,8 +47,7 @@ export const AuthContextProvider = ({
   };
 
   useEffect(() => {
-    const token = getAccessToken();
-    if (token) {
+    if (getAccessToken()) {
       setAuthState((prev) => ({ ...prev, isLoggedIn: true }));
     } else {
       setAuthState((prev) => ({ ...prev, isLoggedIn: false }));

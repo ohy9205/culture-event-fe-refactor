@@ -23,45 +23,41 @@ const FilteredEventList = () => {
   const { state } = useAuthContext();
 
   useEffect(() => {
-    if (!state.isLoggedIn) {
+    if (state.isLoggedIn !== undefined && !state.isLoggedIn) {
       alert("로그인이 필요한 페이지입니다.");
       router.push("/signin");
     }
-  }, [state, router]);
+  }, [state.isLoggedIn]);
 
   return (
     <>
       {state.isLoggedIn && (
         <FilterProvider query={query}>
-          {!state.isLoggedIn && (
-            <>
-              <ControlBox />
-              <section className="w-full flex flex-col py-5 gap-5">
-                <div className="w-full flex gap-5 justify-start border-b-4 pb-2">
-                  {TAB_LIST.map((it) => (
-                    <Button
-                      key={it.text}
-                      onClick={() => setIsListMode(it.isListMode)}
-                      size={`${it.isListMode === isListMode ? "md" : "sm"}`}
-                      color={`${
-                        it.isListMode === isListMode ? "dark" : "light"
-                      }`}
-                    >
-                      {it.text}
-                    </Button>
-                  ))}
-                </div>
+          <>
+            <ControlBox />
+            <section className="w-full flex flex-col py-5 gap-5">
+              <div className="w-full flex gap-5 justify-start border-b-4 pb-2">
+                {TAB_LIST.map((it) => (
+                  <Button
+                    key={it.text}
+                    onClick={() => setIsListMode(it.isListMode)}
+                    size={`${it.isListMode === isListMode ? "md" : "sm"}`}
+                    color={`${it.isListMode === isListMode ? "dark" : "light"}`}
+                  >
+                    {it.text}
+                  </Button>
+                ))}
+              </div>
 
-                {isListMode && (
-                  <PaginationProvider>
-                    <EventList />
-                    <Pagination />
-                  </PaginationProvider>
-                )}
-                {!isListMode && <MapList />}
-              </section>
-            </>
-          )}
+              {isListMode && (
+                <PaginationProvider>
+                  <EventList />
+                  <Pagination />
+                </PaginationProvider>
+              )}
+              {!isListMode && <MapList />}
+            </section>
+          </>
         </FilterProvider>
       )}
     </>

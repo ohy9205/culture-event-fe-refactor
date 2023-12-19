@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "../components/UI/layout/Header";
+import { AuthContextProvider } from "../context/AuthContext";
 import SWRProvider from "../provider/swrProvider";
 import "./globals.css";
 
@@ -28,9 +29,11 @@ export default function RootLayout({
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
         <SWRProvider>
-          <div id="modal"></div>
-          <Header />
-          {children}
+          <AuthContextProvider>
+            <div id="modal"></div>
+            <Header />
+            {children}
+          </AuthContextProvider>
         </SWRProvider>
       </body>
     </html>

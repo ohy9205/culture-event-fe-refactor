@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useState } from "react";
 
 const initialValue = {
@@ -8,29 +10,29 @@ const initialValue = {
       nick: "",
     },
   },
-  onChangeAuth: (
-    isLoggedIn: boolean,
-    user: {
-      email: string;
-      nick: string;
-    }
-  ) => {},
+  setAuth: (email: string, nick: string) => {},
+  initAuth: () => {},
 };
 
 const AuthContext = createContext(initialValue);
 
-const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [auth, setAuth] = useState(initialValue.state);
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [authState, setAuthState] = useState(initialValue.state);
 
-  const onChangeAuth = (
-    isLoggedIn: boolean,
-    user: { email: string; nick: string }
-  ) => {
-    setAuth({ isLoggedIn, user });
+  const setAuth = (email: string, nick: string) => {
+    setAuthState({ isLoggedIn: true, user: { email, nick } });
+  };
+
+  const initAuth = () => {
+    setAuthState(initialValue.state);
   };
 
   return (
-    <AuthContext.Provider value={{ state: auth, onChangeAuth }}>
+    <AuthContext.Provider value={{ state: authState, setAuth, initAuth }}>
       {children}
     </AuthContext.Provider>
   );

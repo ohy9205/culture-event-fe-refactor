@@ -2,15 +2,9 @@
 
 import { useAuthContext } from "@/src/context/AuthContext";
 import Link from "next/link";
-import useUser from "../../../hooks/useUser";
 
 const AuthLinks = () => {
-  const { loggedOut, isLoading } = useUser();
   const { state } = useAuthContext();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>

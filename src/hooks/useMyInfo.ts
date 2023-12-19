@@ -20,14 +20,14 @@ const useMyInfo = () => {
     }
   };
 
-  useEffect(() => {
-    if (!isLoading && loggedOut) {
-      router.push("/");
-    } else {
-      setNickname(user.nick);
-      setEmail(user.email);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (!isLoading && loggedOut) {
+  //     router.push("/");
+  //   } else {
+  //     setNickname(user.nick);
+  //     setEmail(user.email);
+  //   }
+  // }, [user]);
 
   useEffect(() => {
     const likesFetch = async () => {

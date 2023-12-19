@@ -1,6 +1,8 @@
 "use client";
 
+import { useAuthContext } from "@/src/context/AuthContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import useMyInfo from "../../../hooks/useMyInfo";
 import { convertKRTime } from "../../../utils/convertKRTime";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
@@ -14,6 +16,8 @@ const MyInfo = () => {
     getMyLikes,
     logoutHanlder,
   } = useMyInfo();
+  const router = useRouter();
+  const { state } = useAuthContext();
 
   return (
     <div className="flex flex-col max-w-[900px] overflow-x-scroll w-full items-center gap-10 mt-[100px]">

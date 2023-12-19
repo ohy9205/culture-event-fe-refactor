@@ -1,16 +1,21 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { postSignin } from "../apis/auth/auth";
-import useUser from "./useUser";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailValid, setEmailValid] = useState("");
   const router = useRouter();
-  const { mutate } = useUser();
+  const { setAuth } = useAuthContext();
 
-  const responseHandler = (status: number, message: string) => {
+  const responseHandler = (result: {
+    status: number;
+    message: string;
+    payload: Record<string, any>;
+  }) => {
+    const { status, message, payload } = result;
     if (status === 403) {
       setEmailValid(message);
     } else if (status === 409) {
@@ -19,7 +24,7 @@ const useSignin = () => {
       setPassword("");
       setEmailValid("");
     } else if (status === 200) {
-      mutate();
+      setAuth(payload.email, payload.nick);
       router.push("/");
     }
   };
@@ -33,7 +38,7 @@ const useSignin = () => {
     const result = await postSignin(requestBody);
 
     if (result) {
-      responseHandler(result.status, result.message);
+      responseHandler(result);
     }
   };
 

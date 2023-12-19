@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getMyComments, getMyLikes } from "../apis/user/user";
+import { useAuthContext } from "../context/AuthContext";
 import { FavoriteEvent, MyComment } from "../types/user";
 import useUser from "./useUser";
 
@@ -11,6 +12,7 @@ const useMyInfo = () => {
   const [myFavoriteEvents, setMyFavoriteEvents] = useState<FavoriteEvent[]>([]);
   const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
+  const { initAuth } = useAuthContext();
 
   const responseHandler = (status: number) => {
     if (status !== 200) {
@@ -50,7 +52,8 @@ const useMyInfo = () => {
 
   const logoutHanlder = () => {
     localStorage.removeItem("at");
-    mutate();
+    initAuth();
+    router.push("/");
   };
 
   return {

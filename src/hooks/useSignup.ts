@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { postSignup } from "../apis/auth/auth";
-import useUser from "./useUser";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignup = () => {
   const [email, setEmail] = useState("");
@@ -9,15 +9,17 @@ const useSignup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [valid, setValid] = useState("");
+  const {
+    state: { isLoggedIn },
+  } = useAuthContext();
 
   const router = useRouter();
-  const { user } = useUser();
 
   useEffect(() => {
-    if (user) {
+    if (isLoggedIn) {
       router.push("/");
     }
-  }, [user]);
+  }, [isLoggedIn]);
 
   const signup = async () => {
     const requestBody = {

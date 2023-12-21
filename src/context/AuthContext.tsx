@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { getAccessToken } from "../utils/getAccessToken";
+import { getUserMe } from "../apis/user/user";
 
 type InitialValue = {
   state: InitialState;
@@ -47,11 +47,19 @@ export const AuthContextProvider = ({
   };
 
   useEffect(() => {
-    if (getAccessToken()) {
-      setAuthState((prev) => ({ ...prev, isLoggedIn: true }));
-    } else {
-      setAuthState((prev) => ({ ...prev, isLoggedIn: false }));
-    }
+    const checkLogin = async () => {
+      const { status, payload } = await getUserMe();
+      if (status === 200) {
+        setAuthState((prev) => ({
+          ...prev,
+          isLoggedIn: true,
+          user: { email: payload.email, nick: payload.nick },
+        }));
+      } else {
+        setAuthState((prev) => ({ ...prev, isLoggedIn: false }));
+      }
+    };
+    checkLogin();
   }, []);
 
   return (

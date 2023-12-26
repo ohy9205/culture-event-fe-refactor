@@ -53,7 +53,7 @@ export const AuthContextProvider = ({
         setAuthState((prev) => ({
           ...prev,
           isLoggedIn: true,
-          user: { email: payload.email, nick: payload.nick },
+          user: { email: payload.user.email, nick: payload.user.nick },
         }));
       } else {
         setAuthState((prev) => ({ ...prev, isLoggedIn: false }));

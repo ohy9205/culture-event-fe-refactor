@@ -1,7 +1,7 @@
 "use client";
 
+import { useAuthContext } from "@/src/context/AuthContext";
 import useComment from "@/src/hooks/useComment";
-import useUser from "@/src/hooks/useUser";
 import { Comment } from "@/src/types/events";
 import { convertKRTime } from "@/src/utils/convertKRTime";
 import Button from "../../UI/common/Button";
@@ -12,17 +12,11 @@ type Props = {
 };
 
 const Comment = ({ eventId, initComments }: Props) => {
-  const { user: loginUser } = useUser();
   const {
-    comments,
-    commentInput,
-    setCommentInput,
-    isModify,
-    onIsModifyHandler,
-    onModifyHandler,
-    onRemoveHandler,
-    onSubmitHandler,
-  } = useComment(eventId, initComments);
+    state: { user: loginUser },
+  } = useAuthContext();
+  const { get, changeModifyMode, changeInput, modify, remove, submit } =
+    useComment(eventId, initComments);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;
@@ -37,11 +31,11 @@ const Comment = ({ eventId, initComments }: Props) => {
       <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
       <ul className="flex flex-col gap-3">
         {/* 댓글 목록 */}
-        {comments?.map(
+        {get().comments?.map(
           ({ id, content, createdAt, updatedAt, User: commenterUser }) => (
             <li key={id} className="bg-slate-50 rounded-lg p-2">
               {/* 일반모드 */}
-              {!isModify.status && (
+              {!get().isModify.status && (
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
@@ -54,14 +48,14 @@ const Comment = ({ eventId, initComments }: Props) => {
                         <Button
                           size="sm"
                           color="light"
-                          onClick={() => onIsModifyHandler(true, id, content)}
+                          onClick={() => changeModifyMode().on(id, content)}
                         >
                           수정
                         </Button>
                         <Button
                           size="sm"
                           color="dark"
-                          onClick={() => onRemoveHandler(id)}
+                          onClick={() => remove(id)}
                         >
                           삭제
                         </Button>
@@ -73,7 +67,7 @@ const Comment = ({ eventId, initComments }: Props) => {
               )}
 
               {/* 수정모드 */}
-              {isModify.status && (
+              {get().isModify.status && (
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
@@ -82,22 +76,20 @@ const Comment = ({ eventId, initComments }: Props) => {
                     </div>
                   </div>
                   {/* 수정 안하는 댓글 */}
-                  {isModify.commentId !== id && <div>{content}</div>}
+                  {get().isModify.commentId !== id && <div>{content}</div>}
                   {/* 수정중인 댓글 */}
-                  {isModify.commentId === id && (
-                    <form onSubmit={(e) => onModifyHandler(e, id)}>
+                  {get().isModify.commentId === id && (
+                    <form onSubmit={(e) => modify(e, id)}>
                       <textarea
-                        onChange={(e) => {
-                          setCommentInput(e.target.value);
-                        }}
-                        value={commentInput}
+                        onChange={(e) => changeInput(e)}
+                        value={get().commentInput}
                         className="w-full h-[100px] border resize-none"
                       />
                       <div className="flex gap-2">
                         <Button
                           size="sm"
                           color="light"
-                          onClick={() => onIsModifyHandler(false, -1)}
+                          onClick={() => changeModifyMode().off()}
                         >
                           나가기
                         </Button>
@@ -116,13 +108,11 @@ const Comment = ({ eventId, initComments }: Props) => {
         {/* 댓글 입력 폼 */}
         {loginUser && (
           <li>
-            {!isModify.status && (
-              <form onSubmit={onSubmitHandler}>
+            {!get().isModify.status && (
+              <form onSubmit={submit}>
                 <textarea
-                  onChange={(e) => {
-                    setCommentInput(e.target.value);
-                  }}
-                  value={commentInput}
+                  onChange={(e) => changeInput(e)}
+                  value={get().commentInput}
                   className="w-full h-[100px] border resize-none"
                 ></textarea>
                 <Button size="sm" color="dark">

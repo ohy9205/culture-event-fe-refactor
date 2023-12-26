@@ -3,11 +3,11 @@ import { responseHandler } from "../apis/common/commonAPIFetch";
 import { getFilteredEvents } from "../apis/event/v2";
 import { FilterContext } from "../context/FilterContext";
 import { PaginationContext } from "../context/PaginationContext";
-import { SimpleEventListWithPagination } from "./../types/events";
+import { SimpleEventListWithPagination } from "../types/events";
 
 const PAGE_PER_SIZE = 16;
 
-const useEventList = () => {
+const usePosterList = () => {
   const { filter } = useContext(FilterContext);
   const { pagination, onInitPagingHandler } = useContext(PaginationContext);
   const [events, setEvents] = useState<SimpleEventListWithPagination>({
@@ -21,20 +21,10 @@ const useEventList = () => {
 
   useEffect(() => {
     const fetchingData = async () => {
-      const { location, category, cost, startDate, endDate, orderBy, keyword } =
-        filter;
-
-      const rs = await getFilteredEvents(
-        location,
-        category,
-        cost,
-        startDate,
-        endDate,
-        orderBy,
-        keyword,
-        pagination.pageIndex,
-        PAGE_PER_SIZE
-      );
+      const rs = await getFilteredEvents(filter, {
+        pageIndex: pagination.pageIndex,
+        pageSize: PAGE_PER_SIZE,
+      });
 
       if (rs) {
         const handler = {
@@ -54,4 +44,4 @@ const useEventList = () => {
   };
 };
 
-export default useEventList;
+export default usePosterList;

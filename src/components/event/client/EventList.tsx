@@ -1,5 +1,6 @@
 "use  client";
 
+import { AuthContextProvider } from "@/src/context/AuthContext";
 import Image from "next/image";
 import useEventList from "../../../hooks/useEventList";
 import GridContainer from "../../UI/container/GridContainer";
@@ -18,7 +19,11 @@ const EventList = () => {
             <div key={event.id} className="relative">
               <ModalToggleCard
                 key={event.id}
-                modalContent={<EventDetail id={event.id} />}
+                modalContent={
+                  <AuthContextProvider>
+                    <EventDetail id={event.id} />
+                  </AuthContextProvider>
+                }
               >
                 <div className="flex flex-col rounded-lg overflow-hidden h-[500px] shadow-lg">
                   <div className="h-[370px]">

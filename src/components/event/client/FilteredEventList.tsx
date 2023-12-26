@@ -8,7 +8,6 @@ import { PaginationProvider } from "../../../context/PaginationContext";
 import Button from "../../UI/common/Button";
 import ControlBox from "./ControlBox";
 import MapList from "./MapList";
-import Pagination from "./Pagination";
 import PosterList from "./PosterList";
 
 const TAB_LIST = [
@@ -56,7 +55,6 @@ const FilteredEventList = () => {
               {isPosterMode && (
                 <PaginationProvider>
                   <PosterList />
-                  <Pagination />
                 </PaginationProvider>
               )}
               {!isPosterMode && <MapList />}

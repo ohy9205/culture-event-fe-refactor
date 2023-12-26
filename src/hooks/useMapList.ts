@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { responseHandler } from "../apis/common/commonAPIFetch";
-import { getFilteredEventsWithoutPagination } from "../apis/event/v2";
+import { getFilteredEvents } from "../apis/event/v2";
 import { FilterContext } from "../context/FilterContext";
 import { SimpleEvent } from "../types/events";
 
@@ -12,18 +12,7 @@ const useMapList = () => {
   // 필터변경시
   useEffect(() => {
     const fetchingData = async () => {
-      const { location, category, cost, startDate, endDate, orderBy, keyword } =
-        filter;
-
-      const rs = await getFilteredEventsWithoutPagination(
-        location,
-        category,
-        cost,
-        startDate,
-        endDate,
-        orderBy,
-        keyword
-      );
+      const rs = await getFilteredEvents(filter);
 
       if (rs) {
         const handler = {

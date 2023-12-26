@@ -1,21 +1,20 @@
 "use client";
-import usePosterList from "@/src/hooks/usePosterList";
 import { useContext } from "react";
 import { PaginationContext } from "../../../context/PaginationContext";
 
+type Props = {
+  totalPage: number;
+};
+
 const PAGE_BUTTON_SIZE = 10;
 
-const Pagination = () => {
+const Pagination = ({ totalPage }: Props) => {
   const {
     onNextBtnHandler,
     onPagingHandler,
     onPrevBtnHandler,
     pagination: { pageIndex, pagingGroupIndex },
   } = useContext(PaginationContext);
-
-  const {
-    events: { totalPage },
-  } = usePosterList();
 
   const renderButton = () => {
     let arr = [];

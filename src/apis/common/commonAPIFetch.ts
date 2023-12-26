@@ -3,71 +3,99 @@ import { getAccessToken, setAccessToken } from "@/src/utils/getAccessToken";
 
 type Method = "GET" | "POST" | "DELETE" | "PATCH";
 
-// query는 url에 붙여서 같이 보내게 되고
-// body는 넣어줘야함
 export const authorizedAPIFetch = async (
   url: string,
   method: Method,
-  body?: object
+  body?: Record<string, any>
 ): Promise<APIResponse> => {
-  const accessToken = getAccessToken();
-  const rs = await fetch(url, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    credentials: "include",
-    body: body ? JSON.stringify(body) : null,
-    next: {
-      revalidate: 36000,
-    },
-  });
+  const fetchOptions = setFetchOption(method, true, body);
+  const data = await fetching(url, fetchOptions);
 
-  const data = await rs.json();
-
-  if (data.payload.at) {
-    setAccessToken(data.payload.at);
-  }
-
-  return {
-    status: rs.status,
-    ...data,
-  };
+  return data;
 };
 
 export const APIFetch = async (
   url: string,
   method: Method,
-  body?: object
+  body?: Record<string, any>
 ): Promise<APIResponse> => {
-  const rs = await fetch(url, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    credentials: "include",
-    body: body ? JSON.stringify(body) : null,
-    next: {
-      revalidate: 36000,
-    },
-  });
-  const data = await rs.json();
+  const fetchOptions = setFetchOption(method, false, body);
+  const data = await fetching(url, fetchOptions);
 
-  if (data.payload.at) {
-    setAccessToken(data.payload.at);
+  return data;
+};
+
+// fetch실행
+const fetching = async (
+  url: string,
+  fetchOptions: {
+    method: Method;
+    headers: HeadersInit;
+    credentials: RequestCredentials;
+    body: string | null;
+    next: NextFetchRequestConfig | undefined;
   }
+) => {
+  const rs = await fetch(url, fetchOptions);
+  let data = await convertFetchResponse(rs);
+  saveToken(data);
 
+  return data;
+};
+
+// fetch data 변환
+const convertFetchResponse = async (rs: Response): Promise<APIResponse> => {
+  const data = await rs.json();
   return {
     status: rs.status,
     ...data,
   };
 };
 
+// 토큰 저장
+const saveToken = (data: APIResponse) => {
+  if (data.payload.at) {
+    setAccessToken(data.payload.at);
+  }
+};
+
+// fetch옵션 설정(비즈니스로직)
+const setFetchOption = (
+  method: Method,
+  isAuthorized: boolean,
+  body?: Record<string, any>
+) => {
+  let headers: HeadersInit = { "Content-Type": "application/json" };
+  if (isAuthorized) {
+    headers["Authorization"] = `Bearer ${getAccessToken()}`;
+  }
+  const next = { revalidate: 36000 };
+  return makeFetchOption(method, headers, "include", body, next);
+};
+
+// fetch 옵션 생성
+const makeFetchOption = (
+  method: Method,
+  headers: HeadersInit,
+  credentials: RequestCredentials,
+  body?: Record<string, any>,
+  next?: NextFetchRequestConfig | undefined
+) => {
+  return {
+    method,
+    headers,
+    credentials,
+    body: body ? JSON.stringify(body) : null,
+    next,
+  };
+};
+
+// response handler
 export const responseHandler = (
   { status, message }: APIResponse,
   handler: {
     success?: () => void;
+    status401?: () => void;
     status403?: () => void;
     status409?: () => void;
   }
@@ -76,22 +104,21 @@ export const responseHandler = (
     if (handler.success) {
       handler.success();
     }
-    return;
   } else if (status === 403) {
     if (handler.status403) {
       handler.status403();
     } else {
       alert(message);
     }
-    return;
   } else if (status === 409) {
     if (handler.status409) {
       handler.status409();
     }
-    return;
   } else if (status === 401) {
+    if (handler.status401) {
+      handler.status401();
+    }
   } else {
     window.location.replace(`/error/${status}`);
-    return;
   }
 };

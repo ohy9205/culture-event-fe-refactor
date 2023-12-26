@@ -63,3 +63,35 @@ export const APIFetch = async (
     ...data,
   };
 };
+
+export const responseHandler = (
+  { status, message }: APIResponse,
+  handler: {
+    success?: () => void;
+    status403?: () => void;
+    status409?: () => void;
+  }
+) => {
+  if (status === 200 || status === 201) {
+    if (handler.success) {
+      handler.success();
+    }
+    return;
+  } else if (status === 403) {
+    if (handler.status403) {
+      handler.status403();
+    } else {
+      alert(message);
+    }
+    return;
+  } else if (status === 409) {
+    if (handler.status409) {
+      handler.status409();
+    }
+    return;
+  } else if (status === 401) {
+  } else {
+    window.location.replace(`/error/${status}`);
+    return;
+  }
+};

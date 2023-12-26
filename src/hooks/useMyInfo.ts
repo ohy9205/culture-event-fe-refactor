@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { responseHandler } from "../apis/common/commonAPIFetch";
 import { getMyComments, getMyLikes } from "../apis/user/user";
 import { useAuthContext } from "../context/AuthContext";
 import { FavoriteEvent, MyComment } from "../types/user";
@@ -12,30 +13,26 @@ const useMyInfo = () => {
   const [myFavoriteEvents, setMyFavoriteEvents] = useState<FavoriteEvent[]>([]);
   const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
-  const { initAuth } = useAuthContext();
+  const { state, initAuth } = useAuthContext();
 
-  const responseHandler = (status: number) => {
-    if (status !== 200) {
-      router.push(`/error/${status}`);
+  useEffect(() => {
+    if (!state.isLoggedIn) {
+      router.push("/");
+    } else {
+      setNickname(state.user.nick);
+      setEmail(state.user.email);
     }
-  };
-
-  // useEffect(() => {
-  //   if (!isLoading && loggedOut) {
-  //     router.push("/");
-  //   } else {
-  //     setNickname(user.nick);
-  //     setEmail(user.email);
-  //   }
-  // }, [user]);
+  }, [state]);
 
   useEffect(() => {
     const likesFetch = async () => {
-      const data = await getMyLikes();
+      const rs = await getMyLikes();
 
-      if (data) {
-        responseHandler(data.status);
-        setMyFavoriteEvents(data.payload.data);
+      if (rs) {
+        const handler = {
+          success: () => setMyFavoriteEvents(rs.payload.data),
+        };
+        responseHandler(rs, handler);
       }
     };
 

@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { postSignup } from "../apis/auth/auth";
+import { responseHandler } from "../apis/common/commonAPIFetch";
 import { useAuthContext } from "../context/AuthContext";
 
 const useSignup = () => {
@@ -28,12 +29,14 @@ const useSignup = () => {
       password,
     };
 
-    const result = await postSignup(requestBody);
-
-    if (result.status === 409 || result.status === 403) {
-      setValid(result.message);
-    } else if (result.status === 200) {
-      router.push("/signin");
+    const rs = await postSignup(requestBody);
+    if (rs) {
+      const handler = {
+        success: () => router.push("/signin"),
+        status403: () => setValid(rs.message),
+        status409: () => setValid(rs.message),
+      };
+      responseHandler(rs, handler);
     }
   };
 

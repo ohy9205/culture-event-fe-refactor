@@ -1,29 +1,20 @@
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
+import { responseHandler } from "../apis/common/commonAPIFetch";
 import { toggleLikes } from "../apis/event/v2";
 import { getMyLikes } from "../apis/user/user";
 import useUser from "./useUser";
 
 export const useMyLikes = (eventId: number, likesCount?: number) => {
-  const router = useRouter();
   const { loggedOut } = useUser();
   const { data, mutate } = useSWR(`likesEvent`, getMyLikes);
   const [count, setCount] = useState(likesCount);
 
-  // response 핸들러
-  const responseHandler = (status: number, message: string) => {
-    if (status === 403) {
-      alert(message);
-    } else if (status !== 200 && status !== 201 && status !== 401) {
-      router.push(`/error/${status}`);
-    }
-  };
-
   if (data) {
-    responseHandler(data.status, data.message);
+    responseHandler(data, {});
   }
 
+  // 가능한 백엔드 api로 처리할것
   const isMyLikes = data?.payload?.data?.find(
     (event: any) => event.id === eventId
   )
@@ -37,10 +28,14 @@ export const useMyLikes = (eventId: number, likesCount?: number) => {
     const rs = await toggleLikes(eventId);
 
     if (rs) {
-      responseHandler(rs.status, rs.message);
+      const handler = {
+        success: () => {
+          mutate();
+          setCount(rs.payload.eventLikesCount);
+        },
+      };
+      responseHandler(rs, handler);
     }
-    mutate();
-    setCount(rs.payload.eventLikesCount);
   };
 
   return {

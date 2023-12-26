@@ -7,6 +7,7 @@ import {
 } from "../apis/comment/comment";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
+import { responseHandler } from "./../apis/common/commonAPIFetch";
 import useUser from "./useUser";
 
 const useComment = (eventId: number, initComments: Comment[]) => {
@@ -19,28 +20,15 @@ const useComment = (eventId: number, initComments: Comment[]) => {
   const [comments, setComments] = useState(initComments);
   const router = useRouter();
 
-  // response 핸들러
-  const responseHandler = (status: number, message: string) => {
-    if (status === 200 || status === 201) {
-      setCommentInput("");
-    } else if (status === 403) {
-      alert(message);
-    } else if (status === 404) {
-      router.push("/error/404");
-    } else {
-      router.push(`/error/${status}`);
-    }
-  };
-
   // comments 데이터 패칭
   const fetchComment = async () => {
     const rs = await getComments(eventId);
 
     if (rs) {
-      responseHandler(rs.status, rs.message);
-      if (rs.status === 200) {
-        setComments(rs.payload.comments);
-      }
+      const handler = {
+        success: () => setComments(rs?.payload?.comments),
+      };
+      responseHandler(rs, handler);
     }
   };
 
@@ -63,14 +51,22 @@ const useComment = (eventId: number, initComments: Comment[]) => {
       return;
     }
     const rs = await addComment(commentInput, eventId);
-    responseHandler(rs.status, rs.message);
-    fetchComment();
+    if (rs) {
+      const handler = {
+        success: () => fetchComment(),
+      };
+      responseHandler(rs, handler);
+    }
   };
 
   const onRemoveHandler = async (commentId: number) => {
     const rs = await deleteComment(commentId);
-    responseHandler(rs.status, rs.message);
-    fetchComment();
+    if (rs) {
+      const handler = {
+        success: () => fetchComment(),
+      };
+      responseHandler(rs, handler);
+    }
   };
 
   const onModifyHandler = async (
@@ -79,10 +75,17 @@ const useComment = (eventId: number, initComments: Comment[]) => {
   ) => {
     e.preventDefault();
     const rs = await patchComment(commentInput, commentId);
-    responseHandler(rs.status, rs.message);
-    setIsModify({ status: false, commentId: -1 });
-    setCommentInput("");
-    fetchComment();
+
+    if (rs) {
+      const handler = {
+        success: () => {
+          setIsModify({ status: false, commentId: -1 });
+          setCommentInput("");
+          fetchComment();
+        },
+      };
+      responseHandler(rs, handler);
+    }
   };
 
   return {

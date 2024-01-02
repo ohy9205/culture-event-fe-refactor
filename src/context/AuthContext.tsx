@@ -6,7 +6,7 @@ import { getUserMe } from "../apis/user/user";
 type InitialValue = {
   state: InitialState;
   setAuth: (email: string, nick: string) => void;
-  initAuth: () => void;
+  resetAuth: () => void;
 };
 
 type InitialState = {
@@ -26,7 +26,7 @@ const initialValue = {
     },
   },
   setAuth: (email: string, nick: string) => {},
-  initAuth: () => {},
+  resetAuth: () => {},
 };
 
 const AuthContext = createContext<InitialValue>(initialValue);
@@ -42,7 +42,7 @@ export const AuthContextProvider = ({
     setAuthState({ isLoggedIn: true, user: { email, nick } });
   };
 
-  const initAuth = () => {
+  const resetAuth = () => {
     setAuthState((prev) => ({ ...prev, isLoggedIn: false }));
   };
 
@@ -63,7 +63,7 @@ export const AuthContextProvider = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ state: authState, setAuth, initAuth }}>
+    <AuthContext.Provider value={{ state: authState, setAuth, resetAuth }}>
       {children}
     </AuthContext.Provider>
   );

@@ -30,6 +30,8 @@ const FilteredEventList = () => {
     }
   }, [isLoggedIn]);
 
+  // useEffect로 isPosterMode가 변경될 때마다 데이터 패칭, 기존 컴포넌트엔 주입만 해주기 -> 컴포넌트 재사용성up
+
   return (
     <>
       {isLoggedIn && (

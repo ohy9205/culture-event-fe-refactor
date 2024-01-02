@@ -1,7 +1,7 @@
-import MyInfoContainer from "@/src/components/user/client/MyInfoContainer";
+import MyInfo from "@/src/components/user/client/MyInfo";
 
 const MyPage = () => {
-  return <MyInfoContainer />;
+  return <MyInfo />;
 };
 
 export default MyPage;

@@ -1,5 +1,5 @@
 import { APIResponse } from "@/src/types/APIResponse";
-import { getAccessToken, setAccessToken } from "@/src/utils/getAccessToken";
+import { getAccessToken, setAccessToken } from "@/src/utils/accessToken";
 
 type Method = "GET" | "POST" | "DELETE" | "PATCH";
 

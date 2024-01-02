@@ -5,13 +5,11 @@ import { getEventDetailWithLogin } from "../apis/event/v2";
 import { useAuthContext } from "../context/AuthContext";
 
 const useEventDetail = (eventId: number) => {
-  const {
-    state: { isLoggedIn },
-  } = useAuthContext();
-  const { data, isLoading } = useSWR(
+  const { state } = useAuthContext();
+  const { data } = useSWR(
     `eventDetail/${eventId}`,
     () =>
-      isLoggedIn
+      state.isLoggedIn
         ? getEventDetailWithLogin(eventId)
         : getEventDetailWithoutLogin(eventId),
     { revalidateOnFocus: false }
@@ -22,8 +20,9 @@ const useEventDetail = (eventId: number) => {
   }
 
   return {
-    eventDetail: data?.payload.event,
-    isLoading,
+    get: () => ({
+      eventDetail: data?.payload.event,
+    }),
   };
 };
 

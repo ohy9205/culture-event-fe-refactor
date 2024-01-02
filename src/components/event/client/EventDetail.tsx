@@ -17,9 +17,9 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { eventDetail, isLoading } = useEventDetail(id);
+  const { get } = useEventDetail(id);
 
-  if (eventDetail) {
+  if (get().eventDetail) {
     const {
       thumbnail,
       title,
@@ -35,7 +35,7 @@ const EventDetail = ({ id }: Props) => {
       Users: likesUsers,
       views,
       Comments,
-    } = eventDetail;
+    } = get().eventDetail;
 
     return (
       <div className="flex flex-col gap-10 p-10">
@@ -100,12 +100,6 @@ const EventDetail = ({ id }: Props) => {
         <section>
           <Comment eventId={id} initComments={Comments} />
         </section>
-      </div>
-    );
-  } else if (isLoading) {
-    return (
-      <div className="flex justify-center items-center">
-        <h1>Loading...</h1>
       </div>
     );
   } else {

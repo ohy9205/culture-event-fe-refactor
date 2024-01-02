@@ -1,7 +1,7 @@
 "use client";
 
-import useMyLikes from "../../../hooks/useMyLikes";
-import Button from "../../UI/common/Button";
+import useLikes from "@/src/hooks/useLikes";
+import LikeButton from "../../UI/common/LikeButton";
 
 type Props = {
   eventId: number;
@@ -10,34 +10,17 @@ type Props = {
 };
 
 const Likes = ({ eventId, useBackground, likesCount }: Props) => {
-  const {
-    isMyLikes: myLikes,
-    count,
-    onToggleLikesHandler,
-  } = useMyLikes(eventId, likesCount);
-
-  const countRender = () => {
-    if (likesCount === undefined || count === undefined) {
-      return;
-    }
-    if (count !== undefined) {
-      return count;
-    } else if (likesCount) {
-      return likesCount;
-    }
-  };
+  const { get, toggle } = useLikes(eventId, likesCount);
 
   return (
     <div className={`flex gap-3 items-center`}>
       {useBackground && (
-        <Button size="md" color="dark" onClick={onToggleLikesHandler}>
-          {myLikes ? "❤️" : "🤍"}
-        </Button>
+        <>
+          <LikeButton eventId={eventId} onClick={toggle} background />
+          {get().count}
+        </>
       )}
-      {!useBackground && (
-        <Button onClick={onToggleLikesHandler}>{myLikes ? "❤️" : "🤍"}</Button>
-      )}
-      {countRender()}
+      {!useBackground && <LikeButton eventId={eventId} onClick={toggle} />}
     </div>
   );
 };

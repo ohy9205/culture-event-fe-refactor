@@ -1,21 +1,20 @@
 "use client";
 import { useContext } from "react";
 import { PaginationContext } from "../../../context/PaginationContext";
-import useEventList from "../../../hooks/useEventList";
+
+type Props = {
+  totalPage: number;
+};
 
 const PAGE_BUTTON_SIZE = 10;
 
-const Pagination = () => {
+const Pagination = ({ totalPage }: Props) => {
   const {
     onNextBtnHandler,
     onPagingHandler,
     onPrevBtnHandler,
     pagination: { pageIndex, pagingGroupIndex },
   } = useContext(PaginationContext);
-
-  const {
-    events: { totalPage },
-  } = useEventList();
 
   const renderButton = () => {
     let arr = [];

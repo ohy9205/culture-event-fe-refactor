@@ -22,7 +22,10 @@ const useComment = (eventId: number, initComments: Comment[]) => {
 
     if (rs) {
       const handler = {
-        success: () => setComments(rs.payload.comments),
+        success: () => {
+          setComments(rs.payload.comments);
+          setCommentInput("");
+        },
       };
       responseHandler(rs, handler);
     }

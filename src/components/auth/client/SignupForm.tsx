@@ -1,21 +1,22 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { useAuthContext } from "@/src/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import useSignup from "../../../hooks/useSignup";
 
 const SignupForm = () => {
+  const { get, change, signup } = useSignup();
   const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    nick,
-    setNick,
-    passwordConfirm,
-    setPasswordConfirm,
-    signup,
-    valid,
-  } = useSignup();
+    state: { isLoggedIn },
+  } = useAuthContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="max-w-[1200px] min-w-[800px] py-[30px]">
@@ -27,10 +28,8 @@ const SignupForm = () => {
           placeholder="email@culture.com"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          value={get().form.email}
+          onChange={(e) => change(e)}
         />
         <label htmlFor="nickname">닉네임</label>
         <input
@@ -39,10 +38,8 @@ const SignupForm = () => {
           placeholder="nickname"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={nick}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setNick(e.target.value)
-          }
+          value={get().form.nick}
+          onChange={(e) => change(e)}
         />
         <label htmlFor="password">비밀번호</label>
         <input
@@ -51,10 +48,8 @@ const SignupForm = () => {
           placeholder="password"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={password}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          value={get().form.password}
+          onChange={(e) => change(e)}
         />
         <label htmlFor="passwrodConfim">비밀번호 확인</label>
         <input
@@ -63,17 +58,17 @@ const SignupForm = () => {
           placeholder="password Confirm"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={passwordConfirm}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setPasswordConfirm(e.target.value);
-            if (password !== e.target.value) {
+          value={get().form.passwordConfirm}
+          onChange={(e) => {
+            change(e);
+            if (get().form.password !== e.target.value) {
               console.log("비밀번호가 일치하지 않습니다");
             }
           }}
         />
       </form>
-      {valid && (
-        <p className="text-center text-sm text-red-800 mb-4">{valid}</p>
+      {get().valid && (
+        <p className="text-center text-sm text-red-800 mb-4">{get().valid}</p>
       )}
       <button
         className="w-full font-semibold text-xl border rounded-md py-[12px]"

@@ -9,13 +9,13 @@ import Likes from "./Likes";
 import Pagination from "./Pagination";
 
 const PosterList = () => {
-  const { events } = usePosterList();
+  const { get } = usePosterList();
 
   return (
     <>
       <div className="w-full flex flex-col gap-5">
         <GridContainer>
-          {events.events.map((event) => {
+          {get().events.map((event) => {
             return (
               <div key={event.id} className="relative">
                 <ModalToggleCard
@@ -50,7 +50,7 @@ const PosterList = () => {
           })}
         </GridContainer>
       </div>
-      <Pagination totalPage={events.totalPage} />
+      <Pagination totalPage={get().totalPage} />
     </>
   );
 };

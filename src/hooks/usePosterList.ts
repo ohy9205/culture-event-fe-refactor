@@ -40,7 +40,10 @@ const usePosterList = () => {
   }, [pagination, filter]);
 
   return {
-    events,
+    get: () => ({
+      events: events.events,
+      totalPage: events.totalPage,
+    }),
   };
 };
 

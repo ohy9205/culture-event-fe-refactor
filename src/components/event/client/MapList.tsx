@@ -9,17 +9,17 @@ import Likes from "./Likes";
 import StaticMap from "./StaticMap";
 
 const MapList = () => {
-  const { curEvent, events, setCurEvent } = useMapList();
+  const { get, change } = useMapList();
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
       <ul className="flex flex-col gap-4 w-full h-[800px] md:w-2/5  overflow-scroll py-2 md:pr-5">
-        {events.map((event) => (
+        {get().events.map((event) => (
           <li key={event.id} className="shadow-lg rounded-lg relative">
             <div className="absolute top-3 right-5">
               <Likes eventId={event.id} />
             </div>
-            <div className="flex " onClick={() => setCurEvent(event)}>
+            <div className="flex " onClick={() => change().curEvent(event)}>
               <Image
                 src={event.thumbnail}
                 alt={`${event.title} 포스터`}
@@ -44,8 +44,8 @@ const MapList = () => {
       </ul>
       <div className="w-full md:w-3/5">
         <StaticMap
-          latitude={curEvent?.longitude || ""}
-          longitude={curEvent?.latitude || ""}
+          latitude={get().curEvent?.longitude || ""}
+          longitude={get().curEvent?.latitude || ""}
           heightStyle="h-[800px]"
         />
       </div>

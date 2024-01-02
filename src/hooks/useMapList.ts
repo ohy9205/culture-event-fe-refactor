@@ -9,7 +9,7 @@ const useMapList = () => {
   const [events, setEvents] = useState<SimpleEvent[]>([]);
   const [curEvent, setCurEvent] = useState<SimpleEvent>();
 
-  // 필터변경시
+  // 필터변경시 새로 데이터 패칭
   useEffect(() => {
     const fetchingData = async () => {
       const rs = await getFilteredEvents(filter);
@@ -29,9 +29,13 @@ const useMapList = () => {
   }, [filter]);
 
   return {
-    events,
-    curEvent,
-    setCurEvent,
+    get: () => ({
+      events,
+      curEvent,
+    }),
+    change: () => ({
+      curEvent: (event: SimpleEvent) => setCurEvent(event),
+    }),
   };
 };
 

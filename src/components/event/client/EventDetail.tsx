@@ -55,6 +55,7 @@ const EventDetail = ({ id }: Props) => {
                   eventId={id}
                   useBackground
                   likesCount={likesUsers.length}
+                  useCount
                 />
 
                 <div className="flex gap-1 items-center ml-10">

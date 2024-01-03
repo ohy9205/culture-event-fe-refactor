@@ -13,8 +13,6 @@ const useSignup = () => {
   const [valid, setValid] = useState("");
   const router = useRouter();
 
-  const controller = {};
-
   return {
     get: () => ({ form, valid }),
     change: (e: ChangeEvent<HTMLInputElement>) => {

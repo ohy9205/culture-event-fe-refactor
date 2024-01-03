@@ -1,21 +1,43 @@
 "use client";
 
+import { responseHandler } from "@/src/apis/common/commonAPIFetch";
+import { getMyComments } from "@/src/apis/user/user";
 import { useAuthContext } from "@/src/context/AuthContext";
-import useMyInfo from "@/src/hooks/useMyInfo";
-import { FavoriteEvent } from "@/src/types/user";
+import useMyLikes from "@/src/hooks/useMyLikes";
+import { FavoriteEvent, MyComment } from "@/src/types/user";
+import { removeAccessToken } from "@/src/utils/accessToken";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { convertKRTime } from "../../../utils/convertKRTime";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventDetail from "../../event/client/EventDetail";
 
 const MyInfo = () => {
-  const { get, logout } = useMyInfo();
+  const [myComments, setMyComments] = useState<MyComment[]>([]);
   const router = useRouter();
-  const { state } = useAuthContext();
-  console.log(state);
+  const { state, resetAuth } = useAuthContext();
+  const { get } = useMyLikes();
 
+  // 얘는 auth관련 쪽으로 가는게 맞을거 같은데
+  const logout = () => {
+    removeAccessToken();
+    resetAuth();
+  };
+
+  useEffect(() => {
+    const commentsFetch = async () => {
+      const data = await getMyComments();
+      if (data) {
+        responseHandler(data, {
+          success: () => setMyComments(data.payload.commentsWithEvents),
+        });
+      }
+    };
+    commentsFetch();
+  }, []);
+
+  // 얘를 프로바이더나 컴포넌트로 만들 수 있지 않을까...
   useEffect(() => {
     if (state.isLoggedIn !== undefined && !state.isLoggedIn) {
       alert("로그인이 필요한 페이지입니다.!!!!");
@@ -58,8 +80,8 @@ const MyInfo = () => {
             내가 좋아하는 이벤트
           </div>
           <div className="flex gap-4 overflow-x-scroll w-full">
-            {get().likeEvents &&
-              get().likeEvents.map((event: FavoriteEvent) => {
+            {get().events &&
+              get().events.map((event: FavoriteEvent) => {
                 return (
                   <ModalToggleCard
                     key={event.id}
@@ -85,8 +107,8 @@ const MyInfo = () => {
           <div className="border p-2 rounded-lg bg-green-500 text-white">
             내가 작성한 댓글
           </div>
-          {get().comments &&
-            get().comments.map((comment) => {
+          {myComments &&
+            myComments.map((comment) => {
               const createDate = convertKRTime(comment.createdAt);
               return (
                 <div

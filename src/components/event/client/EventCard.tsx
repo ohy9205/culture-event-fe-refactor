@@ -7,6 +7,7 @@ type Props = {
 
 type CardProps = Props & {
   height?: string;
+  width?: string;
 };
 
 type ImageProps = {
@@ -21,9 +22,12 @@ type LikesProps = {
   eventId: number;
 };
 
-const EventCard = ({ children, height }: CardProps) => {
+const EventCard = ({ children, height, width }: CardProps) => {
   return (
-    <div className="shadow-lg rounded-lg" style={{ height: `${height}` }}>
+    <div
+      className="shadow-lg rounded-lg"
+      style={{ height: `${height}`, width: `${width}` }}
+    >
       {children}
     </div>
   );

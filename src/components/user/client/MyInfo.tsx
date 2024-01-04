@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { convertKRTime } from "../../../utils/convertKRTime";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
+import EventCard from "../../event/client/EventCard";
 import EventDetail from "../../event/client/EventDetail";
 
 const MyInfo = () => {
@@ -63,33 +64,36 @@ const MyInfo = () => {
           >
             로그아웃
           </button>
+          <hr className="w-full border-slate-400" />
           <div className="border p-2 rounded-lg bg-blue-500 text-white">
             내가 좋아하는 이벤트
           </div>
-          <div className="flex gap-4 overflow-x-scroll w-full">
+          <div className="flex gap-4 overflow-x-scroll w-full px-5 py-7">
             {getMyLike().events &&
-              getMyLike().events.map((event: FavoriteEvent) => {
-                return (
-                  <ModalToggleCard
-                    key={event.id}
-                    modalContent={<EventDetail id={event.id} />}
-                  >
-                    <div key={event.id} className="w-[300px] flex-shrink-0">
-                      <Image
-                        src={event.thumbnail}
-                        alt={`${event.title} 포스터`}
-                        width={300}
-                        height={300}
-                        className="h-[370px] object-contain"
-                      />
-                      <div className="flex flex-col gap-4">
-                        <span className="text-center">{event.period}</span>
-                        <span className="text-center">{event.title}</span>
-                      </div>
-                    </div>
-                  </ModalToggleCard>
-                );
-              })}
+              getMyLike().events.map(
+                ({ id, thumbnail, title, period }: FavoriteEvent) => {
+                  return (
+                    <ModalToggleCard
+                      key={id}
+                      modalContent={<EventDetail id={id} />}
+                    >
+                      <EventCard width="300px">
+                        <EventCard.Image
+                          src={thumbnail}
+                          alt={`${title} 포스터`}
+                          height={300}
+                          width={300}
+                          style="object-contain h-[300px]"
+                        />
+                        <div className="flex flex-col gap-2 p-5">
+                          <EventCard.Title>{title}</EventCard.Title>
+                          <EventCard.Period>{period}</EventCard.Period>
+                        </div>
+                      </EventCard>
+                    </ModalToggleCard>
+                  );
+                }
+              )}
           </div>
           <div className="border p-2 rounded-lg bg-green-500 text-white">
             내가 작성한 댓글

@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { postSignin } from "../apis/auth/auth";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 import { useAuthContext } from "../context/AuthContext";
 
 const useSignin = () => {

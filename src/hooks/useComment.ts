@@ -4,9 +4,9 @@ import {
   deleteComment,
   patchComment,
 } from "../apis/comment/comment";
+import { responseHandler } from "../apis/common/responseHandler";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
-import { responseHandler } from "./../apis/common/commonAPIFetch";
 
 const useComment = (eventId: number, initComments: Comment[]) => {
   const [commentInput, setCommentInput] = useState("");

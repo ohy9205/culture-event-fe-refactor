@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 import { getMyComments } from "../apis/user/user";
 import { MyComment } from "../types/user";
 

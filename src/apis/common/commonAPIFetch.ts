@@ -59,7 +59,7 @@ const saveToken = (data: APIResponse) => {
   }
 };
 
-// fetch옵션 설정(비즈니스로직)
+// fetch옵션 설정
 const setFetchOption = (
   method: Method,
   isAuthorized: boolean,
@@ -88,37 +88,4 @@ const makeFetchOption = (
     body: body ? JSON.stringify(body) : null,
     next,
   };
-};
-
-// response handler
-export const responseHandler = (
-  { status, message }: APIResponse,
-  handler: {
-    success?: () => void;
-    status401?: () => void;
-    status403?: () => void;
-    status409?: () => void;
-  }
-) => {
-  if (status === 200 || status === 201) {
-    if (handler.success) {
-      handler.success();
-    }
-  } else if (status === 403) {
-    if (handler.status403) {
-      handler.status403();
-    } else {
-      alert(message);
-    }
-  } else if (status === 409) {
-    if (handler.status409) {
-      handler.status409();
-    }
-  } else if (status === 401) {
-    if (handler.status401) {
-      handler.status401();
-    }
-  } else {
-    window.location.replace(`/error/${status}`);
-  }
 };

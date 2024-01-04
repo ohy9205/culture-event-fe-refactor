@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 import { toggleLikes } from "../apis/event/v2";
 import { useAuthContext } from "../context/AuthContext";
 

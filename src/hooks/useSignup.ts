@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { postSignup } from "../apis/auth/auth";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 
 const useSignup = () => {
   const [form, setForm] = useState({

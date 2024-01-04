@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 import { getMyLikes } from "../apis/user/user";
 
 const useMyLikes = () => {

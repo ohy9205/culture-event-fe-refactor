@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { responseHandler } from "../apis/common/commonAPIFetch";
+import { responseHandler } from "../apis/common/responseHandler";
 import { getFilteredEvents } from "../apis/event/v2";
 import { FilterContext } from "../context/FilterContext";
 import { PaginationContext } from "../context/PaginationContext";

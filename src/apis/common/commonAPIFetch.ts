@@ -46,7 +46,6 @@ const fetching = async (
 // fetch data 변환
 const convertFetchResponse = async (rs: Response): Promise<APIResponse> => {
   const data = await rs.json();
-  console.log(data);
   return {
     ...data,
     status: rs.status,

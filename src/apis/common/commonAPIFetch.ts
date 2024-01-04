@@ -47,8 +47,8 @@ const fetching = async (
 const convertFetchResponse = async (rs: Response): Promise<APIResponse> => {
   const data = await rs.json();
   return {
-    status: rs.status,
     ...data,
+    body: data.body ? JSON.stringify(data.body) : null,
   };
 };
 

@@ -1,11 +1,10 @@
 "use  client";
 
 import usePosterList from "@/src/hooks/usePosterList";
-import Image from "next/image";
 import GridContainer from "../../UI/container/GridContainer";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
+import EventCard from "./EventCard";
 import EventDetail from "./EventDetail";
-import Likes from "./Likes";
 import Pagination from "./Pagination";
 
 const PosterList = () => {
@@ -15,37 +14,31 @@ const PosterList = () => {
     <>
       <div className="w-full flex flex-col gap-5">
         <GridContainer>
-          {get().events.map((event) => {
+          {get().events.map(({ eventPeriod, id, thumbnail, title, views }) => {
             return (
-              <div key={event.id} className="relative">
+              <EventCard key={id} height="500px">
                 <ModalToggleCard
-                  key={event.id}
-                  modalContent={<EventDetail id={event.id} />}
+                  key={id}
+                  modalContent={<EventDetail id={id} />}
                 >
-                  <div className="flex flex-col rounded-lg overflow-hidden h-[500px] shadow-lg">
-                    <div className="h-[370px]">
-                      <Image
-                        src={event.thumbnail}
-                        alt={`${event.title} 포스터`}
-                        width={500}
-                        height={500}
-                        className="h-[370px] object-contain"
-                      />
-                    </div>
-                    <div className="flex flex-col h-full p-5">
-                      <h2 className="truncate font-bold mb-3">{event.title}</h2>
-                      <h3 className="text-small">{event.eventPeriod}</h3>
-                    </div>
+                  <EventCard.Image
+                    src={thumbnail}
+                    alt={`${title} 포스터`}
+                    height={500}
+                    width={500}
+                    style="object-contain h-[370px]"
+                  />
+                  <div className="px-5 pt-4 pb-5">
+                    <EventCard.Title>{title}</EventCard.Title>
+                    <EventCard.Period>{eventPeriod}</EventCard.Period>
                   </div>
                 </ModalToggleCard>
-                <div className="absolute bottom-4 left-5 flex gap-1 text-sm">
-                  <span>조회수</span>
-                  <span className="font-semibold">{event.views}</span>
+
+                <div className="flex items-center justify-between px-5">
+                  <EventCard.Views>{views}</EventCard.Views>
+                  <EventCard.Likes eventId={id} />
                 </div>
-                <div className="absolute bottom-3 right-5">
-                  <Likes eventId={event.id} />
-                </div>
-              </div>
+              </EventCard>
             );
           })}
         </GridContainer>

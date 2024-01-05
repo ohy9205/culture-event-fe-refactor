@@ -33,9 +33,7 @@ const useMapList = () => {
       events,
       curEvent,
     },
-    change: () => ({
-      curEvent: (event: SimpleEvent) => setCurEvent(event),
-    }),
+    changeCurrentEvent: (event: SimpleEvent) => setCurEvent(event),
   };
 };
 

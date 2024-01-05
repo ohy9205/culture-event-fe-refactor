@@ -8,7 +8,7 @@ import EventDetail from "./EventDetail";
 import StaticMap from "./StaticMap";
 
 const MapList = () => {
-  const { data, change } = useMapList();
+  const { data, changeCurrentEvent } = useMapList();
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
@@ -17,7 +17,7 @@ const MapList = () => {
           <EventCard key={event.id}>
             <div
               className="flex relative"
-              onClick={() => change().curEvent(event)}
+              onClick={() => changeCurrentEvent(event)}
             >
               <EventCard.Image
                 src={event.thumbnail}

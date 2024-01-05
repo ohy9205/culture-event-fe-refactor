@@ -1,14 +1,16 @@
 import { APIResponse } from "@/src/types/APIResponse";
 
+export type ResponseHandler = {
+  success?: () => void;
+  status401?: () => void;
+  status403?: () => void;
+  status409?: () => void;
+};
+
 // response handler
 export const responseHandler = (
   { status, message }: APIResponse,
-  handler: {
-    success?: () => void;
-    status401?: () => void;
-    status403?: () => void;
-    status409?: () => void;
-  }
+  handler: ResponseHandler
 ) => {
   if (status === 200 || status === 201) {
     if (handler.success) {

@@ -15,7 +15,7 @@ const Comment = ({ eventId, initComments }: Props) => {
   const {
     state: { user: loginUser },
   } = useAuthContext();
-  const { get, changeModifyMode, changeInput, modify, remove, submit } =
+  const { data, changeModifyMode, changeInput, modify, remove, submit } =
     useComment(eventId, initComments);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
@@ -31,11 +31,11 @@ const Comment = ({ eventId, initComments }: Props) => {
       <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
       <ul className="flex flex-col gap-3">
         {/* 댓글 목록 */}
-        {get().comments?.map(
+        {data.comments?.map(
           ({ id, content, createdAt, updatedAt, User: commenterUser }) => (
             <li key={id} className="bg-slate-50 rounded-lg p-2">
               {/* 일반모드 */}
-              {!get().isModify.status && (
+              {!data.isModify.status && (
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
@@ -67,7 +67,7 @@ const Comment = ({ eventId, initComments }: Props) => {
               )}
 
               {/* 수정모드 */}
-              {get().isModify.status && (
+              {data.isModify.status && (
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="font-bold">{commenterUser.nick}</div>
@@ -76,13 +76,13 @@ const Comment = ({ eventId, initComments }: Props) => {
                     </div>
                   </div>
                   {/* 수정 안하는 댓글 */}
-                  {get().isModify.commentId !== id && <div>{content}</div>}
+                  {data.isModify.commentId !== id && <div>{content}</div>}
                   {/* 수정중인 댓글 */}
-                  {get().isModify.commentId === id && (
+                  {data.isModify.commentId === id && (
                     <form onSubmit={(e) => modify(e, id)}>
                       <textarea
                         onChange={(e) => changeInput(e)}
-                        value={get().commentInput}
+                        value={data.commentInput}
                         className="w-full h-[100px] border resize-none"
                       />
                       <div className="flex gap-2">
@@ -108,11 +108,11 @@ const Comment = ({ eventId, initComments }: Props) => {
         {/* 댓글 입력 폼 */}
         {loginUser && (
           <li>
-            {!get().isModify.status && (
+            {!data.isModify.status && (
               <form onSubmit={submit}>
                 <textarea
                   onChange={(e) => changeInput(e)}
-                  value={get().commentInput}
+                  value={data.commentInput}
                   className="w-full h-[100px] border resize-none"
                 ></textarea>
                 <Button size="sm" color="dark">

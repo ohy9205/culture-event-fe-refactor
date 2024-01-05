@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import useSignup from "../../../hooks/useSignup";
 
 const SignupForm = () => {
-  const { get, change, signup } = useSignup();
+  const { data, change, signup } = useSignup();
   const {
     state: { isLoggedIn },
   } = useAuthContext();
@@ -28,7 +28,7 @@ const SignupForm = () => {
           placeholder="email@culture.com"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={get().form.email}
+          value={data.form.email}
           onChange={(e) => change(e)}
         />
         <label htmlFor="nickname">닉네임</label>
@@ -38,7 +38,7 @@ const SignupForm = () => {
           placeholder="nickname"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={get().form.nick}
+          value={data.form.nick}
           onChange={(e) => change(e)}
         />
         <label htmlFor="password">비밀번호</label>
@@ -48,7 +48,7 @@ const SignupForm = () => {
           placeholder="password"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={get().form.password}
+          value={data.form.password}
           onChange={(e) => change(e)}
         />
         <label htmlFor="passwrodConfim">비밀번호 확인</label>
@@ -58,17 +58,17 @@ const SignupForm = () => {
           placeholder="password Confirm"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
-          value={get().form.passwordConfirm}
+          value={data.form.passwordConfirm}
           onChange={(e) => {
             change(e);
-            if (get().form.password !== e.target.value) {
+            if (data.form.password !== e.target.value) {
               console.log("비밀번호가 일치하지 않습니다");
             }
           }}
         />
       </form>
-      {get().valid && (
-        <p className="text-center text-sm text-red-800 mb-4">{get().valid}</p>
+      {data.valid && (
+        <p className="text-center text-sm text-red-800 mb-4">{data.valid}</p>
       )}
       <button
         className="w-full font-semibold text-xl border rounded-md py-[12px]"

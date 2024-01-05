@@ -8,12 +8,12 @@ import EventDetail from "./EventDetail";
 import StaticMap from "./StaticMap";
 
 const MapList = () => {
-  const { get, change } = useMapList();
+  const { data, change } = useMapList();
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
       <div className="flex flex-col gap-4 w-full h-[800px] md:w-2/5  overflow-scroll py-2 md:pr-5">
-        {get().events.map((event) => (
+        {data.events.map((event) => (
           <EventCard key={event.id}>
             <div
               className="flex relative"
@@ -43,8 +43,8 @@ const MapList = () => {
       </div>
       <div className="w-full md:w-3/5">
         <StaticMap
-          latitude={get().curEvent?.longitude || ""}
-          longitude={get().curEvent?.latitude || ""}
+          latitude={data.curEvent?.longitude || ""}
+          longitude={data.curEvent?.latitude || ""}
           heightStyle="h-[800px]"
         />
       </div>

@@ -8,13 +8,13 @@ import EventDetail from "./EventDetail";
 import Pagination from "./Pagination";
 
 const PosterList = () => {
-  const { get } = usePosterList();
+  const { data } = usePosterList();
 
   return (
     <>
       <div className="w-full flex flex-col gap-5">
         <GridContainer>
-          {get().events.map(({ eventPeriod, id, thumbnail, title, views }) => {
+          {data.events.map(({ eventPeriod, id, thumbnail, title, views }) => {
             return (
               <EventCard key={id} height="500px">
                 <ModalToggleCard
@@ -43,7 +43,7 @@ const PosterList = () => {
           })}
         </GridContainer>
       </div>
-      <Pagination totalPage={get().totalPage} />
+      <Pagination totalPage={data.totalPage} />
     </>
   );
 };

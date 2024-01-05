@@ -10,9 +10,9 @@ const useMyLikes = () => {
   }
 
   return {
-    get: () => ({
+    data: {
       events: data?.payload?.data,
-    }),
+    },
     mutate,
   };
 };

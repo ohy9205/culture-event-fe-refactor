@@ -16,8 +16,8 @@ import EventDetail from "../../event/client/EventDetail";
 const MyInfo = () => {
   const router = useRouter();
   const { state, resetAuth } = useAuthContext();
-  const { get: getMyLike } = useMyLikes();
-  const { get: getMyComment } = useMyComment();
+  const { data: myLikes } = useMyLikes();
+  const { data: myComments } = useMyComment();
 
   // 얘는 auth관련 쪽으로 가는게 맞을거 같은데
   const logout = () => {
@@ -69,8 +69,8 @@ const MyInfo = () => {
             내가 좋아하는 이벤트
           </div>
           <div className="flex gap-4 overflow-x-scroll w-full px-5 py-7">
-            {getMyLike().events &&
-              getMyLike().events.map(
+            {myLikes.events &&
+              myLikes.events.map(
                 ({ id, thumbnail, title, period }: FavoriteEvent) => {
                   return (
                     <ModalToggleCard
@@ -98,8 +98,8 @@ const MyInfo = () => {
           <div className="border p-2 rounded-lg bg-green-500 text-white">
             내가 작성한 댓글
           </div>
-          {getMyComment().comments &&
-            getMyComment().comments.map((comment) => {
+          {myComments.comments &&
+            myComments.comments.map((comment) => {
               const createDate = convertKRTime(comment.createdAt);
               return (
                 <div

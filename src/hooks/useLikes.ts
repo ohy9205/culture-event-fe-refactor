@@ -11,9 +11,9 @@ export const useLikes = (eventId: number, likesCount?: number) => {
   const [count, setCount] = useState(likesCount);
 
   return {
-    get: () => ({
+    data: {
       count,
-    }),
+    },
     toggle: async () => {
       if (isLoggedIn === undefined || !isLoggedIn) {
         return;

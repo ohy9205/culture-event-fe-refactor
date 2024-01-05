@@ -29,10 +29,10 @@ const useMapList = () => {
   }, [filter]);
 
   return {
-    get: () => ({
+    data: {
       events,
       curEvent,
-    }),
+    },
     change: () => ({
       curEvent: (event: SimpleEvent) => setCurEvent(event),
     }),

@@ -20,9 +20,9 @@ const useEventDetail = (eventId: number) => {
   }
 
   return {
-    get: () => ({
+    data: {
       eventDetail: data?.payload.event,
-    }),
+    },
   };
 };
 

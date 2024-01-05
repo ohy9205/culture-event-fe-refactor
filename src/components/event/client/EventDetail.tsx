@@ -17,9 +17,9 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { get } = useEventDetail(id);
+  const { data } = useEventDetail(id);
 
-  if (get().eventDetail) {
+  if (data.eventDetail) {
     const {
       thumbnail,
       title,
@@ -35,7 +35,7 @@ const EventDetail = ({ id }: Props) => {
       Users: likesUsers,
       views,
       Comments,
-    } = get().eventDetail;
+    } = data.eventDetail;
 
     return (
       <div className="flex flex-col gap-10 p-10">

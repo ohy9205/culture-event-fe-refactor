@@ -14,7 +14,7 @@ const useSignup = () => {
   const router = useRouter();
 
   return {
-    get: () => ({ form, valid }),
+    data: { form, valid },
     change: (e: ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     },

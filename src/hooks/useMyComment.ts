@@ -21,9 +21,9 @@ const useMyComment = () => {
 
   return {
     // 바로 state를 return하는게 아니라,
-    get: () => ({
+    data: {
       comments,
-    }),
+    },
   };
 };
 

@@ -84,7 +84,20 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         },
       };
     },
-    get: () => ({ comments, commentInput, isModify }),
+    get: async () => {
+      const rs = await getComments(eventId);
+
+      if (rs) {
+        const handler = {
+          success: () => {
+            setComments(rs.payload.comments);
+            setCommentInput("");
+          },
+        };
+        responseHandler(rs, handler);
+      }
+    },
+    data: { comments, commentInput, isModify },
   };
 };
 

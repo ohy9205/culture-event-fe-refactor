@@ -15,8 +15,10 @@ const Comment = ({ eventId, initComments }: Props) => {
   const {
     state: { user: loginUser },
   } = useAuthContext();
-  const { data, changeModifyMode, changeInput, modify, remove, submit } =
-    useComment(eventId, initComments);
+  const { data, editMode, changeInput, modify, remove, submit } = useComment(
+    eventId,
+    initComments
+  );
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;
@@ -48,7 +50,7 @@ const Comment = ({ eventId, initComments }: Props) => {
                         <Button
                           size="sm"
                           color="light"
-                          onClick={() => changeModifyMode().on(id, content)}
+                          onClick={() => editMode.on(id, content)}
                         >
                           수정
                         </Button>
@@ -89,7 +91,7 @@ const Comment = ({ eventId, initComments }: Props) => {
                         <Button
                           size="sm"
                           color="light"
-                          onClick={() => changeModifyMode().off()}
+                          onClick={() => editMode.off()}
                         >
                           나가기
                         </Button>

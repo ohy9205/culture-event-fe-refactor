@@ -72,31 +72,17 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         responseHandler(rs, handler);
       }
     },
-    changeModifyMode: () => {
-      return {
-        on: (commentId: number, content: string) => {
-          setIsModify({ status: true, commentId });
-          setCommentInput(content || "");
-        },
-        off: () => {
-          setIsModify({ status: false, commentId: -1 });
-          setCommentInput("");
-        },
-      };
+    editMode: {
+      on: (commentId: number, content: string) => {
+        setIsModify({ status: true, commentId });
+        setCommentInput(content || "");
+      },
+      off: () => {
+        setIsModify({ status: false, commentId: -1 });
+        setCommentInput("");
+      },
     },
-    get: async () => {
-      const rs = await getComments(eventId);
-
-      if (rs) {
-        const handler = {
-          success: () => {
-            setComments(rs.payload.comments);
-            setCommentInput("");
-          },
-        };
-        responseHandler(rs, handler);
-      }
-    },
+    get: async () => {},
     data: { comments, commentInput, isModify },
   };
 };

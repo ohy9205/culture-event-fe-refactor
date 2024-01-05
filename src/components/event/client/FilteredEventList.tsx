@@ -2,7 +2,7 @@
 
 import { useAuthContext } from "@/src/context/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FilterProvider } from "../../../context/FilterContext";
 import { PaginationProvider } from "../../../context/PaginationContext";
 import Button from "../../UI/common/Button";
@@ -22,13 +22,6 @@ const FilteredEventList = () => {
   const {
     state: { isLoggedIn },
   } = useAuthContext();
-
-  useEffect(() => {
-    if (isLoggedIn !== undefined && !isLoggedIn) {
-      alert("로그인이 필요한 페이지입니다.");
-      router.push("/signin");
-    }
-  }, [isLoggedIn]);
 
   // useEffect로 isPosterMode가 변경될 때마다 데이터 패칭, 기존 컴포넌트엔 주입만 해주기 -> 컴포넌트 재사용성up
 

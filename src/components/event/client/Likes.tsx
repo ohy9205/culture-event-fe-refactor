@@ -14,24 +14,23 @@ type Props = {
 
 const Likes = ({ eventId, useBackground, likesCount, useCount }: Props) => {
   const { data: eventLikes, toggle } = useLikes(eventId, likesCount);
-  const { data: myLikes, mutate } = useMyLikes();
+  const { data: myLikes, get } = useMyLikes();
   const [isMyLikes, setIsMyLikes] = useState(false);
 
   useEffect(() => {
     if (
-      myLikes.events &&
-      myLikes.events.find((event: any) => event.id === eventId)
+      myLikes.events?.find((event: any) => event.id === eventId)
       // 내가 '좋아요'한 이벤트인지 백엔드에서 받아올 수 없을까
     ) {
       setIsMyLikes(true);
     } else {
       setIsMyLikes(false);
     }
-  }, [eventId, myLikes, mutate]);
+  }, [eventId, myLikes, get]);
 
   const toggleButton = async () => {
     await toggle();
-    mutate();
+    get();
   };
 
   return (

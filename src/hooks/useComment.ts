@@ -6,6 +6,7 @@ import {
 } from "../apis/comment/comment";
 import { responseHandler } from "../apis/common/responseHandler";
 import { getComments } from "../apis/event/v2";
+import { useAuthContext } from "../context/AuthContext";
 import { Comment } from "../types/events";
 
 const useComment = (eventId: number, initComments: Comment[]) => {
@@ -15,25 +16,16 @@ const useComment = (eventId: number, initComments: Comment[]) => {
     commentId: -1,
   });
   const [comments, setComments] = useState(initComments);
-
-  // comments 데이터 패칭
-  // const fetchComment = async () => {
-  //   const rs = await getComments(eventId);
-
-  //   if (rs) {
-  //     const handler = {
-  //       success: () => {
-  //         setComments(rs.payload.comments);
-  //         setCommentInput("");
-  //       },
-  //     };
-  //     responseHandler(rs, handler);
-  //   }
-  // };
+  const {
+    state: { isLoggedIn },
+  } = useAuthContext();
 
   return {
     data: { comments, commentInput, isModify },
     changeInput: (e: ChangeEvent<HTMLTextAreaElement>) => {
+      if (isLoggedIn) {
+      }
+
       setCommentInput(e.target.value);
     },
     editMode: {

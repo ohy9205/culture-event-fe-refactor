@@ -6,7 +6,6 @@ import useMyLikes from "@/src/hooks/useMyLikes";
 import { FavoriteEvent } from "@/src/types/user";
 import { removeAccessToken } from "@/src/utils/accessToken";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { convertKRTime } from "../../../utils/convertKRTime";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
@@ -14,10 +13,9 @@ import EventCard from "../../event/client/EventCard";
 import EventDetail from "../../event/client/EventDetail";
 
 const MyInfo = () => {
-  const router = useRouter();
   const { state, resetAuth } = useAuthContext();
   const { data: myLikes } = useMyLikes();
-  const { data: myComments } = useMyComment();
+  const { data: myComments, get } = useMyComment();
 
   // 얘는 auth관련 쪽으로 가는게 맞을거 같은데
   const logout = () => {
@@ -25,13 +23,12 @@ const MyInfo = () => {
     resetAuth();
   };
 
-  // 얘를 프로바이더나 컴포넌트로 만들 수 있지 않을까
   useEffect(() => {
-    if (state.isLoggedIn !== undefined && !state.isLoggedIn) {
-      alert("로그인이 필요한 페이지입니다.");
-      router.push("/signin");
-    }
-  }, [state]);
+    const fetchComments = async () => {
+      await get();
+    };
+    fetchComments();
+  }, []);
 
   return (
     <>
@@ -52,9 +49,6 @@ const MyInfo = () => {
               </span>
               <div className="flex gap-10 justify-center items-center">
                 <span>nickname: {state.user.nick}</span>
-                <button className="border p-2 rounded-lg bg-blue-400 text-white">
-                  닉네임 변경하기
-                </button>
               </div>
             </div>
           </div>

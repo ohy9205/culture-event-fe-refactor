@@ -15,10 +15,8 @@ const Comment = ({ eventId, initComments }: Props) => {
   const {
     state: { user: loginUser },
   } = useAuthContext();
-  const { data, editMode, changeInput, modify, remove, submit } = useComment(
-    eventId,
-    initComments
-  );
+  const { get, data, editMode, changeInput, modify, remove, submit } =
+    useComment(eventId, initComments);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
     const isUpdated = createdAt === updatedAt ? false : true;
@@ -57,7 +55,10 @@ const Comment = ({ eventId, initComments }: Props) => {
                         <Button
                           size="sm"
                           color="dark"
-                          onClick={() => remove(id)}
+                          onClick={async () => {
+                            await remove(id);
+                            await get();
+                          }}
                         >
                           삭제
                         </Button>
@@ -81,7 +82,12 @@ const Comment = ({ eventId, initComments }: Props) => {
                   {data.isModify.commentId !== id && <div>{content}</div>}
                   {/* 수정중인 댓글 */}
                   {data.isModify.commentId === id && (
-                    <form onSubmit={(e) => modify(e, id)}>
+                    <form
+                      onSubmit={async (e) => {
+                        await modify(e, id);
+                        await get();
+                      }}
+                    >
                       <textarea
                         onChange={(e) => changeInput(e)}
                         value={data.commentInput}
@@ -111,7 +117,12 @@ const Comment = ({ eventId, initComments }: Props) => {
         {loginUser && (
           <li>
             {!data.isModify.status && (
-              <form onSubmit={submit}>
+              <form
+                onSubmit={async (e) => {
+                  await submit(e);
+                  await get();
+                }}
+              >
                 <textarea
                   onChange={(e) => changeInput(e)}
                   value={data.commentInput}

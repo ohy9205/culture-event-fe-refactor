@@ -17,60 +17,24 @@ const useComment = (eventId: number, initComments: Comment[]) => {
   const [comments, setComments] = useState(initComments);
 
   // comments 데이터 패칭
-  const fetchComment = async () => {
-    const rs = await getComments(eventId);
+  // const fetchComment = async () => {
+  //   const rs = await getComments(eventId);
 
-    if (rs) {
-      const handler = {
-        success: () => {
-          setComments(rs.payload.comments);
-          setCommentInput("");
-        },
-      };
-      responseHandler(rs, handler);
-    }
-  };
+  //   if (rs) {
+  //     const handler = {
+  //       success: () => {
+  //         setComments(rs.payload.comments);
+  //         setCommentInput("");
+  //       },
+  //     };
+  //     responseHandler(rs, handler);
+  //   }
+  // };
 
   return {
+    data: { comments, commentInput, isModify },
     changeInput: (e: ChangeEvent<HTMLTextAreaElement>) => {
       setCommentInput(e.target.value);
-    },
-    submit: async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (commentInput.length === 0 || commentInput === "") {
-        return;
-      }
-      const rs = await addComment(commentInput, eventId);
-      if (rs) {
-        const handler = {
-          success: () => fetchComment(),
-        };
-        responseHandler(rs, handler);
-      }
-    },
-    remove: async (commentId: number) => {
-      const rs = await deleteComment(commentId);
-      if (rs) {
-        const handler = {
-          success: () => fetchComment(),
-        };
-        responseHandler(rs, handler);
-      }
-    },
-    modify: async (e: FormEvent<HTMLFormElement>, commentId: number) => {
-      e.preventDefault();
-      const rs = await patchComment(commentInput, commentId);
-
-      if (rs) {
-        const handler = {
-          success: () => {
-            setIsModify({ status: false, commentId: -1 });
-            setCommentInput("");
-            fetchComment();
-          },
-        };
-        responseHandler(rs, handler);
-      }
     },
     editMode: {
       on: (commentId: number, content: string) => {
@@ -82,8 +46,49 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         setCommentInput("");
       },
     },
-    get: async () => {},
-    data: { comments, commentInput, isModify },
+    get: async () => {
+      const rs = await getComments(eventId);
+
+      if (rs) {
+        const handler = {
+          success: () => {
+            setComments(rs.payload.comments);
+            setCommentInput("");
+          },
+        };
+        responseHandler(rs, handler);
+      }
+    },
+    submit: async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (commentInput.length === 0 || commentInput === "") {
+        return;
+      }
+      const rs = await addComment(commentInput, eventId);
+      if (rs) {
+        responseHandler(rs, {});
+      }
+    },
+    remove: async (commentId: number) => {
+      const rs = await deleteComment(commentId);
+      if (rs) {
+        responseHandler(rs, {});
+      }
+    },
+    modify: async (e: FormEvent<HTMLFormElement>, commentId: number) => {
+      e.preventDefault();
+      const rs = await patchComment(commentInput, commentId);
+
+      if (rs) {
+        const handler = {
+          success: () => {
+            setIsModify({ status: false, commentId: -1 });
+            setCommentInput("");
+          },
+        };
+        responseHandler(rs, handler);
+      }
+    },
   };
 };
 

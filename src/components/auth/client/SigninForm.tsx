@@ -7,7 +7,7 @@ const SigninForm = () => {
 
   return (
     <div className="max-w-[1200px] min-w-[800px] py-[30px]">
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={signin}>
         <label htmlFor="email">이메일</label>
         <input
           type="email"
@@ -31,11 +31,7 @@ const SigninForm = () => {
           onChange={(e) => change(e)}
           required
         />
-        <button
-          type="button"
-          className="font-semibold text-xl border rounded-md py-[12px]"
-          onClick={signin}
-        >
+        <button className="font-semibold text-xl border rounded-md py-[12px]">
           로그인
         </button>
       </form>

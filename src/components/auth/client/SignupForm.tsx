@@ -20,7 +20,7 @@ const SignupForm = () => {
 
   return (
     <div className="max-w-[1200px] min-w-[800px] py-[30px]">
-      <form className="flex flex-col">
+      <form className="flex flex-col" onSubmit={signup}>
         <label htmlFor="email">이메일</label>
         <input
           type="email"
@@ -34,8 +34,8 @@ const SignupForm = () => {
         <label htmlFor="nickname">닉네임</label>
         <input
           type="text"
-          name="nickname"
-          placeholder="nickname"
+          name="nick"
+          placeholder="nick"
           className="w-full py-[12px] px-[20px] my-[8px]"
           required
           value={data.form.nick}
@@ -66,16 +66,13 @@ const SignupForm = () => {
             }
           }}
         />
+        {data.valid && (
+          <p className="text-center text-sm text-red-800 mb-4">{data.valid}</p>
+        )}
+        <button className="w-full font-semibold text-xl border rounded-md py-[12px]">
+          회원가입
+        </button>
       </form>
-      {data.valid && (
-        <p className="text-center text-sm text-red-800 mb-4">{data.valid}</p>
-      )}
-      <button
-        className="w-full font-semibold text-xl border rounded-md py-[12px]"
-        onClick={signup}
-      >
-        회원가입
-      </button>
     </div>
   );
 };

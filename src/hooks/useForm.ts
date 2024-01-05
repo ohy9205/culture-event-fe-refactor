@@ -1,33 +1,27 @@
 import { ChangeEvent, useState } from "react";
-import { responseHandler } from "../apis/common/responseHandler";
 
-const useForm = (
-  initialValues: Record<string, any>,
-  onSubmit: () => any,
-  handler: any
-) => {
+const useForm = (initialValues: Record<string, any>) => {
   const [values, setValues] = useState(initialValues);
-  const [valid, setValid] = useState("");
 
   const change = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // submit
-  const submit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const rs = await onSubmit();
-
-    if (rs) {
-      responseHandler(rs, handler);
-    }
+  const reset = () => {
+    const keys = Object.keys(values);
+    const newValues = keys.reduce(
+      (acc, value) => ({ ...acc, [value]: "" }),
+      {}
+    );
+    setValues(newValues);
   };
 
   return {
-    change,
     data: {
       values,
     },
+    change,
+    reset,
   };
 };
 

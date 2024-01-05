@@ -1,10 +1,14 @@
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { postSignup } from "../apis/auth/auth";
 import { responseHandler } from "../apis/common/responseHandler";
+import useForm from "./useForm";
 
 const useSignup = () => {
-  const [form, setForm] = useState({
+  const {
+    data: { values },
+    change,
+  } = useForm({
     email: "",
     nick: "",
     password: "",
@@ -13,20 +17,35 @@ const useSignup = () => {
   const [valid, setValid] = useState("");
   const router = useRouter();
 
+  const validate = (values: Record<string, string>) => {
+    if (values.password !== values.passwordConfirm) {
+      setValid("비밀번호가 일치하지 않습니다");
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return {
-    data: { form, valid },
-    change: (e: ChangeEvent<HTMLInputElement>) => {
-      setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    },
-    signup: async () => {
-      const { email, nick, password } = form;
-      const rs = await postSignup({ email, nick, password });
+    data: { form: values, valid },
+    change,
+    signup: async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!validate(values)) {
+        return;
+      }
+      const rs = await postSignup(values);
 
       if (rs) {
+        console.log(rs);
         const handler = {
           success: () => router.push("/signin"),
-          status403: () => setValid(""),
-          status409: () => setValid(""),
+          status403: () => {
+            setValid(rs.message);
+          },
+          status409: () => {
+            setValid(rs.message);
+          },
         };
         responseHandler(rs, handler);
       }

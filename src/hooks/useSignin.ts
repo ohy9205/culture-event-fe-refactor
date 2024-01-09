@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { postSignin } from "../apis/auth/auth";
 import { responseHandler } from "../apis/common/responseHandler";
 import { useAuthContext } from "../context/AuthContext";
@@ -8,19 +8,19 @@ import useForm from "./useForm";
 const useSignin = () => {
   const { setAuth } = useAuthContext();
   const router = useRouter();
-  const [valid, setValid] = useState("");
   const {
-    data: { values },
-    change,
+    data: { form, valid },
+    changeForm,
     reset,
+    setValid,
   } = useForm({ email: "", password: "" });
 
   return {
-    data: { form: values, valid },
-    change,
+    data: { form, valid },
+    changeForm,
     signin: async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const rs = await postSignin(values);
+      const rs = await postSignin(form);
 
       if (rs) {
         const handler = {

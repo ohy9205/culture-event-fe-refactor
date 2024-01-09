@@ -1,26 +1,29 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 const useForm = (initialValues: Record<string, any>) => {
-  const [values, setValues] = useState(initialValues);
+  const [form, setForm] = useState(initialValues);
+  const [valid, setValid] = useState("");
 
-  const change = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const changeForm = (name: string, value: any) => {
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const reset = () => {
-    const keys = Object.keys(values);
+    const keys = Object.keys(form);
     const newValues = keys.reduce(
       (acc, value) => ({ ...acc, [value]: "" }),
       {}
     );
-    setValues(newValues);
+    setForm(newValues);
   };
 
   return {
     data: {
-      values,
+      form,
+      valid,
     },
-    change,
+    setValid,
+    changeForm,
     reset,
   };
 };

@@ -1,20 +1,20 @@
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { postSignup } from "../apis/auth/auth";
 import { responseHandler } from "../apis/common/responseHandler";
 import useForm from "./useForm";
 
 const useSignup = () => {
   const {
-    data: { values },
-    change,
+    data: { form, valid },
+    changeForm,
+    setValid,
   } = useForm({
     email: "",
     nick: "",
     password: "",
     passwordConfirm: "",
   });
-  const [valid, setValid] = useState("");
   const router = useRouter();
 
   const validate = (values: Record<string, string>) => {
@@ -27,14 +27,14 @@ const useSignup = () => {
   };
 
   return {
-    data: { form: values, valid },
-    change,
+    data: { form, valid },
+    changeForm,
     signup: async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!validate(values)) {
+      if (!validate(form)) {
         return;
       }
-      const rs = await postSignup(values);
+      const rs = await postSignup(form);
 
       if (rs) {
         console.log(rs);

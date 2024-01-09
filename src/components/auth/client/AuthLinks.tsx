@@ -4,11 +4,13 @@ import { useAuthContext } from "@/src/context/AuthContext";
 import Link from "next/link";
 
 const AuthLinks = () => {
-  const { state } = useAuthContext();
+  const {
+    state: { isLoggedIn },
+  } = useAuthContext();
 
   return (
     <>
-      {state.isLoggedIn ? (
+      {isLoggedIn ? (
         // 로그인 상태
         <Link href="/my-page">마이 페이지</Link>
       ) : (

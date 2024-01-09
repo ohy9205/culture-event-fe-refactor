@@ -15,7 +15,7 @@ export const useLikes = (eventId: number, likesCount?: number) => {
       count,
     },
     toggle: async () => {
-      if (isLoggedIn === undefined || !isLoggedIn) {
+      if (!isLoggedIn) {
         return;
       }
 

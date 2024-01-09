@@ -13,9 +13,9 @@ type Props = {
 
 const Comment = ({ eventId, initComments }: Props) => {
   const {
-    state: { user: loginUser },
+    state: { isLoggedIn, user },
   } = useAuthContext();
-  const { get, data, editMode, changeInput, modify, remove, submit } =
+  const { get, data, editMode, changeForm, modify, remove, submit } =
     useComment(eventId, initComments);
 
   const renderDate = (createdAt: string, updatedAt: string) => {
@@ -43,7 +43,7 @@ const Comment = ({ eventId, initComments }: Props) => {
                       {renderDate(createdAt, updatedAt)}
                     </div>
                     {/* 내가 쓴 댓글 */}
-                    {commenterUser.email === loginUser?.email && (
+                    {commenterUser.email === user.email && (
                       <div className="flex grow gap-2 md:justify-end">
                         <Button
                           size="sm"
@@ -89,8 +89,10 @@ const Comment = ({ eventId, initComments }: Props) => {
                       }}
                     >
                       <textarea
-                        onChange={(e) => changeInput(e)}
-                        value={data.commentInput}
+                        onChange={(e) =>
+                          changeForm(e.target.name, e.target.value)
+                        }
+                        value={data.form.comment}
                         className="w-full h-[100px] border resize-none"
                       />
                       <div className="flex gap-2">
@@ -114,7 +116,7 @@ const Comment = ({ eventId, initComments }: Props) => {
         )}
 
         {/* 댓글 입력 폼 */}
-        {loginUser && (
+        {isLoggedIn && (
           <li>
             {!data.isModify.status && (
               <form
@@ -124,8 +126,9 @@ const Comment = ({ eventId, initComments }: Props) => {
                 }}
               >
                 <textarea
-                  onChange={(e) => changeInput(e)}
-                  value={data.commentInput}
+                  onChange={(e) => changeForm(e.target.name, e.target.value)}
+                  name={"comment"}
+                  value={data.form.comment}
                   className="w-full h-[100px] border resize-none"
                 ></textarea>
                 <Button size="sm" color="dark">
@@ -135,7 +138,7 @@ const Comment = ({ eventId, initComments }: Props) => {
             )}
           </li>
         )}
-        {!loginUser && <li>댓글 작성을 위해 로그인하세요</li>}
+        {!isLoggedIn && <li>댓글 작성을 위해 로그인하세요</li>}
       </ul>
     </div>
   );

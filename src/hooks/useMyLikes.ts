@@ -1,30 +1,32 @@
-import { useEffect } from "react";
 import useSWR from "swr";
 import { responseHandler } from "../apis/common/responseHandler";
 import { getMyLikes } from "../apis/user/user";
 import { useAuthContext } from "../context/AuthContext";
 
 const useMyLikes = () => {
-  const { data, mutate } = useSWR(`likesEvent`, getMyLikes);
   const {
     state: { isLoggedIn },
   } = useAuthContext();
+  const { data, mutate } = useSWR(
+    isLoggedIn ? "/likesEvent" : false,
+    getMyLikes
+  );
 
   if (data) {
     responseHandler(data, {});
   }
 
-  useEffect(() => {
-    if (isLoggedIn === undefined || !isLoggedIn) {
-      return;
-    }
-  }, [isLoggedIn]);
-
   return {
     data: {
       events: data?.payload?.data,
     },
-    get: mutate,
+    // 로그인 하지 않았을 땐 요청이 가지 않도록 처리
+    get: () => {
+      if (!isLoggedIn) {
+        return;
+      }
+      mutate();
+    },
   };
 };
 

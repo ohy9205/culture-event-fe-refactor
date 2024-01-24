@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://web-production-d139.up.railway.app";
+const API_BASE_URL = "http://localhost:3030";
 export const API_V1 = `${API_BASE_URL}/v1/events`;
 export const API_V2 = `${API_BASE_URL}/v2/events`;
 export const API_COMMENT = `${API_BASE_URL}/comment`;

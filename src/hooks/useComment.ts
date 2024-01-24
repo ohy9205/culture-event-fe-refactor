@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import {
   addComment,
   deleteComment,
@@ -6,13 +6,12 @@ import {
 } from "../apis/comment/comment";
 import { responseHandler } from "../apis/common/responseHandler";
 import { getComments } from "../apis/event/v2";
-import { useAuthContext } from "../context/AuthContext";
 import { Comment } from "../types/events";
 import useForm from "./useForm";
 
 const useComment = (eventId: number, initComments: Comment[]) => {
   const {
-    data: { form, valid },
+    data: { form },
     changeForm,
     reset,
   } = useForm({ comment: "" });
@@ -21,10 +20,6 @@ const useComment = (eventId: number, initComments: Comment[]) => {
     commentId: -1,
   });
   const [comments, setComments] = useState(initComments);
-  const {
-    state: { isLoggedIn },
-  } = useAuthContext();
-
   return {
     data: { comments, form, isModify },
     changeForm,
@@ -51,12 +46,14 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         responseHandler(rs, handler);
       }
     },
-    submit: async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+    submit: async () => {
       // 객체를 순회하면서 데이터를 validate 하는 로직
-      // if (form.trim().length === 0 || form.trim().comment === "") {
-      //   return;
-      // }
+      if (
+        form.comment.trim().length === 0 ||
+        form.comment.trim().comment === ""
+      ) {
+        return;
+      }
       const rs = await addComment(form.comment, eventId);
       if (rs) {
         responseHandler(rs, {});
@@ -68,8 +65,7 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         responseHandler(rs, {});
       }
     },
-    modify: async (e: FormEvent<HTMLFormElement>, commentId: number) => {
-      e.preventDefault();
+    modify: async (commentId: number) => {
       const rs = await patchComment(form.comment, commentId);
 
       if (rs) {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useEventDetail from "../../../hooks/useEventDetail";
 import Button from "../../UI/common/Button";
-import Comment from "./Comment";
+import CommentList from "./CommentList";
 import Likes from "./Likes";
 import StaticMap from "./StaticMap";
 
@@ -63,6 +63,7 @@ const EventDetail = ({ id }: Props) => {
                   <span className="font-semibold">{views}</span>
                 </div>
               </li>
+
               <li className={LIST_STYLE}>
                 <span className={LABEL_STYLE}>장르</span>
                 <p className={INFO_STYLE}>{category}</p>
@@ -99,7 +100,8 @@ const EventDetail = ({ id }: Props) => {
           />
         </section>
         <section>
-          <Comment eventId={id} initComments={Comments} />
+          {/* <Comment eventId={id} initComments={Comments} /> */}
+          <CommentList eventId={id} initComments={Comments} />
         </section>
       </div>
     );

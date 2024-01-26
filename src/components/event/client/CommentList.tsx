@@ -40,7 +40,7 @@ const CommentList = ({ eventId, initComments }: Props) => {
                 <div className="flex justify-between items-center">
                   <CommentItem.Writer>{commenterUser.nick}</CommentItem.Writer>
                   {/* 일반모드 */}
-                  {!data.isModify.status && (
+                  {isLoggedIn && !data.isModify.status && (
                     <>
                       {commenterUser.email === user.email && (
                         <div className="flex gap-2">
@@ -120,6 +120,7 @@ const CommentList = ({ eventId, initComments }: Props) => {
             </CommentItem.Button>
           </li>
         )}
+        {!isLoggedIn && <li>댓글 작성을 위해서 로그인하세요.</li>}
       </CommentItem>
     </div>
   );

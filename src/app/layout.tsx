@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import Script from "next/script";
 import Header from "../components/UI/layout/Header";
 import { AuthContextProvider } from "../context/AuthContext";
@@ -18,6 +19,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // 쿠키에서 토큰 정보확인
+  const cookieStore = cookies();
+  const token = cookieStore.get("at");
+
   return (
     <html lang="en">
       <head>
@@ -29,7 +34,7 @@ export default function RootLayout({
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
         <SWRProvider>
-          <AuthContextProvider>
+          <AuthContextProvider hasToken={token ? true : false}>
             <div id="modal"></div>
             <Header />
             {children}

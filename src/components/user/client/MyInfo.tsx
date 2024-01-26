@@ -1,10 +1,10 @@
 "use client";
 
+import { signOut } from "@/src/apis/auth/auth";
 import { useAuthContext } from "@/src/context/AuthContext";
 import useMyComment from "@/src/hooks/useMyComment";
 import useMyLikes from "@/src/hooks/useMyLikes";
 import { FavoriteEvent } from "@/src/types/user";
-import { removeAccessToken } from "@/src/utils/accessToken";
 import Image from "next/image";
 import { useEffect } from "react";
 import { convertKRTime } from "../../../utils/convertKRTime";
@@ -18,8 +18,8 @@ const MyInfo = () => {
   const { data: myComments, get } = useMyComment();
 
   // 얘는 auth관련 쪽으로 가는게 맞을거 같은데
-  const logout = () => {
-    removeAccessToken();
+  const logout = async () => {
+    await signOut();
     resetAuth();
   };
 

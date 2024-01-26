@@ -10,7 +10,7 @@ type InitialValue = {
 };
 
 type InitialState = {
-  isLoggedIn: boolean | undefined;
+  isLoggedIn: boolean;
   user: {
     email: string;
     nick: string;
@@ -19,7 +19,7 @@ type InitialState = {
 
 const initialValue = {
   state: {
-    isLoggedIn: undefined,
+    isLoggedIn: false,
     user: {
       email: "",
       nick: "",
@@ -33,17 +33,30 @@ const AuthContext = createContext<InitialValue>(initialValue);
 
 export const AuthContextProvider = ({
   children,
+  hasToken,
 }: {
   children: React.ReactNode;
+  hasToken: boolean;
 }) => {
-  const [authState, setAuthState] = useState<InitialState>(initialValue.state);
+  console.log("isLoggedIn Props  ", hasToken);
+
+  const [authState, setAuthState] = useState<InitialState>({
+    isLoggedIn: hasToken,
+    user: {
+      email: "",
+      nick: "",
+    },
+  });
 
   const setAuth = (email: string, nick: string) => {
     setAuthState({ isLoggedIn: true, user: { email, nick } });
   };
 
   const resetAuth = () => {
-    setAuthState((prev) => ({ ...prev, isLoggedIn: false }));
+    setAuthState(() => ({
+      isLoggedIn: false,
+      user: { email: "", nick: "" },
+    }));
   };
 
   useEffect(() => {
@@ -52,15 +65,15 @@ export const AuthContextProvider = ({
       if (status === 200) {
         setAuthState((prev) => ({
           ...prev,
-          isLoggedIn: true,
           user: { email: payload.user.email, nick: payload.user.nick },
         }));
-      } else {
-        setAuthState((prev) => ({ ...prev, isLoggedIn: false }));
       }
     };
-    checkLogin();
-  }, []);
+
+    if (hasToken) {
+      checkLogin();
+    }
+  }, [hasToken]);
 
   return (
     <AuthContext.Provider value={{ state: authState, setAuth, resetAuth }}>

@@ -1,5 +1,4 @@
 import { APIResponse } from "@/src/types/APIResponse";
-import { getAccessToken, setAccessToken } from "@/src/utils/accessToken";
 
 type Method = "GET" | "POST" | "DELETE" | "PATCH";
 
@@ -8,9 +7,14 @@ export const authorizedAPIFetch = async (
   method: Method,
   body?: Record<string, any>
 ): Promise<APIResponse> => {
-  const fetchOptions = setFetchOption(method, true, body);
+  const fetchOptions = makeFetchOption(
+    method,
+    { "Content-Type": "application/json" },
+    "include",
+    body,
+    { revalidate: 36000 }
+  );
   const data = await fetching(url, fetchOptions);
-
   return data;
 };
 
@@ -19,7 +23,13 @@ export const APIFetch = async (
   method: Method,
   body?: Record<string, any>
 ): Promise<APIResponse> => {
-  const fetchOptions = setFetchOption(method, false, body);
+  const fetchOptions = makeFetchOption(
+    method,
+    { "Content-Type": "application/json" },
+    "include",
+    body,
+    { revalidate: 36000 }
+  );
   const data = await fetching(url, fetchOptions);
 
   return data;
@@ -38,7 +48,6 @@ const fetching = async (
 ) => {
   const rs = await fetch(url, fetchOptions);
   let data = await convertFetchResponse(rs);
-  saveToken(data);
 
   return data;
 };
@@ -50,27 +59,6 @@ const convertFetchResponse = async (rs: Response): Promise<APIResponse> => {
     ...data,
     status: rs.status,
   };
-};
-
-// 토큰 저장
-const saveToken = (data: APIResponse) => {
-  if (data.payload.at) {
-    setAccessToken(data.payload.at);
-  }
-};
-
-// fetch옵션 설정
-const setFetchOption = (
-  method: Method,
-  isAuthorized: boolean,
-  body?: Record<string, any>
-) => {
-  let headers: HeadersInit = { "Content-Type": "application/json" };
-  if (isAuthorized) {
-    headers["Authorization"] = `Bearer ${getAccessToken()}`;
-  }
-  const next = { revalidate: 36000 };
-  return makeFetchOption(method, headers, "include", body, next);
 };
 
 // fetch 옵션 생성

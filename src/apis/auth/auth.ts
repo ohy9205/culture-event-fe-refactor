@@ -14,3 +14,9 @@ export async function postSignin(body: Record<string, any>) {
   const rs = await APIFetch(url, "POST", body);
   return rs;
 }
+
+export async function signOut() {
+  const url = `${API_AUTH}/signOut`;
+  const rs = await APIFetch(url, "POST");
+  return rs;
+}

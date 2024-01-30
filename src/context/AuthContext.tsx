@@ -38,8 +38,6 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
   hasToken: boolean;
 }) => {
-  console.log("isLoggedIn Props  ", hasToken);
-
   const [authState, setAuthState] = useState<InitialState>({
     isLoggedIn: hasToken,
     user: {

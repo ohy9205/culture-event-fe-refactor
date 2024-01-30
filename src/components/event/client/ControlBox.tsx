@@ -68,7 +68,7 @@ const ControlBox = () => {
             onChange={onFilterChange}
             name="location"
             className={SELECT_STYLE}
-            value={filter.location}
+            value={filter.location || LOCATION[0].text}
           >
             {LOCATION.map((it) => (
               <option key={it.text} value={it.value}>
@@ -80,7 +80,7 @@ const ControlBox = () => {
             onChange={onFilterChange}
             name="category"
             className={SELECT_STYLE}
-            value={filter.category}
+            value={filter.category || CATEGORY[0].text}
           >
             {CATEGORY.map((it) => (
               <option key={it.text} value={it.value}>
@@ -90,9 +90,9 @@ const ControlBox = () => {
           </select>
           <select
             onChange={onFilterChange}
-            name="cost"
+            name="isFree"
             className={SELECT_STYLE}
-            value={filter.cost}
+            value={filter.isFree || COST[0].text}
           >
             {COST.map((it) => (
               <option key={it.text} value={it.value}>
@@ -104,17 +104,17 @@ const ControlBox = () => {
         <div className="flex gap-2 items-center">
           <input
             type="date"
-            name="startDate"
+            name="start"
             onChange={onFilterChange}
-            value={filter.startDate}
+            value={filter.start || ""}
             className={SELECT_STYLE}
           />
           <div>-</div>
           <input
             type="date"
-            name="endDate"
+            name="end"
             onChange={onFilterChange}
-            value={filter.endDate}
+            value={filter.end || ""}
             className={SELECT_STYLE}
           />
         </div>
@@ -124,7 +124,7 @@ const ControlBox = () => {
             onChange={onFilterChange}
             name="orderBy"
             className={SELECT_STYLE}
-            value={filter.orderBy}
+            value={filter.orderBy || ORDER_BY[0].text}
           >
             {ORDER_BY.map((it) => (
               <option key={it.text} value={it.value}>

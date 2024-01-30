@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthContext } from "@/src/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import useEventDetail from "../../../hooks/useEventDetail";
@@ -18,6 +19,9 @@ const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
   const { data } = useEventDetail(id);
+  const {
+    state: { isLoggedIn },
+  } = useAuthContext();
 
   if (data.eventDetail) {
     const {
@@ -53,7 +57,7 @@ const EventDetail = ({ id }: Props) => {
               <li className="flex gap-2">
                 <Likes
                   eventId={id}
-                  useBackground
+                  useBackground={isLoggedIn}
                   likesCount={likesUsers.length}
                   useCount
                 />
@@ -100,7 +104,6 @@ const EventDetail = ({ id }: Props) => {
           />
         </section>
         <section>
-          {/* <Comment eventId={id} initComments={Comments} /> */}
           <CommentList eventId={id} initComments={Comments} />
         </section>
       </div>

@@ -3,7 +3,7 @@
 import { useAuthContext } from "@/src/context/AuthContext";
 import useComment from "@/src/hooks/useComment";
 import { Comment } from "@/src/types/events";
-import { convertKRTime } from "@/src/utils/convertKRTime";
+import { convertKRTime } from "@/src/utils/convertKRTime/convertKRTime";
 import CommentItem from "./Comment";
 
 type Props = {
@@ -51,7 +51,10 @@ const CommentList = ({ eventId, initComments }: Props) => {
                             수정
                           </CommentItem.Button>
                           <CommentItem.Button
-                            onClick={() => remove(id)}
+                            onClick={async () => {
+                              await remove(id);
+                              await get();
+                            }}
                             color="negative"
                           >
                             삭제

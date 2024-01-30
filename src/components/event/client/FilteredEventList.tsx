@@ -20,8 +20,9 @@ const cookie = new CookieTokenAdapter();
 const PAGE_SIZE = 12;
 
 const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
+  let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
   const rs = await getFilteredEvents(
-    query.pageIndex ? query : { ...query, pageIndex: 1 },
+    apiQuery,
     cookie.getToken("at"),
     cookie.getToken("rt")
   );
@@ -38,7 +39,7 @@ const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
             {tab.text}
           </Link>
         ))}
-        <PaginationProvider>
+        <PaginationProvider initPageIndex={apiQuery.pageIndex}>
           {query.tab !== "map" && <PosterList list={rs.payload.events} />}
           {query.tab === "map" && <MapList list={rs.payload.events} />}
           <Pagination totalPage={rs.payload.totalPage} pageSize={PAGE_SIZE} />

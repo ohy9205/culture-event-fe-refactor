@@ -3,6 +3,7 @@
 import { createContext, useState } from "react";
 
 type Props = {
+  initPageIndex: number;
   children: React.ReactNode;
 };
 
@@ -22,8 +23,11 @@ export const PaginationContext = createContext({
   onNextBtnHandler: (totalPage: number) => {},
 });
 
-export const PaginationProvider = ({ children }: Props) => {
-  const [pagination, setPagination] = useState(initialPagination);
+export const PaginationProvider = ({ children, initPageIndex }: Props) => {
+  const [pagination, setPagination] = useState({
+    ...initialPagination,
+    pageIndex: initPageIndex,
+  });
   const { pageIndex, pagingGroupIndex } = pagination;
 
   const onInitPagingHandler = () => {

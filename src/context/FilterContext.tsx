@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import { deleteObjectKeys } from "../utils/objectController/object";
@@ -40,7 +39,6 @@ export const FilterContext = createContext({
 
 export const FilterProvider = ({ children, query }: Props) => {
   const [filter, setFilter] = useState<Record<string, any>>(query);
-  const router = useRouter();
 
   const debounceValue = useDebounce(filter, 200);
 

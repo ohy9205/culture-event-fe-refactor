@@ -24,8 +24,8 @@ export const evnetFilter = {
       { text: "양천구", value: "양천구" },
     ],
   },
-  cost: {
-    type: "cost",
+  isFree: {
+    type: "isFree",
     options: [
       { text: "비용", value: "" },
       { text: "무료", value: "무료" },

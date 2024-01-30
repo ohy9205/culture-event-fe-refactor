@@ -18,6 +18,24 @@ export const authorizedAPIFetch = async (
   return data;
 };
 
+export const authorizedAPIFetchFromServer = async (
+  url: string,
+  method: Method,
+  at?: string,
+  rt?: string,
+  body?: Record<string, any>
+): Promise<APIResponse> => {
+  const fetchOptions = makeFetchOption(
+    method,
+    { "Content-Type": "application/json", Cookie: `at=${at};rt=${rt}` },
+    "include",
+    body,
+    { revalidate: 36000 }
+  );
+  const data = await fetching(url, fetchOptions);
+  return data;
+};
+
 export const APIFetch = async (
   url: string,
   method: Method,

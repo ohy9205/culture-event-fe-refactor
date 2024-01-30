@@ -1,62 +1,49 @@
-"use client";
+// "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { FilterProvider } from "../../../context/FilterContext";
-import { PaginationProvider } from "../../../context/PaginationContext";
-import Button from "../../UI/common/Button";
+import { getFilteredEvents } from "@/src/apis/event/v2";
+import { FilterProvider } from "@/src/context/FilterContext";
+import { PaginationProvider } from "@/src/context/PaginationContext";
+import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import { CookieTokenAdapter } from "@/src/utils/token/cookieAdapter";
+import Link from "next/link";
 import ControlBox from "./ControlBox";
 import MapList from "./MapList";
+import Pagination from "./Pagination";
 import PosterList from "./PosterList";
 
 const TAB_LIST = [
-  { text: "리스트로보기", isPosterMode: true },
-  { text: "지도로보기", isPosterMode: false },
+  { text: "포스터로보기", value: "poster" },
+  { text: "지도로보기", value: "map" },
 ];
 
-const FilteredEventList = () => {
-  const query = useSearchParams().get("orderBy") || "";
-  const router = useRouter();
-  const [isPosterMode, setIsPosterMode] = useState(TAB_LIST[0].isPosterMode);
-  const {
-    state: { isLoggedIn },
-  } = useAuthContext();
+const cookie = new CookieTokenAdapter();
+const PAGE_SIZE = 12;
 
-  // useEffect로 isPosterMode가 변경될 때마다 데이터 패칭, 기존 컴포넌트엔 주입만 해주기 -> 컴포넌트 재사용성up
+const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
+  const rs = await getFilteredEvents(
+    query.pageIndex ? query : { ...query, pageIndex: 1 },
+    cookie.getToken("at"),
+    cookie.getToken("rt")
+  );
 
   return (
     <>
-      {isLoggedIn && (
-        <FilterProvider query={query}>
-          <>
-            <ControlBox />
-            <section className="w-full flex flex-col py-5 gap-5">
-              <div className="w-full flex gap-5 justify-start border-b-4 pb-2">
-                {TAB_LIST.map((it) => (
-                  <Button
-                    key={it.text}
-                    onClick={() => setIsPosterMode(it.isPosterMode)}
-                    size={`${it.isPosterMode === isPosterMode ? "md" : "sm"}`}
-                    color={`${
-                      it.isPosterMode === isPosterMode ? "dark" : "light"
-                    }`}
-                  >
-                    {it.text}
-                  </Button>
-                ))}
-              </div>
-
-              {isPosterMode && (
-                <PaginationProvider>
-                  <PosterList />
-                </PaginationProvider>
-              )}
-              {!isPosterMode && <MapList />}
-            </section>
-          </>
-        </FilterProvider>
-      )}
+      <FilterProvider query={query}>
+        <ControlBox />
+        {TAB_LIST.map((tab) => (
+          <Link
+            key={tab.text}
+            href={`/event?${objectToQueryString({ ...query, tab: tab.value })}`}
+          >
+            {tab.text}
+          </Link>
+        ))}
+        <PaginationProvider>
+          {query.tab !== "map" && <PosterList list={rs.payload.events} />}
+          {query.tab === "map" && <MapList list={rs.payload.events} />}
+          <Pagination totalPage={rs.payload.totalPage} pageSize={PAGE_SIZE} />
+        </PaginationProvider>
+      </FilterProvider>
     </>
   );
 };

@@ -1,6 +1,8 @@
 "use client";
 
-import { useContext } from "react";
+import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
 import { FilterContext } from "../../../context/FilterContext";
 
 const LOCATION = [
@@ -59,6 +61,12 @@ const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = () => {
   const { filter, onFilterChange } = useContext(FilterContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    const query = objectToQueryString(filter);
+    router.push(`/event?${query}`);
+  }, [filter, router]);
 
   return (
     <section className="mb-5">

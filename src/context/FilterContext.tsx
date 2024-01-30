@@ -1,29 +1,33 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
+import { deleteObjectKeys } from "../utils/objectController/object";
 
 type Props = {
-  query: string;
+  query: Record<string, any>;
   children: React.ReactNode;
 };
 
 export type Filter = {
-  location: string;
-  category: string;
-  cost: string;
-  startDate: string;
-  endDate: string;
-  orderBy: string;
-  keyword: string;
+  location?: string;
+  category?: string;
+  isFree?: string;
+  start?: string;
+  end?: string;
+  orderBy?: string;
+  keyword?: string;
 };
 
 export const initialFilter = {
-  location: "",
-  category: "",
-  cost: "",
-  startDate: "",
-  endDate: "",
-  orderBy: "",
-  keyword: "",
+  location: undefined,
+  category: undefined,
+  isFree: undefined,
+  start: undefined,
+  end: undefined,
+  orderBy: undefined,
+  keyword: undefined,
 };
 
 export const FilterContext = createContext({
@@ -35,15 +39,8 @@ export const FilterContext = createContext({
 });
 
 export const FilterProvider = ({ children, query }: Props) => {
-  const [filter, setFilter] = useState<Filter>({
-    location: "",
-    category: "",
-    cost: "",
-    startDate: "",
-    endDate: "",
-    orderBy: query ? query : "",
-    keyword: "",
-  });
+  const [filter, setFilter] = useState<Record<string, any>>(query);
+  const router = useRouter();
 
   const debounceValue = useDebounce(filter, 200);
 
@@ -52,11 +49,17 @@ export const FilterProvider = ({ children, query }: Props) => {
   ) => {
     const { name, value } = e.target;
 
-    setFilter((prev: Filter) => ({
-      ...prev,
-      [name]: value,
-    }));
+    if (value) {
+      setFilter((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    } else {
+      const newFilter = deleteObjectKeys(filter, [name]);
+      setFilter(newFilter);
+    }
   };
+
   return (
     <FilterContext.Provider
       value={{

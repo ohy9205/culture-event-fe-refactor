@@ -1,19 +1,23 @@
-"use  client";
+"use client";
 
-import useMapList from "../../../hooks/useMapList";
+import useMapList from "@/src/hooks/useMapList";
+import { Event } from "@/src/types/events";
 import Button from "../../UI/common/Button";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
 import EventDetail from "./EventDetail";
 import StaticMap from "./StaticMap";
 
-const MapList = () => {
-  const { data, changeCurrentEvent } = useMapList();
+const MapList = ({ list }: { list: Event[] }) => {
+  const {
+    data: { curEvent },
+    changeCurrentEvent,
+  } = useMapList(list[0]);
 
   return (
     <div className="w-full flex flex-col gap-10 md:flex-row md:gap-0 px-5">
       <div className="flex flex-col gap-4 w-full h-[800px] md:w-2/5  overflow-scroll py-2 md:pr-5">
-        {data.events.map((event) => (
+        {list.map((event) => (
           <EventCard key={event.id}>
             <div
               className="flex relative"
@@ -43,8 +47,8 @@ const MapList = () => {
       </div>
       <div className="w-full md:w-3/5">
         <StaticMap
-          latitude={data.curEvent?.longitude || ""}
-          longitude={data.curEvent?.latitude || ""}
+          latitude={curEvent.longitude || ""}
+          longitude={curEvent.latitude || ""}
           heightStyle="h-[800px]"
         />
       </div>

@@ -13,7 +13,6 @@ export async function getFilteredEvents(
   rt?: string
 ): Promise<APIResponse> {
   const url = `${API_V2}?${objectToQueryString(queryObj)}&pageSize=12`;
-  console.log(`url ::: ${url}`);
   const rs = await authorizedAPIFetchFromServer(url, "GET", at, rt);
   const payload = queryObj.pageIndex
     ? {

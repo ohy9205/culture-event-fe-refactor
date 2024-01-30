@@ -1,16 +1,21 @@
+"use client";
+
 import { createContext, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
 };
 
+const PAGE_BUTTON_SIZE = 5;
+
 const initialPagination = {
-  pageIndex: 0,
-  pagingGroupIndex: 0,
+  pageIndex: 1,
+  pagingGroupIndex: 1,
 };
 
 export const PaginationContext = createContext({
   pagination: initialPagination,
+  pageButtonSize: PAGE_BUTTON_SIZE,
   onInitPagingHandler: () => {},
   onPagingHandler: (curIndex: number) => {},
   onPrevBtnHandler: () => {},
@@ -18,40 +23,37 @@ export const PaginationContext = createContext({
 });
 
 export const PaginationProvider = ({ children }: Props) => {
-  const pageButtonSize = 10;
   const [pagination, setPagination] = useState(initialPagination);
   const { pageIndex, pagingGroupIndex } = pagination;
 
   const onInitPagingHandler = () => {
-    setPagination({ pageIndex: 0, pagingGroupIndex: 0 });
+    setPagination({ pageIndex: 1, pagingGroupIndex: 1 });
   };
 
   const onPagingHandler = (curIndex: number) => {
-    setPagination((prev) => ({ ...prev, pageIndex: curIndex - 1 }));
+    setPagination((prev) => ({ ...prev, pageIndex: curIndex }));
   };
 
   const onPrevBtnHandler = () => {
-    if (pagingGroupIndex < 1) {
+    if (pagingGroupIndex - 1 < 1) {
       return;
     }
 
     setPagination((prev) => ({
-      ...prev,
       pagingGroupIndex: --prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex - 1) * pageButtonSize + pageButtonSize - 1,
+      pageIndex: (pagingGroupIndex - 2) * PAGE_BUTTON_SIZE + PAGE_BUTTON_SIZE,
     }));
   };
 
   const onNextBtnHandler = (totalPage: number) => {
-    const TOTAL_PAGING_GROUP_COUNT = Math.ceil(totalPage / pageButtonSize);
+    const TOTAL_PAGING_GROUP_COUNT = Math.ceil(totalPage / PAGE_BUTTON_SIZE);
     if (pagingGroupIndex === TOTAL_PAGING_GROUP_COUNT - 1) {
       return;
     }
 
     setPagination((prev) => ({
-      ...prev,
       pagingGroupIndex: ++prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex + 1) * pageButtonSize,
+      pageIndex: (pagingGroupIndex + 1) * PAGE_BUTTON_SIZE,
     }));
   };
 
@@ -59,6 +61,7 @@ export const PaginationProvider = ({ children }: Props) => {
     <PaginationContext.Provider
       value={{
         pagination,
+        pageButtonSize: PAGE_BUTTON_SIZE,
         onInitPagingHandler,
         onNextBtnHandler,
         onPagingHandler,

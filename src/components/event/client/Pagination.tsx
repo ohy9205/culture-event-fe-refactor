@@ -1,25 +1,31 @@
 "use client";
-import { useContext } from "react";
+import { FilterContext } from "@/src/context/FilterContext";
+import { replaceObjectKey } from "@/src/utils/objectController/object";
+import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
 import { PaginationContext } from "../../../context/PaginationContext";
 
 type Props = {
   totalPage: number;
+  pageSize: number;
 };
 
-const PAGE_BUTTON_SIZE = 10;
-
-const Pagination = ({ totalPage }: Props) => {
+const Pagination = ({ totalPage, pageSize }: Props) => {
   const {
     onNextBtnHandler,
     onPagingHandler,
     onPrevBtnHandler,
     pagination: { pageIndex, pagingGroupIndex },
+    pageButtonSize,
   } = useContext(PaginationContext);
+  const { filter } = useContext(FilterContext);
+  const router = useRouter();
 
   const renderButton = () => {
     let arr = [];
-    for (let i = 1; i <= PAGE_BUTTON_SIZE; i++) {
-      let curButtonNum = pagingGroupIndex * PAGE_BUTTON_SIZE + i;
+    for (let i = 1; i <= pageButtonSize; i++) {
+      let curButtonNum = (pagingGroupIndex - 1) * pageButtonSize + i;
 
       if (curButtonNum > totalPage) {
         return arr;
@@ -28,7 +34,7 @@ const Pagination = ({ totalPage }: Props) => {
         <button
           key={curButtonNum}
           onClick={() => onPagingHandler(curButtonNum)}
-          className={curButtonNum === pageIndex + 1 ? "font-bold" : ""}
+          className={`${curButtonNum === pageIndex ? "font-bold" : ""}`}
         >
           {curButtonNum}
         </button>
@@ -36,6 +42,16 @@ const Pagination = ({ totalPage }: Props) => {
     }
     return arr;
   };
+
+  useEffect(() => {
+    const paginationQuery = replaceObjectKey(
+      { ...filter },
+      "pageIndex",
+      pageIndex
+    );
+
+    router.push(`/event?${objectToQueryString(paginationQuery)}`);
+  }, [pageIndex, pageSize, filter, router]);
 
   return (
     <section className="flex gap-5 justify-center m-auto mb-10">

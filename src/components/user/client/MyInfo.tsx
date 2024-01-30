@@ -7,7 +7,7 @@ import useMyLikes from "@/src/hooks/useMyLikes";
 import { FavoriteEvent } from "@/src/types/user";
 import Image from "next/image";
 import { useEffect } from "react";
-import { convertKRTime } from "../../../utils/convertKRTime";
+import { convertKRTime } from "../../../utils/convertKRTime/convertKRTime";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventCard from "../../event/client/EventCard";
 import EventDetail from "../../event/client/EventDetail";

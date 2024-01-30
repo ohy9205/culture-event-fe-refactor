@@ -1,4 +1,4 @@
-import ProtectRouter from "@/src/components/UI/ProtectRouter";
+import ProtectRouter from "@/src/components/UI/container/ProtectRouter";
 import FilteredEventList from "@/src/components/event/client/FilteredEventList";
 
 export default async function Event({

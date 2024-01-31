@@ -1,19 +1,22 @@
 import { APIResponse } from "@/src/types/APIResponse";
-import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
-import {
-  authorizedAPIFetch,
-  authorizedAPIFetchFromServer,
-} from "../common/commonAPIFetch";
+
+import { objectToQueryString } from "@/src/utils/objectController/objectController";
+import { FetchAdapter } from "../common/FetchAdapter";
 import { API_V2 } from "../common/url";
 
 //  필터링
 export async function getFilteredEvents(
   queryObj: Record<string, any>,
-  at?: string,
-  rt?: string
+  cookie?: Record<string, any>
 ): Promise<APIResponse> {
-  const url = `${API_V2}?${objectToQueryString(queryObj)}&pageSize=12`;
-  const rs = await authorizedAPIFetchFromServer(url, "GET", at, rt);
+  const url = `${API_V2}?${objectToQueryString(queryObj, "&")}&pageSize=12`;
+  const apiFetch = new FetchAdapter();
+
+  if (cookie) {
+    apiFetch.setCookie(cookie);
+  }
+
+  const rs = await apiFetch.fetching(url);
   const payload = queryObj.pageIndex
     ? {
         events: rs.payload.events.rows,
@@ -31,9 +34,9 @@ export async function getFilteredEvents(
 export async function getEventDetailWithLogin(
   id: number
 ): Promise<APIResponse> {
-  // ): Promise<DetailEvent | undefined> {
   const url = `${API_V2}/${id}`;
-  const rs = await authorizedAPIFetch(url, "GET");
+  const apiFetch = new FetchAdapter();
+  const rs = await apiFetch.fetching(url);
 
   return rs;
 }
@@ -42,16 +45,19 @@ export async function getEventDetailWithLogin(
 export async function getComments(eventId: number): Promise<APIResponse> {
   const url = `${API_V2}/${eventId}/comments`;
 
-  const rs = await authorizedAPIFetch(url, "GET");
+  const apiFetch = new FetchAdapter();
+  const rs = await apiFetch.fetching(url);
 
-  // return rs.payload.comments;
   return rs;
 }
 
 // 좋아요 토글
 export async function toggleLikes(eventId: number): Promise<APIResponse> {
   const url = `${API_V2}/${eventId}/likes`;
-  const rs = await authorizedAPIFetch(url, "POST");
+
+  const apiFetch = new FetchAdapter();
+  apiFetch.setMethod("POST");
+  const rs = await apiFetch.fetching(url);
 
   return rs;
 }

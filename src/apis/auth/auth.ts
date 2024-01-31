@@ -1,9 +1,13 @@
-import { APIFetch } from "../common/commonAPIFetch";
+import { FetchAdapter } from "../common/FetchAdapter";
 import { API_AUTH } from "../common/url";
 
 export async function postSignup(body: Record<string, any>) {
   const url = `${API_AUTH}/signUp`;
-  const rs = await APIFetch(url, "POST", body);
+
+  const apiFetch = new FetchAdapter();
+  apiFetch.setMethod("POST");
+  apiFetch.setBody(body);
+  const rs = await apiFetch.fetching(url);
 
   return rs;
 }
@@ -11,12 +15,21 @@ export async function postSignup(body: Record<string, any>) {
 // 로그인
 export async function postSignin(body: Record<string, any>) {
   const url = `${API_AUTH}/signIn`;
-  const rs = await APIFetch(url, "POST", body);
+
+  const apiFetch = new FetchAdapter();
+  apiFetch.setMethod("POST");
+  apiFetch.setBody(body);
+  const rs = await apiFetch.fetching(url);
+
   return rs;
 }
 
 export async function signOut() {
   const url = `${API_AUTH}/signOut`;
-  const rs = await APIFetch(url, "POST");
+
+  const apiFetch = new FetchAdapter();
+  apiFetch.setMethod("POST");
+  const rs = await apiFetch.fetching(url);
+
   return rs;
 }

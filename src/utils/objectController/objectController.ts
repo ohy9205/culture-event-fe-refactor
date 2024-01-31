@@ -13,3 +13,14 @@ export const deleteObjectKeys = (obj: Record<any, any>, keys: string[]) => {
   });
   return copy;
 };
+
+export const objectToQueryString = (
+  obj: Record<string, any>,
+  separator: string
+) => {
+  return Object.keys(obj)
+    .map((key) =>
+      obj[key] !== "" || !undefined ? `${key}=${obj[key]}` : undefined
+    )
+    .join(separator);
+};

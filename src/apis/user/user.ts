@@ -1,20 +1,29 @@
-import { authorizedAPIFetch } from "../common/commonAPIFetch";
+import { FetchAdapter } from "../common/FetchAdapter";
 import { API_USER } from "../common/url";
 
 export async function getUserMe() {
   const url = `${API_USER}/me`;
-  const rs = await authorizedAPIFetch(url, "GET");
+
+  const apiFetch = new FetchAdapter();
+  const rs = await apiFetch.fetching(url);
+
   return rs;
 }
 
 export async function getMyLikes() {
   const url = `${API_USER}/liked-events`;
-  const rs = await authorizedAPIFetch(url, "GET");
+
+  const apiFetch = new FetchAdapter();
+  const rs = await apiFetch.fetching(url);
+
   return rs;
 }
 
 export async function getMyComments() {
   const url = `${API_USER}/comments`;
-  const rs = await authorizedAPIFetch(url, "GET");
+
+  const apiFetch = new FetchAdapter();
+  const rs = await apiFetch.fetching(url);
+
   return rs;
 }

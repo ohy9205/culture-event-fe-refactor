@@ -1,6 +1,6 @@
 "use client";
 
-import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import { objectToQueryString } from "@/src/utils/objectController/objectController";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { FilterContext } from "../../../context/FilterContext";
@@ -64,7 +64,7 @@ const ControlBox = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const query = objectToQueryString(filter);
+    const query = objectToQueryString(filter, "&");
     router.push(`/event?${query}`);
   }, [filter, router]);
 

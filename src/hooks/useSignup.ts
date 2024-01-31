@@ -37,7 +37,6 @@ const useSignup = () => {
       const rs = await postSignup(form);
 
       if (rs) {
-        console.log(rs);
         const handler = {
           success: () => router.push("/signin"),
           status403: () => {

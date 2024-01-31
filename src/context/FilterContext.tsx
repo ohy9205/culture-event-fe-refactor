@@ -2,7 +2,7 @@
 
 import { createContext, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
-import { deleteObjectKeys } from "../utils/objectController/object";
+import { deleteObjectKeys } from "../utils/objectController/objectController";
 
 type Props = {
   query: Record<string, any>;

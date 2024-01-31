@@ -1,7 +1,9 @@
 "use client";
 import { FilterContext } from "@/src/context/FilterContext";
-import { replaceObjectKey } from "@/src/utils/objectController/object";
-import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import {
+  objectToQueryString,
+  replaceObjectKey,
+} from "@/src/utils/objectController/objectController";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { PaginationContext } from "../../../context/PaginationContext";
@@ -50,7 +52,7 @@ const Pagination = ({ totalPage, pageSize }: Props) => {
       pageIndex
     );
 
-    router.push(`/event?${objectToQueryString(paginationQuery)}`);
+    router.push(`/event?${objectToQueryString(paginationQuery, "&")}`);
   }, [pageIndex, pageSize, filter, router]);
 
   return (

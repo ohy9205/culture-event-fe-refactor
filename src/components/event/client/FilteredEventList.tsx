@@ -3,7 +3,7 @@
 import { getFilteredEvents } from "@/src/apis/event/v2";
 import { FilterProvider } from "@/src/context/FilterContext";
 import { PaginationProvider } from "@/src/context/PaginationContext";
-import { objectToQueryString } from "@/src/utils/objectToQueryString/objectToQueryString";
+import { objectToQueryString } from "@/src/utils/objectController/objectController";
 import { CookieTokenAdapter } from "@/src/utils/token/cookieAdapter";
 import Link from "next/link";
 import ControlBox from "./ControlBox";
@@ -21,11 +21,10 @@ const PAGE_SIZE = 12;
 
 const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
   let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
-  const rs = await getFilteredEvents(
-    apiQuery,
-    cookie.getToken("at"),
-    cookie.getToken("rt")
-  );
+  const rs = await getFilteredEvents(apiQuery, {
+    at: cookie.getToken("at"),
+    rt: cookie.getToken("rt"),
+  });
 
   return (
     <>
@@ -34,7 +33,10 @@ const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
         {TAB_LIST.map((tab) => (
           <Link
             key={tab.text}
-            href={`/event?${objectToQueryString({ ...query, tab: tab.value })}`}
+            href={`/event?${objectToQueryString(
+              { ...query, tab: tab.value },
+              "&"
+            )}`}
           >
             {tab.text}
           </Link>

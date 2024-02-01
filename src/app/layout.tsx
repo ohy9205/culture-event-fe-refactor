@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { cookies } from "next/headers";
 import Script from "next/script";
 import Header from "../components/UI/layout/Header";
 import { AuthContextProvider } from "../context/AuthContext";
 import SWRProvider from "../provider/swrProvider";
+import { CookieAdapter } from "../utils/store/cookieAdapter";
+import { Token } from "../utils/token/token";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,8 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   // 쿠키에서 토큰 정보확인
-  const cookieStore = cookies();
-  const token = cookieStore.get("at");
+  const { at, rt } = new Token(new CookieAdapter());
 
   return (
     <html lang="en">
@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
         <SWRProvider>
-          <AuthContextProvider hasToken={token ? true : false}>
+          <AuthContextProvider hasToken={at && rt ? true : false}>
             <div id="modal"></div>
             <Header />
             {children}

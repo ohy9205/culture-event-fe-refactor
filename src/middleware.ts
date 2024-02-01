@@ -1,13 +1,9 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-import { CookieTokenAdapter } from "./utils/token/cookieAdapter";
-
-// This function can be marked `async` if using `await` inside
-const cookies = new CookieTokenAdapter();
+import { NextResponse, type NextRequest } from "next/server";
+import { CookieAdapter } from "./utils/store/cookieAdapter";
+import { Token } from "./utils/token/token";
 
 export function middleware(request: NextRequest) {
-  const at = cookies.getToken("at");
-  const rt = cookies.getToken("rt");
+  const { at, rt } = new Token(new CookieAdapter());
 
   if (!at || !rt) {
     return NextResponse.redirect(new URL("/signin", request.url));

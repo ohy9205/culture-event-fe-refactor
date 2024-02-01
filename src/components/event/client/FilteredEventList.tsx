@@ -4,7 +4,8 @@ import { getFilteredEvents } from "@/src/apis/event/v2";
 import { FilterProvider } from "@/src/context/FilterContext";
 import { PaginationProvider } from "@/src/context/PaginationContext";
 import { objectToQueryString } from "@/src/utils/objectController/objectController";
-import { CookieTokenAdapter } from "@/src/utils/token/cookieAdapter";
+import { CookieAdapter } from "@/src/utils/store/cookieAdapter";
+import { Token } from "@/src/utils/token/token";
 import Link from "next/link";
 import ControlBox from "./ControlBox";
 import MapList from "./MapList";
@@ -16,15 +17,12 @@ const TAB_LIST = [
   { text: "지도로보기", value: "map" },
 ];
 
-const cookie = new CookieTokenAdapter();
+const token = new Token(new CookieAdapter()).allToken;
 const PAGE_SIZE = 12;
 
 const FilteredEventList = async ({ query }: { query: Record<string, any> }) => {
   let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
-  const rs = await getFilteredEvents(apiQuery, {
-    at: cookie.getToken("at"),
-    rt: cookie.getToken("rt"),
-  });
+  const rs = await getFilteredEvents(apiQuery, token);
 
   return (
     <>

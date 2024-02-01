@@ -2,17 +2,21 @@ import { APIResponse } from "@/src/types/APIResponse";
 import { objectToQueryString } from "@/src/utils/objectController/objectController";
 import { APIAdapter } from "./target";
 
+// 쿠키 사용하는 경우
 export class FetchAdapter implements APIAdapter {
   private fetchOptions: RequestInit;
 
-  constructor(revalidate?: number | false | undefined) {
+  constructor(cookie?: Record<string, any>) {
     this.fetchOptions = {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookie ? objectToQueryString(cookie, ";") : "",
+      },
       credentials: "include",
       body: null,
       next: {
-        revalidate: 36000,
+        revalidate: 0,
       },
     };
   }

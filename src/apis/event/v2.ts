@@ -10,13 +10,10 @@ export async function getFilteredEvents(
   cookie?: Record<string, any>
 ): Promise<APIResponse> {
   const url = `${API_V2}?${objectToQueryString(queryObj, "&")}&pageSize=12`;
-  const apiFetch = new FetchAdapter();
 
-  if (cookie) {
-    apiFetch.setCookie(cookie);
-  }
-
+  const apiFetch = new FetchAdapter(cookie);
   const rs = await apiFetch.fetching(url);
+
   const payload = queryObj.pageIndex
     ? {
         events: rs.payload.events.rows,

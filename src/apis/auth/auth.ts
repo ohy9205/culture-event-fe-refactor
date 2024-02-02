@@ -24,7 +24,7 @@ export async function postSignin(body: Record<string, any>) {
   return rs;
 }
 
-export async function signOut() {
+export async function signout() {
   const url = `${API_AUTH}/signOut`;
 
   const apiFetch = new FetchAdapter();

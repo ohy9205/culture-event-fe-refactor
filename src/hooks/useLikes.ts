@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { responseHandler } from "../apis/common/responseHandler";
 import { toggleLikes } from "../apis/event/v2";
 import { useAuthContext } from "../context/AuthContext";
@@ -8,12 +7,13 @@ export const useLikes = (eventId: number, likesCount?: number) => {
   const {
     state: { isLoggedIn },
   } = useAuthContext();
-  const [count, setCount] = useState(likesCount);
+  // const [count, setCount] = useState(likesCount || 0);
+  // console.log(count);
 
   return {
-    data: {
-      count,
-    },
+    // data: {
+    //   count,
+    // },
     toggle: async () => {
       if (!isLoggedIn) {
         return;
@@ -24,10 +24,12 @@ export const useLikes = (eventId: number, likesCount?: number) => {
       if (rs) {
         const handler = {
           success: () => {
-            setCount(rs.payload.eventLikesCount);
+            // setCount(rs.payload.eventLikesCount);
           },
         };
         responseHandler(rs, handler);
+        console.log(rs);
+        return rs.payload;
       }
     },
   };

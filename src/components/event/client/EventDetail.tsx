@@ -60,7 +60,11 @@ const EventDetail = ({ id }: Props) => {
                   useBackground={isLoggedIn}
                   likesCount={likesUsers.length}
                   useCount
-                />
+                >
+                  {/* {(count) => <h1>카운트 : {count}</h1>} */}
+                  <h1>카운트 : {}</h1>
+                </Likes>
+                <h1>{likesUsers.length || 0}</h1>
 
                 <div className="flex gap-1 items-center ml-10">
                   <span>조회수</span>

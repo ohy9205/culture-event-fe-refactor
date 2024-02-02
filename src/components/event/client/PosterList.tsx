@@ -1,6 +1,8 @@
-// "use  client";
+"use client";
 
+import { useLikesContext } from "@/src/context/LikesContext";
 import { Event } from "@/src/types/events";
+import { useEffect } from "react";
 import GridContainer from "../../UI/container/GridContainer";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
@@ -11,6 +13,14 @@ type Props = {
 };
 
 const PosterList = ({ list }: Props) => {
+  const { fetching } = useLikesContext();
+
+  useEffect(() => {
+    return () => {
+      fetching();
+    };
+  }, []);
+
   return (
     <div className="w-full flex flex-col gap-5">
       <GridContainer>

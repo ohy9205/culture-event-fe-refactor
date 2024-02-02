@@ -1,7 +1,7 @@
 "use client";
 
+import { useLikesContext } from "@/src/context/LikesContext";
 import useLikes from "@/src/hooks/useLikes";
-import useMyLikes from "@/src/hooks/useMyLikes";
 import { useEffect, useState } from "react";
 import Button from "../../UI/common/Button";
 
@@ -10,28 +10,48 @@ type Props = {
   useBackground?: boolean;
   likesCount?: number;
   useCount?: boolean;
+  children?: React.ReactNode | ((count: number) => React.ReactNode);
 };
 
-const Likes = ({ eventId, useBackground, likesCount, useCount }: Props) => {
-  const { data: eventLikes, toggle } = useLikes(eventId, likesCount);
-  const { data: myLikes, get } = useMyLikes();
-  const [isMyLikes, setIsMyLikes] = useState(false);
+const Likes = ({ eventId, useBackground, likesCount, children }: Props) => {
+  const { toggle } = useLikes(eventId, likesCount); // 이벤트의 좋아요 갯수, 토글버튼
+  const {
+    state: { likes: myLikes },
+    addLike,
+    removeLike,
+    fetching,
+  } = useLikesContext();
+  const [isMyLikes, setIsMyLikes] = useState<boolean>(false);
+
+  const toggleButton = async () => {
+    const { event, action } = await toggle();
+    if (action === "add") {
+      addLike(event);
+    } else if (action === "remove") {
+      removeLike(event);
+    }
+    setIsMyLikes((prev) => !prev);
+    // myLikes를 업데이트
+
+    // fetching();
+  };
 
   useEffect(() => {
-    if (
-      myLikes.events?.find((event: any) => event.id === eventId)
-      // 내가 '좋아요'한 이벤트인지 백엔드에서 받아올 수 없을까
-    ) {
+    if (myLikes?.find((event: any) => event.id === eventId)) {
       setIsMyLikes(true);
     } else {
       setIsMyLikes(false);
     }
-  }, [eventId, myLikes, get]);
+  }, [eventId, myLikes]);
 
-  const toggleButton = async () => {
-    await toggle();
-    get();
-  };
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("패칭@");
+  //     fetching();
+  //   };
+  // }, []);
+
+  // const toRender = typeof children === "function" ? children(count) : children;
 
   return (
     <div className="flex justify-center items-center gap-5">
@@ -42,7 +62,7 @@ const Likes = ({ eventId, useBackground, likesCount, useCount }: Props) => {
       ) : (
         <Button onClick={toggleButton}>{isMyLikes ? "❤️" : "🤍"}</Button>
       )}
-      {useCount && <div>{eventLikes.count}</div>}
+      {/* {toRender} */}
     </div>
   );
 };

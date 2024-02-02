@@ -8,6 +8,7 @@ export async function getRecentEvents(): Promise<APIResponse> {
   const url = `${API_V1}/latest`;
 
   const apiFetch = new FetchAdapter();
+  apiFetch.setRevalidate(36000);
   const rs = await apiFetch.fetching(url);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -26,6 +27,7 @@ export async function getHotEvents(): Promise<APIResponse> {
   const url = `${API_V1}/likes`;
 
   const apiFetch = new FetchAdapter();
+  apiFetch.setRevalidate(36000);
   const rs = await apiFetch.fetching(url);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -44,6 +46,7 @@ export async function getViewEvents(): Promise<APIResponse> {
   const url = `${API_V1}/views`;
 
   const apiFetch = new FetchAdapter();
+  apiFetch.setRevalidate(36000);
   const rs = await apiFetch.fetching(url);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -64,6 +67,7 @@ export async function getEventDetailWithoutLogin(
   const url = `${API_V1}/${id}`;
 
   const apiFetch = new FetchAdapter();
+  apiFetch.setCache("no-store");
   const rs = await apiFetch.fetching(url);
 
   return rs;

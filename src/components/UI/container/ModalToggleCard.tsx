@@ -6,9 +6,10 @@ import Modal from "./Modal";
 type Props = {
   children: React.ReactNode | ((isShowModal: boolean) => React.ReactNode);
   modalContent: React.ReactNode;
+  onClose?: () => void;
 };
 
-const ModalToggleCard = ({ children, modalContent }: Props) => {
+const ModalToggleCard = ({ children, modalContent, onClose }: Props) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const onToggleShowModal = () => {
@@ -22,7 +23,11 @@ const ModalToggleCard = ({ children, modalContent }: Props) => {
     <>
       <div onClick={onToggleShowModal}>{toRender}</div>
       {isShowModal && (
-        <Modal onClick={onToggleShowModal} modalContent={modalContent} />
+        <Modal
+          onClick={onToggleShowModal}
+          modalContent={modalContent}
+          onClose={onClose}
+        />
       )}
     </>
   );

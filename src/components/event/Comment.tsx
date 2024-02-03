@@ -24,6 +24,10 @@ type InputProps = {
   children?: (comment: string, reset: () => void) => React.ReactNode;
 };
 
+type ContentProps = Props & {
+  truncate?: boolean;
+};
+
 const Comment = ({ children }: Props) => {
   return <ul className="flex flex-col gap-3">{children}</ul>;
 };
@@ -48,8 +52,8 @@ const CommentButton = ({ onClick, children, color }: ButtonProps) => {
   );
 };
 
-const CommentContent = ({ children }: Props) => {
-  return <div>{children}</div>;
+const CommentContent = ({ children, truncate }: ContentProps) => {
+  return <div className={truncate ? "truncate" : ""}>{children}</div>;
 };
 
 const CommentInput = ({ initContent, children }: InputProps) => {
@@ -66,6 +70,7 @@ const CommentInput = ({ initContent, children }: InputProps) => {
         name="comment"
         value={form.comment}
         className="w-full h-[100px] border resize-none"
+        maxLength={500}
       >
         {form.comment}
       </textarea>

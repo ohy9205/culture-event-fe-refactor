@@ -1,5 +1,6 @@
 import { getUserMe } from "@/src/apis/user/user";
 import SignoutButton from "@/src/components/auth/SignoutButton";
+import MyComments from "@/src/components/user/MyComments";
 import MyLikes from "@/src/components/user/MyLikes";
 import { Cookie } from "@/src/utils/store/cookieAdapter";
 import { Token } from "@/src/utils/token/token";
@@ -20,36 +21,14 @@ const MyPage = async () => {
         </div>
         <SignoutButton />
         <hr className="w-full border-slate-400" />
-        <div className="border p-2 rounded-lg bg-blue-500 text-white">
-          내가 좋아하는 이벤트
-        </div>
-        <div className="flex gap-4 overflow-x-scroll w-full">
+        <div className="w-full">
+          <h1>좋아하는 이벤트</h1>
           <MyLikes />
         </div>
-        {/* <div className="border p-2 rounded-lg bg-green-500 text-white">
-          내가 작성한 댓글
+        <div className="w-full">
+          <h1>작성한 댓글</h1>
+          <MyComments />
         </div>
-        {myComments.comments &&
-          myComments.comments.map((comment) => {
-            const createDate = convertKRTime(comment.createdAt);
-            return (
-              <div
-                key={comment.id}
-                className="w-full border border-gray-600 flex flex-col gap-4 p-4 rounded-md"
-              >
-                <div className="">{createDate}</div>
-                <div className="flex gap-4">
-                  <Image
-                    src={comment.Event.thumbnail}
-                    alt="image"
-                    width={50}
-                    height={50}
-                  />
-                  {comment.content}
-                </div>
-              </div>
-            );
-          })} */}
       </div>
     </>
   );

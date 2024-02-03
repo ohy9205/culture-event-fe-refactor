@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 
 type Props = {
   onClick: () => void;
   modalContent: React.ReactNode;
+  onClose?: () => void;
 };
 
 const ModalBack = ({ onClick }: Pick<Props, "onClick">) => {
@@ -22,7 +24,15 @@ const ModalOverlay = ({ modalContent }: Pick<Props, "modalContent">) => {
   );
 };
 
-const Modal = ({ onClick, modalContent }: Props) => {
+const Modal = ({ onClick, modalContent, onClose }: Props) => {
+  useEffect(() => {
+    return () => {
+      if (onClose) {
+        onClose();
+      }
+    };
+  }, []);
+
   return (
     <>
       {ReactDOM.createPortal(

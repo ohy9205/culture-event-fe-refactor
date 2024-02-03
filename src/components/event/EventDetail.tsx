@@ -6,7 +6,7 @@ import useEventDetail from "../../hooks/useEventDetail";
 import Button from "../UI/common/Button";
 import LikeButton from "../UI/common/LikeButton";
 import StaticMap from "../UI/common/StaticMap";
-import CommentList from "./CommentList";
+import EventCommentList from "./EventCommentList";
 
 type Props = {
   id: number;
@@ -106,7 +106,7 @@ const EventDetail = ({ id }: Props) => {
           />
         </section>
         <section>
-          <CommentList eventId={id} initComments={Comments} />
+          <EventCommentList eventId={id} initComments={Comments} />
         </section>
       </div>
     );

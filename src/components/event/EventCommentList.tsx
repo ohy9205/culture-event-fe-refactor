@@ -10,7 +10,7 @@ type Props = {
   initComments: CommentType[];
 };
 
-const CommentList = ({ eventId, initComments }: Props) => {
+const EventCommentList = ({ eventId, initComments }: Props) => {
   const {
     state: { isLoggedIn, user },
   } = useAuth();
@@ -116,4 +116,4 @@ const CommentList = ({ eventId, initComments }: Props) => {
   );
 };
 
-export default CommentList;
+export default EventCommentList;

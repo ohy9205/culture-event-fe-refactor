@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthContext } from "@/src/context/AuthContext";
-import { useMyLikes } from "@/src/hooks/useMyLikes";
+import useMyLikes from "@/src/hooks/useMyLikes";
 
 import { useState } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMyLikes } from "@/src/hooks/useMyLikes";
+import useMyLikes from "@/src/hooks/useMyLikes";
 import { FavoriteEvent } from "@/src/types/user";
 import { useState } from "react";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";

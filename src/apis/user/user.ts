@@ -21,7 +21,7 @@ export async function getMyComments(cookie?: Record<string, any>) {
   const apiFetch = new Fetch(cookie);
   apiFetch.setCache("reload");
   apiFetch.setRevalidate(36000);
-  const rs = await apiFetch.fetching(`${url}/commens`);
+  const rs = await apiFetch.fetching(`${url}/comments`);
 
   return rs;
 }

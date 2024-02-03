@@ -7,30 +7,22 @@ import {
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
 import { responseHandler } from "../utils/common/responseHandler";
-import useForm from "./useForm";
 
-const useComment = (eventId: number, initComments: Comment[]) => {
-  const {
-    data: { form },
-    changeForm,
-    reset,
-  } = useForm({ comment: "" });
-  const [isModify, setIsModify] = useState({
+const useComment = (eventId: number, initComments?: Comment[]) => {
+  const [comments, setComments] = useState<Comment[] | undefined>(initComments);
+  const [isModifyMode, setIsModify] = useState({
     status: false,
     commentId: -1,
   });
-  const [comments, setComments] = useState(initComments);
+
   return {
-    data: { comments, form, isModify },
-    changeForm,
+    data: { comments, isModifyMode },
     editMode: {
       on: (commentId: number, content: string) => {
         setIsModify({ status: true, commentId });
-        changeForm("comment", content || "");
       },
       off: () => {
         setIsModify({ status: false, commentId: -1 });
-        reset();
       },
     },
     get: async () => {
@@ -40,21 +32,16 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         const handler = {
           success: () => {
             setComments(rs.payload.comments);
-            reset();
           },
         };
         responseHandler(rs, handler);
       }
     },
-    submit: async () => {
-      // 객체를 순회하면서 데이터를 validate 하는 로직
-      if (
-        form.comment.trim().length === 0 ||
-        form.comment.trim().comment === ""
-      ) {
+    add: async (content: string) => {
+      if (content.trim().length === 0 || content.trim() === "") {
         return;
       }
-      const rs = await addComment(form.comment, eventId);
+      const rs = await addComment(content, eventId);
       if (rs) {
         responseHandler(rs, {});
       }
@@ -65,14 +52,13 @@ const useComment = (eventId: number, initComments: Comment[]) => {
         responseHandler(rs, {});
       }
     },
-    modify: async (commentId: number) => {
-      const rs = await patchComment(form.comment, commentId);
+    modify: async (commentId: number, content: string) => {
+      const rs = await patchComment(content, commentId);
 
       if (rs) {
         const handler = {
           success: () => {
             setIsModify({ status: false, commentId: -1 });
-            reset();
           },
         };
         responseHandler(rs, handler);

@@ -1,10 +1,27 @@
 "use client";
 
-import { MouseEventHandler } from "react";
+import useForm from "@/src/hooks/useForm";
+import { convertKRTime } from "@/src/utils/common/convertKRTime";
 import Button from "../UI/common/Button";
 
 type Props = {
   children: React.ReactNode;
+};
+
+type PeriodProps = {
+  createdAt: string;
+  updatedAt: string;
+};
+
+type ButtonProps = {
+  onClick: () => void;
+  children: React.ReactNode;
+  color: "positive" | "negative";
+};
+
+type InputProps = {
+  initContent?: string;
+  children?: (comment: string, reset: () => void) => React.ReactNode;
 };
 
 const Comment = ({ children }: Props) => {
@@ -15,19 +32,11 @@ const CommentWriter = ({ children }: Props) => {
   return <h1 className="font-bold">{children}</h1>;
 };
 
-const CommentPeriod = ({ children }: Props) => {
-  return <div className="text-sm">{children}</div>;
+const CommentPeriod = ({ createdAt, updatedAt }: PeriodProps) => {
+  return <div className="text-sm">{renderDate(createdAt, updatedAt)}</div>;
 };
 
-const CommentButton = ({
-  onClick,
-  children,
-  color,
-}: {
-  onClick: MouseEventHandler;
-  children: React.ReactNode;
-  color: "positive" | "negative";
-}) => {
+const CommentButton = ({ onClick, children, color }: ButtonProps) => {
   return (
     <Button
       onClick={onClick}
@@ -43,23 +52,35 @@ const CommentContent = ({ children }: Props) => {
   return <div>{children}</div>;
 };
 
-const CommentInput = ({
-  comment,
-  onChange,
-}: {
-  comment: string;
-  onChange: (name: string, value: any) => void;
-}) => {
+const CommentInput = ({ initContent, children }: InputProps) => {
+  const {
+    changeForm,
+    data: { form },
+    reset,
+  } = useForm({ comment: initContent || "" });
+
   return (
-    <textarea
-      onChange={(e) => onChange(e.target.name, e.target.value)}
-      name={"comment"}
-      value={comment}
-      className="w-full h-[100px] border resize-none"
-    >
-      {comment}
-    </textarea>
+    <>
+      <textarea
+        onChange={(e) => changeForm(e.target.name, e.target.value)}
+        name="comment"
+        value={form.comment}
+        className="w-full h-[100px] border resize-none"
+      >
+        {form.comment}
+      </textarea>
+
+      {children !== undefined && <div>{children(form.comment, reset)}</div>}
+    </>
   );
+};
+
+const renderDate = (createdAt: string, updatedAt: string) => {
+  const isUpdated = createdAt === updatedAt ? false : true;
+  const date = isUpdated ? updatedAt : createdAt;
+  const convertedtDate = convertKRTime(date);
+
+  return isUpdated ? `${convertedtDate} (수정)` : `${convertedtDate}`;
 };
 
 export default Comment;

@@ -2,129 +2,116 @@
 
 import { useAuth } from "@/src/hooks/useAuth";
 import useComment from "@/src/hooks/useComment";
-import { Comment } from "@/src/types/events";
-import { convertKRTime } from "@/src/utils/common/convertKRTime";
-import CommentItem from "./Comment";
+import { Comment as CommentType } from "@/src/types/events";
+import Comment from "./Comment";
 
 type Props = {
   eventId: number;
-  initComments: Comment[];
+  initComments: CommentType[];
 };
 
 const CommentList = ({ eventId, initComments }: Props) => {
   const {
     state: { isLoggedIn, user },
   } = useAuth();
-  const { get, data, editMode, modify, remove, submit, changeForm } =
-    useComment(eventId, initComments);
-
-  const renderDate = (createdAt: string, updatedAt: string) => {
-    const isUpdated = createdAt === updatedAt ? false : true;
-    const date = isUpdated ? updatedAt : createdAt;
-    const convertedtDate = convertKRTime(date);
-
-    return isUpdated ? `${convertedtDate} (수정)` : `${convertedtDate}`;
-  };
+  const {
+    get,
+    data: { comments, isModifyMode },
+    editMode,
+    modify,
+    remove,
+    add,
+  } = useComment(eventId, initComments);
 
   return (
     <div className="flex flex-col gap-3">
       <h1 className="font-extrabold text-lg border-b-2">Comment</h1>
-      <CommentItem>
-        {data.comments?.map(
+      <Comment>
+        {comments?.map(
           ({ id, content, createdAt, updatedAt, User: commenterUser }) => (
-            <li
-              key={id}
-              className="flex flex-col gap-5 bg-slate-50 rounded-lg p-2"
-            >
-              <div>
-                <div className="flex justify-between items-center">
-                  <CommentItem.Writer>{commenterUser.nick}</CommentItem.Writer>
-                  {/* 일반모드 */}
-                  {isLoggedIn && !data.isModify.status && (
-                    <>
-                      {commenterUser.email === user.email && (
-                        <div className="flex gap-2">
-                          <CommentItem.Button
-                            onClick={() => editMode.on(id, content)}
-                            color="positive"
-                          >
-                            수정
-                          </CommentItem.Button>
-                          <CommentItem.Button
-                            onClick={async () => {
-                              await remove(id);
-                              await get();
-                            }}
-                            color="negative"
-                          >
-                            삭제
-                          </CommentItem.Button>
-                        </div>
-                      )}
-                    </>
-                  )}
+            <div key={id} className="bg-slate-50 p-2">
+              <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <Comment.Writer>{commenterUser.nick}</Comment.Writer>
+                  <Comment.Period createdAt={createdAt} updatedAt={updatedAt} />
                 </div>
-                <CommentItem.Period>
-                  {renderDate(createdAt, updatedAt)}
-                </CommentItem.Period>
-              </div>
-              {/* 댓글내용 */}
-              {(!data.isModify.status || data.isModify.commentId !== id) && (
-                <CommentItem.Content>{content}</CommentItem.Content>
-              )}
-              {/* 수정모드 */}
-              {data.isModify.status && (
-                <div className="flex flex-col gap-2">
-                  {/* 수정중인 댓글 */}
-                  {data.isModify.commentId === id && (
-                    <>
-                      <CommentItem.Input
-                        comment={data.form.comment}
-                        onChange={changeForm}
-                      />
-                      <div className="flex gap-2">
-                        <CommentItem.Button
-                          onClick={editMode.off}
-                          color="positive"
-                        >
-                          나가기
-                        </CommentItem.Button>
-                        <CommentItem.Button
-                          onClick={async () => {
-                            await modify(id);
-                            await get();
-                          }}
-                          color="negative"
-                        >
-                          수정
-                        </CommentItem.Button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
-            </li>
+
+                {/* 수정 및 삭제 버튼은 수정 모드가 아닐 때만 표시 */}
+                {!isModifyMode.status && commenterUser.nick === user.nick && (
+                  <div className="flex gap-2">
+                    <Comment.Button
+                      onClick={() => editMode.on(id, content)}
+                      color="positive"
+                    >
+                      수정
+                    </Comment.Button>
+                    <Comment.Button
+                      onClick={async () => {
+                        await remove(id);
+                        await get();
+                      }}
+                      color="negative"
+                    >
+                      삭제
+                    </Comment.Button>
+                  </div>
+                )}
+                {/* 수정모드 나가는 버튼은 수정중인 댓글에만 표시 */}
+                {isModifyMode.status && isModifyMode.commentId === id && (
+                  <Comment.Button
+                    onClick={() => {
+                      editMode.off();
+                    }}
+                    color="negative"
+                  >
+                    나가기
+                  </Comment.Button>
+                )}
+              </header>
+
+              {/* 수정중인 댓글 입력창 */}
+              <section className="py-4">
+                {isModifyMode.status && isModifyMode.commentId === id ? (
+                  <Comment.Input initContent={content}>
+                    {(comment, reset) => (
+                      <Comment.Button
+                        onClick={async () => {
+                          await modify(id, comment);
+                          await get();
+                          reset();
+                        }}
+                        color="positive"
+                      >
+                        등록
+                      </Comment.Button>
+                    )}
+                  </Comment.Input>
+                ) : (
+                  <Comment.Content>{content}</Comment.Content>
+                )}
+              </section>
+            </div>
           )
         )}
-        {isLoggedIn && !data.isModify.status && (
-          <li>
-            <CommentItem.Input
-              comment={data.form.comment}
-              onChange={changeForm}
-            />
-            <CommentItem.Button
-              color="positive"
-              onClick={async () => {
-                await submit();
-                await get();
-              }}
-            >
-              댓글
-            </CommentItem.Button>
-          </li>
+        {/* 댓글 입력창 */}
+        {isLoggedIn && (
+          <Comment.Input>
+            {(comment, reset) => (
+              <Comment.Button
+                onClick={async () => {
+                  await add(comment);
+                  await get();
+                  reset();
+                }}
+                color="positive"
+              >
+                등록
+              </Comment.Button>
+            )}
+          </Comment.Input>
         )}
-        {!isLoggedIn && <li>댓글 작성을 위해서 로그인하세요.</li>}
-      </CommentItem>
+        {!isLoggedIn && <p>댓글 작성을 위해서 로그인하세요</p>}
+      </Comment>
     </div>
   );
 };

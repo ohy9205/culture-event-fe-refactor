@@ -4,7 +4,7 @@ import Script from "next/script";
 import { getMyLikes } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
 import { AuthContextProvider } from "../context/AuthContext";
-import { LikesContextProvider } from "../context/LikesContext";
+import { MyLikesContextProvider } from "../context/MyLikesContext";
 import SWRProvider from "../provider/swrProvider";
 import { CookieAdapter } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
@@ -40,11 +40,11 @@ export default async function RootLayout({
           <AuthContextProvider
             hasToken={allToken.at && allToken.rt ? true : false}
           >
-            <LikesContextProvider likesEvent={likesEvent}>
+            <MyLikesContextProvider likesEvent={likesEvent}>
               <div id="modal"></div>
               <Header />
               {children}
-            </LikesContextProvider>
+            </MyLikesContextProvider>
           </AuthContextProvider>
         </SWRProvider>
       </body>

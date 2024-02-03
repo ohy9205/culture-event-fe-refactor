@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import useEventDetail from "../../../hooks/useEventDetail";
@@ -18,12 +17,11 @@ const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
 const EventDetail = ({ id }: Props) => {
-  const { data } = useEventDetail(id);
   const {
-    state: { isLoggedIn },
-  } = useAuthContext();
+    data: { eventDetail },
+  } = useEventDetail(id);
 
-  if (data.eventDetail) {
+  if (eventDetail) {
     const {
       thumbnail,
       title,
@@ -39,7 +37,7 @@ const EventDetail = ({ id }: Props) => {
       Users: likesUsers,
       views,
       Comments,
-    } = data.eventDetail;
+    } = eventDetail;
 
     return (
       <div className="flex flex-col gap-10 p-10">
@@ -55,17 +53,17 @@ const EventDetail = ({ id }: Props) => {
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
               <li className="flex gap-2">
-                <Likes
-                  eventId={id}
-                  useBackground={isLoggedIn}
-                  likesCount={likesUsers.length}
-                  useCount
-                >
-                  {/* {(count) => <h1>카운트 : {count}</h1>} */}
-                  <h1>카운트 : {}</h1>
-                </Likes>
-                <h1>{likesUsers.length || 0}</h1>
-
+                <div className="flex justify-center items-center gap-3">
+                  <Likes eventId={id} background>
+                    {(count) => {
+                      return (
+                        <span>
+                          {count !== undefined ? count : likesUsers.length}
+                        </span>
+                      );
+                    }}
+                  </Likes>
+                </div>
                 <div className="flex gap-1 items-center ml-10">
                   <span>조회수</span>
                   <span className="font-semibold">{views}</span>

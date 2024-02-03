@@ -1,70 +1,70 @@
 "use client";
 
-import { useLikesContext } from "@/src/context/LikesContext";
-import useLikes from "@/src/hooks/useLikes";
-import { useEffect, useState } from "react";
-import Button from "../../UI/common/Button";
+import { useAuthContext } from "@/src/context/AuthContext";
+import { useMyLikes } from "@/src/hooks/useMyLikes";
+
+import { useState } from "react";
 
 type Props = {
   eventId: number;
-  useBackground?: boolean;
-  likesCount?: number;
-  useCount?: boolean;
-  children?: React.ReactNode | ((count: number) => React.ReactNode);
+  children?: React.ReactNode | ((count: number | undefined) => React.ReactNode);
+  background?: boolean;
 };
 
-const Likes = ({ eventId, useBackground, likesCount, children }: Props) => {
-  const { toggle } = useLikes(eventId, likesCount); // 이벤트의 좋아요 갯수, 토글버튼
+const Likes = ({ eventId, children, background }: Props) => {
   const {
-    state: { likes: myLikes },
-    addLike,
-    removeLike,
-    fetching,
-  } = useLikesContext();
-  const [isMyLikes, setIsMyLikes] = useState<boolean>(false);
+    state: { isLoggedIn },
+  } = useAuthContext();
+  const {
+    toggleLike,
+    data: { likes },
+  } = useMyLikes();
+  const [count, setCount] = useState<undefined | number>();
 
-  const toggleButton = async () => {
-    const { event, action } = await toggle();
-    if (action === "add") {
-      addLike(event);
-    } else if (action === "remove") {
-      removeLike(event);
+  const checkIsMyLike = (eventId: number) => {
+    if (likes?.find((event) => event.id === eventId)) {
+      return true;
+    } else {
+      return false;
     }
-    setIsMyLikes((prev) => !prev);
-    // myLikes를 업데이트
-
-    // fetching();
   };
 
-  useEffect(() => {
-    if (myLikes?.find((event: any) => event.id === eventId)) {
-      setIsMyLikes(true);
-    } else {
-      setIsMyLikes(false);
-    }
-  }, [eventId, myLikes]);
+  const toggleButton = async (eventId: number) => {
+    const rs = await toggleLike(eventId);
+    setCount(rs);
+  };
 
-  // useEffect(() => {
-  //   return () => {
-  //     console.log("패칭@");
-  //     fetching();
-  //   };
-  // }, []);
-
-  // const toRender = typeof children === "function" ? children(count) : children;
+  const toRender = typeof children === "function" ? children(count) : children;
 
   return (
-    <div className="flex justify-center items-center gap-5">
-      {useBackground ? (
-        <Button size="md" color="dark" onClick={toggleButton}>
-          {isMyLikes ? "❤️" : "🤍"}
-        </Button>
+    <>
+      {isLoggedIn ? (
+        <button
+          className={style(background, isLoggedIn)}
+          onClick={() => toggleButton(eventId)}
+        >
+          {checkIsMyLike(eventId) ? "❤️" : "🤍"}
+        </button>
       ) : (
-        <Button onClick={toggleButton}>{isMyLikes ? "❤️" : "🤍"}</Button>
+        <button
+          className={style(background, isLoggedIn)}
+          onClick={() => toggleButton(eventId)}
+        >
+          {checkIsMyLike(eventId) ? "❤️" : "🤍"}
+        </button>
       )}
-      {/* {toRender} */}
-    </div>
+      {toRender}
+    </>
   );
 };
 
 export default Likes;
+
+const style = (background: boolean = false, isLoggedIn: boolean) => {
+  console.log(`isLoggedIn : ${isLoggedIn}`);
+  const basic = "text-lg p-2";
+  const bg = background ? "bg-slate-900 rounded-md" : "";
+  const cursor = isLoggedIn ? "cursor-pointer" : "cursor-auto";
+
+  return `${basic} ${bg} ${cursor}`;
+};

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Likes from "./Likes";
 
 type Props = {
   children: React.ReactNode;
@@ -62,13 +61,8 @@ const CardViews = ({ children }: Props) => {
   );
 };
 
-const CardLikes = ({ eventId }: LikesProps) => {
-  return <Likes eventId={eventId} />;
-};
-
 export default EventCard;
 EventCard.Image = CardImage;
 EventCard.Title = CardTitle;
 EventCard.Period = CardPeriod;
 EventCard.Views = CardViews;
-EventCard.Likes = CardLikes;

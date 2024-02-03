@@ -11,7 +11,6 @@ export async function getUserMe(cookie?: Record<string, any>) {
 }
 
 export async function getMyLikes(cookie?: Record<string, any>) {
-  console.log(`getMyLikes 호출!`);
   const url = `${API_USER}/liked-events`;
 
   const apiFetch = new FetchAdapter(cookie);

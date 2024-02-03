@@ -1,26 +1,17 @@
 "use client";
 
-import { useLikesContext } from "@/src/context/LikesContext";
 import { Event } from "@/src/types/events";
-import { useEffect } from "react";
 import GridContainer from "../../UI/container/GridContainer";
 import ModalToggleCard from "../../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
 import EventDetail from "./EventDetail";
+import Likes from "./Likes";
 
 type Props = {
   list: Event[];
 };
 
 const PosterList = ({ list }: Props) => {
-  const { fetching } = useLikesContext();
-
-  useEffect(() => {
-    return () => {
-      fetching();
-    };
-  }, []);
-
   return (
     <div className="w-full flex flex-col gap-5">
       <GridContainer>
@@ -43,7 +34,7 @@ const PosterList = ({ list }: Props) => {
 
               <div className="flex items-center justify-between px-5">
                 <EventCard.Views>{views}</EventCard.Views>
-                <EventCard.Likes eventId={id} />
+                <Likes eventId={id} />
               </div>
             </EventCard>
           );

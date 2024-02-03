@@ -1,11 +1,12 @@
-import { FetchAdapter } from "../common/FetchAdapter";
-import { API_COMMENT } from "../common/url";
+import { API_COMMENT } from "@/src/utils/data/APIUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
+
+const url = API_COMMENT;
+const apiFetch = new Fetch();
 
 // 코멘트 추가
 export async function addComment(content: string, eventId: number) {
-  const url = `${API_COMMENT}`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   apiFetch.setBody({ eventId, content });
   const rs = await apiFetch.fetching(url);
@@ -15,23 +16,19 @@ export async function addComment(content: string, eventId: number) {
 
 // 코멘트 제거
 export async function deleteComment(commentId: number) {
-  const url = `${API_COMMENT}/${commentId}`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("DELETE");
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/${commentId}`);
 
   return rs;
 }
 
 // 코멘트 수정
 export async function patchComment(content: string, commentId: number) {
-  const url = `${API_COMMENT}/${commentId}`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("PATCH");
   apiFetch.setBody({ content });
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/${commentId}`);
 
   return rs;
 }

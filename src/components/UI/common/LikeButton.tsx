@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
+import { useAuth } from "@/src/hooks/useAuth";
 import useMyLikes from "@/src/hooks/useMyLikes";
 
 import { useState } from "react";
@@ -11,10 +11,10 @@ type Props = {
   background?: boolean;
 };
 
-const Likes = ({ eventId, children, background }: Props) => {
+const LikeButton = ({ eventId, children, background }: Props) => {
   const {
     state: { isLoggedIn },
-  } = useAuthContext();
+  } = useAuth();
   const {
     toggleLike,
     data: { likes },
@@ -58,7 +58,7 @@ const Likes = ({ eventId, children, background }: Props) => {
   );
 };
 
-export default Likes;
+export default LikeButton;
 
 const style = (background: boolean = false, isLoggedIn: boolean) => {
   console.log(`isLoggedIn : ${isLoggedIn}`);

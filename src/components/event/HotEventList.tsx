@@ -1,11 +1,11 @@
 import { Event } from "@/src/types/events";
 import Image from "next/image";
 import Link from "next/link";
-import { getHotEvents } from "../../../apis/event/v1";
-import Button from "../../UI/common/Button";
-import GridContainer from "../../UI/container/GridContainer";
-import ModalToggleCard from "../../UI/container/ModalToggleCard";
-import EventDetail from "../client/EventDetail";
+import { getHotEvents } from "../../apis/event/v1";
+import Button from "../UI/common/Button";
+import GridContainer from "../UI/container/GridContainer";
+import ModalToggleCard from "../UI/container/ModalToggleCard";
+import EventDetail from "./EventDetail";
 
 const HotEventList = async () => {
   const hotEvents = await getHotEvents();

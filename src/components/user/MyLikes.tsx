@@ -3,10 +3,10 @@
 import useMyLikes from "@/src/hooks/useMyLikes";
 import { FavoriteEvent } from "@/src/types/user";
 import { useState } from "react";
-import ModalToggleCard from "../../UI/container/ModalToggleCard";
-import EventCard from "../../event/client/EventCard";
-import EventDetail from "../../event/client/EventDetail";
-import Likes from "../../event/client/Likes";
+import LikeButton from "../UI/common/LikeButton";
+import ModalToggleCard from "../UI/container/ModalToggleCard";
+import EventCard from "../event/EventCard";
+import EventDetail from "../event/EventDetail";
 
 const MyLikes = () => {
   const {
@@ -34,7 +34,7 @@ const MyLikes = () => {
                   <EventCard.Period>{period}</EventCard.Period>
                 </div>
               </ModalToggleCard>
-              <Likes eventId={id} />
+              <LikeButton eventId={id} />
             </EventCard>
           </li>
         ))}

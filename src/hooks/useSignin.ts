@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { postSignin } from "../apis/auth/auth";
-import { responseHandler } from "../apis/common/responseHandler";
-import { useAuthContext } from "../context/AuthContext";
+import { responseHandler } from "../utils/common/responseHandler";
+import { useAuth } from "./useAuth";
 import useForm from "./useForm";
 
 const useSignin = () => {
-  const { setAuth } = useAuthContext();
+  const { setAuth } = useAuth();
   const router = useRouter();
   const {
     data: { form, valid },

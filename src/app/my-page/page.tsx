@@ -1,4 +1,4 @@
-import MyInfo from "@/src/components/user/client/MyInfo";
+import MyInfo from "@/src/components/user/MyInfo";
 
 const MyPage = () => {
   return <MyInfo />;

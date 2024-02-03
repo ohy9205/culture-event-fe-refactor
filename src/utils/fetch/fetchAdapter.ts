@@ -1,12 +1,13 @@
 import { APIResponse } from "@/src/types/APIResponse";
-import { objectToQueryString } from "@/src/utils/objectController/objectController";
-import { APIAdapter } from "./target";
+import { objectToQueryString } from "@/src/utils/common/objectController";
+import { APIAdapter } from "./adapter";
 
-// 쿠키 사용하는 경우
-export class FetchAdapter implements APIAdapter {
+export class Fetch implements APIAdapter {
   private fetchOptions: RequestInit;
 
   constructor(cookie?: Record<string, any>) {
+    console.log("fetch호출~");
+
     this.fetchOptions = {
       method: "GET",
       headers: {

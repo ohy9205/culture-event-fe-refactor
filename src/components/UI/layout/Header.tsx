@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AuthLinks from "../../auth/client/AuthLinks";
+import AuthLinks from "./AuthLinks";
 
 const Header = () => {
   return (

@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
+import { useAuth } from "@/src/hooks/useAuth";
 import useComment from "@/src/hooks/useComment";
 import { Comment } from "@/src/types/events";
-import { convertKRTime } from "@/src/utils/convertKRTime/convertKRTime";
+import { convertKRTime } from "@/src/utils/common/convertKRTime";
 import CommentItem from "./Comment";
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 const CommentList = ({ eventId, initComments }: Props) => {
   const {
     state: { isLoggedIn, user },
-  } = useAuthContext();
+  } = useAuth();
   const { get, data, editMode, modify, remove, submit, changeForm } =
     useComment(eventId, initComments);
 

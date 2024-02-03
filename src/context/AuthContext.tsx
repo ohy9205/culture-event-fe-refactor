@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getUserMe } from "../apis/user/user";
 
 type InitialValue = {
@@ -29,7 +29,7 @@ const initialValue = {
   resetAuth: () => {},
 };
 
-const AuthContext = createContext<InitialValue>(initialValue);
+export const AuthContext = createContext<InitialValue>(initialValue);
 
 export const AuthContextProvider = ({
   children,
@@ -78,8 +78,4 @@ export const AuthContextProvider = ({
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuthContext = () => {
-  return useContext(AuthContext);
 };

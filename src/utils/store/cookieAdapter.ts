@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { Store } from "./target";
+import { StoreAdapter } from "./adapter";
 
-export class CookieAdapter implements Store {
+export class Cookie implements StoreAdapter {
   getItem(name: string): string | undefined {
     return cookies().get(name)?.value;
   }

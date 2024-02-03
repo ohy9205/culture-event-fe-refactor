@@ -1,6 +1,6 @@
 "use client";
 
-import useSignin from "../../../hooks/useSignin";
+import useSignin from "../../hooks/useSignin";
 
 const SigninForm = () => {
   const { data, changeForm, signin } = useSignin();

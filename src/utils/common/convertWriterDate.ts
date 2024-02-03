@@ -1,4 +1,4 @@
-import { convertKRTime } from "../convertKRTime/convertKRTime";
+import { convertKRTime } from "../common/convertKRTime";
 
 export const convertWriterDate = (createdAt: string, updatedAt: string) => {
   const isUpdated = createdAt === updatedAt ? false : true;

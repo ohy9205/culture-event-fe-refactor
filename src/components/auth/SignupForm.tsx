@@ -1,15 +1,15 @@
 "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
+import { useAuth } from "@/src/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import useSignup from "../../../hooks/useSignup";
+import useSignup from "../../hooks/useSignup";
 
 const SignupForm = () => {
   const { data, changeForm, signup } = useSignup();
   const {
     state: { isLoggedIn },
-  } = useAuthContext();
+  } = useAuth();
   const router = useRouter();
 
   useEffect(() => {

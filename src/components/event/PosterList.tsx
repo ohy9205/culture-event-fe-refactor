@@ -1,11 +1,11 @@
 "use client";
 
 import { Event } from "@/src/types/events";
-import GridContainer from "../../UI/container/GridContainer";
-import ModalToggleCard from "../../UI/container/ModalToggleCard";
+import LikeButton from "../UI/common/LikeButton";
+import GridContainer from "../UI/container/GridContainer";
+import ModalToggleCard from "../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
 import EventDetail from "./EventDetail";
-import Likes from "./Likes";
 
 type Props = {
   list: Event[];
@@ -34,7 +34,7 @@ const PosterList = ({ list }: Props) => {
 
               <div className="flex items-center justify-between px-5">
                 <EventCard.Views>{views}</EventCard.Views>
-                <Likes eventId={id} />
+                <LikeButton eventId={id} />
               </div>
             </EventCard>
           );

@@ -1,7 +1,7 @@
 "use client";
 
 import { MouseEventHandler } from "react";
-import Button from "../../UI/common/Button";
+import Button from "../UI/common/Button";
 
 type Props = {
   children: React.ReactNode;

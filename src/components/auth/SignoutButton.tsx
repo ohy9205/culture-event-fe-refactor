@@ -1,14 +1,14 @@
 "use client";
 
 import { signout } from "@/src/apis/auth/auth";
-import { responseHandler } from "@/src/apis/common/responseHandler";
-import { useAuthContext } from "@/src/context/AuthContext";
+import { useAuth } from "@/src/hooks/useAuth";
+import { responseHandler } from "@/src/utils/common/responseHandler";
 import { useRouter } from "next/navigation";
-import Button from "../../UI/common/Button";
+import Button from "../UI/common/Button";
 
 const SignoutButton = () => {
   const router = useRouter();
-  const { resetAuth } = useAuthContext();
+  const { resetAuth } = useAuth();
 
   const signoutHandler = async () => {
     const rs = await signout();

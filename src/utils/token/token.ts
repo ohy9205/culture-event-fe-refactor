@@ -1,7 +1,7 @@
-import { CookieAdapter } from "../store/cookieAdapter";
-import { LocalStorageAdaptor } from "../store/localstorageAdapter";
+import { Cookie } from "@/src/utils/store/cookieAdapter";
+import { Localstorage } from "../store/localstorageAdapter";
 
-type Adapter = CookieAdapter | LocalStorageAdaptor;
+type Adapter = Cookie | Localstorage;
 type TokenItme = string | null | undefined;
 type Tokens = {
   at: TokenItme;
@@ -11,7 +11,7 @@ type Tokens = {
 export class Token {
   private adapter: Adapter;
   private token: Tokens;
-  constructor(classAdapter: CookieAdapter | LocalStorageAdaptor) {
+  constructor(classAdapter: Cookie | Localstorage) {
     this.adapter = classAdapter;
     this.token = {
       at: this.adapter.getItem("at"),
@@ -38,17 +38,4 @@ export class Token {
     this.token.at = tokens.at;
     this.token.rt = tokens.rt;
   }
-
-  //   get at(): string | null | undefined {}''
-  //   get rt(): string | null | undefined;
-  //   set at(token: string);
-  //   set rt(token: string);
-  //   get allToken(): {
-  //     at: string | null | undefined;
-  //     rt: string | null | undefined;
-  //   };
-  //   set allToken(toekn: {
-  //     at: string | null | undefined;
-  //     rt: string | null | undefined;
-  //   });
 }

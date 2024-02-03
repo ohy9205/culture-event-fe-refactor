@@ -4,9 +4,9 @@ import {
   deleteComment,
   patchComment,
 } from "../apis/comment/comment";
-import { responseHandler } from "../apis/common/responseHandler";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
+import { responseHandler } from "../utils/common/responseHandler";
 import useForm from "./useForm";
 
 const useComment = (eventId: number, initComments: Comment[]) => {

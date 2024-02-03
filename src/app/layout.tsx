@@ -6,7 +6,7 @@ import Header from "../components/UI/layout/Header";
 import { AuthContextProvider } from "../context/AuthContext";
 import { MyLikesContextProvider } from "../context/MyLikesContext";
 import SWRProvider from "../provider/swrProvider";
-import { CookieAdapter } from "../utils/store/cookieAdapter";
+import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
 import "./globals.css";
 
@@ -23,7 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   // 쿠키에서 토큰 정보확인
-  const { allToken } = new Token(new CookieAdapter());
+  const { allToken } = new Token(new Cookie());
   const likesEvent = (await getMyLikes(allToken)).payload.data;
 
   return (

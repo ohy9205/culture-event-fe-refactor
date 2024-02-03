@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent } from "react";
 import { postSignup } from "../apis/auth/auth";
-import { responseHandler } from "../apis/common/responseHandler";
+import { responseHandler } from "../utils/common/responseHandler";
 import useForm from "./useForm";
 
 const useSignup = () => {

@@ -1,35 +1,31 @@
-import { FetchAdapter } from "../common/FetchAdapter";
-import { API_AUTH } from "../common/url";
+import { API_AUTH } from "@/src/utils/data/APIUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
+
+const url = API_AUTH;
 
 export async function postSignup(body: Record<string, any>) {
-  const url = `${API_AUTH}/signUp`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   apiFetch.setBody(body);
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/signUp`);
 
   return rs;
 }
 
 // 로그인
 export async function postSignin(body: Record<string, any>) {
-  const url = `${API_AUTH}/signIn`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   apiFetch.setBody(body);
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/signIn`);
 
   return rs;
 }
 
 export async function signout() {
-  const url = `${API_AUTH}/signOut`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/signOut`);
 
   return rs;
 }

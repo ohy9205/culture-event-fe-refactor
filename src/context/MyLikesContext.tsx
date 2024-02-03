@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, useEffect, useState } from "react";
-import { responseHandler } from "../apis/common/responseHandler";
 import { toggleLikes } from "../apis/event/v2";
 import { getMyLikes } from "../apis/user/user";
+import { useAuth } from "../hooks/useAuth";
 import { FavoriteEvent } from "../types/user";
-import { useAuthContext } from "./AuthContext";
+import { responseHandler } from "../utils/common/responseHandler";
 
 type Props = {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ export const MyLikesContext = createContext<InitialValue>(initialValue);
 export const MyLikesContextProvider = ({ children, likesEvent }: Props) => {
   const {
     state: { isLoggedIn },
-  } = useAuthContext();
+  } = useAuth();
   const [likesState, setLikesState] = useState<FavoriteEvent[]>(likesEvent);
 
   const addLike = (likes: FavoriteEvent[], event: FavoriteEvent) => {

@@ -1,9 +1,9 @@
 "use client";
 
-import { objectToQueryString } from "@/src/utils/objectController/objectController";
+import { objectToQueryString } from "@/src/utils/common/objectController";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
-import { FilterContext } from "../../../context/FilterContext";
+import { FilterContext } from "../../context/FilterContext";
 
 const LOCATION = [
   { text: "지역구", value: "" },

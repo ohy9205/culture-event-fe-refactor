@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import "react-multi-carousel/lib/styles.css";
-import { EventThumbnail } from "../../../types/events";
-import ModalToggleCard from "../../UI/container/ModalToggleCard";
-import MultiCarousel from "../../UI/container/MultiCarousel";
-import EventDetail from "../client/EventDetail";
+import { EventThumbnail } from "../../types/events";
+import ModalToggleCard from "../UI/container/ModalToggleCard";
+import MultiCarousel from "../UI/container/MultiCarousel";
+import EventDetail from "./EventDetail";
 
 type Props = {
   events?: EventThumbnail[];

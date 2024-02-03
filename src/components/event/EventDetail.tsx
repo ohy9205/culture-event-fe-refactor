@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useEventDetail from "../../../hooks/useEventDetail";
-import Button from "../../UI/common/Button";
+import useEventDetail from "../../hooks/useEventDetail";
+import Button from "../UI/common/Button";
+import LikeButton from "../UI/common/LikeButton";
+import StaticMap from "../UI/common/StaticMap";
 import CommentList from "./CommentList";
-import Likes from "./Likes";
-import StaticMap from "./StaticMap";
 
 type Props = {
   id: number;
@@ -54,7 +54,7 @@ const EventDetail = ({ id }: Props) => {
             <ul className="flex flex-col gap-4">
               <li className="flex gap-2">
                 <div className="flex justify-center items-center gap-3">
-                  <Likes eventId={id} background>
+                  <LikeButton eventId={id} background>
                     {(count) => {
                       return (
                         <span>
@@ -62,7 +62,7 @@ const EventDetail = ({ id }: Props) => {
                         </span>
                       );
                     }}
-                  </Likes>
+                  </LikeButton>
                 </div>
                 <div className="flex gap-1 items-center ml-10">
                   <span>조회수</span>

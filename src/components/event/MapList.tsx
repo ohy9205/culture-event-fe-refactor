@@ -2,12 +2,12 @@
 
 import useMapList from "@/src/hooks/useMapList";
 import { Event } from "@/src/types/events";
-import Button from "../../UI/common/Button";
-import ModalToggleCard from "../../UI/container/ModalToggleCard";
+import Button from "../UI/common/Button";
+import LikeButton from "../UI/common/LikeButton";
+import StaticMap from "../UI/common/StaticMap";
+import ModalToggleCard from "../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
 import EventDetail from "./EventDetail";
-import Likes from "./Likes";
-import StaticMap from "./StaticMap";
 
 const MapList = ({ list }: { list: Event[] }) => {
   const {
@@ -32,7 +32,7 @@ const MapList = ({ list }: { list: Event[] }) => {
                 style="w-1/4 object-contain"
               />
               <div className="absolute top-3 right-5">
-                <Likes eventId={event.id} />
+                <LikeButton eventId={event.id} />
               </div>
               <div className="flex flex-col w-3/5 py-4 px-4 gap-2">
                 <EventCard.Title>{event.title}</EventCard.Title>

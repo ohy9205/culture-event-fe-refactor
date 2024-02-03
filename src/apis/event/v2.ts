@@ -1,18 +1,20 @@
 import { APIResponse } from "@/src/types/APIResponse";
 
-import { objectToQueryString } from "@/src/utils/objectController/objectController";
-import { FetchAdapter } from "../common/FetchAdapter";
-import { API_V2 } from "../common/url";
+import { objectToQueryString } from "@/src/utils/common/objectController";
+import { API_V2 } from "@/src/utils/data/APIUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
+const url = API_V2;
 //  필터링
 export async function getFilteredEvents(
   queryObj: Record<string, any>,
   cookie?: Record<string, any>
 ): Promise<APIResponse> {
-  const url = `${API_V2}?${objectToQueryString(queryObj, "&")}&pageSize=12`;
+  const apiFetch = new Fetch(cookie);
 
-  const apiFetch = new FetchAdapter(cookie);
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(
+    `${url}?${objectToQueryString(queryObj, "&")}&pageSize=12`
+  );
 
   const payload = queryObj.pageIndex
     ? {
@@ -31,30 +33,25 @@ export async function getFilteredEvents(
 export async function getEventDetailWithLogin(
   id: number
 ): Promise<APIResponse> {
-  const url = `${API_V2}/${id}`;
-  const apiFetch = new FetchAdapter();
-  const rs = await apiFetch.fetching(url);
+  const apiFetch = new Fetch();
+  const rs = await apiFetch.fetching(`${url}/${id}`);
 
   return rs;
 }
 
 // 해당 이벤트 코멘트
 export async function getComments(eventId: number): Promise<APIResponse> {
-  const url = `${API_V2}/${eventId}/comments`;
-
-  const apiFetch = new FetchAdapter();
-  const rs = await apiFetch.fetching(url);
+  const apiFetch = new Fetch();
+  const rs = await apiFetch.fetching(`${url}/${eventId}/comments`);
 
   return rs;
 }
 
 // 좋아요 토글
 export async function toggleLikes(eventId: number): Promise<APIResponse> {
-  const url = `${API_V2}/${eventId}/likes`;
-
-  const apiFetch = new FetchAdapter();
+  const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
-  const rs = await apiFetch.fetching(url);
+  const rs = await apiFetch.fetching(`${url}/${eventId}/likes`);
 
   return rs;
 }

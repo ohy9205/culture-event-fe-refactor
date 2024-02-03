@@ -1,12 +1,12 @@
 "use client";
 
-import { useAuthContext } from "@/src/context/AuthContext";
+import { useAuth } from "@/src/hooks/useAuth";
 import Link from "next/link";
 
 const AuthLinks = () => {
   const {
     state: { isLoggedIn },
-  } = useAuthContext();
+  } = useAuth();
 
   return (
     <>

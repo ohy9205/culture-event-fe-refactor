@@ -17,10 +17,6 @@ type ImageProps = {
   style: string;
 };
 
-type LikesProps = {
-  eventId: number;
-};
-
 const EventCard = ({ children, height, width }: CardProps) => {
   return (
     <div

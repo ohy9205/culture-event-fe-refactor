@@ -3,7 +3,7 @@ import { FilterContext } from "@/src/context/FilterContext";
 import {
   objectToQueryString,
   replaceObjectKey,
-} from "@/src/utils/objectController/objectController";
+} from "@/src/utils/common/objectController";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 import { PaginationContext } from "../../../context/PaginationContext";

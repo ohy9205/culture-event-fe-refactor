@@ -1,10 +1,10 @@
 import { getUserMe } from "@/src/apis/user/user";
-import { CookieAdapter } from "@/src/utils/store/cookieAdapter";
+import { Cookie } from "@/src/utils/store/cookieAdapter";
 import { Token } from "@/src/utils/token/token";
+import SignoutButton from "../auth/SignoutButton";
 import MyLikes from "./MyLikes";
-import SignoutButton from "./SignoutButton";
 
-const token = new Token(new CookieAdapter()).allToken;
+const token = new Token(new Cookie()).allToken;
 
 const MyInfo = async () => {
   const user = (await getUserMe(token)).payload.user;

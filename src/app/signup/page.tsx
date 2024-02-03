@@ -1,4 +1,4 @@
-import SignupForm from "@/src/components/auth/client/SignupForm";
+import SignupForm from "@/src/components/auth/SignupForm";
 
 export default async function SignupPage() {
   return (

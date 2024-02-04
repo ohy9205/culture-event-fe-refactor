@@ -11,35 +11,37 @@ type Props = {
 
 const MyComments = ({ comments }: Props) => {
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-col gap-5 w-full">
       {comments &&
         sortByCreatedAt(comments).map(
           ({ eventId, createdAt, updatedAt, Event, content, id }) => (
-            <EventDetailModal
-              key={id}
-              eventId={eventId}
-              trigger={
-                <Comment key={id}>
-                  <div className="flex gap-3 h-36 w-full">
-                    <Image
-                      src={Event.thumbnail}
-                      alt="image"
-                      width={150}
-                      height={150}
-                      className="object-cover"
-                    />
-                    <div className="flex flex-col gap-2 truncate">
-                      <h1 className="text-lg font-semibold">{Event.title}</h1>
-                      <Comment.Period
-                        createdAt={createdAt}
-                        updatedAt={updatedAt}
+            <div className="shadow-md" key={id}>
+              <EventDetailModal
+                key={id}
+                eventId={eventId}
+                trigger={
+                  <Comment key={id}>
+                    <div className="flex gap-3 h-36 w-full">
+                      <Image
+                        src={Event.thumbnail}
+                        alt="image"
+                        width={150}
+                        height={150}
+                        className="object-cover"
                       />
-                      <Comment.Content truncate>{content}</Comment.Content>
+                      <div className="w-full flex flex-col gap-2 truncate">
+                        <h1 className="text-lg font-semibold">{Event.title}</h1>
+                        <Comment.Period
+                          createdAt={createdAt}
+                          updatedAt={updatedAt}
+                        />
+                        <Comment.Content truncate>{content}</Comment.Content>
+                      </div>
                     </div>
-                  </div>
-                </Comment>
-              }
-            />
+                  </Comment>
+                }
+              />
+            </div>
           )
         )}
     </div>

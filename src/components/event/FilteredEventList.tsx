@@ -19,7 +19,7 @@ const FilteredEventList = ({ events }: Props) => {
   const [curTab, setCurTab] = useState("poster");
 
   return (
-    <div className="w-full px-2">
+    <div className="w-full">
       <div className="flex gap-2 mb-4">
         {TAB_LIST.map((tab) => (
           <Button

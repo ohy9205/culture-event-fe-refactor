@@ -1,20 +1,19 @@
 "use client";
 
-import useMyComment from "@/src/hooks/useMyComment";
+import { MyComment } from "@/src/types/user";
 import Image from "next/image";
 import Comment from "../event/Comment";
 import EventDetailModal from "../event/EventDetailModal";
 
-const MyComments = () => {
-  const {
-    data: { comments },
-    get,
-  } = useMyComment();
+type Props = {
+  comments: MyComment[];
+};
 
+const MyComments = ({ comments }: Props) => {
   return (
     <div className="flex flex-col gap-3 w-full">
       {comments &&
-        comments.map(
+        sortByCreatedAt(comments).map(
           ({ eventId, createdAt, updatedAt, Event, content, id }) => (
             <EventDetailModal
               key={id}
@@ -45,6 +44,16 @@ const MyComments = () => {
         )}
     </div>
   );
+};
+
+const sortByCreatedAt = (comments: MyComment[]) => {
+  return comments.sort((a, b) => {
+    // updatedAt이 있으면 해당 값을, 없으면 createdAt 값을 사용
+    const dateA = new Date(a.updatedAt || a.createdAt);
+    const dateB = new Date(b.updatedAt || b.createdAt);
+
+    return dateB.getTime() - dateA.getTime(); // 날짜가 빠른 순으로 정렬
+  });
 };
 
 export default MyComments;

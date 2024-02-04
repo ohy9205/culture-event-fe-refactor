@@ -1,4 +1,4 @@
-import { getUserMe } from "@/src/apis/user/user";
+import { getMyComments, getUserMe } from "@/src/apis/user/user";
 import SignoutButton from "@/src/components/auth/SignoutButton";
 import MyComments from "@/src/components/user/MyComments";
 import MyLikes from "@/src/components/user/MyLikes";
@@ -9,6 +9,7 @@ const token = new Token(new Cookie()).allToken;
 
 const MyPage = async () => {
   const user = (await getUserMe(token)).payload.user;
+  const myComments = (await getMyComments(token)).payload.commentsWithEvents;
 
   return (
     <>
@@ -27,7 +28,7 @@ const MyPage = async () => {
         </div>
         <div className="w-full">
           <h1>작성한 댓글</h1>
-          <MyComments />
+          <MyComments comments={myComments} />
         </div>
       </div>
     </>

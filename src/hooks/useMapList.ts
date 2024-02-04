@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Event, SimpleEvent } from "../types/events";
+import { SimpleEvent } from "../types/events";
 
-const useMapList = (initCurEvent: Event) => {
+const useMapList = (initCurEvent: SimpleEvent) => {
   const [curEvent, setCurEvent] = useState<SimpleEvent>(initCurEvent);
 
   return {

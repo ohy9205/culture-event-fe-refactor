@@ -1,79 +1,45 @@
 "use client";
 
+import useEventFilter from "@/src/hooks/useEventFilter";
+import usePagination from "@/src/hooks/usePagination";
 import { objectToQueryString } from "@/src/utils/common/objectController";
+import { evnetFilter } from "@/src/utils/data/eventFilter";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
-import { FilterContext } from "../../context/FilterContext";
+import { ChangeEvent, useEffect } from "react";
 
-const LOCATION = [
-  { text: "지역구", value: "" },
-  { text: "강남구", value: "강남구" },
-  { text: "강동구", value: "강동구" },
-  { text: "강북구", value: "강북구" },
-  { text: "강서구", value: "강서구" },
-  { text: "관악구", value: "관악구" },
-  { text: "광진구", value: "광진구" },
-  { text: "구로구", value: "구로구" },
-  { text: "금천구", value: "금천구" },
-  { text: "노원구", value: "노원구" },
-  { text: "도봉구", value: "도봉구" },
-  { text: "동대문구", value: "동대문구" },
-  { text: "동작구", value: "동작구" },
-  { text: "마포구", value: "마포구" },
-  { text: "서대문구", value: "서대문구" },
-  { text: "서초구", value: "서초구" },
-  { text: "성동구", value: "성동구" },
-  { text: "성북구", value: "성북구" },
-  { text: "송파구", value: "송파구" },
-  { text: "양천구", value: "양천구" },
-];
-const COST = [
-  { text: "비용", value: "" },
-  { text: "무료", value: "무료" },
-  { text: "유료", value: "유료" },
-];
-const CATEGORY = [
-  { text: "카테고리", value: "" },
-  { text: "콘서트", value: "콘서트" },
-  { text: "클래식", value: "클래식" },
-  { text: "뮤지컬/오페라", value: "뮤지컬/오페라" },
-  { text: "연극", value: "연극" },
-  { text: "무용", value: "무용" },
-  { text: "국악", value: "국악" },
-  { text: "독주/독창회", value: "독주/독창회" },
-  { text: "전시/미술", value: "전시/미술" },
-  { text: "축제-기타", value: "축제-기타" },
-  { text: "축제-문화/예술", value: "축제-문화/예술" },
-  { text: "축제-자연/경관", value: "축제-자연/경관" },
-  { text: "축제-전통/역사", value: "축제-전통/역사" },
-  { text: "축제-시민화합", value: "축제-시민화합" },
-  { text: "교축/체험", value: "교축/체험" },
-  { text: "기타", value: "기타" },
-];
-const ORDER_BY = [
-  { text: "빠른 시작일 순", value: "" },
-  { text: "곧 시작할 순", value: "latest" },
-  { text: "인기 순", value: "likes" },
-  { text: "조회 순", value: "views" },
-];
+const LOCATION = evnetFilter.location.options;
+const COST = evnetFilter.isFree.options;
+const CATEGORY = evnetFilter.category.options;
+const ORDER_BY = evnetFilter.orderBy.options;
 
 const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = () => {
-  const { filter, onFilterChange } = useContext(FilterContext);
+  const { filter, onFilterChange } = useEventFilter();
+  const {
+    onInitPagingHandler,
+    data: { pageIndex },
+  } = usePagination();
   const router = useRouter();
 
+  const changeFilter = (
+    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
+    onFilterChange(e);
+  };
+
   useEffect(() => {
+    console.log("controlBox");
     const query = objectToQueryString(filter, "&");
     router.push(`/event?${query}`);
-  }, [filter, router]);
+  }, [filter]);
 
   return (
-    <section className="mb-5">
-      <div className="w-full h-full flex md:flex-row flex-col gap-5 my-5">
-        <div className="flex gap-5">
+    <section className="w-full">
+      <div className="flex lg:flex-row flex-col gap-5 my-5">
+        <div className="flex flex-col sm:flex-row gap-5">
           <select
-            onChange={onFilterChange}
+            onChange={changeFilter}
             name="location"
             className={SELECT_STYLE}
             value={filter.location || LOCATION[0].text}
@@ -85,7 +51,7 @@ const ControlBox = () => {
             ))}
           </select>
           <select
-            onChange={onFilterChange}
+            onChange={changeFilter}
             name="category"
             className={SELECT_STYLE}
             value={filter.category || CATEGORY[0].text}
@@ -97,7 +63,7 @@ const ControlBox = () => {
             ))}
           </select>
           <select
-            onChange={onFilterChange}
+            onChange={changeFilter}
             name="isFree"
             className={SELECT_STYLE}
             value={filter.isFree || COST[0].text}
@@ -113,7 +79,7 @@ const ControlBox = () => {
           <input
             type="date"
             name="start"
-            onChange={onFilterChange}
+            onChange={changeFilter}
             value={filter.start || ""}
             className={SELECT_STYLE}
           />
@@ -121,7 +87,7 @@ const ControlBox = () => {
           <input
             type="date"
             name="end"
-            onChange={onFilterChange}
+            onChange={changeFilter}
             value={filter.end || ""}
             className={SELECT_STYLE}
           />
@@ -129,7 +95,7 @@ const ControlBox = () => {
 
         <div className="">
           <select
-            onChange={onFilterChange}
+            onChange={changeFilter}
             name="orderBy"
             className={SELECT_STYLE}
             value={filter.orderBy || ORDER_BY[0].text}
@@ -141,15 +107,14 @@ const ControlBox = () => {
             ))}
           </select>
         </div>
-      </div>
-      <div>
         <input
           name="keyword"
-          onChange={onFilterChange}
+          onChange={changeFilter}
           placeholder="검색어를 입력하세요"
-          className={SELECT_STYLE}
+          className="px-4 py-2 rounded-md border"
         />
       </div>
+      <div></div>
     </section>
   );
 };

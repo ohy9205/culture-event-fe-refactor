@@ -1,27 +1,26 @@
 "use client";
-import { FilterContext } from "@/src/context/FilterContext";
+
+import useEventFilter from "@/src/hooks/useEventFilter";
+import usePagination from "@/src/hooks/usePagination";
 import {
   objectToQueryString,
   replaceObjectKey,
 } from "@/src/utils/common/objectController";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
-import { PaginationContext } from "../../../context/PaginationContext";
+import { useEffect } from "react";
 
 type Props = {
   totalPage: number;
-  pageSize: number;
 };
 
-const Pagination = ({ totalPage, pageSize }: Props) => {
+const Pagination = ({ totalPage }: Props) => {
   const {
+    data: { pageButtonSize, pageIndex, pagingGroupIndex },
     onNextBtnHandler,
     onPagingHandler,
     onPrevBtnHandler,
-    pagination: { pageIndex, pagingGroupIndex },
-    pageButtonSize,
-  } = useContext(PaginationContext);
-  const { filter } = useContext(FilterContext);
+  } = usePagination();
+  const { filter } = useEventFilter();
   const router = useRouter();
 
   const renderButton = () => {
@@ -32,33 +31,32 @@ const Pagination = ({ totalPage, pageSize }: Props) => {
       if (curButtonNum > totalPage) {
         return arr;
       }
-      arr.push(
-        <button
-          key={curButtonNum}
-          onClick={() => onPagingHandler(curButtonNum)}
-          className={`${curButtonNum === pageIndex ? "font-bold" : ""}`}
-        >
-          {curButtonNum}
-        </button>
-      );
+      arr.push(curButtonNum);
     }
     return arr;
   };
 
   useEffect(() => {
-    const paginationQuery = replaceObjectKey(
-      { ...filter },
-      "pageIndex",
-      pageIndex
-    );
-
+    console.log("pagination");
+    const paginationQuery = replaceObjectKey(filter, "pageIndex", pageIndex);
     router.push(`/event?${objectToQueryString(paginationQuery, "&")}`);
-  }, [pageIndex, pageSize, filter, router]);
+  }, [pageIndex]);
 
   return (
     <section className="flex gap-5 justify-center m-auto mb-10">
       <button onClick={onPrevBtnHandler}>[이전]</button>
-      {renderButton()}
+
+      {renderButton().length === 0 && <button className="font-bold">1</button>}
+      {renderButton().map((it: number) => (
+        <button
+          key={it}
+          onClick={() => onPagingHandler(it)}
+          className={`${it === pageIndex ? "text-red-600" : ""}`}
+        >
+          {it}
+        </button>
+      ))}
+
       <button onClick={() => onNextBtnHandler(totalPage)}>[이후]</button>
     </section>
   );

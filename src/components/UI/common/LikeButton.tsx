@@ -61,8 +61,8 @@ const LikeButton = ({ eventId, children, background }: Props) => {
 export default LikeButton;
 
 const style = (background: boolean = false, isLoggedIn: boolean) => {
-  const basic = "text-md p-2";
-  const bg = isLoggedIn && background ? "bg-slate-800 rounded-md" : "";
+  const basic = "text-md";
+  const bg = background ? "bg-slate-800 rounded-md p-2" : "";
   const cursor = isLoggedIn ? "cursor-pointer" : "cursor-auto";
 
   return `${basic} ${bg} ${cursor}`;

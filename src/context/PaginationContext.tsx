@@ -15,8 +15,10 @@ const initialPagination = {
 };
 
 export const PaginationContext = createContext({
-  pagination: initialPagination,
-  pageButtonSize: PAGE_BUTTON_SIZE,
+  data: {
+    ...initialPagination,
+    pageButtonSize: PAGE_BUTTON_SIZE,
+  },
   onInitPagingHandler: () => {},
   onPagingHandler: (curIndex: number) => {},
   onPrevBtnHandler: () => {},
@@ -26,7 +28,7 @@ export const PaginationContext = createContext({
 export const PaginationProvider = ({ children, initPageIndex }: Props) => {
   const [pagination, setPagination] = useState({
     ...initialPagination,
-    pageIndex: initPageIndex,
+    pageIndex: initPageIndex ? initPageIndex : 1,
   });
   const { pageIndex, pagingGroupIndex } = pagination;
 
@@ -57,15 +59,17 @@ export const PaginationProvider = ({ children, initPageIndex }: Props) => {
 
     setPagination((prev) => ({
       pagingGroupIndex: ++prev.pagingGroupIndex,
-      pageIndex: (pagingGroupIndex + 1) * PAGE_BUTTON_SIZE,
+      pageIndex: pagingGroupIndex * PAGE_BUTTON_SIZE + 1,
     }));
   };
 
   return (
     <PaginationContext.Provider
       value={{
-        pagination,
-        pageButtonSize: PAGE_BUTTON_SIZE,
+        data: {
+          ...pagination,
+          pageButtonSize: PAGE_BUTTON_SIZE,
+        },
         onInitPagingHandler,
         onNextBtnHandler,
         onPagingHandler,

@@ -6,8 +6,6 @@ export class Fetch implements APIAdapter {
   private fetchOptions: RequestInit;
 
   constructor(cookie?: Record<string, any>) {
-    console.log("fetch호출~");
-
     this.fetchOptions = {
       method: "GET",
       headers: {

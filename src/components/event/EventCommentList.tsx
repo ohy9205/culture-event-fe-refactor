@@ -73,10 +73,14 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
               <section className="py-4">
                 {isModifyMode.status && isModifyMode.commentId === id ? (
                   <Comment.Input initContent={content}>
-                    {(comment, reset) => (
+                    {(newContent, reset) => (
                       <Comment.Button
                         onClick={async () => {
-                          await modify(id, comment);
+                          if (newContent === content) {
+                            editMode.off();
+                            return;
+                          }
+                          await modify(id, newContent);
                           await get();
                           reset();
                         }}
@@ -96,10 +100,10 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
         {/* 댓글 입력창 */}
         {isLoggedIn && (
           <Comment.Input>
-            {(comment, reset) => (
+            {(content, reset) => (
               <Comment.Button
                 onClick={async () => {
-                  await add(comment);
+                  await add(content);
                   await get();
                   reset();
                 }}

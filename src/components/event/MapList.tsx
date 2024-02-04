@@ -5,9 +5,8 @@ import { Event } from "@/src/types/events";
 import Button from "../UI/common/Button";
 import LikeButton from "../UI/common/LikeButton";
 import StaticMap from "../UI/common/StaticMap";
-import ModalToggleCard from "../UI/container/ModalToggleCard";
 import EventCard from "./EventCard";
-import EventDetail from "./EventDetail";
+import EventDetailModal from "./EventDetailModal";
 
 const MapList = ({ list }: { list: Event[] }) => {
   const {
@@ -38,9 +37,10 @@ const MapList = ({ list }: { list: Event[] }) => {
                 <EventCard.Title>{event.title}</EventCard.Title>
                 <EventCard.Period>{event.eventPeriod}</EventCard.Period>
                 <EventCard.Views>{event.views}</EventCard.Views>
-                <ModalToggleCard modalContent={<EventDetail id={event.id} />}>
-                  <Button size="sm" color="dark">{`상세정보`}</Button>
-                </ModalToggleCard>
+                <EventDetailModal
+                  eventId={event.id}
+                  trigger={<Button size="sm" color="dark">{`상세정보`}</Button>}
+                />
               </div>
             </div>
           </EventCard>

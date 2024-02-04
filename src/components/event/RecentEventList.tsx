@@ -7,15 +7,14 @@ const RecentEventList = async () => {
   const recentEvents = await getRecentEvents();
 
   return (
-    <section className="p-10 flex flex-col gap-6">
-      <h1 className="text-3xl text-center">최신순</h1>
+    <section className="flex flex-col justify-center gap-5">
+      <div className="flex justify-between items-end">
+        <h1 className="text-2xl text-center">최신순</h1>
+        <Link href={{ pathname: "/event", query: { orderBy: "latest" } }}>
+          <Button size="md" color="dark">{`최신순 전체보기 >`}</Button>
+        </Link>
+      </div>
       <EventCarousel events={recentEvents.payload} />
-      <Link
-        href={{ pathname: "/event", query: { orderBy: "latest" } }}
-        className="m-auto"
-      >
-        <Button size="lg" color="dark">{`최신순으로 전체보기 >`}</Button>
-      </Link>
     </section>
   );
 };

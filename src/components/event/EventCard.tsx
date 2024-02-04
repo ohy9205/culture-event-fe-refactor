@@ -20,7 +20,7 @@ type ImageProps = {
 const EventCard = ({ children, height, width }: CardProps) => {
   return (
     <div
-      className="shadow-lg rounded-lg"
+      className="shadow-md rounded-lg overflow-hidden"
       style={{ height: `${height}`, width: `${width}` }}
     >
       {children}

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import "react-multi-carousel/lib/styles.css";
 import { EventThumbnail } from "../../types/events";
 import MultiCarousel from "../UI/container/MultiCarousel";
+import EventCard from "./EventCard";
 import EventDetailModal from "./EventDetailModal";
 
 type Props = {
@@ -17,23 +17,24 @@ const EventCarousel = ({ events }: Props) => {
         autoPlay: true,
         autoPlaySpeed: 3000,
         infinite: true,
-        itemClass: "p-2",
+        itemClass: "m-4",
         centerMode: true,
       }}
     >
-      {events?.map((event) => (
+      {events?.map(({ id, thumbnail, title }) => (
         <EventDetailModal
-          key={event.id}
-          eventId={event.id}
+          key={id}
+          eventId={id}
           trigger={
-            <Image
-              key={event.id}
-              src={event.thumbnail}
-              alt={event.title}
-              width={600}
-              height={600}
-              className="object-cover h-[350px]"
-            />
+            <EventCard>
+              <EventCard.Image
+                src={thumbnail}
+                alt={title}
+                width={600}
+                height={600}
+                style="object-cover h-[230px] md:h-[350px]"
+              />
+            </EventCard>
           }
         />
       ))}

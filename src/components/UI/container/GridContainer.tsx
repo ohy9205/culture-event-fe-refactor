@@ -11,7 +11,7 @@ const GridContainer = ({ children, isReponsive = true }: Props) => {
   return (
     <div
       className={`w-full grid ${
-        isReponsive ? responsiveGridStyle() : "grid-cols-3 gap-4"
+        isReponsive ? responsiveGridStyle() : "grid-cols-2 sm:grid-cols-3 gap-4"
       } }`}
     >
       {children}

@@ -1,23 +1,28 @@
 "use client";
 
 import { createContext, useEffect, useState } from "react";
+import { postSignin, postSignout, postSignup } from "../apis/auth/auth";
 import { getUserMe } from "../apis/user/user";
+import { Signin, Signup } from "../types/APIRequest";
+import {
+  ResponseHandler,
+  responseHandler,
+} from "../utils/common/responseHandler";
 
-type InitialValue = {
-  state: InitialState;
-  setAuth: (email: string, nick: string) => void;
-  resetAuth: () => void;
-};
-
-type InitialState = {
-  isLoggedIn: boolean;
-  user: {
-    email: string;
-    nick: string;
+type Context = {
+  state: {
+    isLoggedIn: boolean;
+    user: {
+      email: string;
+      nick: string;
+    };
   };
+  signin: (form: Signin, handler: ResponseHandler) => Promise<void>;
+  signup: (form: Signup, handler: ResponseHandler) => Promise<void>;
+  signout: (handler: ResponseHandler) => Promise<void>;
 };
 
-const initialValue = {
+export const AuthContext = createContext<Context>({
   state: {
     isLoggedIn: false,
     user: {
@@ -25,11 +30,10 @@ const initialValue = {
       nick: "",
     },
   },
-  setAuth: (email: string, nick: string) => {},
-  resetAuth: () => {},
-};
-
-export const AuthContext = createContext<InitialValue>(initialValue);
+  signin: async (form: Signin) => {},
+  signup: async (form: Signup) => {},
+  signout: async () => {},
+});
 
 export const AuthContextProvider = ({
   children,
@@ -38,7 +42,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
   hasToken: boolean;
 }) => {
-  const [authState, setAuthState] = useState<InitialState>({
+  const [authState, setAuthState] = useState({
     isLoggedIn: hasToken,
     user: {
       email: "",
@@ -46,17 +50,43 @@ export const AuthContextProvider = ({
     },
   });
 
-  const setAuth = (email: string, nick: string) => {
-    setAuthState({ isLoggedIn: true, user: { email, nick } });
+  const signin = async (form: Signin, handler: ResponseHandler) => {
+    const rs = await postSignin(form);
+    if (rs) {
+      if (rs.result === "success") {
+        setAuthState({
+          isLoggedIn: true,
+          user: { email: rs.payload.email, nick: rs.payload.nick },
+        });
+      }
+      if (handler) {
+        responseHandler(rs, handler);
+      }
+    }
   };
 
-  const resetAuth = () => {
-    setAuthState(() => ({
-      isLoggedIn: false,
-      user: { email: "", nick: "" },
-    }));
+  const signup = async (form: Signup, handler: ResponseHandler) => {
+    const rs = await postSignup(form);
+    if (rs) {
+      responseHandler(rs, handler);
+    }
   };
 
+  const signout = async (handler: ResponseHandler) => {
+    const rs = await postSignout();
+    console.log(rs);
+    if (rs) {
+      if (rs.result === "success") {
+        setAuthState(() => ({
+          isLoggedIn: false,
+          user: { email: "", nick: "" },
+        }));
+      }
+      responseHandler(rs, handler);
+    }
+  };
+
+  // 로그인중인지 체크
   useEffect(() => {
     const checkLogin = async () => {
       const { status, payload } = await getUserMe();
@@ -74,7 +104,7 @@ export const AuthContextProvider = ({
   }, [hasToken]);
 
   return (
-    <AuthContext.Provider value={{ state: authState, setAuth, resetAuth }}>
+    <AuthContext.Provider value={{ state: authState, signin, signup, signout }}>
       {children}
     </AuthContext.Provider>
   );

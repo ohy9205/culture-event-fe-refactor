@@ -1,25 +1,46 @@
 "use client";
 
 import { useAuth } from "@/src/hooks/useAuth";
+import useForm from "@/src/hooks/useForm";
+import { Signup } from "@/src/types/APIRequest";
+import { APIResponse } from "@/src/types/APIResponse";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import useSignup from "../../hooks/useSignup";
+import { FormEvent } from "react";
 
 const SignupForm = () => {
-  const { data, changeForm, signup } = useSignup();
   const {
-    state: { isLoggedIn },
-  } = useAuth();
+    data: { form, valid },
+    changeForm,
+    setValid,
+  } = useForm<Signup>({
+    email: "",
+    nick: "",
+    password: "",
+    passwordConfirm: "",
+  });
+  const { signup } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm(form)) {
+      return;
     }
-  }, [isLoggedIn]);
+
+    signup(form, {
+      success: () => router.push("/signin"),
+      status403: (rs: APIResponse) => {
+        setValid(rs.message);
+      },
+      status409: (rs: APIResponse) => {
+        setValid(rs.message);
+      },
+    });
+  };
 
   return (
-    <form className="flex flex-col p-7" onSubmit={signup}>
+    <form className="flex flex-col p-7" onSubmit={onSubmit}>
       <label htmlFor="email">이메일</label>
       <input
         type="email"
@@ -27,7 +48,7 @@ const SignupForm = () => {
         placeholder="email@culture.com"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.email}
+        value={form.email}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="nickname">닉네임</label>
@@ -37,7 +58,7 @@ const SignupForm = () => {
         placeholder="nick"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.nick}
+        value={form.nick}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="password">비밀번호</label>
@@ -47,7 +68,7 @@ const SignupForm = () => {
         placeholder="password"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.password}
+        value={form.password}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="passwrodConfim">비밀번호 확인</label>
@@ -57,22 +78,50 @@ const SignupForm = () => {
         placeholder="password Confirm"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.passwordConfirm}
+        value={form.passwordConfirm}
         onChange={(e) => {
           changeForm(e.target.name, e.target.value);
-          if (data.form.password !== e.target.value) {
-            console.log("비밀번호가 일치하지 않습니다");
+          if (!validatePasswordCheck(form.password, e.target.value)) {
+            setValid("비밀번호가 일치하지 않습니다");
+          } else {
+            setValid("");
           }
         }}
       />
-      {data.valid && (
-        <p className="text-center text-sm text-red-800 mb-4">{data.valid}</p>
+      {valid && (
+        <p className="text-center text-sm text-red-800 mb-4">{valid}</p>
       )}
-      <button className="w-full font-semibold text-xl border rounded-md py-[12px]">
+      <button
+        className={`w-full font-semibold text-xl border rounded-md py-[12px] ${
+          validateForm(form) ? "bg-slate-900 text-white" : "bg-white"
+        }`}
+        disabled={!validateForm(form)}
+      >
         회원가입
       </button>
     </form>
   );
+};
+
+const validateForm = (form: Signup) => {
+  const isValidPassword = validatePasswordCheck(
+    form.password,
+    form.passwordConfirm
+  );
+  const isValidFormContent = Object.values(form).every((value) => value !== "");
+  if (isValidPassword && isValidFormContent) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const validatePasswordCheck = (password: string, confirm: string) => {
+  if (password !== confirm) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 export default SignupForm;

@@ -1,6 +1,6 @@
 import { APIResponse } from "@/src/types/APIResponse";
 import { Event } from "@/src/types/events";
-import { API_V1 } from "@/src/utils/data/APIUrl";
+import { API_V1 } from "@/src/utils/data/apiUrl";
 import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
 const url = API_V1;
@@ -9,6 +9,7 @@ const url = API_V1;
 export async function getRecentEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/latest`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -26,6 +27,7 @@ export async function getRecentEvents(): Promise<APIResponse> {
 export async function getHotEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/likes`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -43,6 +45,7 @@ export async function getHotEvents(): Promise<APIResponse> {
 export async function getViewEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/views`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,

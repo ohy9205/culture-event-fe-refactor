@@ -1,4 +1,4 @@
-import { API_USER } from "@/src/utils/data/APIUrl";
+import { API_USER } from "@/src/utils/data/apiUrl";
 import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
 const url = API_USER;

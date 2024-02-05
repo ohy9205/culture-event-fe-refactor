@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useForm = (initialValues: Record<string, any>) => {
+const useForm = <T extends Record<string, any>>(initialValues: T) => {
   const [form, setForm] = useState(initialValues);
   const [valid, setValid] = useState("");
 
@@ -9,12 +9,7 @@ const useForm = (initialValues: Record<string, any>) => {
   };
 
   const reset = () => {
-    const keys = Object.keys(form);
-    const newValues = keys.reduce(
-      (acc, value) => ({ ...acc, [value]: "" }),
-      {}
-    );
-    setForm(newValues);
+    setForm(initialValues);
   };
 
   return {

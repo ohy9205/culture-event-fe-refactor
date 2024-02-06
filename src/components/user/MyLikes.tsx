@@ -19,7 +19,6 @@ const MyLikes = () => {
       {/* <ul className="flex gap-4 py-7"> */}
       <GridContainer>
         {events?.map(({ id, thumbnail, title, period }: FavoriteEvent) => (
-          // <li key={id} className="p-2">
           <EventCard key={id}>
             <EventDetailModal
               eventId={id}

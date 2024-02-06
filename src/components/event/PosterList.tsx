@@ -1,5 +1,3 @@
-"use client";
-
 import { SimpleEvent } from "@/src/types/events";
 import LikeButton from "../UI/common/LikeButton";
 import GridContainer from "../UI/container/GridContainer";

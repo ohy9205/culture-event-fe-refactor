@@ -1,8 +1,7 @@
 import { Event } from "@/src/types/events";
 import Image from "next/image";
-import Link from "next/link";
 import { getHotEvents } from "../../apis/event/v1";
-import Button from "../UI/common/Button";
+import SectionHeader from "../UI/common/SectionHeader";
 import GridContainer from "../UI/container/GridContainer";
 import EventDetailModal from "./EventDetailModal";
 
@@ -13,12 +12,14 @@ const HotEventList = async () => {
 
   return (
     <section className="flex flex-col justify-center gap-3">
-      <div className="flex justify-between items-end">
-        <h1 className="text-2xl text-center">인기순</h1>
-        <Link href={{ pathname: "/event", query: { orderBy: "likes" } }}>
-          <Button size="md" color="dark">{`인기순 전체보기 >`}</Button>
-        </Link>
-      </div>
+      <SectionHeader>
+        <SectionHeader.Title>인기순</SectionHeader.Title>
+        <SectionHeader.LinkButton
+          pathname="/event"
+          query={{ orderBy: "likes" }}
+        >{`인기순 전체보기 >`}</SectionHeader.LinkButton>
+      </SectionHeader>
+
       <div className="flex flex-col md:flex-row gap-4">
         <EventDetailModal
           trigger={

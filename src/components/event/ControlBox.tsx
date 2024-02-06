@@ -1,7 +1,6 @@
 "use client";
 
 import useEventFilter from "@/src/hooks/useEventFilter";
-import usePagination from "@/src/hooks/usePagination";
 import { objectToQueryString } from "@/src/utils/common/objectController";
 import { evnetFilter } from "@/src/utils/data/eventFilter";
 import { useRouter } from "next/navigation";
@@ -16,10 +15,6 @@ const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = () => {
   const { filter, onFilterChange } = useEventFilter();
-  const {
-    onInitPagingHandler,
-    data: { pageIndex },
-  } = usePagination();
   const router = useRouter();
 
   const changeFilter = (

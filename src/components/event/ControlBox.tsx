@@ -17,25 +17,14 @@ const { name: orderByName, options: orderByOptions } = ORDER_BY;
 const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = ({ query }: { query: Record<string, any> }) => {
-  // const query = useSearchnquery();
-  // const { filter, onFilterChange } = useEventFilter();
   const router = useRouter();
 
   const onFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-
-    if (query.has(name)) {
-      const newQuery = objectToQueryString({ ...query, [name]: value }, "&");
-      console.log(newQuery);
-      router.push(`/event?${newQuery}`);
-    } else {
-      // 기존 쿼리에 해당 값이 없으면 새로 추가
-      const newQuery = objectToQueryString({ ...query, [name]: value }, "&");
-      console.log(newQuery);
-      router.push(`/event?${newQuery}`);
-    }
+    const clearQuery = cleanQuery({ ...query, [name]: value });
+    router.push(`/event?${objectToQueryString(clearQuery, "&")}`);
   };
 
   return (
@@ -48,7 +37,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             className={SELECT_STYLE}
             // value={filter.location || locationOptions[0].text}
             // value={filter.location || locationOptions[0].text}
-            value={query.get(locationName) || locationOptions[0].text}
+            value={query[locationName] || locationOptions[0].text}
           >
             {locationOptions.map((it) => (
               <option key={it.text} value={it.value}>
@@ -61,7 +50,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             name={categoryName}
             className={SELECT_STYLE}
             // value={filter.category || categoryOptions[0].text}
-            value={query.get(categoryName) || categoryOptions[0].text}
+            value={query[categoryName] || categoryOptions[0].text}
           >
             {categoryOptions.map((it) => (
               <option key={it.text} value={it.value}>
@@ -74,7 +63,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             name={isFreeName}
             className={SELECT_STYLE}
             // value={filter.isFree || isFreeOptions[0].text}
-            value={query.get(isFreeName) || categoryOptions[0].text}
+            value={query[isFreeName] || categoryOptions[0].text}
           >
             {isFreeOptions.map((it) => (
               <option key={it.text} value={it.value}>
@@ -107,7 +96,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             name={orderByName}
             className={SELECT_STYLE}
             // value={filter.orderBy || orderByOptions[0].text}
-            value={query.get(orderByName) || categoryOptions[0].text}
+            value={query[orderByName] || categoryOptions[0].text}
           >
             {orderByOptions.map((it) => (
               <option key={it.text} value={it.value}>
@@ -127,5 +116,16 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
     </section>
   );
 };
+
+// 객체의 value가 "" | undefined | null 이면 제거하는 함수
+function cleanQuery(query: Record<string, any>): Record<string, any> {
+  const cleanedQuery: Record<string, any> = {};
+  Object.keys(query).forEach((key) => {
+    if (query[key] !== "") {
+      cleanedQuery[key] = query[key];
+    }
+  });
+  return cleanedQuery;
+}
 
 export default ControlBox;

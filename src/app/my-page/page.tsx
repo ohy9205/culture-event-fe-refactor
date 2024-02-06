@@ -5,9 +5,8 @@ import MyLikes from "@/src/components/user/MyLikes";
 import { Cookie } from "@/src/utils/store/cookieAdapter";
 import { Token } from "@/src/utils/token/token";
 
-const token = new Token(new Cookie()).allToken;
-
 const MyPage = async () => {
+  const token = new Token(new Cookie()).allToken;
   const user = (await getUserMe(token)).payload.user;
   const myComments = (await getMyComments(token)).payload.commentsWithEvents;
 

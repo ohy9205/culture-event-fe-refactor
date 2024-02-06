@@ -7,13 +7,12 @@ import { PaginationProvider } from "@/src/context/PaginationContext";
 import { Cookie } from "@/src/utils/store/cookieAdapter";
 import { Token } from "@/src/utils/token/token";
 
-const { allToken } = new Token(new Cookie());
-
 export default async function Event({
   searchParams: query,
 }: {
   searchParams: Record<string, any>;
 }) {
+  const { allToken } = new Token(new Cookie());
   let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
   const rs = await getFilteredEvents(apiQuery, allToken);
 

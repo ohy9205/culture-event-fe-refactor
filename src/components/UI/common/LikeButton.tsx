@@ -1,9 +1,7 @@
 "use client";
 
 import { useAuth } from "@/src/hooks/useAuth";
-import useMyLikes from "@/src/hooks/useMyLikes";
-
-import { useState } from "react";
+import useLikeToggle from "@/src/hooks/useLikeToggle";
 
 type Props = {
   eventId: number;
@@ -16,25 +14,13 @@ const LikeButton = ({ eventId, children, background }: Props) => {
     state: { isLoggedIn },
   } = useAuth();
   const {
-    toggleLike,
-    data: { likes },
-  } = useMyLikes();
-  const [count, setCount] = useState<undefined | number>();
+    data: { likesCount },
+    checkIsMyLike,
+    toggleButton,
+  } = useLikeToggle();
 
-  const checkIsMyLike = (eventId: number) => {
-    if (likes?.find((event) => event.id === eventId)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const toggleButton = async (eventId: number) => {
-    const rs = await toggleLike(eventId);
-    setCount(rs);
-  };
-
-  const toRender = typeof children === "function" ? children(count) : children;
+  const toRender =
+    typeof children === "function" ? children(likesCount) : children;
 
   return (
     <>

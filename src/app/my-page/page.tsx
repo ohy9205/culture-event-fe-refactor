@@ -1,4 +1,5 @@
 import { getMyComments, getUserMe } from "@/src/apis/user/user";
+import SectionHeader from "@/src/components/UI/common/SectionHeader";
 import SignoutButton from "@/src/components/auth/SignoutButton";
 import MyComments from "@/src/components/user/MyComments";
 import MyLikes from "@/src/components/user/MyLikes";
@@ -20,12 +21,16 @@ const MyPage = async () => {
       </div>
       <SignoutButton />
       <hr className="w-full border-slate-400" />
-      <div className="w-full">
-        <h1 className="text-xl mb-4">찜한 이벤트</h1>
+      <div className="w-full flex flex-col gap-4">
+        <SectionHeader>
+          <SectionHeader.Title>찜한 이벤트</SectionHeader.Title>
+        </SectionHeader>
         <MyLikes />
       </div>
-      <div className="w-full mt-12">
-        <h1 className="text-xl mb-4">작성 댓글</h1>
+      <div className="w-full mt-12 flex flex-col gap-4 ">
+        <SectionHeader>
+          <SectionHeader.Title>찜한 이벤트</SectionHeader.Title>
+        </SectionHeader>
         <MyComments comments={myComments} />
       </div>
     </div>

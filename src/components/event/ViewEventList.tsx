@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { getViewEvents } from "../../apis/event/v1";
-import Button from "../UI/common/Button";
+import SectionHeader from "../UI/common/SectionHeader";
 import EventCarousel from "./EventCarousel";
 
 const ViewEventList = async () => {
@@ -8,12 +7,13 @@ const ViewEventList = async () => {
 
   return (
     <section className="flex flex-col justify-center gap-5">
-      <div className="flex justify-between items-end">
-        <h1 className="text-2xl text-center">조회순</h1>
-        <Link href={{ pathname: "/event", query: { orderBy: "views" } }}>
-          <Button size="md" color="dark">{`조회순 전체보기 >`}</Button>
-        </Link>
-      </div>
+      <SectionHeader>
+        <SectionHeader.Title>조회순</SectionHeader.Title>
+        <SectionHeader.LinkButton
+          pathname="/event"
+          query={{ orderBy: "views" }}
+        >{`조회순 전체보기 >`}</SectionHeader.LinkButton>
+      </SectionHeader>
       <EventCarousel events={viewEvents.payload} />
     </section>
   );

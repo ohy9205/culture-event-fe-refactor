@@ -1,42 +1,16 @@
 "use client";
 
-import { useAuth } from "@/src/hooks/useAuth";
-import useForm from "@/src/hooks/useForm";
-import { Signin } from "@/src/types/APIRequest";
-import { APIResponse } from "@/src/types/APIResponse";
-import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
+import useSignin from "@/src/hooks/useSignin";
 
 const SigninForm = () => {
   const {
     data: { form, valid },
-    reset,
+    signin,
     changeForm,
-    setValid,
-  } = useForm<Signin>({ email: "", password: "" });
-  const { signin } = useAuth();
-  const router = useRouter();
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    signin(form, {
-      success: () => {
-        router.push("/");
-      },
-      status403: (rs: APIResponse) => {
-        setValid(rs.message);
-      },
-      status409: (rs: APIResponse) => {
-        alert(`${rs.message} 이메일 또는 비밀번호를 확인해주세요`);
-        reset();
-        setValid("");
-      },
-    });
-  };
+  } = useSignin();
 
   return (
-    <form className="flex flex-col gap-4 p-7" onSubmit={onSubmit}>
+    <form className="flex flex-col gap-4 p-7" onSubmit={signin}>
       <label htmlFor="email">이메일</label>
       <input
         type="email"

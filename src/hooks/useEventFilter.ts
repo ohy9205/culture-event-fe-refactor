@@ -42,6 +42,7 @@ function clearQuery(query: Record<string, any>): Record<string, any> {
       cleanedQuery[key] = query[key];
     }
   });
+
   return cleanedQuery;
 }
 

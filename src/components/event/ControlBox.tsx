@@ -1,13 +1,12 @@
 "use client";
 
-import { objectToQueryString } from "@/src/utils/common/objectController";
+import useEventFilter from "@/src/hooks/useEventFilter";
 import {
   CATEGORY,
   IS_FREE,
   LOCATION,
   ORDER_BY,
 } from "@/src/utils/data/eventFilter";
-import { useRouter } from "next/navigation";
 
 const { name: locationName, options: locationOptions } = LOCATION;
 const { name: categoryName, options: categoryOptions } = CATEGORY;
@@ -17,15 +16,7 @@ const { name: orderByName, options: orderByOptions } = ORDER_BY;
 const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
 const ControlBox = ({ query }: { query: Record<string, any> }) => {
-  const router = useRouter();
-
-  const onFilterChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
-    const { name, value } = e.target;
-    const clearQuery = cleanQuery({ ...query, [name]: value });
-    router.push(`/event?${objectToQueryString(clearQuery, "&")}`);
-  };
+  const { onFilterChange } = useEventFilter(query);
 
   return (
     <section className="w-full">
@@ -35,8 +26,6 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={(e) => onFilterChange(e)}
             name={locationName}
             className={SELECT_STYLE}
-            // value={filter.location || locationOptions[0].text}
-            // value={filter.location || locationOptions[0].text}
             value={query[locationName] || locationOptions[0].text}
           >
             {locationOptions.map((it) => (
@@ -49,7 +38,6 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={(e) => onFilterChange(e)}
             name={categoryName}
             className={SELECT_STYLE}
-            // value={filter.category || categoryOptions[0].text}
             value={query[categoryName] || categoryOptions[0].text}
           >
             {categoryOptions.map((it) => (
@@ -62,7 +50,6 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={(e) => onFilterChange(e)}
             name={isFreeName}
             className={SELECT_STYLE}
-            // value={filter.isFree || isFreeOptions[0].text}
             value={query[isFreeName] || categoryOptions[0].text}
           >
             {isFreeOptions.map((it) => (
@@ -95,7 +82,6 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={(e) => onFilterChange(e)}
             name={orderByName}
             className={SELECT_STYLE}
-            // value={filter.orderBy || orderByOptions[0].text}
             value={query[orderByName] || categoryOptions[0].text}
           >
             {orderByOptions.map((it) => (
@@ -116,16 +102,5 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
     </section>
   );
 };
-
-// 객체의 value가 "" | undefined | null 이면 제거하는 함수
-function cleanQuery(query: Record<string, any>): Record<string, any> {
-  const cleanedQuery: Record<string, any> = {};
-  Object.keys(query).forEach((key) => {
-    if (query[key] !== "") {
-      cleanedQuery[key] = query[key];
-    }
-  });
-  return cleanedQuery;
-}
 
 export default ControlBox;

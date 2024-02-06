@@ -20,7 +20,7 @@ export default async function Event({
     <main className="w-full max-w-[1200px] flex flex-col items-center gap-8 px-4">
       <FilterProvider query={query}>
         <PaginationProvider initPageIndex={query.pageIndex}>
-          <ControlBox />
+          <ControlBox query={query} />
           <FilteredEventList events={rs.payload.events} />
           <Pagination totalPage={rs.payload.totalPage} />
         </PaginationProvider>

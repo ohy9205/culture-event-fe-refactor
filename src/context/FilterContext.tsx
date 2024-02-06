@@ -1,8 +1,15 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { createContext, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
-import { deleteObjectKeys } from "../utils/common/objectController";
+import { objectToQueryString } from "../utils/common/objectController";
+import {
+  CATEGORY,
+  IS_FREE,
+  LOCATION,
+  ORDER_BY,
+} from "../utils/data/eventFilter";
 
 type Props = {
   query: Record<string, any>;
@@ -20,13 +27,13 @@ export type Filter = {
 };
 
 export const initialFilter = {
-  location: undefined,
-  category: undefined,
-  isFree: undefined,
+  location: LOCATION.name,
+  category: CATEGORY.name,
+  isFree: IS_FREE.name,
   start: undefined,
   end: undefined,
-  orderBy: undefined,
-  keyword: undefined,
+  orderBy: ORDER_BY.name,
+  keyword: "",
 };
 
 export const FilterContext = createContext({
@@ -38,30 +45,43 @@ export const FilterContext = createContext({
 });
 
 export const FilterProvider = ({ children, query }: Props) => {
-  const [filter, setFilter] = useState<Record<string, any>>(query);
+  console.log(query);
+  const [filter, setFilter] = useState<Filter | any>(query);
+  const router = useRouter();
+  const params = useSearchParams();
+  const queryParams = Object.fromEntries(new URLSearchParams(params));
 
-  const debounceValue = useDebounce(filter, 200);
+  const debounceValue = useDebounce(filter, 2000);
 
   const onFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
 
-    if (value) {
-      setFilter((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+    if (params.has(name)) {
+      const newQuery = objectToQueryString(
+        { ...queryParams, [name]: value },
+        "&"
+      );
+      console.log(newQuery);
+      router.push(`/event?${newQuery}`);
     } else {
-      const newFilter = deleteObjectKeys(filter, [name]);
-      setFilter(newFilter);
+      // 기존 쿼리에 해당 값이 없으면 새로 추가
+      const newQuery = objectToQueryString(
+        { ...queryParams, [name]: value },
+        "&"
+      );
+      console.log(newQuery);
+      router.push(`/event?${newQuery}`);
     }
   };
+
+  console.log("useEEEEE");
 
   return (
     <FilterContext.Provider
       value={{
-        filter: debounceValue,
+        filter: filter,
         setFilter,
         onFilterChange,
       }}

@@ -1,69 +1,82 @@
 "use client";
 
-import useEventFilter from "@/src/hooks/useEventFilter";
 import { objectToQueryString } from "@/src/utils/common/objectController";
-import { evnetFilter } from "@/src/utils/data/eventFilter";
+import {
+  CATEGORY,
+  IS_FREE,
+  LOCATION,
+  ORDER_BY,
+} from "@/src/utils/data/eventFilter";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect } from "react";
 
-const LOCATION = evnetFilter.location.options;
-const COST = evnetFilter.isFree.options;
-const CATEGORY = evnetFilter.category.options;
-const ORDER_BY = evnetFilter.orderBy.options;
+const { name: locationName, options: locationOptions } = LOCATION;
+const { name: categoryName, options: categoryOptions } = CATEGORY;
+const { name: isFreeName, options: isFreeOptions } = IS_FREE;
+const { name: orderByName, options: orderByOptions } = ORDER_BY;
 
 const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
-const ControlBox = () => {
-  const { filter, onFilterChange } = useEventFilter();
+const ControlBox = ({ query }: { query: Record<string, any> }) => {
+  // const query = useSearchnquery();
+  // const { filter, onFilterChange } = useEventFilter();
   const router = useRouter();
 
-  const changeFilter = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  const onFilterChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
-    onFilterChange(e);
-  };
+    const { name, value } = e.target;
 
-  useEffect(() => {
-    console.log("controlBox");
-    const query = objectToQueryString(filter, "&");
-    router.push(`/event?${query}`);
-  }, [filter]);
+    if (query.has(name)) {
+      const newQuery = objectToQueryString({ ...query, [name]: value }, "&");
+      console.log(newQuery);
+      router.push(`/event?${newQuery}`);
+    } else {
+      // 기존 쿼리에 해당 값이 없으면 새로 추가
+      const newQuery = objectToQueryString({ ...query, [name]: value }, "&");
+      console.log(newQuery);
+      router.push(`/event?${newQuery}`);
+    }
+  };
 
   return (
     <section className="w-full">
       <div className="flex lg:flex-row flex-col gap-5 my-5">
         <div className="flex flex-col sm:flex-row gap-5">
           <select
-            onChange={changeFilter}
-            name="location"
+            onChange={(e) => onFilterChange(e)}
+            name={locationName}
             className={SELECT_STYLE}
-            value={filter.location || LOCATION[0].text}
+            // value={filter.location || locationOptions[0].text}
+            // value={filter.location || locationOptions[0].text}
+            value={query.get(locationName) || locationOptions[0].text}
           >
-            {LOCATION.map((it) => (
+            {locationOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
             ))}
           </select>
           <select
-            onChange={changeFilter}
-            name="category"
+            onChange={(e) => onFilterChange(e)}
+            name={categoryName}
             className={SELECT_STYLE}
-            value={filter.category || CATEGORY[0].text}
+            // value={filter.category || categoryOptions[0].text}
+            value={query.get(categoryName) || categoryOptions[0].text}
           >
-            {CATEGORY.map((it) => (
+            {categoryOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
             ))}
           </select>
           <select
-            onChange={changeFilter}
-            name="isFree"
+            onChange={(e) => onFilterChange(e)}
+            name={isFreeName}
             className={SELECT_STYLE}
-            value={filter.isFree || COST[0].text}
+            // value={filter.isFree || isFreeOptions[0].text}
+            value={query.get(isFreeName) || categoryOptions[0].text}
           >
-            {COST.map((it) => (
+            {isFreeOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
@@ -74,28 +87,29 @@ const ControlBox = () => {
           <input
             type="date"
             name="start"
-            onChange={changeFilter}
-            value={filter.start || ""}
+            onChange={(e) => onFilterChange(e)}
+            value={query.start || ""}
             className={SELECT_STYLE}
           />
           <div>-</div>
           <input
             type="date"
             name="end"
-            onChange={changeFilter}
-            value={filter.end || ""}
+            onChange={(e) => onFilterChange(e)}
+            value={query.end || ""}
             className={SELECT_STYLE}
           />
         </div>
 
         <div className="">
           <select
-            onChange={changeFilter}
-            name="orderBy"
+            onChange={(e) => onFilterChange(e)}
+            name={orderByName}
             className={SELECT_STYLE}
-            value={filter.orderBy || ORDER_BY[0].text}
+            // value={filter.orderBy || orderByOptions[0].text}
+            value={query.get(orderByName) || categoryOptions[0].text}
           >
-            {ORDER_BY.map((it) => (
+            {orderByOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
@@ -104,7 +118,7 @@ const ControlBox = () => {
         </div>
         <input
           name="keyword"
-          onChange={changeFilter}
+          onChange={(e) => onFilterChange(e)}
           placeholder="검색어를 입력하세요"
           className="px-4 py-2 rounded-md border"
         />

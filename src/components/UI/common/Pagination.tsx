@@ -1,7 +1,6 @@
 "use client";
 
 import usePagination from "@/src/hooks/usePagination";
-// import useEventFilter from "@/src/hooks/useEventFilter";
 
 type Props = {
   totalPage: number;

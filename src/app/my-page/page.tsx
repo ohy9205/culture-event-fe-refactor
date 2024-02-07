@@ -8,8 +8,8 @@ import { Token } from "@/src/utils/token/token";
 
 const MyPage = async () => {
   const token = new Token(new Cookie()).allToken;
-  const user = (await getUserMe(token)).payload.user;
-  const myComments = (await getMyComments(token)).payload.commentsWithEvents;
+  const user = (await getUserMe(token))?.payload.user;
+  const myComments = (await getMyComments(token))?.payload.commentsWithEvents;
 
   return (
     <div className="flex flex-col max-w-[1200px] px-4 w-full items-center gap-10 my-[100px]">

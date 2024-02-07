@@ -7,5 +7,5 @@ export interface APIAdapter {
   setCookie(cookie: Record<string, any>): void;
   setRevalidate(revalidate: number | false | undefined): void;
   setCache(cache: RequestCache): void;
-  fetching(url: string): Promise<APIResponse>;
+  fetching(url: string): Promise<APIResponse | undefined>;
 }

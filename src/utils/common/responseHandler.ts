@@ -19,6 +19,8 @@ export const responseHandler = (rs: APIResponse, handler: ResponseHandler) => {
     } else {
       alert(rs.message);
     }
+  } else if (rs.status === 404) {
+    window.location.replace(`/error/404`);
   } else if (rs.status === 409) {
     if (handler.status409) {
       handler.status409(rs);

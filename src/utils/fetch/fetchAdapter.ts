@@ -50,7 +50,7 @@ export class Fetch implements APIAdapter {
     };
   }
 
-  async fetching(url: string): Promise<APIResponse | undefined> {
+  async fetching(url: string): Promise<APIResponse> {
     try {
       const rs = await fetch(url, this.fetchOptions);
       const data = await convertFetchResponse(rs);

@@ -1,17 +1,31 @@
-import { signinBody, signupBody } from "../../types/auth";
-import { APIFetch } from "../common/commonAPIFetch";
-import { API_AUTH } from "../common/url";
+import { Signin, Signup } from "@/src/types/APIRequest";
+import { API_AUTH } from "@/src/utils/data/apiUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
-export async function postSignup(body: signupBody) {
-  const url = `${API_AUTH}/signUp`;
-  const rs = await APIFetch(url, "POST", body);
+const url = API_AUTH;
+
+export async function postSignup(body: Signup) {
+  const apiFetch = new Fetch();
+  apiFetch.setMethod("POST");
+  apiFetch.setBody(body);
+  const rs = await apiFetch.fetching(`${url}/signUp`);
 
   return rs;
 }
 
-// 로그인
-export async function postSignin(body: signinBody) {
-  const url = `${API_AUTH}/signIn`;
-  const rs = await APIFetch(url, "POST", body);
+export async function postSignin(body: Signin) {
+  const apiFetch = new Fetch();
+  apiFetch.setMethod("POST");
+  apiFetch.setBody(body);
+  const rs = await apiFetch.fetching(`${url}/signIn`);
+
+  return rs;
+}
+
+export async function postSignout() {
+  const apiFetch = new Fetch();
+  apiFetch.setMethod("POST");
+  const rs = await apiFetch.fetching(`${url}/signOut`);
+
   return rs;
 }

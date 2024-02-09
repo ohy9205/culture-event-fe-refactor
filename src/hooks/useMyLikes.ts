@@ -1,20 +1,8 @@
-import useSWR from "swr";
-import { responseHandler } from "../apis/common/commonAPIFetch";
-import { getMyLikes } from "../apis/user/user";
+import { useContext } from "react";
+import { MyLikesContext } from "../context/MyLikesContext";
 
 const useMyLikes = () => {
-  const { data, mutate } = useSWR(`likesEvent`, getMyLikes);
-
-  if (data) {
-    responseHandler(data, {});
-  }
-
-  return {
-    get: () => ({
-      events: data?.payload?.data,
-    }),
-    mutate,
-  };
+  return useContext(MyLikesContext);
 };
 
 export default useMyLikes;

@@ -1,8 +1,8 @@
-import SigninForm from "@/src/components/auth/client/SigninForm";
+import SigninForm from "@/src/components/auth/SigninForm";
 
 export default async function SigninPage() {
   return (
-    <main className="max-w-[1200px] flex flex-col items-center">
+    <main className="w-full max-w-[800px]">
       <SigninForm />
     </main>
   );

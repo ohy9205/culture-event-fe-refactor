@@ -1,4 +1,3 @@
-// TODO 나중에 types 폴더에 정의
 export type FavoriteEvent = {
   id: number;
   period: string;

@@ -1,20 +1,25 @@
-import { authorizedAPIFetch } from "../common/commonAPIFetch";
-import { API_USER } from "../common/url";
+import { API_USER } from "@/src/utils/data/apiUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
-export async function getUserMe() {
-  const url = `${API_USER}/me`;
-  const rs = await authorizedAPIFetch(url, "GET");
+const url = API_USER;
+
+export async function getUserMe(cookie?: Record<string, any>) {
+  const apiFetch = new Fetch(cookie);
+  const rs = await apiFetch.fetching(`${url}/me`);
+
   return rs;
 }
 
-export async function getMyLikes() {
-  const url = `${API_USER}/liked-events`;
-  const rs = await authorizedAPIFetch(url, "GET");
+export async function getMyLikes(cookie?: Record<string, any>) {
+  const apiFetch = new Fetch(cookie);
+  const rs = await apiFetch.fetching(`${url}/liked-events`);
+
   return rs;
 }
 
-export async function getMyComments() {
-  const url = `${API_USER}/comments`;
-  const rs = await authorizedAPIFetch(url, "GET");
+export async function getMyComments(cookie?: Record<string, any>) {
+  const apiFetch = new Fetch(cookie);
+  const rs = await apiFetch.fetching(`${url}/comments`);
+
   return rs;
 }

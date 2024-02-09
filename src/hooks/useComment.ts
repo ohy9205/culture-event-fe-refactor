@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 import {
   addComment,
   deleteComment,
@@ -6,85 +6,64 @@ import {
 } from "../apis/comment/comment";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
-import { responseHandler } from "./../apis/common/commonAPIFetch";
+import { responseHandler } from "../utils/common/responseHandler";
 
-const useComment = (eventId: number, initComments: Comment[]) => {
-  const [commentInput, setCommentInput] = useState("");
-  const [isModify, setIsModify] = useState({
+const useComment = (eventId: number, initComments?: Comment[]) => {
+  const [comments, setComments] = useState<Comment[] | undefined>(initComments);
+  const [isModifyMode, setIsModify] = useState({
     status: false,
     commentId: -1,
   });
-  const [comments, setComments] = useState(initComments);
-
-  // comments 데이터 패칭
-  const fetchComment = async () => {
-    const rs = await getComments(eventId);
-
-    if (rs) {
-      const handler = {
-        success: () => {
-          setComments(rs.payload.comments);
-          setCommentInput("");
-        },
-      };
-      responseHandler(rs, handler);
-    }
-  };
 
   return {
-    changeInput: (e: ChangeEvent<HTMLTextAreaElement>) => {
-      setCommentInput(e.target.value);
+    data: { comments, isModifyMode },
+    editMode: {
+      on: (commentId: number, content: string) => {
+        setIsModify({ status: true, commentId });
+      },
+      off: () => {
+        setIsModify({ status: false, commentId: -1 });
+      },
     },
-    submit: async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (commentInput.length === 0 || commentInput === "") {
-        return;
-      }
-      const rs = await addComment(commentInput, eventId);
-      if (rs) {
-        const handler = {
-          success: () => fetchComment(),
-        };
-        responseHandler(rs, handler);
-      }
-    },
-    remove: async (commentId: number) => {
-      const rs = await deleteComment(commentId);
-      if (rs) {
-        const handler = {
-          success: () => fetchComment(),
-        };
-        responseHandler(rs, handler);
-      }
-    },
-    modify: async (e: FormEvent<HTMLFormElement>, commentId: number) => {
-      e.preventDefault();
-      const rs = await patchComment(commentInput, commentId);
+    get: async () => {
+      const rs = await getComments(eventId);
 
       if (rs) {
         const handler = {
           success: () => {
-            setIsModify({ status: false, commentId: -1 });
-            setCommentInput("");
-            fetchComment();
+            setComments(rs.payload.comments);
           },
         };
         responseHandler(rs, handler);
       }
     },
-    changeModifyMode: () => {
-      return {
-        on: (commentId: number, content: string) => {
-          setIsModify({ status: true, commentId });
-          setCommentInput(content || "");
-        },
-        off: () => {
-          setIsModify({ status: false, commentId: -1 });
-          setCommentInput("");
-        },
-      };
+    add: async (content: string) => {
+      if (content.trim().length === 0 || content.trim() === "") {
+        return;
+      }
+      const rs = await addComment(content, eventId);
+      if (rs) {
+        responseHandler(rs, {});
+      }
     },
-    get: () => ({ comments, commentInput, isModify }),
+    remove: async (commentId: number) => {
+      const rs = await deleteComment(commentId);
+      if (rs) {
+        responseHandler(rs, {});
+      }
+    },
+    modify: async (commentId: number, content: string) => {
+      const rs = await patchComment(content, commentId);
+
+      if (rs) {
+        const handler = {
+          success: () => {
+            setIsModify({ status: false, commentId: -1 });
+          },
+        };
+        responseHandler(rs, handler);
+      }
+    },
   };
 };
 

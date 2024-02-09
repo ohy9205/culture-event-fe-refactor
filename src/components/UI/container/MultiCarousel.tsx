@@ -1,10 +1,11 @@
 "use client";
 
-import Carousel from "react-multi-carousel";
+import Carousel, { CarouselProps } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 type Props = {
   children: React.ReactNode;
+  options?: Omit<CarouselProps, "responsive" | "children">;
 };
 
 const responsive = {
@@ -22,16 +23,9 @@ const responsive = {
   },
 };
 
-const MultiCarousel = ({ children }: Props) => {
+const MultiCarousel = ({ children, options }: Props) => {
   return (
-    <Carousel
-      responsive={responsive}
-      infinite
-      autoPlay
-      autoPlaySpeed={3000}
-      itemClass="p-2"
-      centerMode={true}
-    >
+    <Carousel {...options} responsive={responsive}>
       {children}
     </Carousel>
   );

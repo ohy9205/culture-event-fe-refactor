@@ -1,12 +1,16 @@
 import { APIResponse } from "@/src/types/APIResponse";
 import { Event } from "@/src/types/events";
-import { APIFetch } from "../common/commonAPIFetch";
-import { API_V1 } from "../common/url";
+import { API_V1 } from "@/src/utils/data/apiUrl";
+import { Fetch } from "@/src/utils/fetch/fetchAdapter";
+
+const url = API_V1;
 
 // 최신순
 export async function getRecentEvents(): Promise<APIResponse> {
-  const url = `${API_V1}/latest`;
-  const rs = await APIFetch(url, "GET");
+  const apiFetch = new Fetch();
+  apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
+  const rs = await apiFetch.fetching(`${url}/latest`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
     id: event.id,
@@ -21,8 +25,10 @@ export async function getRecentEvents(): Promise<APIResponse> {
 
 //인기순
 export async function getHotEvents(): Promise<APIResponse> {
-  const url = `${API_V1}/likes`;
-  const rs = await APIFetch(url, "GET");
+  const apiFetch = new Fetch();
+  apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
+  const rs = await apiFetch.fetching(`${url}/likes`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
     id: event.id,
@@ -37,8 +43,10 @@ export async function getHotEvents(): Promise<APIResponse> {
 
 //조회순
 export async function getViewEvents(): Promise<APIResponse> {
-  const url = `${API_V1}/views`;
-  const rs = await APIFetch(url, "GET");
+  const apiFetch = new Fetch();
+  apiFetch.setRevalidate(36000);
+  apiFetch.setCache("reload");
+  const rs = await apiFetch.fetching(`${url}/views`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
     id: event.id,
@@ -55,9 +63,8 @@ export async function getViewEvents(): Promise<APIResponse> {
 export async function getEventDetailWithoutLogin(
   id: number
 ): Promise<APIResponse> {
-  const url = `${API_V1}/${id}`;
-  const rs = await APIFetch(url, "GET");
+  const apiFetch = new Fetch();
+  const rs = await apiFetch.fetching(`${url}/${id}`);
 
-  // return rs.payload.event;
   return rs;
 }

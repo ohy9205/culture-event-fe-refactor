@@ -26,7 +26,10 @@ export default async function RootLayout({
 }) {
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
-  const likesEvent = (await getMyLikes(allToken))?.payload.data;
+  let likesEvent;
+  if (allToken) {
+    likesEvent = (await getMyLikes(allToken))?.payload.data;
+  }
 
   return (
     <html lang="en">
@@ -36,13 +39,11 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} flex flex-col justify-center items-center`}
-      >
+        className={`${inter.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
             <AuthContextProvider
-              hasToken={allToken.at && allToken.rt ? true : false}
-            >
+              hasToken={allToken.at && allToken.rt ? true : false}>
               <MyLikesContextProvider likesEvent={likesEvent}>
                 <div id="modal"></div>
                 <Header />

@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  "https://ec2-43-201-55-167.ap-northeast-2.compute.amazonaws.com:80";
+const API_BASE_URL = "http://13.209.200.68:80";
 export const API_V1 = `${API_BASE_URL}/v1/events`;
 export const API_V2 = `${API_BASE_URL}/v2/events`;
 export const API_COMMENT = `${API_BASE_URL}/comment`;

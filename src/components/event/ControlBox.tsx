@@ -23,36 +23,33 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
       <div className="flex lg:flex-row flex-col gap-5 my-5">
         <div className="flex flex-col sm:flex-row gap-5">
           <select
-            onChange={changeFilter}
+            onChange={onFilterChange}
             name="location"
             className={SELECT_STYLE}
-            value={query[locationName] || locationOptions[0].text}
-          >
-            {LOCATION.map((it) => (
+            value={query[locationName] || locationOptions[0].text}>
+            {locationOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
             ))}
           </select>
           <select
-            onChange={changeFilter}
+            onChange={onFilterChange}
             name="category"
             className={SELECT_STYLE}
-            value={query[categoryName] || categoryOptions[0].text}
-          >
-            {CATEGORY.map((it) => (
+            value={query[categoryName] || categoryOptions[0].text}>
+            {categoryOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
             ))}
           </select>
           <select
-            onChange={changeFilter}
+            onChange={onFilterChange}
             name="isFree"
             className={SELECT_STYLE}
-            value={query[isFreeName] || categoryOptions[0].text}
-          >
-            {COST.map((it) => (
+            value={query[isFreeName] || categoryOptions[0].text}>
+            {isFreeOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
@@ -63,28 +60,27 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
           <input
             type="date"
             name="start"
-            onChange={changeFilter}
-            value={filter.start || ""}
+            onChange={onFilterChange}
+            value={""}
             className={SELECT_STYLE}
           />
           <div>-</div>
           <input
             type="date"
             name="end"
-            onChange={changeFilter}
-            value={filter.end || ""}
+            onChange={onFilterChange}
+            value={query.start || ""}
             className={SELECT_STYLE}
           />
         </div>
 
         <div className="">
           <select
-            onChange={changeFilter}
+            onChange={onFilterChange}
             name="orderBy"
             className={SELECT_STYLE}
-            value={query[orderByName] || categoryOptions[0].text}
-          >
-            {ORDER_BY.map((it) => (
+            value={query.end || categoryOptions[0].text}>
+            {orderByOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
               </option>
@@ -93,7 +89,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
         </div>
         <input
           name="keyword"
-          onChange={changeFilter}
+          onChange={onFilterChange}
           placeholder="검색어를 입력하세요"
           className="px-4 py-2 rounded-md border"
         />

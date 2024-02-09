@@ -1,44 +1,44 @@
+"use client";
+
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
-import { postSignin } from "../apis/auth/auth";
-import { responseHandler } from "../utils/common/responseHandler";
+import { Signin } from "../types/APIRequest";
+import { APIResponse } from "../types/APIResponse";
 import { useAuth } from "./useAuth";
 import useForm from "./useForm";
 
 const useSignin = () => {
-  const { setAuth } = useAuth();
-  const router = useRouter();
   const {
     data: { form, valid },
-    changeForm,
-    reset,
     setValid,
-  } = useForm({ email: "", password: "" });
+    reset,
+    changeForm,
+  } = useForm<Signin>({ email: "", password: "" });
+  const { signin } = useAuth();
+  const router = useRouter();
 
   return {
     data: { form, valid },
     changeForm,
-    signin: async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const rs = await postSignin(form);
+    signin: async (e: React.FormEvent) => {
+      e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
 
-      if (rs) {
-        const handler = {
-          success: () => {
-            setAuth(rs.payload.email, rs.payload.nick);
-            router.push("/");
-          },
-          status403: () => {
-            setValid(rs.message);
-          },
-          status409: () => {
-            alert(`${rs.message} 이메일 또는 비밀번호를 확인해주세요`);
-            reset();
-            setValid("");
-          },
-        };
-        responseHandler(rs, handler);
-      }
+      // signin 함수 호출 및 결과에 따른 처리 로직
+      await signin(form, {
+        success: () => {
+          // 로그인 성공 시 리다이렉션
+          router.push("/");
+        },
+        status403: (rs: APIResponse) => {
+          // 403 에러 처리
+          setValid(rs.message);
+        },
+        status409: (rs: APIResponse) => {
+          // 409 에러 처리
+          alert(`${rs.message} 이메일 또는 비밀번호를 확인해주세요`);
+          reset(); // 폼 초기화
+          setValid(""); // 유효성 검증 메시지 초기화
+        },
+      });
     },
   };
 };

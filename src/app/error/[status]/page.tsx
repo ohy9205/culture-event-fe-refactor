@@ -1,3 +1,7 @@
+import NotAllowedErrorContent from "@/src/components/error/NotAllowedErrorContent";
+import NotFoundErrorContent from "@/src/components/error/NotFoundErrorContent";
+import UnknownErrorContent from "@/src/components/error/UnknownErrorContent";
+
 type Props = {
   params: {
     status: string;
@@ -6,12 +10,12 @@ type Props = {
 
 const ErrorPage = ({ params: { status } }: Props) => {
   if (status === "404") {
-    return <div>Not Found Page : 요청한 경로가 없는 경로입니다.</div>;
+    return <NotFoundErrorContent />;
   } else if (status === "403" || status === "401") {
-    return <div>{status} : 접근할 수 없는 페이지입니다.</div>;
+    return <NotAllowedErrorContent status={status} />;
   }
 
-  return <div>{status} : 알 수 없는 오류가 발생했습니다</div>;
+  return <UnknownErrorContent status={status} />;
 };
 
 export function generateStaticParams() {

@@ -3,7 +3,7 @@ export type APIResponse = {
 } & ResponseBody;
 
 export type ResponseBody = {
-  result: "sucess" | "fail";
+  result: "success" | "fail";
   message: string;
   payload: any;
 };

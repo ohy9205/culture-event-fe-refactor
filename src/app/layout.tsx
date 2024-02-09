@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { getMyLikes } from "../apis/user/user";
@@ -8,6 +9,7 @@ import { MyLikesContextProvider } from "../context/MyLikesContext";
 import SWRProvider from "../provider/swrProvider";
 import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
+import Error from "./global-error";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +26,7 @@ export default async function RootLayout({
 }) {
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
-  const likesEvent = (await getMyLikes(allToken)).payload.data;
+  const likesEvent = (await getMyLikes(allToken))?.payload.data;
 
   return (
     <html lang="en">
@@ -36,17 +38,19 @@ export default async function RootLayout({
       <body
         className={`${inter.className} flex flex-col justify-center items-center`}
       >
-        <SWRProvider>
-          <AuthContextProvider
-            hasToken={allToken.at && allToken.rt ? true : false}
-          >
-            <MyLikesContextProvider likesEvent={likesEvent}>
-              <div id="modal"></div>
-              <Header />
-              {children}
-            </MyLikesContextProvider>
-          </AuthContextProvider>
-        </SWRProvider>
+        <ErrorBoundary errorComponent={Error}>
+          <SWRProvider>
+            <AuthContextProvider
+              hasToken={allToken.at && allToken.rt ? true : false}
+            >
+              <MyLikesContextProvider likesEvent={likesEvent}>
+                <div id="modal"></div>
+                <Header />
+                {children}
+              </MyLikesContextProvider>
+            </AuthContextProvider>
+          </SWRProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

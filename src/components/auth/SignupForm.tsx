@@ -1,22 +1,15 @@
 "use client";
 
-import { useAuth } from "@/src/hooks/useAuth";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import useSignup from "../../hooks/useSignup";
+import useSignup from "@/src/hooks/useSignup";
 
 const SignupForm = () => {
-  const { data, changeForm, signup } = useSignup();
   const {
-    state: { isLoggedIn },
-  } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, [isLoggedIn]);
+    data: { form, valid },
+    changeForm,
+    validForm,
+    validPasswordConfirm,
+    signup,
+  } = useSignup();
 
   return (
     <form className="flex flex-col p-7" onSubmit={signup}>
@@ -27,7 +20,7 @@ const SignupForm = () => {
         placeholder="email@culture.com"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.email}
+        value={form.email}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="nickname">닉네임</label>
@@ -37,7 +30,7 @@ const SignupForm = () => {
         placeholder="nick"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.nick}
+        value={form.nick}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="password">비밀번호</label>
@@ -47,7 +40,7 @@ const SignupForm = () => {
         placeholder="password"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.password}
+        value={form.password}
         onChange={(e) => changeForm(e.target.name, e.target.value)}
       />
       <label htmlFor="passwrodConfim">비밀번호 확인</label>
@@ -57,18 +50,21 @@ const SignupForm = () => {
         placeholder="password Confirm"
         className="w-full py-[12px] px-[20px] my-[8px]"
         required
-        value={data.form.passwordConfirm}
+        value={form.passwordConfirm}
         onChange={(e) => {
           changeForm(e.target.name, e.target.value);
-          if (data.form.password !== e.target.value) {
-            console.log("비밀번호가 일치하지 않습니다");
-          }
+          validPasswordConfirm(e);
         }}
       />
-      {data.valid && (
-        <p className="text-center text-sm text-red-800 mb-4">{data.valid}</p>
+      {valid && (
+        <p className="text-center text-sm text-red-800 mb-4">{valid}</p>
       )}
-      <button className="w-full font-semibold text-xl border rounded-md py-[12px]">
+      <button
+        className={`w-full font-semibold text-xl border rounded-md py-[12px] ${
+          validForm(form) ? "bg-slate-900 text-white" : "bg-white"
+        }`}
+        disabled={!validForm(form)}
+      >
         회원가입
       </button>
     </form>

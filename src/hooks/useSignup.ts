@@ -1,7 +1,10 @@
+"use client";
+
 import { useRouter } from "next/navigation";
-import { FormEvent } from "react";
-import { postSignup } from "../apis/auth/auth";
-import { responseHandler } from "../utils/common/responseHandler";
+import { ChangeEvent, FormEvent } from "react";
+import { Signup } from "../types/APIRequest";
+import { APIResponse } from "../types/APIResponse";
+import { useAuth } from "./useAuth";
 import useForm from "./useForm";
 
 const useSignup = () => {
@@ -9,47 +12,70 @@ const useSignup = () => {
     data: { form, valid },
     changeForm,
     setValid,
-  } = useForm({
+  } = useForm<Signup>({
     email: "",
     nick: "",
     password: "",
     passwordConfirm: "",
   });
+  const { signup } = useAuth();
   const router = useRouter();
 
-  const validate = (values: Record<string, string>) => {
-    if (values.password !== values.passwordConfirm) {
+  const validPasswordConfirm = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!checkPasswordConfirm(form.password, e.target.value)) {
       setValid("비밀번호가 일치하지 않습니다");
-      return false;
     } else {
-      return true;
+      setValid("");
     }
   };
 
   return {
-    data: { form, valid },
+    data: {
+      form,
+      valid,
+    },
     changeForm,
-    signup: async (e: FormEvent<HTMLFormElement>) => {
+    validPasswordConfirm,
+    validForm: checkForm,
+    signup: (e: FormEvent) => {
       e.preventDefault();
-      if (!validate(form)) {
+
+      if (!checkForm(form)) {
         return;
       }
-      const rs = await postSignup(form);
 
-      if (rs) {
-        const handler = {
-          success: () => router.push("/signin"),
-          status403: () => {
-            setValid(rs.message);
-          },
-          status409: () => {
-            setValid(rs.message);
-          },
-        };
-        responseHandler(rs, handler);
-      }
+      signup(form, {
+        success: () => router.push("/signin"),
+        status403: (rs: APIResponse) => {
+          setValid(rs.message);
+        },
+        status409: (rs: APIResponse) => {
+          setValid(rs.message);
+        },
+      });
     },
   };
+};
+
+const checkForm = (form: Signup) => {
+  const isValidPassword = checkPasswordConfirm(
+    form.password,
+    form.passwordConfirm
+  );
+  const isValidFormContent = Object.values(form).every((value) => value !== "");
+  if (isValidPassword && isValidFormContent) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const checkPasswordConfirm = (password: string, confirm: string) => {
+  if (password !== confirm) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 export default useSignup;

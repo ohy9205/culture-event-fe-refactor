@@ -1,63 +1,52 @@
 "use client";
 
-import useEventFilter from "@/src/hooks/useEventFilter";
 import usePagination from "@/src/hooks/usePagination";
-import {
-  objectToQueryString,
-  replaceObjectKey,
-} from "@/src/utils/common/objectController";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 type Props = {
   totalPage: number;
+  query: Record<string, any>;
 };
 
-const Pagination = ({ totalPage }: Props) => {
+const Pagination = ({ totalPage, query }: Props) => {
   const {
-    data: { pageButtonSize, pageIndex, pagingGroupIndex },
+    data: { curPageGroupCount, totalPageGroupCount, curPageIndex },
     onNextBtnHandler,
-    onPagingHandler,
+    onPageBtnHandler,
     onPrevBtnHandler,
-  } = usePagination();
-  const { filter } = useEventFilter();
-  const router = useRouter();
-
-  const renderButton = () => {
-    let arr = [];
-    for (let i = 1; i <= pageButtonSize; i++) {
-      let curButtonNum = (pagingGroupIndex - 1) * pageButtonSize + i;
-
-      if (curButtonNum > totalPage) {
-        return arr;
-      }
-      arr.push(curButtonNum);
-    }
-    return arr;
-  };
-
-  useEffect(() => {
-    console.log("pagination");
-    const paginationQuery = replaceObjectKey(filter, "pageIndex", pageIndex);
-    router.push(`/event?${objectToQueryString(paginationQuery, "&")}`);
-  }, [pageIndex]);
+    renderButton,
+  } = usePagination(totalPage, query);
 
   return (
     <section className="flex gap-5 justify-center m-auto mb-10">
-      <button onClick={onPrevBtnHandler}>[이전]</button>
+      <button
+        onClick={onPrevBtnHandler}
+        className={
+          curPageGroupCount === 1 ? "text-slate-300 cursor-default" : ""
+        }
+      >
+        [이전]
+      </button>
 
-      {renderButton().length === 0 && <button className="font-bold">1</button>}
-      {renderButton().map((it: number) => (
+      {renderButton().map((it) => (
         <button
           key={it}
-          onClick={() => onPagingHandler(it)}
-          className={`${it === pageIndex ? "text-red-600" : ""}`}
+          onClick={() => onPageBtnHandler(it)}
+          className={`${it === curPageIndex ? "font-extrabold" : ""}`}
         >
           {it}
         </button>
       ))}
 
-      <button onClick={() => onNextBtnHandler(totalPage)}>[이후]</button>
+      <button
+        onClick={() => onNextBtnHandler()}
+        className={
+          totalPageGroupCount === curPageGroupCount
+            ? "text-slate-300 cursor-default"
+            : ""
+        }
+      >
+        [이후]
+      </button>
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { APIResponse } from "@/src/types/APIResponse";
 
 import { objectToQueryString } from "@/src/utils/common/objectController";
-import { API_V2 } from "@/src/utils/data/APIUrl";
+import { API_V2 } from "@/src/utils/data/apiUrl";
 import { Fetch } from "@/src/utils/fetch/fetchAdapter";
 
 const url = API_V2;

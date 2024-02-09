@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://13.209.200.68:80";
+const API_BASE_URL = "http://seoul-culture-info.kro.kr";
 export const API_V1 = `${API_BASE_URL}/v1/events`;
 export const API_V2 = `${API_BASE_URL}/v2/events`;
 export const API_COMMENT = `${API_BASE_URL}/comment`;

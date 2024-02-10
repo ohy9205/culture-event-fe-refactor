@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://seoul-event-info.com";
+const API_BASE_URL = "https://seoul-event-info.com";
 export const API_V1 = `${API_BASE_URL}/v1/events`;
 export const API_V2 = `${API_BASE_URL}/v2/events`;
 export const API_COMMENT = `${API_BASE_URL}/comment`;

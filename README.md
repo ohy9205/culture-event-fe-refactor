@@ -1,6 +1,8 @@
-### 서울시 문화행사 정보를 보여주는 사이드 프로젝트를 리팩토링합니다.
+## 서울시 문화행사 정보를 보여주는 사이드 프로젝트를 리팩토링합니다.
 
-> https://www.seoul-event-info.com/
+> https://www.seoul-event-info.com
+>
+> 테스트계정 : test@test.com / 1111
 
 # as-is
 

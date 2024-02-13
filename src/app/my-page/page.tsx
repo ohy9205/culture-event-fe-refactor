@@ -29,7 +29,7 @@ const MyPage = async () => {
       </div>
       <div className="w-full mt-12 flex flex-col gap-4 ">
         <SectionHeader>
-          <SectionHeader.Title>찜한 이벤트</SectionHeader.Title>
+          <SectionHeader.Title>작성한 댓글</SectionHeader.Title>
         </SectionHeader>
         <MyComments comments={myComments} />
       </div>

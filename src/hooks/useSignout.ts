@@ -9,7 +9,7 @@ const useSignout = () => {
   return {
     signout: () =>
       signout({
-        success: (rs: APIResponse) => router.push("/"),
+        success: (rs: APIResponse) => (window.location.href = "/"),
       }),
   };
 };

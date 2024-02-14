@@ -26,7 +26,7 @@ const useSignin = () => {
       await signin(form, {
         success: () => {
           // 로그인 성공 시 리다이렉션
-          router.push("/");
+          window.location.href = "/";
         },
         status403: (rs: APIResponse) => {
           // 403 에러 처리

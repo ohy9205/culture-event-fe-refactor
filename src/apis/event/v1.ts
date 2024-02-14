@@ -9,7 +9,6 @@ const url = API_V1;
 export async function getRecentEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
-  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/latest`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -27,7 +26,6 @@ export async function getRecentEvents(): Promise<APIResponse> {
 export async function getHotEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
-  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/likes`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -45,7 +43,6 @@ export async function getHotEvents(): Promise<APIResponse> {
 export async function getViewEvents(): Promise<APIResponse> {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(36000);
-  apiFetch.setCache("reload");
   const rs = await apiFetch.fetching(`${url}/views`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,

@@ -61,7 +61,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             type="date"
             name="start"
             onChange={onFilterChange}
-            value={""}
+            value={query.start || ""}
             className={SELECT_STYLE}
           />
           <div>-</div>
@@ -69,7 +69,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             type="date"
             name="end"
             onChange={onFilterChange}
-            value={query.start || ""}
+            value={query.end || ""}
             className={SELECT_STYLE}
           />
         </div>

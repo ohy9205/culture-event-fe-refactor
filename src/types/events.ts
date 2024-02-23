@@ -67,11 +67,6 @@ export type DetailEvent = Pick<
   Users: LikesUser[];
 };
 
-export type SimpleEventListWithPagination = {
-  events: SimpleEvent[];
-  totalPage: number;
-};
-
 export type SimpleEvent = Pick<
   Event,
   | "id"

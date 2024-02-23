@@ -46,10 +46,10 @@ const useSignup = () => {
 
       signup(form, {
         success: () => router.push("/signin"),
-        status403: (rs: APIResponse) => {
+        status403: (rs: APIResponse<{}>) => {
           setValid(rs.message);
         },
-        status409: (rs: APIResponse) => {
+        status409: (rs: APIResponse<{}>) => {
           setValid(rs.message);
         },
       });

@@ -3,7 +3,7 @@ import {
   EventCommentsPayload,
   EventDetailPayload,
   FilteredEventsPayload,
-  ToggleLikesPaload,
+  ToggleLikesPayload,
 } from "@/src/types/APIResponse";
 import { SimpleEvent } from "@/src/types/events";
 
@@ -62,10 +62,10 @@ export async function getComments(
 // 좋아요 토글
 export async function toggleLikes(
   eventId: number
-): Promise<APIResponse<ToggleLikesPaload>> {
+): Promise<APIResponse<ToggleLikesPayload>> {
   const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
-  const rs = await apiFetch.fetching<ToggleLikesPaload>(
+  const rs = await apiFetch.fetching<ToggleLikesPayload>(
     `${url}/${eventId}/likes`
   );
 

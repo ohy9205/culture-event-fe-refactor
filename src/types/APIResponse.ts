@@ -30,10 +30,10 @@ export type EventCommentsPayload = {
   comments: Comment[];
 };
 
-export type ToggleLikesPaload = {
+export type ToggleLikesPayload = {
   action: "add" | "remove";
   event: MyFavoriteEvent;
-  evnetLikesCount: number;
+  eventLikesCount: number;
 };
 
 // auth

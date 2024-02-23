@@ -9,6 +9,7 @@ export type APIResponse<T> = {
 };
 
 // payload에 들어있는 데이터 타입들
+// event
 export type MainEventsPayload = {
   events: {
     count: number;
@@ -55,4 +56,16 @@ export type UserLikesPayload = {
 
 export type UserCommentsPayload = {
   commentsWithEvents: MyComment[];
+};
+
+// comments
+export type AddCommentPayload = {
+  commentId: number;
+  content: string;
+};
+
+export type DeleteCommentPayload = {};
+
+export type PatchCommentPayload = {
+  content: string;
 };

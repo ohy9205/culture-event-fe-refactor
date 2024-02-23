@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type Event = {
   id: number;
   category: EventCategory;
@@ -54,14 +56,7 @@ export type DetailEvent = Pick<
   | "Comments"
   | "views"
 > & {
-  Users: LikesUser[];
-};
-
-export type LikesUser = CommentUser;
-
-type CommentUser = {
-  nick: string;
-  email: string;
+  Users: Pick<User, "nick" | "email">[];
 };
 
 export type Comment = {
@@ -71,7 +66,7 @@ export type Comment = {
   updatedAt: string;
   eventId: number;
   commenter: number;
-  User: CommentUser;
+  User: Pick<User, "nick" | "email">;
 };
 
 type EventCategory =
@@ -94,6 +89,7 @@ type EventCategory =
   | "성북구"
   | "송파구"
   | "양천구";
+
 type EventLocation =
   | "콘서트"
   | "클래식"

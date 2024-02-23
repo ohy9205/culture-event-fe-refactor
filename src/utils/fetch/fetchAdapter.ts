@@ -50,10 +50,10 @@ export class Fetch implements APIAdapter {
     };
   }
 
-  async fetching(url: string): Promise<APIResponse> {
+  async fetching<T>(url: string): Promise<APIResponse<T>> {
     try {
       const rs = await fetch(url, this.fetchOptions);
-      const data = await convertFetchResponse(rs);
+      const data = await convertFetchResponse<T>(rs);
 
       return data;
     } catch (error) {
@@ -61,13 +61,15 @@ export class Fetch implements APIAdapter {
         result: "fail",
         status: 500,
         message: "알 수 없는 에러 발생",
-        payload: {},
+        payload: {} as T,
       };
     }
   }
 }
 
-const convertFetchResponse = async (rs: Response): Promise<APIResponse> => {
+const convertFetchResponse = async <T>(
+  rs: Response
+): Promise<APIResponse<T>> => {
   const data = await rs.json();
   return {
     ...data,

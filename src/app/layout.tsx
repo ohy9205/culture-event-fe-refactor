@@ -7,6 +7,7 @@ import Header from "../components/UI/layout/Header";
 import { AuthContextProvider } from "../context/AuthContext";
 import { MyLikesContextProvider } from "../context/MyLikesContext";
 import SWRProvider from "../provider/swrProvider";
+import { MyFavoriteEvent } from "../types/user";
 import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
 import Error from "./global-error";
@@ -26,9 +27,10 @@ export default async function RootLayout({
 }) {
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
-  let likesEvent;
+  let likesEvent: MyFavoriteEvent[] | [] = [];
+
   if (allToken) {
-    likesEvent = (await getMyLikes(allToken))?.payload.data;
+    likesEvent = (await getMyLikes(allToken))?.payload.data || [];
   }
 
   return (

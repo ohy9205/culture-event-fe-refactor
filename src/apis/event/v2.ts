@@ -54,8 +54,6 @@ export async function getComments(
     `${url}/${eventId}/comments`
   );
 
-  console.log(rs);
-
   return rs;
 }
 

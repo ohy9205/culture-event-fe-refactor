@@ -74,7 +74,7 @@ export const AuthContextProvider = ({
 
   const signout = async (handler: ResponseHandler) => {
     const rs = await postSignout();
-    console.log(rs);
+
     if (rs) {
       if (rs.result === "success") {
         setAuthState(() => ({

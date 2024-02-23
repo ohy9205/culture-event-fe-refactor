@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Signin } from "../types/APIRequest";
 import { APIResponse } from "../types/APIResponse";
 import { useAuth } from "./useAuth";
@@ -14,7 +13,6 @@ const useSignin = () => {
     changeForm,
   } = useForm<Signin>({ email: "", password: "" });
   const { signin } = useAuth();
-  const router = useRouter();
 
   return {
     data: { form, valid },
@@ -28,11 +26,11 @@ const useSignin = () => {
           // 로그인 성공 시 리다이렉션
           window.location.href = "/";
         },
-        status403: (rs: APIResponse) => {
+        status403: (rs: APIResponse<{}>) => {
           // 403 에러 처리
           setValid(rs.message);
         },
-        status409: (rs: APIResponse) => {
+        status409: (rs: APIResponse<{}>) => {
           // 409 에러 처리
           alert(`${rs.message} 이메일 또는 비밀번호를 확인해주세요`);
           reset(); // 폼 초기화

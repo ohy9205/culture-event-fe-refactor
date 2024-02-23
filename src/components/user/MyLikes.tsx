@@ -1,7 +1,7 @@
 "use client";
 
 import useMyLikes from "@/src/hooks/useMyLikes";
-import { FavoriteEvent } from "@/src/types/user";
+import { MyFavoriteEvent } from "@/src/types/user";
 import { useState } from "react";
 import GridContainer from "../UI/container/GridContainer";
 import EventCard from "../event/EventCard";
@@ -16,7 +16,7 @@ const MyLikes = () => {
 
   return (
     <GridContainer>
-      {events?.map(({ id, thumbnail, title, period }: FavoriteEvent) => (
+      {events?.map(({ id, thumbnail, title, period }: MyFavoriteEvent) => (
         <EventCard key={id}>
           <EventDetailModal
             eventId={id}

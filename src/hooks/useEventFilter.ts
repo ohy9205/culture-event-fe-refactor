@@ -7,7 +7,7 @@ const useEventFilter = (query: Record<string, any>) => {
   const router = useRouter();
   const [filter, setFilter] = useState(query);
   const [keyword, setKeyword] = useState(query.keyword || "");
-  const debouncedKeyword = useDebounce(keyword, 500);
+  const debouncedKeyword = useDebounce<string>(keyword, 500);
 
   const onFilterChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>

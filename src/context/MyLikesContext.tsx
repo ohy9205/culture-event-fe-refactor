@@ -4,17 +4,17 @@ import { createContext, useEffect, useState } from "react";
 import { toggleLikes } from "../apis/event/v2";
 import { getMyLikes } from "../apis/user/user";
 import { useAuth } from "../hooks/useAuth";
-import { FavoriteEvent } from "../types/user";
+import { MyFavoriteEvent } from "../types/user";
 import { responseHandler } from "../utils/common/responseHandler";
 
 type Props = {
   children: React.ReactNode;
-  likesEvent: FavoriteEvent[];
+  likesEvent: MyFavoriteEvent[] | [];
 };
 
 type InitialValue = {
   data: {
-    likes?: FavoriteEvent[];
+    likes?: MyFavoriteEvent[] | [];
   };
   toggleLike: (eventId: number) => Promise<undefined | number>;
 };
@@ -32,13 +32,13 @@ export const MyLikesContextProvider = ({ children, likesEvent }: Props) => {
   const {
     state: { isLoggedIn },
   } = useAuth();
-  const [likesState, setLikesState] = useState<FavoriteEvent[]>(likesEvent);
+  const [likesState, setLikesState] = useState<MyFavoriteEvent[]>(likesEvent);
 
-  const addLike = (likes: FavoriteEvent[], event: FavoriteEvent) => {
+  const addLike = (likes: MyFavoriteEvent[], event: MyFavoriteEvent) => {
     return [...likes, event];
   };
 
-  const removeLike = (likes: FavoriteEvent[], event: FavoriteEvent) => {
+  const removeLike = (likes: MyFavoriteEvent[], event: MyFavoriteEvent) => {
     return likes.filter((it) => it.id !== event.id);
   };
 
@@ -98,8 +98,7 @@ export const MyLikesContextProvider = ({ children, likesEvent }: Props) => {
           likes: likesState,
         },
         toggleLike,
-      }}
-    >
+      }}>
       {children}
     </MyLikesContext.Provider>
   );

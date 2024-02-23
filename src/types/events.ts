@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type Event = {
   id: number;
   category: EventCategory;
@@ -24,28 +26,18 @@ export type Event = {
   Comments: Comment[];
 };
 
-export type User = {
-  id: number;
-  email: string;
-  nick: string;
-};
+export type SimpleEvent = Pick<
+  Event,
+  | "id"
+  | "title"
+  | "thumbnail"
+  | "eventPeriod"
+  | "views"
+  | "latitude"
+  | "longitude"
+>;
 
-export type Comment = {
-  id: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  eventId: number;
-  commenter: number;
-  User: CommentUser;
-};
-
-type CommentUser = {
-  nick: string;
-  email: string;
-};
-
-export type LikesUser = CommentUser;
+export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 
 export type DetailEvent = Pick<
   Event,
@@ -64,26 +56,18 @@ export type DetailEvent = Pick<
   | "Comments"
   | "views"
 > & {
-  Users: LikesUser[];
+  Users: Pick<User, "nick" | "email">[];
 };
 
-export type SimpleEventListWithPagination = {
-  events: SimpleEvent[];
-  totalPage: number;
+export type Comment = {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  eventId: number;
+  commenter: number;
+  User: Pick<User, "nick" | "email">;
 };
-
-export type SimpleEvent = Pick<
-  Event,
-  | "id"
-  | "title"
-  | "thumbnail"
-  | "eventPeriod"
-  | "views"
-  | "latitude"
-  | "longitude"
->;
-
-export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 
 type EventCategory =
   | "강남구"
@@ -105,6 +89,7 @@ type EventCategory =
   | "성북구"
   | "송파구"
   | "양천구";
+
 type EventLocation =
   | "콘서트"
   | "클래식"

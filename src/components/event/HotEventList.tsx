@@ -1,4 +1,4 @@
-import { Event } from "@/src/types/events";
+import { EventThumbnail } from "@/src/types/events";
 import Image from "next/image";
 import { getHotEvents } from "../../apis/event/v1";
 import SectionHeader from "../UI/common/SectionHeader";
@@ -16,8 +16,9 @@ const HotEventList = async () => {
         <SectionHeader.Title>인기순</SectionHeader.Title>
         <SectionHeader.LinkButton
           pathname="/event"
-          query={{ orderBy: "likes" }}
-        >{`인기순 전체보기 >`}</SectionHeader.LinkButton>
+          query={{
+            orderBy: "likes",
+          }}>{`인기순 전체보기 >`}</SectionHeader.LinkButton>
       </SectionHeader>
 
       <div className="flex flex-col md:flex-row gap-4">
@@ -38,7 +39,7 @@ const HotEventList = async () => {
 
         <div className="flex-grow">
           <GridContainer isReponsive={false}>
-            {otherEvents?.map((event: Event) => (
+            {otherEvents?.map((event: EventThumbnail) => (
               <EventDetailModal
                 key={event.id}
                 trigger={

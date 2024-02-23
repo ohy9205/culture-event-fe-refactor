@@ -1,8 +1,7 @@
-export type FavoriteEvent = {
+export type User = {
   id: number;
-  period: string;
-  thumbnail: string;
-  title: string;
+  email: string;
+  nick: string;
 };
 
 export type MyComment = {
@@ -22,4 +21,11 @@ export type MyComment = {
   content: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type MyFavoriteEvent = {
+  id: number;
+  period: string;
+  thumbnail: string;
+  title: string;
 };

@@ -1,4 +1,5 @@
-import { DetailEvent, Event, SimpleEvent } from "./events";
+import { Comment, DetailEvent, Event, SimpleEvent } from "./events";
+import { MyFavoriteEvent } from "./user";
 
 export type APIResponse<T> = {
   status: number;
@@ -20,6 +21,16 @@ export type EventDetailPayload = {
 };
 
 export type FilteredEventsPayload = {
-  events: SimpleEvent[];
+  events: { rows: SimpleEvent[]; count: number };
   totalPage: number;
+};
+
+export type EventCommentsPayload = {
+  comments: Comment[];
+};
+
+export type ToggleLikesPaload = {
+  action: "add" | "remove";
+  event: MyFavoriteEvent;
+  evnetLikesCount: number;
 };

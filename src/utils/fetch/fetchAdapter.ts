@@ -53,9 +53,12 @@ export class Fetch implements APIAdapter {
   async fetching<T>(url: string): Promise<APIResponse<T>> {
     try {
       const rs = await fetch(url, this.fetchOptions);
-      const data = await convertFetchResponse<T>(rs);
+      const data = await rs.json();
 
-      return data;
+      return {
+        ...data,
+        status: rs.status,
+      };
     } catch (error) {
       return {
         result: "fail",
@@ -67,12 +70,12 @@ export class Fetch implements APIAdapter {
   }
 }
 
-const convertFetchResponse = async <T>(
-  rs: Response
-): Promise<APIResponse<T>> => {
-  const data = await rs.json();
-  return {
-    ...data,
-    status: rs.status,
-  };
-};
+// const convertFetchResponse = async <T>(
+//   rs: Response
+// ): Promise<APIResponse<T>> => {
+//   const data = await rs.json();
+//   return {
+//     ...data,
+//     status: rs.status,
+//   };
+// };

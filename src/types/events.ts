@@ -24,28 +24,18 @@ export type Event = {
   Comments: Comment[];
 };
 
-export type User = {
-  id: number;
-  email: string;
-  nick: string;
-};
+export type SimpleEvent = Pick<
+  Event,
+  | "id"
+  | "title"
+  | "thumbnail"
+  | "eventPeriod"
+  | "views"
+  | "latitude"
+  | "longitude"
+>;
 
-export type Comment = {
-  id: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  eventId: number;
-  commenter: number;
-  User: CommentUser;
-};
-
-type CommentUser = {
-  nick: string;
-  email: string;
-};
-
-export type LikesUser = CommentUser;
+export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
 
 export type DetailEvent = Pick<
   Event,
@@ -67,18 +57,22 @@ export type DetailEvent = Pick<
   Users: LikesUser[];
 };
 
-export type SimpleEvent = Pick<
-  Event,
-  | "id"
-  | "title"
-  | "thumbnail"
-  | "eventPeriod"
-  | "views"
-  | "latitude"
-  | "longitude"
->;
+export type LikesUser = CommentUser;
 
-export type EventThumbnail = Pick<Event, "thumbnail" | "id" | "title">;
+type CommentUser = {
+  nick: string;
+  email: string;
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  eventId: number;
+  commenter: number;
+  User: CommentUser;
+};
 
 type EventCategory =
   | "강남구"

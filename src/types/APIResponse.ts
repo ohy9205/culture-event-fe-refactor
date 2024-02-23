@@ -1,5 +1,5 @@
 import { Comment, DetailEvent, Event, SimpleEvent } from "./events";
-import { MyFavoriteEvent } from "./user";
+import { MyFavoriteEvent, User } from "./user";
 
 export type APIResponse<T> = {
   status: number;
@@ -34,3 +34,12 @@ export type ToggleLikesPaload = {
   event: MyFavoriteEvent;
   evnetLikesCount: number;
 };
+
+// auth
+export type SigninPayload = User;
+
+export type SignupPayload = {
+  email: string;
+};
+
+export type SignoutPayload = {};

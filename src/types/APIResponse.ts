@@ -1,5 +1,5 @@
 import { Comment, DetailEvent, Event, SimpleEvent } from "./events";
-import { MyFavoriteEvent, User } from "./user";
+import { MyComment, MyFavoriteEvent, User } from "./user";
 
 export type APIResponse<T> = {
   status: number;
@@ -43,3 +43,16 @@ export type SignupPayload = {
 };
 
 export type SignoutPayload = {};
+
+// user
+export type UserInfoPayload = {
+  user: User;
+};
+
+export type UserLikesPayload = {
+  data: MyFavoriteEvent[];
+};
+
+export type UserCommentsPayload = {
+  commentsWithEvents: MyComment[];
+};

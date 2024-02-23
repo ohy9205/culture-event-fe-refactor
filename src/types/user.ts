@@ -6,11 +6,7 @@ export type User = {
 
 export type MyComment = {
   id: number;
-  User: {
-    id: number;
-    email: string;
-    nick: string;
-  };
+  User: User;
   Event: {
     title: string;
     eventPeriod: string;

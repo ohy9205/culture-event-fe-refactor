@@ -48,7 +48,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={onFilterChange}
             name="isFree"
             className={SELECT_STYLE}
-            value={query[isFreeName] || categoryOptions[0].text}>
+            value={query[isFreeName] || isFreeOptions[0].text}>
             {isFreeOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}
@@ -79,7 +79,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={onFilterChange}
             name="orderBy"
             className={SELECT_STYLE}
-            value={query.end || categoryOptions[0].text}>
+            value={query[orderByName] || orderByOptions[0].text}>
             {orderByOptions.map((it) => (
               <option key={it.text} value={it.value}>
                 {it.text}

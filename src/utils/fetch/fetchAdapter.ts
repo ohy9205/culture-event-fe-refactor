@@ -5,6 +5,7 @@ import { APIAdapter } from "./adapter";
 export class Fetch implements APIAdapter {
   private fetchOptions: RequestInit;
 
+  // fetch 초기설정
   constructor(cookie?: Record<string, any>) {
     this.fetchOptions = {
       method: "GET",
@@ -20,18 +21,22 @@ export class Fetch implements APIAdapter {
     };
   }
 
+  // fetch method 옵션 설정
   setMethod(method: string): void {
     this.fetchOptions.method = method;
   }
 
+  // fetch body 옵션 설정
   setBody(body: Record<string, any>): void {
     this.fetchOptions.body = JSON.stringify(body);
   }
 
+  // fetch credential 옵션 설정
   setCredentials(credentials: RequestCredentials): void {
     this.fetchOptions.credentials = credentials;
   }
 
+  // fetch cookie 옵션 설정
   setCookie(cookie: Record<string, any>): void {
     this.fetchOptions.headers = {
       ...this.fetchOptions.headers,
@@ -39,10 +44,12 @@ export class Fetch implements APIAdapter {
     };
   }
 
+  // fetch cache 옵션 설정
   setCache(cache: RequestCache): void {
     this.fetchOptions.cache = cache;
   }
 
+  // fetch next-revalidate 옵션 설정
   setRevalidate(revalidate: number | false | undefined): void {
     this.fetchOptions.next = {
       ...this.fetchOptions.next,
@@ -50,6 +57,7 @@ export class Fetch implements APIAdapter {
     };
   }
 
+  // fetch함수 실행
   async fetching<T>(url: string): Promise<APIResponse<T>> {
     try {
       const rs = await fetch(url, this.fetchOptions);
@@ -69,13 +77,3 @@ export class Fetch implements APIAdapter {
     }
   }
 }
-
-// const convertFetchResponse = async <T>(
-//   rs: Response
-// ): Promise<APIResponse<T>> => {
-//   const data = await rs.json();
-//   return {
-//     ...data,
-//     status: rs.status,
-//   };
-// };

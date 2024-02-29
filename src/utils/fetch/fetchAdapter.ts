@@ -15,9 +15,6 @@ export class Fetch implements APIAdapter {
       },
       credentials: "include",
       body: null,
-      next: {
-        revalidate: 0,
-      },
     };
   }
 

@@ -24,14 +24,17 @@ const ModalBackground = () => {
       className="w-full h-[100vh] bg-black opacity-70 z-[999] fixed top-0 left-0"
       onClick={() => {
         close();
-      }}
-    ></div>
+      }}></div>
   );
 };
 
 const ModalTrigger = ({ children }: Props) => {
   const { open } = useModal();
-  return <div onClick={open}>{children}</div>;
+  return (
+    <div onClick={open} className="cursor-pointer">
+      {children}
+    </div>
+  );
 };
 
 const ModalContent = ({ children }: Props) => {

@@ -24,6 +24,7 @@ const useSignin = () => {
       await signin(form, {
         success: () => {
           // 로그인 성공 시 리다이렉션
+          alert("로그인에 성공했습니다.");
           window.location.href = "/";
         },
         status403: (rs: APIResponse<{}>) => {

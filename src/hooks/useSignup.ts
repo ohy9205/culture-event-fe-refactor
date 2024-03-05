@@ -45,7 +45,10 @@ const useSignup = () => {
       }
 
       signup(form, {
-        success: () => router.push("/signin"),
+        success: () => {
+          alert("회원가입에 성공했습니다.");
+          router.push("/signin");
+        },
         status403: (rs: APIResponse<{}>) => {
           setValid(rs.message);
         },

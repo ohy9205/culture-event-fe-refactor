@@ -47,7 +47,8 @@ const EventDetail = ({ id }: Props) => {
             alt={title || ""}
             width={700}
             height={700}
-            className="w-full md:w-2/5 overflow-hidden object-contain rounded-xl"
+            sizes="(max-width: 1200px) 400px"
+            className="md:w-2/5 overflow-hidden object-contain rounded-xl"
           />
           <div className="w-full md:w-3/5 p-2 flex flex-col gap-6">
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>

@@ -14,6 +14,7 @@ type ImageProps = {
   alt: string;
   width: number;
   height: number;
+  sizes?: string;
   style: string;
 };
 
@@ -21,20 +22,20 @@ const EventCard = ({ children, height, width }: CardProps) => {
   return (
     <div
       className="shadow-md rounded-lg overflow-hidden"
-      style={{ height: `${height}`, width: `${width}` }}
-    >
+      style={{ height: `${height}`, width: `${width}` }}>
       {children}
     </div>
   );
 };
 
-const CardImage = ({ src, alt, width, height, style }: ImageProps) => {
+const CardImage = ({ src, alt, width, height, style, sizes }: ImageProps) => {
   return (
     <Image
       src={src}
       alt={alt}
       width={width}
       height={height}
+      sizes={sizes}
       className={style}
     />
   );

@@ -19,8 +19,7 @@ const EventCarousel = ({ events }: Props) => {
         infinite: true,
         itemClass: "m-4",
         centerMode: true,
-      }}
-    >
+      }}>
       {events?.map(({ id, thumbnail, title }) => (
         <EventDetailModal
           key={id}
@@ -32,6 +31,7 @@ const EventCarousel = ({ events }: Props) => {
                 alt={title}
                 width={600}
                 height={600}
+                sizes="(max-width: 1200px) 250px"
                 style="object-cover h-[230px] md:h-[350px]"
               />
             </EventCard>

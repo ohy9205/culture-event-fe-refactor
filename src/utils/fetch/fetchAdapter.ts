@@ -14,10 +14,6 @@ export class Fetch implements APIAdapter {
         Cookie: cookie ? objectToQueryString(cookie, ";") : "",
       },
       credentials: "include",
-      body: null,
-      next: {
-        revalidate: 0,
-      },
     };
   }
 

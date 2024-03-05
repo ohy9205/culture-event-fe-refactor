@@ -27,6 +27,7 @@ const MyLikes = () => {
                   alt={`${title} 포스터`}
                   height={500}
                   width={500}
+                  sizes="(max-width: 1200px) 300px"
                   style="object-cover h-[300px]"
                 />
                 <div className="flex flex-col gap-2 p-5">

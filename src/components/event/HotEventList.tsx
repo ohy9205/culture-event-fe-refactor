@@ -30,6 +30,7 @@ const HotEventList = async () => {
                 alt={hottestEvent?.title || "포스터"}
                 width={500}
                 height={550}
+                sizes="(max-width: 1200px) 600px"
                 className="object-cover w-full h-full"
               />
             </div>
@@ -50,6 +51,7 @@ const HotEventList = async () => {
                       alt={event.title}
                       width={550}
                       height={550}
+                      sizes="(max-width: 1200px) 250px"
                       className="object-cover w-full h-full"
                     />
                   </div>

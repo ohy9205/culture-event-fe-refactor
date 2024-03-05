@@ -22,13 +22,13 @@ const MapList = ({ list }: { list: SimpleEvent[] }) => {
             <EventCard>
               <div
                 className="flex relative"
-                onClick={() => changeCurrentEvent(event)}
-              >
+                onClick={() => changeCurrentEvent(event)}>
                 <EventCard.Image
                   src={event.thumbnail}
                   alt={event.title}
                   width={500}
                   height={500}
+                  sizes="(max-width: 1200px) 250px"
                   style="w-1/4 object-cover"
                 />
                 <div className="absolute top-3 right-5">

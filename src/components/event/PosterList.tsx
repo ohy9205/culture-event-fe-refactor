@@ -24,6 +24,7 @@ const PosterList = ({ list }: Props) => {
                       alt={`${title} 포스터`}
                       height={500}
                       width={500}
+                      sizes="(max-width: 1200px) 300px"
                       style="object-cover h-[250px] sm:h-[370px]"
                     />
                     <div className="px-5 pt-4 pb-5">

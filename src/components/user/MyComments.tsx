@@ -27,6 +27,7 @@ const MyComments = ({ comments }: Props) => {
                         alt="image"
                         width={150}
                         height={150}
+                        sizes="(max-width: 1200px) 150px"
                         className="object-cover"
                       />
                       <div className="w-full flex flex-col gap-2 truncate">

@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
     }
   } else {
     if (!at || !rt) {
-      return NextResponse.redirect(new URL("/signin", request.url));
+      return NextResponse.rewrite(new URL("/checkAuth", request.url));
     }
   }
 }

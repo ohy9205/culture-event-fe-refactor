@@ -71,6 +71,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
             onChange={onFilterChange}
             value={query.end || ""}
             className={SELECT_STYLE}
+            min={query.start || getTodayDate()}
           />
         </div>
 
@@ -88,6 +89,7 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
           </select>
         </div>
         <input
+          type="search"
           name="keyword"
           onChange={onFilterChange}
           placeholder="검색어를 입력하세요"
@@ -97,6 +99,15 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
       <div></div>
     </section>
   );
+};
+
+const getTodayDate = () => {
+  const todayDate = new Date();
+  const year = todayDate.getFullYear();
+  const month = String(todayDate.getMonth() + 1).padStart(2, "0");
+  const day = String(todayDate.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 };
 
 export default ControlBox;

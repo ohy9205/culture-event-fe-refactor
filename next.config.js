@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
+    imageSizes: [],
+    deviceSizes: [640, 768, 1024, 1280],
     remotePatterns: [
       {
         protocol: "https",

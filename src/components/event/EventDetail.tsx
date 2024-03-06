@@ -41,16 +41,17 @@ const EventDetail = ({ id }: Props) => {
 
     return (
       <div className="flex flex-col gap-10 p-10">
-        <section className="flex flex-col md:flex-row gap-5">
+        <section className="flex flex-col md:flex-row gap-5 relative">
           <Image
             src={thumbnail || ""}
             alt={title || ""}
-            width={700}
-            height={700}
-            sizes="(max-width: 1200px) 400px"
-            className="md:w-2/5 overflow-hidden object-contain rounded-xl"
+            width={500}
+            height={500}
+            sizes="400px"
+            className="md:w-2/5 rounded-xl"
+            style={{ objectFit: "contain" }}
           />
-          <div className="w-full md:w-3/5 p-2 flex flex-col gap-6">
+          <div className="flex-grow md:w-3/5 p-2 flex flex-col gap-6">
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>
             <ul className="flex flex-col gap-4">
               <li className="flex gap-2">

@@ -22,14 +22,14 @@ const MyLikes = () => {
             eventId={id}
             trigger={
               <>
-                <EventCard.Image
-                  src={thumbnail}
-                  alt={`${title} 포스터`}
-                  height={500}
-                  width={500}
-                  sizes="(max-width: 1200px) 300px"
-                  style="object-cover h-[300px]"
-                />
+                <div className="relative h-[300px]">
+                  <EventCard.Image
+                    src={thumbnail}
+                    alt={`${title} 포스터`}
+                    objectFit="cover"
+                    sizes="300px"
+                  />
+                </div>
                 <div className="flex flex-col gap-2 p-5">
                   <EventCard.Title>{title}</EventCard.Title>
                   <EventCard.Period>{period}</EventCard.Period>

@@ -22,15 +22,16 @@ const MyComments = ({ comments }: Props) => {
                 trigger={
                   <Comment key={id}>
                     <div className="flex gap-3 h-36 w-full">
-                      <Image
-                        src={Event.thumbnail}
-                        alt="image"
-                        width={150}
-                        height={150}
-                        sizes="(max-width: 1200px) 150px"
-                        className="object-cover"
-                      />
-                      <div className="w-full flex flex-col gap-2 truncate">
+                      <div className="w-1/5 relative">
+                        <Image
+                          src={Event.thumbnail}
+                          alt={`${Event.title} 포스터`}
+                          style={{ objectFit: "cover" }}
+                          fill
+                          sizes="300px"
+                        />
+                      </div>
+                      <div className="grow flex flex-col gap-2 truncate">
                         <h1 className="text-lg font-semibold">{Event.title}</h1>
                         <Comment.Period
                           createdAt={createdAt}

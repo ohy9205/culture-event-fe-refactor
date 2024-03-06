@@ -16,21 +16,21 @@ const MapList = ({ list }: { list: SimpleEvent[] }) => {
 
   return (
     <div className="w-full flex flex-col md:flex-row gap-5">
-      <ul className="w-full md:w-2/5 flex flex-col gap-4 md:h-[800px] overflow-scroll py-2 md:pr-5">
+      <ul className="w-full md:w-3/5 flex flex-col gap-4 md:h-[800px] overflow-scroll py-2 md:pr-5">
         {list.map((event) => (
           <li key={event.id}>
             <EventCard>
               <div
                 className="flex relative"
                 onClick={() => changeCurrentEvent(event)}>
-                <EventCard.Image
-                  src={event.thumbnail}
-                  alt={event.title}
-                  width={500}
-                  height={500}
-                  sizes="(max-width: 1200px) 250px"
-                  style="w-1/4 object-cover"
-                />
+                <div className="w-1/4 relative">
+                  <EventCard.Image
+                    src={event.thumbnail}
+                    alt={event.title}
+                    sizes="200px"
+                    objectFit="cover"
+                  />
+                </div>
                 <div className="absolute top-3 right-5">
                   <LikeButton eventId={event.id} />
                 </div>

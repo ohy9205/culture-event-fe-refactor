@@ -19,14 +19,14 @@ const PosterList = ({ list }: Props) => {
                 eventId={id}
                 trigger={
                   <>
-                    <EventCard.Image
-                      src={thumbnail}
-                      alt={`${title} 포스터`}
-                      height={500}
-                      width={500}
-                      sizes="(max-width: 1200px) 300px"
-                      style="object-cover h-[250px] sm:h-[370px]"
-                    />
+                    <div className="w-full h-[250px] sm:h-[370px] relative">
+                      <EventCard.Image
+                        src={thumbnail}
+                        alt={`${title} 포스터`}
+                        sizes="300px"
+                        objectFit="cover"
+                      />
+                    </div>
                     <div className="px-5 pt-4 pb-5">
                       <EventCard.Title>{title}</EventCard.Title>
                       <EventCard.Period>{eventPeriod}</EventCard.Period>

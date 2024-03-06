@@ -12,10 +12,9 @@ type CardProps = Props & {
 type ImageProps = {
   src: string;
   alt: string;
-  width: number;
-  height: number;
-  sizes?: string;
-  style: string;
+  objectFit?: "cover" | "contain";
+  sizes: string;
+  style?: string;
 };
 
 const EventCard = ({ children, height, width }: CardProps) => {
@@ -28,15 +27,21 @@ const EventCard = ({ children, height, width }: CardProps) => {
   );
 };
 
-const CardImage = ({ src, alt, width, height, style, sizes }: ImageProps) => {
+const CardImage = ({
+  src,
+  alt,
+  style,
+  sizes,
+  objectFit = "contain",
+}: ImageProps) => {
   return (
     <Image
       src={src}
       alt={alt}
-      width={width}
-      height={height}
       sizes={sizes}
       className={style}
+      style={{ objectFit: objectFit }}
+      fill
     />
   );
 };

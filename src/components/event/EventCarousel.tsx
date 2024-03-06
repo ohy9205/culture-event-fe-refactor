@@ -26,14 +26,14 @@ const EventCarousel = ({ events }: Props) => {
           eventId={id}
           trigger={
             <EventCard>
-              <EventCard.Image
-                src={thumbnail}
-                alt={title}
-                width={600}
-                height={600}
-                sizes="(max-width: 1200px) 250px"
-                style="object-cover h-[230px] md:h-[350px]"
-              />
+              <div className="relative h-[230px] md:h-[350px]">
+                <EventCard.Image
+                  src={thumbnail}
+                  alt={title}
+                  sizes="500px"
+                  objectFit="cover"
+                />
+              </div>
             </EventCard>
           }
         />

@@ -28,8 +28,7 @@ const FilteredEventList = ({ events }: Props) => {
             size="md"
             onClick={() => {
               setCurTab(tab.value);
-            }}
-          >
+            }}>
             {tab.text}
           </Button>
         ))}

@@ -21,22 +21,21 @@ const HotEventList = async () => {
           }}>{`인기순 전체보기 >`}</SectionHeader.LinkButton>
       </SectionHeader>
 
-      <div className="flex flex-col md:flex-row gap-4">
-        <EventDetailModal
-          trigger={
-            <div className="w-full h-[300px] md:h-[550px]">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="w-full sm:w-2/5 h-[550px] relative">
+          <EventDetailModal
+            trigger={
               <Image
                 src={hottestEvent?.thumbnail || ""}
                 alt={hottestEvent?.title || "포스터"}
-                width={500}
-                height={550}
-                sizes="(max-width: 1200px) 600px"
-                className="object-cover w-full h-full"
+                style={{ objectFit: "cover" }}
+                sizes="500px"
+                fill
               />
-            </div>
-          }
-          eventId={hottestEvent?.id}
-        />
+            }
+            eventId={hottestEvent?.id}
+          />
+        </div>
 
         <div className="flex-grow">
           <GridContainer isReponsive={false}>
@@ -44,15 +43,14 @@ const HotEventList = async () => {
               <EventDetailModal
                 key={event.id}
                 trigger={
-                  <div className="h-[170px] sm:h-[267px]">
+                  <div className="relative h-[267px]">
                     <Image
                       key={event.id}
                       src={event.thumbnail}
                       alt={event.title}
-                      width={550}
-                      height={550}
-                      sizes="(max-width: 1200px) 250px"
-                      className="object-cover w-full h-full"
+                      style={{ objectFit: "cover" }}
+                      sizes="200px"
+                      fill
                     />
                   </div>
                 }

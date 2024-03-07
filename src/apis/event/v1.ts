@@ -14,7 +14,7 @@ export async function getRecentEvents(): Promise<
   APIResponse<EventThumbnail[]>
 > {
   const apiFetch = new Fetch();
-  apiFetch.setRevalidate(21600);
+  // apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/latest`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -31,7 +31,7 @@ export async function getRecentEvents(): Promise<
 //인기순
 export async function getHotEvents(): Promise<APIResponse<EventThumbnail[]>> {
   const apiFetch = new Fetch();
-  apiFetch.setRevalidate(21600);
+  // apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/likes`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,
@@ -48,7 +48,7 @@ export async function getHotEvents(): Promise<APIResponse<EventThumbnail[]>> {
 //조회순
 export async function getViewEvents(): Promise<APIResponse<EventThumbnail[]>> {
   const apiFetch = new Fetch();
-  apiFetch.setRevalidate(21600);
+  // apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/views`);
   const data = rs?.payload.events.rows.map((event: Event) => ({
     thumbnail: event.thumbnail,

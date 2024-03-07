@@ -50,6 +50,7 @@ const EventDetail = ({ id }: Props) => {
             sizes="400px"
             className="md:w-2/5 rounded-xl"
             style={{ objectFit: "contain" }}
+            priority
           />
           <div className="flex-grow md:w-3/5 p-2 flex flex-col gap-6">
             <h2 className="mb-6 text-xl font-semibold">{title || ""}</h2>

@@ -2,7 +2,6 @@
 
 import useMyLikes from "@/src/hooks/useMyLikes";
 import { MyFavoriteEvent } from "@/src/types/user";
-import { useState } from "react";
 import GridContainer from "../UI/container/GridContainer";
 import EventCard from "../event/EventCard";
 import EventDetailModal from "../event/EventDetailModal";
@@ -12,7 +11,7 @@ const MyLikes = () => {
     data: { likes },
   } = useMyLikes();
   // 실제 데이터를 카피해서 사용함
-  const [events, setEvents] = useState(likes);
+  const events = likes;
 
   return (
     <GridContainer>
@@ -28,6 +27,7 @@ const MyLikes = () => {
                     alt={`${title} 포스터`}
                     objectFit="cover"
                     sizes="300px"
+                    priotity={true}
                   />
                 </div>
                 <div className="flex flex-col gap-2 p-5">

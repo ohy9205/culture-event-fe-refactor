@@ -15,6 +15,7 @@ type ImageProps = {
   objectFit?: "cover" | "contain";
   sizes: string;
   style?: string;
+  priotity?: boolean;
 };
 
 const EventCard = ({ children, height, width }: CardProps) => {
@@ -33,6 +34,7 @@ const CardImage = ({
   style,
   sizes,
   objectFit = "contain",
+  priotity = false,
 }: ImageProps) => {
   return (
     <Image
@@ -42,6 +44,7 @@ const CardImage = ({
       className={style}
       style={{ objectFit: objectFit }}
       fill
+      priority={priotity}
     />
   );
 };

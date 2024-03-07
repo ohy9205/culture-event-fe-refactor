@@ -31,6 +31,7 @@ const HotEventList = async () => {
                 style={{ objectFit: "cover" }}
                 sizes="500px"
                 fill
+                priority
               />
             }
             eventId={hottestEvent?.id}

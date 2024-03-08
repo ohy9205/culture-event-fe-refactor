@@ -21,6 +21,12 @@ export const LOCATION = {
     { text: "성북구", value: "성북구" },
     { text: "송파구", value: "송파구" },
     { text: "양천구", value: "양천구" },
+    { text: "영등포구", value: "영등포구" },
+    { text: "용산구", value: "용산구" },
+    { text: "은평구", value: "은평구" },
+    { text: "종로구", value: "종로구" },
+    { text: "중구", value: "중구" },
+    { text: "중랑구", value: "중랑구" },
   ],
 };
 export const IS_FREE = {

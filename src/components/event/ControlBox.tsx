@@ -57,17 +57,25 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
           </select>
         </div>
         <div className="flex gap-2 items-center">
+          <label htmlFor="start" className="sr-only">
+            시작일
+          </label>
           <input
             type="date"
             name="start"
+            id="start"
             onChange={onFilterChange}
             value={query.start || ""}
             className={SELECT_STYLE}
           />
           <div>-</div>
+          <label htmlFor="end" className="sr-only">
+            종료일
+          </label>
           <input
             type="date"
             name="end"
+            id="end"
             onChange={onFilterChange}
             value={query.end || ""}
             className={SELECT_STYLE}

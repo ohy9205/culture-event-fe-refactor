@@ -29,7 +29,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
       <Comment>
         {comments?.map(
           ({ id, content, createdAt, updatedAt, User: commenterUser }) => (
-            <div key={id} className="bg-slate-50 p-2">
+            <li key={id} className="bg-slate-50 p-2">
               <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <Comment.Writer>{commenterUser.nick}</Comment.Writer>
@@ -41,8 +41,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                   <div className="flex gap-2">
                     <Comment.Button
                       onClick={() => editMode.on(id, content)}
-                      color="positive"
-                    >
+                      color="positive">
                       수정
                     </Comment.Button>
                     <Comment.Button
@@ -50,8 +49,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                         await remove(id);
                         await get();
                       }}
-                      color="negative"
-                    >
+                      color="negative">
                       삭제
                     </Comment.Button>
                   </div>
@@ -62,8 +60,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                     onClick={() => {
                       editMode.off();
                     }}
-                    color="negative"
-                  >
+                    color="negative">
                     나가기
                   </Comment.Button>
                 )}
@@ -84,8 +81,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                           await get();
                           reset();
                         }}
-                        color="positive"
-                      >
+                        color="positive">
                         등록
                       </Comment.Button>
                     )}
@@ -94,7 +90,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                   <Comment.Content>{content}</Comment.Content>
                 )}
               </section>
-            </div>
+            </li>
           )
         )}
         {/* 댓글 입력창 */}
@@ -107,8 +103,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                   await get();
                   reset();
                 }}
-                color="positive"
-              >
+                color="positive">
                 등록
               </Comment.Button>
             )}

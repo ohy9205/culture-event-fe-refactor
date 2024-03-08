@@ -45,8 +45,7 @@ const CommentButton = ({ onClick, children, color }: ButtonProps) => {
     <Button
       onClick={onClick}
       color={color === "positive" ? "light" : "dark"}
-      size="sm"
-    >
+      size="sm">
       {children}
     </Button>
   );
@@ -65,13 +64,16 @@ const CommentInput = ({ initContent, children }: InputProps) => {
 
   return (
     <>
+      <label htmlFor="comment" className="sr-only">
+        댓글 입력창
+      </label>
       <textarea
         onChange={(e) => changeForm(e.target.name, e.target.value)}
         name="comment"
+        id="comment"
         value={form.comment}
         className="w-full h-[100px] border resize-none"
-        maxLength={500}
-      >
+        maxLength={500}>
         {form.comment}
       </textarea>
 

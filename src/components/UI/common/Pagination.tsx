@@ -21,9 +21,8 @@ const Pagination = ({ totalPage, query }: Props) => {
       <button
         onClick={onPrevBtnHandler}
         className={
-          curPageGroupCount === 1 ? "text-slate-300 cursor-default" : ""
-        }
-      >
+          curPageGroupCount === 1 ? "text-gray-500 cursor-default" : ""
+        }>
         [이전]
       </button>
 
@@ -31,8 +30,7 @@ const Pagination = ({ totalPage, query }: Props) => {
         <button
           key={it}
           onClick={() => onPageBtnHandler(it)}
-          className={`${it === curPageIndex ? "font-extrabold" : ""}`}
-        >
+          className={`${it === curPageIndex ? "font-extrabold" : ""}`}>
           {it}
         </button>
       ))}
@@ -41,10 +39,9 @@ const Pagination = ({ totalPage, query }: Props) => {
         onClick={() => onNextBtnHandler()}
         className={
           totalPageGroupCount === curPageGroupCount
-            ? "text-slate-300 cursor-default"
+            ? "text-gray-500 cursor-default"
             : ""
-        }
-      >
+        }>
         [이후]
       </button>
     </section>

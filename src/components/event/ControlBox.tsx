@@ -22,9 +22,13 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
     <section className="w-full">
       <div className="flex lg:flex-row flex-col gap-5 my-5">
         <div className="flex flex-col sm:flex-row gap-5">
+          <label htmlFor="location" className="sr-only">
+            지역구
+          </label>
           <select
             onChange={onFilterChange}
             name="location"
+            id="location"
             className={SELECT_STYLE}
             value={query[locationName] || locationOptions[0].text}>
             {locationOptions.map((it) => (
@@ -33,9 +37,13 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
               </option>
             ))}
           </select>
+          <label htmlFor="category" className="sr-only">
+            분야 카테고리
+          </label>
           <select
             onChange={onFilterChange}
             name="category"
+            id="category"
             className={SELECT_STYLE}
             value={query[categoryName] || categoryOptions[0].text}>
             {categoryOptions.map((it) => (
@@ -44,9 +52,13 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
               </option>
             ))}
           </select>
+          <label htmlFor="isFree" className="sr-only">
+            비용
+          </label>
           <select
             onChange={onFilterChange}
             name="isFree"
+            id="isFree"
             className={SELECT_STYLE}
             value={query[isFreeName] || isFreeOptions[0].text}>
             {isFreeOptions.map((it) => (
@@ -57,17 +69,25 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
           </select>
         </div>
         <div className="flex gap-2 items-center">
+          <label htmlFor="start" className="sr-only">
+            시작일
+          </label>
           <input
             type="date"
             name="start"
+            id="start"
             onChange={onFilterChange}
             value={query.start || ""}
             className={SELECT_STYLE}
           />
           <div>-</div>
+          <label htmlFor="end" className="sr-only">
+            종료일
+          </label>
           <input
             type="date"
             name="end"
+            id="end"
             onChange={onFilterChange}
             value={query.end || ""}
             className={SELECT_STYLE}
@@ -76,9 +96,13 @@ const ControlBox = ({ query }: { query: Record<string, any> }) => {
         </div>
 
         <div className="">
+          <label htmlFor="orderBy" className="sr-only">
+            정렬
+          </label>
           <select
             onChange={onFilterChange}
             name="orderBy"
+            id="orderBy"
             className={SELECT_STYLE}
             value={query[orderByName] || orderByOptions[0].text}>
             {orderByOptions.map((it) => (

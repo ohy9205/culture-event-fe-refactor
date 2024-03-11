@@ -21,7 +21,7 @@ const MyComments = ({ comments }: Props) => {
                 eventId={eventId}
                 trigger={
                   <Comment key={id}>
-                    <div className="flex gap-3 h-36 w-full">
+                    <li className="flex gap-3 h-36 w-full">
                       <div className="w-1/5 relative">
                         <Image
                           src={Event.thumbnail}
@@ -39,7 +39,7 @@ const MyComments = ({ comments }: Props) => {
                         />
                         <Comment.Content truncate>{content}</Comment.Content>
                       </div>
-                    </div>
+                    </li>
                   </Comment>
                 }
               />

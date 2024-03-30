@@ -4,6 +4,7 @@ import SignoutButton from "@/src/components/auth/SignoutButton";
 import MyComments from "@/src/components/user/MyComments";
 import MyInfo from "@/src/components/user/MyInfo";
 import MyLikes from "@/src/components/user/MyLikes";
+import { MyComment } from "@/src/types/user";
 import { Cookie } from "@/src/utils/store/cookieAdapter";
 import { Token } from "@/src/utils/token/token";
 
@@ -26,10 +27,20 @@ const MyPage = async () => {
         <SectionHeader>
           <SectionHeader.Title>작성한 댓글</SectionHeader.Title>
         </SectionHeader>
-        <MyComments comments={myComments} />
+        <MyComments comments={sortByCreatedAt(myComments)} />
       </div>
     </div>
   );
 };
 
 export default MyPage;
+
+// 작성일순으로 댓글 정렬
+const sortByCreatedAt = (comments: MyComment[]) => {
+  return comments.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+
+    return dateB.getTime() - dateA.getTime(); // 날짜가 빠른 순으로 정렬
+  });
+};

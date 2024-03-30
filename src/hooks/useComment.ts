@@ -27,11 +27,15 @@ const useComment = (eventId: number, initComments?: Comment[]) => {
     },
     get: async () => {
       const rs = await getComments(eventId);
+      const sortedComments = rs.payload.comments.sort(
+        (a: Comment, b: Comment) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
 
       if (rs) {
         const handler = {
           success: () => {
-            setComments(rs.payload.comments);
+            setComments(sortedComments);
           },
         };
         responseHandler(rs, handler);

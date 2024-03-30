@@ -13,7 +13,7 @@ const MyComments = ({ comments }: Props) => {
   return (
     <div className="flex flex-col gap-5 w-full">
       {comments &&
-        sortByCreatedAt(comments).map(
+        comments.map(
           ({ eventId, createdAt, updatedAt, Event, content, id }) => (
             <div className="shadow-md" key={id}>
               <EventDetailModal
@@ -48,16 +48,6 @@ const MyComments = ({ comments }: Props) => {
         )}
     </div>
   );
-};
-
-const sortByCreatedAt = (comments: MyComment[]) => {
-  return comments.sort((a, b) => {
-    // updatedAt이 있으면 해당 값을, 없으면 createdAt 값을 사용
-    const dateA = new Date(a.updatedAt || a.createdAt);
-    const dateB = new Date(b.updatedAt || b.createdAt);
-
-    return dateB.getTime() - dateA.getTime(); // 날짜가 빠른 순으로 정렬
-  });
 };
 
 export default MyComments;

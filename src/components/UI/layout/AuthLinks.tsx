@@ -6,7 +6,7 @@ import SignoutButton from "../../auth/SignoutButton";
 
 const AuthLinks = () => {
   const {
-    state: { isLoggedIn },
+    data: { isLoggedIn },
   } = useAuth();
 
   return (

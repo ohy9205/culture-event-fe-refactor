@@ -1,11 +1,10 @@
 "use client";
 
 import { useAuth } from "@/src/hooks/useAuth";
-import React from "react";
 
 const MyInfo = () => {
   const {
-    state: { user },
+    data: { user },
   } = useAuth();
 
   return (

@@ -12,7 +12,7 @@ type Props = {
 
 const EventCommentList = ({ eventId, initComments }: Props) => {
   const {
-    state: { isLoggedIn, user },
+    data: { isLoggedIn, user },
   } = useAuth();
   const {
     get,
@@ -41,8 +41,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                   <div className="flex gap-2">
                     <Comment.Button
                       onClick={() => editMode.on(id, content)}
-                      color="positive"
-                    >
+                      color="positive">
                       수정
                     </Comment.Button>
                     <Comment.Button
@@ -50,8 +49,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                         await remove(id);
                         await get();
                       }}
-                      color="negative"
-                    >
+                      color="negative">
                       삭제
                     </Comment.Button>
                   </div>
@@ -62,8 +60,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                     onClick={() => {
                       editMode.off();
                     }}
-                    color="negative"
-                  >
+                    color="negative">
                     나가기
                   </Comment.Button>
                 )}
@@ -84,8 +81,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                           await get();
                           reset();
                         }}
-                        color="positive"
-                      >
+                        color="positive">
                         등록
                       </Comment.Button>
                     )}
@@ -107,8 +103,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                   await get();
                   reset();
                 }}
-                color="positive"
-              >
+                color="positive">
                 등록
               </Comment.Button>
             )}

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import { getMyLikes } from "../apis/user/user";
+import { getMyLikes, getUserMe } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
-import { AuthContextProvider } from "../context/AuthContext copy";
+import { AuthProvider } from "../provider/AuthProvider";
 import { MyLikesProvider } from "../provider/MyLikesProvider";
 import SWRProvider from "../provider/swrProvider";
-import { MyFavoriteEvent } from "../types/user";
+import { AuthStatus, MyFavoriteEvent } from "../types/user";
 import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
 import Error from "./global-error";
@@ -28,10 +28,17 @@ export default async function RootLayout({
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
-  let user = undefined;
+  let userInfo: AuthStatus | undefined = undefined;
 
-  if (allToken) {
+  if (allToken.at && allToken.rt) {
+    // likesEvent 데이터
     likesEvent = (await getMyLikes(allToken))?.payload.data || [];
+    // auth 데이터
+    const authRes = (await getUserMe(allToken))?.payload.user;
+    userInfo = {
+      isLoggedIn: true,
+      user: { email: authRes.email, nick: authRes.nick },
+    };
   }
 
   return (
@@ -45,14 +52,14 @@ export default async function RootLayout({
         className={`${inter.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
-            <AuthContextProvider
-              hasToken={allToken.at && allToken.rt ? true : false}>
+            {/* <AuthProvider hasToken={allToken.at && allToken.rt ? true : false}> */}
+            <AuthProvider initialState={userInfo}>
               <MyLikesProvider likesEvent={likesEvent}>
                 <div id="modal"></div>
                 <Header />
                 {children}
               </MyLikesProvider>
-            </AuthContextProvider>
+            </AuthProvider>
           </SWRProvider>
         </ErrorBoundary>
       </body>

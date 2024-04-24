@@ -5,11 +5,13 @@ import { responseHandler } from "../utils/common/responseHandler";
 import { useAuth } from "./useAuth";
 
 const useEventDetail = (eventId: number) => {
-  const { state } = useAuth();
+  const {
+    data: { isLoggedIn },
+  } = useAuth();
   const { data } = useSWR(
     `eventDetail/${eventId}`,
     () =>
-      state.isLoggedIn
+      isLoggedIn
         ? getEventDetailWithLogin(eventId)
         : getEventDetailWithoutLogin(eventId),
     { revalidateOnFocus: false }

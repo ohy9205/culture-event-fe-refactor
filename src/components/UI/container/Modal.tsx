@@ -17,6 +17,11 @@ const Modal = ({ children }: Props) => {
   );
 };
 
+const ModalProvider = ({ children }: Props) => {
+  const { Provider } = useModal();
+  return <Provider>{children}</Provider>;
+};
+
 const ModalBackground = () => {
   const { close } = useModal();
   return (
@@ -49,3 +54,4 @@ export default Modal;
 Modal.Trigger = ModalTrigger;
 Modal.Background = ModalBackground;
 Modal.Content = ModalContent;
+Modal.Provider = ModalProvider;

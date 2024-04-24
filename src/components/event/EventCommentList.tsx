@@ -12,7 +12,7 @@ type Props = {
 
 const EventCommentList = ({ eventId, initComments }: Props) => {
   const {
-    state: { isLoggedIn, user },
+    data: { isLoggedIn, user },
   } = useAuth();
   const {
     get,

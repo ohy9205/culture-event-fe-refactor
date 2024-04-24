@@ -1,6 +1,5 @@
 "use client";
 
-import { ModalContextProvider } from "@/src/context/ModalContext";
 import { ReactNode } from "react";
 import Modal from "../UI/container/Modal";
 import EventDetail from "./EventDetail";
@@ -12,7 +11,7 @@ type Props = {
 
 const EventDetailModal = ({ trigger, eventId }: Props) => {
   return (
-    <ModalContextProvider>
+    <Modal.Provider>
       <Modal.Trigger>{trigger}</Modal.Trigger>
       <Modal>
         <Modal.Background />
@@ -20,7 +19,7 @@ const EventDetailModal = ({ trigger, eventId }: Props) => {
           <EventDetail id={eventId} />
         </Modal.Content>
       </Modal>
-    </ModalContextProvider>
+    </Modal.Provider>
   );
 };
 

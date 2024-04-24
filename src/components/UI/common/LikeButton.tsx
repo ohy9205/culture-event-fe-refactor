@@ -11,7 +11,7 @@ type Props = {
 
 const LikeButton = ({ eventId, children, background }: Props) => {
   const {
-    state: { isLoggedIn },
+    data: { isLoggedIn },
   } = useAuth();
   const {
     data: { likesCount },
@@ -27,15 +27,13 @@ const LikeButton = ({ eventId, children, background }: Props) => {
       {isLoggedIn ? (
         <button
           className={style(background, isLoggedIn)}
-          onClick={() => toggleButton(eventId)}
-        >
+          onClick={() => toggleButton(eventId)}>
           {checkIsMyLike(eventId) ? "❤️" : "🤍"}
         </button>
       ) : (
         <button
           className={style(background, isLoggedIn)}
-          onClick={() => toggleButton(eventId)}
-        >
+          onClick={() => toggleButton(eventId)}>
           🤍
         </button>
       )}

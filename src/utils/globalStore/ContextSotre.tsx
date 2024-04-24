@@ -14,9 +14,15 @@ export class ContextStore<T> implements GlobalStoreAdapter<T> {
 
   useGlobalState = () => useContext(this.Context);
 
-  StoreProvider = ({ children }: { children: React.ReactNode }) => {
+  StoreProvider = ({
+    children,
+    initialState,
+  }: {
+    children: React.ReactNode;
+    initialState?: T;
+  }) => {
     // 생성자에서 받은 initialState를 useState의 초기 값으로 사용
-    const [state, setState] = useState<T>(this.initialState);
+    const [state, setState] = useState<T>(initialState || this.initialState);
 
     const updateState = (newState: Partial<T>) => {
       setState((prevState) => ({ ...prevState, ...newState }));

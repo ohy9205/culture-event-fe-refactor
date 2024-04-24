@@ -4,7 +4,9 @@ export interface GlobalStoreAdapter<T> {
   // 2. provider제공
   StoreProvider: ({
     children,
+    initialState,
   }: {
     children: React.ReactNode;
+    initialState?: T;
   }) => React.ReactNode;
 }

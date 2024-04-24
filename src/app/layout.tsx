@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import { getMyLikes } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
-import { AuthContextProvider } from "../context/AuthContext";
-import { MyLikesContextProvider } from "../context/MyLikesContext";
+import { AuthContextProvider } from "../context/AuthContext copy";
+import { MyLikesProvider } from "../provider/MyLikesProvider";
 import SWRProvider from "../provider/swrProvider";
 import { MyFavoriteEvent } from "../types/user";
 import { Cookie } from "../utils/store/cookieAdapter";
@@ -28,6 +28,7 @@ export default async function RootLayout({
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
+  let user = undefined;
 
   if (allToken) {
     likesEvent = (await getMyLikes(allToken))?.payload.data || [];
@@ -46,11 +47,11 @@ export default async function RootLayout({
           <SWRProvider>
             <AuthContextProvider
               hasToken={allToken.at && allToken.rt ? true : false}>
-              <MyLikesContextProvider likesEvent={likesEvent}>
+              <MyLikesProvider likesEvent={likesEvent}>
                 <div id="modal"></div>
                 <Header />
                 {children}
-              </MyLikesContextProvider>
+              </MyLikesProvider>
             </AuthContextProvider>
           </SWRProvider>
         </ErrorBoundary>

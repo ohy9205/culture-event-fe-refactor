@@ -3,12 +3,13 @@ import { toggleLikes } from "../apis/event/v2";
 import { getMyLikes } from "../apis/user/user";
 import { MyFavoriteEvent } from "../types/user";
 import { responseHandler } from "../utils/common/responseHandler";
-import { ContextStore } from "../utils/globalStore/ContextSotre";
+import { ZustandStore } from "../utils/globalStore/ZustandStore";
 import { useAuth } from "./useAuth";
 
 type State = { likes: MyFavoriteEvent[] | [] };
 
-const myLikesState = new ContextStore<State>({ likes: [] });
+// const myLikesState = new ContextStore<State>({ likes: [] });
+const myLikesState = new ZustandStore<State>({ likes: [] });
 
 const useMyLikes = () => {
   const [state, updateState] = myLikesState.useGlobalState();

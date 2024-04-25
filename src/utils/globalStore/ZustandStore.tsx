@@ -14,7 +14,10 @@ export class ZustandStore<T> implements GlobalStoreAdapter<T> {
       state: initialState,
       updateState: (newState: Partial<T>) =>
         set((prevState: State<T>) => {
-          return { state: { ...prevState.state, ...newState } };
+          return {
+            ...prevState.updateState,
+            state: { ...prevState.state, ...newState },
+          };
         }),
     }));
   }

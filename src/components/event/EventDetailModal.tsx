@@ -29,13 +29,13 @@ const ModalInner = ({
   const {
     open,
     close,
-    data: { isOpen, id },
+    data: { isOpen, modalId, activeModalId },
   } = useModal();
 
   return (
     <>
-      <Modal.Trigger onEvent={() => open(eventId)}>{trigger}</Modal.Trigger>
-      {isOpen && id === eventId && (
+      <Modal.Trigger onEvent={() => open(modalId)}>{trigger}</Modal.Trigger>
+      {isOpen && activeModalId === modalId && (
         <Modal>
           <Modal.Background onEvent={() => close()} />
           <Modal.Content>

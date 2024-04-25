@@ -1,5 +1,7 @@
 "use client";
 
+import { useModal } from "@/src/hooks/useModal";
+import ModalProvider from "@/src/provider/ModalProvider";
 import { ReactNode } from "react";
 import Modal from "../UI/container/Modal";
 import EventDetail from "./EventDetail";
@@ -11,15 +13,37 @@ type Props = {
 
 const EventDetailModal = ({ trigger, eventId }: Props) => {
   return (
-    <Modal.Provider>
-      <Modal.Trigger>{trigger}</Modal.Trigger>
-      <Modal>
-        <Modal.Background />
-        <Modal.Content>
-          <EventDetail id={eventId} />
-        </Modal.Content>
-      </Modal>
-    </Modal.Provider>
+    <ModalProvider>
+      <ModalInner eventId={eventId} trigger={trigger} />
+    </ModalProvider>
+  );
+};
+
+const ModalInner = ({
+  eventId,
+  trigger,
+}: {
+  eventId: number;
+  trigger: React.ReactNode;
+}) => {
+  const {
+    open,
+    close,
+    data: { isOpen, id },
+  } = useModal();
+
+  return (
+    <>
+      <Modal.Trigger onEvent={() => open(eventId)}>{trigger}</Modal.Trigger>
+      {isOpen && id === eventId && (
+        <Modal>
+          <Modal.Background onEvent={() => close()} />
+          <Modal.Content>
+            <EventDetail id={eventId} />
+          </Modal.Content>
+        </Modal>
+      )}
+    </>
   );
 };
 

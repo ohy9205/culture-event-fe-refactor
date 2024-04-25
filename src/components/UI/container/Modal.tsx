@@ -1,6 +1,5 @@
 "use client";
 
-import { useModal } from "@/src/hooks/useModal";
 import ReactDOM from "react-dom";
 
 type Props = {
@@ -8,35 +7,22 @@ type Props = {
 };
 
 const Modal = ({ children }: Props) => {
-  const {
-    data: { isOpen },
-  } = useModal();
-
-  return (
-    isOpen && ReactDOM.createPortal(children, document.getElementById("modal")!)
-  );
+  return ReactDOM.createPortal(children, document.getElementById("modal")!);
 };
 
-const ModalProvider = ({ children }: Props) => {
-  const { Provider } = useModal();
-  return <Provider>{children}</Provider>;
-};
-
-const ModalBackground = () => {
-  const { close } = useModal();
+const ModalBackground = ({ onEvent }: { onEvent: () => void }) => {
   return (
     <div
       className="w-full h-[100vh] bg-black opacity-70 z-[999] fixed top-0 left-0"
       onClick={() => {
-        close();
+        onEvent();
       }}></div>
   );
 };
 
-const ModalTrigger = ({ children }: Props) => {
-  const { open } = useModal();
+const ModalTrigger = ({ children, onEvent }: Props & { onEvent: any }) => {
   return (
-    <div onClick={open} className="cursor-pointer">
+    <div onClick={onEvent} className="cursor-pointer">
       {children}
     </div>
   );
@@ -54,4 +40,3 @@ export default Modal;
 Modal.Trigger = ModalTrigger;
 Modal.Background = ModalBackground;
 Modal.Content = ModalContent;
-Modal.Provider = ModalProvider;

@@ -1,16 +1,28 @@
 "use client";
 
+import { useMemo } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { AuthStatus } from "../types/user";
+import { User } from "../types/user";
 
 export const AuthProvider = ({
   children,
-  initialState,
+  initialValue, // {email, nick, id ...}
 }: {
   children: React.ReactNode;
-  initialState?: AuthStatus;
+  initialValue?: User;
 }) => {
-  const { Provider } = useAuth();
+  const initialStatus = useMemo(
+    () => ({
+      isLoggedIn: true,
+      user: {
+        email: initialValue?.email || "",
+        nick: initialValue?.nick || "",
+      },
+    }),
+    [initialValue]
+  );
 
-  return <Provider initialState={initialState}>{children}</Provider>;
+  const { Provider } = useAuth(initialStatus);
+
+  return <Provider initialState={initialStatus}>{children}</Provider>;
 };

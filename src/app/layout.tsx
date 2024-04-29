@@ -7,7 +7,7 @@ import Header from "../components/UI/layout/Header";
 import { AuthProvider } from "../provider/AuthProvider";
 import { MyLikesProvider } from "../provider/MyLikesProvider";
 import SWRProvider from "../provider/swrProvider";
-import { AuthStatus, MyFavoriteEvent } from "../types/user";
+import { MyFavoriteEvent, User } from "../types/user";
 import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
 import Error from "./global-error";
@@ -28,17 +28,13 @@ export default async function RootLayout({
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
-  let userInfo: AuthStatus | undefined = undefined;
+  let userInfo: User | undefined = undefined;
 
   if (allToken.at && allToken.rt) {
     // likesEvent 데이터
     likesEvent = (await getMyLikes(allToken))?.payload.data || [];
     // auth 데이터
-    const authRes = (await getUserMe(allToken))?.payload.user;
-    userInfo = {
-      isLoggedIn: true,
-      user: { email: authRes.email, nick: authRes.nick },
-    };
+    userInfo = (await getUserMe(allToken))?.payload.user;
   }
 
   return (
@@ -52,8 +48,7 @@ export default async function RootLayout({
         className={`${inter.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
-            {/* <AuthProvider hasToken={allToken.at && allToken.rt ? true : false}> */}
-            <AuthProvider initialState={userInfo}>
+            <AuthProvider initialValue={userInfo}>
               <MyLikesProvider likesEvent={likesEvent}>
                 <div id="modal"></div>
                 <Header />

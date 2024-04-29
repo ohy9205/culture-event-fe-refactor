@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import { postSignin, postSignout, postSignup } from "../apis/auth/auth";
 import { Signin, Signup } from "../types/APIRequest";
 import { AuthStatus } from "../types/user";
@@ -5,9 +8,9 @@ import {
   ResponseHandler,
   responseHandler,
 } from "../utils/common/responseHandler";
-import { ContextStore } from "../utils/globalStore/ContextSotre";
+import { ZustandStore } from "../utils/globalStore/ZustandStore";
 
-const authStore = new ContextStore<AuthStatus>({
+const authStore = new ZustandStore<AuthStatus>({
   isLoggedIn: false,
   user: {
     email: "",
@@ -15,7 +18,7 @@ const authStore = new ContextStore<AuthStatus>({
   },
 });
 
-export const useAuth = (hasToken?: boolean) => {
+export const useAuth = (initialValue?: AuthStatus) => {
   const [state, updateState] = authStore.useGlobalState();
 
   const signin = async (form: Signin, handler: ResponseHandler) => {
@@ -56,6 +59,12 @@ export const useAuth = (hasToken?: boolean) => {
       responseHandler(rs, handler);
     }
   };
+
+  useEffect(() => {
+    if (initialValue) {
+      updateState(initialValue);
+    }
+  }, [initialValue, updateState]);
 
   return {
     data: {

@@ -13,25 +13,27 @@ export class ZustandStore<T> implements GlobalStoreAdapter<T> {
     this.useStore = create<State<T>>((set: any) => ({
       state: initialState,
       updateState: (newState: Partial<T>) =>
-        set((prevState: State<T>) => {
-          return {
-            ...prevState.updateState,
-            state: { ...prevState.state, ...newState },
-          };
-        }),
+        set((prevState: State<T>) => ({
+          state: { ...prevState.state, ...newState },
+        })),
     }));
   }
 
   useGlobalState = (): [T, (newState: Partial<T>) => void] => {
-    const state = this.useStore((state: State<T>) => ({
-      state: state.state,
-      updateState: state.updateState,
-    }));
-    return [state.state, state.updateState];
+    const state = this.useStore((state: State<T>) => state.state);
+    const updateState = this.useStore((state: State<T>) => state.updateState);
+
+    return [state, updateState];
   };
 
   // zustand는 provider 없으므로 Fragment로감싸줌
-  StoreProvider = ({ children }: { children: React.ReactNode }) => {
+  StoreProvider = ({
+    children,
+    initialState,
+  }: {
+    children: React.ReactNode;
+    initialState?: T;
+  }) => {
     return <>{children}</>;
   };
 }

@@ -9,11 +9,10 @@ import {
 } from "../utils/common/responseHandler";
 import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
 
+type State = AuthStatus | undefined;
+
 export const useAuth = (initialValue?: AuthStatus) => {
-  const authStore = ZustandSingletone.create<AuthStatus | undefined>(
-    "auth",
-    initialValue
-  );
+  const authStore = ZustandSingletone.create<State>("auth", initialValue);
   const [state, updateState] = authStore.useGlobalState();
 
   const signin = async (form: Signin, handler: ResponseHandler) => {

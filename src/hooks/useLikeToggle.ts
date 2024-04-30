@@ -6,12 +6,12 @@ import useMyLikes from "./useMyLikes";
 const useLikeToggle = () => {
   const {
     toggleLike,
-    data: { likes },
+    data: { myLikes },
   } = useMyLikes();
   const [count, setCount] = useState<undefined | number>();
 
   const checkIsMyLike = (eventId: number) => {
-    if (likes?.find((event) => event.id === eventId)) {
+    if (myLikes?.find((event) => event.id === eventId)) {
       return true;
     } else {
       return false;

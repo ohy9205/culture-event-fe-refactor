@@ -8,14 +8,13 @@ import EventDetailModal from "../event/EventDetailModal";
 
 const MyLikes = () => {
   const {
-    data: { likes },
+    data: { myLikes },
   } = useMyLikes();
   // 실제 데이터를 카피해서 사용함
-  const events = likes;
 
   return (
     <GridContainer>
-      {events?.map(({ id, thumbnail, title, period }: MyFavoriteEvent) => (
+      {myLikes?.map(({ id, thumbnail, title, period }: MyFavoriteEvent) => (
         <EventCard key={id}>
           <EventDetailModal
             eventId={id}

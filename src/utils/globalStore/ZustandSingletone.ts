@@ -1,12 +1,12 @@
 import { ZustandStore } from "./ZustandStore";
 
-export class ZustandSingletone<T> {
-  private static instance: ZustandStore<any>;
+export class ZustandSingletone {
+  private static instances: Map<string, ZustandStore<any>> = new Map();
 
-  static getStore<T>(initialState: T): ZustandStore<T> {
-    if (!this.instance) {
-      this.instance = new ZustandStore<T>(initialState);
+  static create<T>(key: string, initialState: T): ZustandStore<T> {
+    if (!this.instances.has(key)) {
+      this.instances.set(key, new ZustandStore<T>(initialState));
     }
-    return this.instance;
+    return this.instances.get(key) as ZustandStore<T>;
   }
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { postSignin, postSignout, postSignup } from "../apis/auth/auth";
 import { Signin, Signup } from "../types/APIRequest";
 import { AuthStatus } from "../types/user";
@@ -8,17 +7,13 @@ import {
   ResponseHandler,
   responseHandler,
 } from "../utils/common/responseHandler";
-import { ZustandStore } from "../utils/globalStore/ZustandStore";
-
-const authStore = new ZustandStore<AuthStatus>({
-  isLoggedIn: false,
-  user: {
-    email: "",
-    nick: "",
-  },
-});
+import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
 
 export const useAuth = (initialValue?: AuthStatus) => {
+  const authStore = ZustandSingletone.create<AuthStatus | undefined>(
+    "auth",
+    initialValue
+  );
   const [state, updateState] = authStore.useGlobalState();
 
   const signin = async (form: Signin, handler: ResponseHandler) => {
@@ -60,16 +55,10 @@ export const useAuth = (initialValue?: AuthStatus) => {
     }
   };
 
-  useEffect(() => {
-    if (initialValue) {
-      updateState(initialValue);
-    }
-  }, [initialValue, updateState]);
-
   return {
     data: {
-      isLoggedIn: state.isLoggedIn,
-      user: state.user,
+      isLoggedIn: state?.isLoggedIn,
+      user: state?.user,
     },
     signin,
     signup,

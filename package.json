@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next build && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -13,7 +13,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-multi-carousel": "^2.8.4",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/navermaps": "^3.7.3",

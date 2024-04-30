@@ -1,19 +1,18 @@
 "use client";
 
 import { useRef } from "react";
-import { ZustandStore } from "../utils/globalStore/ZustandStore";
+import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
 
-type Context = {
+type State = {
   isOpen: boolean;
   activeModalId: string | null;
 };
 
-const modalState = new ZustandStore<Context>({
-  isOpen: false,
-  activeModalId: null,
-});
-
 export const useModal = () => {
+  const modalState = ZustandSingletone.create<State>("modal", {
+    isOpen: false,
+    activeModalId: null,
+  });
   const [state, updateState] = modalState.useGlobalState(); // 선언할 때 할당한 context State가 내부에서 자동으로 인자로 들어감
   const modalRef = useRef<string | null>(null); // 모달의 고유한 id를 생성
 

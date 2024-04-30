@@ -37,7 +37,7 @@ const EventCommentList = ({ eventId, initComments }: Props) => {
                 </div>
 
                 {/* 수정 및 삭제 버튼은 수정 모드가 아닐 때만 표시 */}
-                {!isModifyMode.status && commenterUser.nick === user.nick && (
+                {!isModifyMode.status && commenterUser.nick === user?.nick && (
                   <div className="flex gap-2">
                     <Comment.Button
                       onClick={() => editMode.on(id, content)}

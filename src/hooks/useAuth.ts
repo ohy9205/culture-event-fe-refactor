@@ -56,8 +56,8 @@ export const useAuth = (initialValue?: AuthStatus) => {
 
   return {
     data: {
-      isLoggedIn: state?.isLoggedIn,
-      user: state?.user,
+      isLoggedIn: state?.isLoggedIn ? true : false,
+      user: state?.user ? state?.user : undefined,
     },
     signin,
     signup,

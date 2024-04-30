@@ -10,10 +10,10 @@ type Props = {
 };
 
 const MyComments = ({ comments }: Props) => {
-  console.log(comments);
   return (
     <div className="flex flex-col gap-5 w-full">
-      {comments &&
+      {comments.length === 0 && <p>작성한 댓글이 없습니다.</p>}
+      {comments.length > 0 &&
         comments.map(
           ({ eventId, createdAt, updatedAt, Event, content, id }) => (
             <div className="shadow-md" key={id}>

@@ -38,6 +38,7 @@ const MyLikes = () => {
           />
         </EventCard>
       ))}
+      {!myLikes || (myLikes.length === 0 && <p>좋아요한 이벤트가 없습니다.</p>)}
     </GridContainer>
   );
 };

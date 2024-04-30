@@ -10,6 +10,7 @@ type Props = {
 };
 
 const MyComments = ({ comments }: Props) => {
+  console.log(comments);
   return (
     <div className="flex flex-col gap-5 w-full">
       {comments &&

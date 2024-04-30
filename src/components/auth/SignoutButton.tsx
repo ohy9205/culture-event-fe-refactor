@@ -1,13 +1,20 @@
 "use client";
 
-import useSignout from "@/src/hooks/useSignout";
+import { useAuth } from "@/src/hooks/useAuth";
 import Button from "../UI/common/Button";
 
 const SignoutButton = () => {
-  const { signout } = useSignout();
+  const { signout } = useAuth();
 
   return (
-    <Button color="dark" size="sm" onClick={signout}>
+    <Button
+      color="dark"
+      size="sm"
+      onClick={() =>
+        signout({
+          success: () => (window.location.href = "/"),
+        })
+      }>
       로그아웃
     </Button>
   );

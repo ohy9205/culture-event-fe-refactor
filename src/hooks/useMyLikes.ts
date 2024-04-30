@@ -1,42 +1,21 @@
-import { useEffect } from "react";
 import { toggleLikes } from "../apis/event/v2";
-import { getMyLikes } from "../apis/user/user";
 import { MyFavoriteEvent } from "../types/user";
 import { responseHandler } from "../utils/common/responseHandler";
-import { ZustandStore } from "../utils/globalStore/ZustandStore";
+import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
 import { useAuth } from "./useAuth";
 
-type State = { likes: MyFavoriteEvent[] | [] };
+type State = { myLikes?: MyFavoriteEvent[] };
 
-// const myLikesState = new ContextStore<State>({ likes: [] });
-const myLikesState = new ZustandStore<State>({ likes: [] });
-
-const useMyLikes = () => {
+const useMyLikes = (initialState?: State) => {
+  const myLikesState = ZustandSingletone.create<State | undefined>(
+    "myLikes",
+    initialState
+  );
   const [state, updateState] = myLikesState.useGlobalState();
 
   const {
     data: { isLoggedIn },
   } = useAuth();
-
-  const addLike = (likes: MyFavoriteEvent[], event: MyFavoriteEvent) => {
-    return [...likes, event];
-  };
-
-  const removeLike = (likes: MyFavoriteEvent[], event: MyFavoriteEvent) => {
-    return likes.filter((it) => it.id !== event.id);
-  };
-
-  const fetching = async () => {
-    const rs = await getMyLikes();
-    if (rs) {
-      responseHandler(rs, {
-        success: () => {
-          updateState({ likes: rs.payload.data });
-        },
-      });
-    }
-    return rs;
-  };
 
   const toggleLike = async (eventId: number) => {
     if (!isLoggedIn) {
@@ -50,12 +29,13 @@ const useMyLikes = () => {
           const {
             payload: { event, eventLikesCount },
           } = rs;
-          if (state.likes?.find((event) => event.id === eventId)) {
-            const newLikes = removeLike(state.likes, event);
-            updateState({ likes: newLikes });
+          // state에 존재하는 아이템이면 삭제, 없는 아이템이면 추가
+          if (state?.myLikes?.find((event) => event.id === eventId)) {
+            const newLikes = removeLike(event, state.myLikes);
+            updateState({ myLikes: newLikes });
           } else {
-            const newLikes = addLike(state.likes, event);
-            updateState({ likes: newLikes });
+            const newLikes = addLike(event, state?.myLikes);
+            updateState({ myLikes: newLikes });
           }
           count = eventLikesCount;
         },
@@ -64,22 +44,23 @@ const useMyLikes = () => {
     return count;
   };
 
-  // 로그아웃 시 초기화, 로그인 시 데이터패칭
-  useEffect(() => {
-    if (!isLoggedIn) {
-      updateState({ likes: [] });
-    } else {
-      if (state.likes.length < 1) {
-        fetching();
-      }
-    }
-  }, [isLoggedIn, state.likes.length, updateState]);
-
   return {
-    data: { likes: state.likes },
+    data: { myLikes: state?.myLikes },
     toggleLike,
     Provider: myLikesState.StoreProvider,
   };
+};
+
+const addLike = (newEvent: MyFavoriteEvent, likes?: MyFavoriteEvent[]) => {
+  if (!likes) {
+    return [newEvent];
+  } else {
+    return [...likes, newEvent];
+  }
+};
+
+const removeLike = (removeEvent: MyFavoriteEvent, likes: MyFavoriteEvent[]) => {
+  return likes.filter((it) => it.id !== removeEvent.id);
 };
 
 export default useMyLikes;

@@ -5,11 +5,11 @@ import { MyFavoriteEvent } from "../types/user";
 
 type Props = {
   children: React.ReactNode;
-  likesEvent?: MyFavoriteEvent[];
+  initialValue?: MyFavoriteEvent[];
 };
 
-export const MyLikesProvider = ({ children, likesEvent }: Props) => {
-  const initialState = { myLikes: likesEvent };
+export const MyLikesProvider = ({ children, initialValue }: Props) => {
+  const initialState = { myLikes: initialValue };
   const { Provider } = useMyLikes(initialState);
 
   return <Provider initialState={initialState}>{children}</Provider>;

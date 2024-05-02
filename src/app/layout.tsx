@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import { Inter } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { getMyLikes, getUserMe } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
@@ -14,7 +14,7 @@ import { Token } from "../utils/token/token";
 import Error from "./global-error";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const notoSans = Noto_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Seoul Event Info",
@@ -46,7 +46,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${inter.className} flex flex-col justify-center items-center`}>
+        className={`${notoSans.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
             <HydrationZustand>

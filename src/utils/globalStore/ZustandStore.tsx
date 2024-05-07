@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { create } from "zustand";
 import { GlobalStoreAdapter } from "./Adapter";
 
@@ -34,6 +34,13 @@ export class ZustandStore<T> implements GlobalStoreAdapter<T> {
     children: React.ReactNode;
     initialState?: T;
   }) => {
-    return <>{children}</>;
+    const [isHydrated, setIsHydrated] = useState(false);
+
+    // Wait till Next.js rehydration completes
+    useEffect(() => {
+      setIsHydrated(true);
+    }, []);
+
+    return <>{isHydrated ? children : null}</>;
   };
 }

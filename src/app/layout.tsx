@@ -5,9 +5,8 @@ import Script from "next/script";
 import { getMyLikes, getUserMe } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
 import { AuthProvider } from "../provider/AuthProvider";
-import HydrationZustand from "../provider/HydrdationZustand";
 import { MyLikesProvider } from "../provider/MyLikesProvider";
-import SWRProvider from "../provider/swrProvider";
+import SWRProvider from "../provider/SWRProvider";
 import { MyFavoriteEvent, User } from "../types/user";
 import { Cookie } from "../utils/store/cookieAdapter";
 import { Token } from "../utils/token/token";
@@ -49,15 +48,13 @@ export default async function RootLayout({
         className={`${notoSans.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
-            <HydrationZustand>
-              <AuthProvider initialValue={userInfo}>
-                <MyLikesProvider initialValue={likesEvent}>
-                  <div id="modal"></div>
-                  <Header />
-                  {children}
-                </MyLikesProvider>
-              </AuthProvider>
-            </HydrationZustand>
+            <AuthProvider initialValue={userInfo}>
+              <MyLikesProvider initialValue={likesEvent}>
+                <div id="modal"></div>
+                <Header />
+                {children}
+              </MyLikesProvider>
+            </AuthProvider>
           </SWRProvider>
         </ErrorBoundary>
       </body>

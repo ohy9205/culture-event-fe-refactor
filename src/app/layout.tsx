@@ -38,7 +38,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <Script
           src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2bye4zyjsa`}

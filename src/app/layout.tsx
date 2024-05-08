@@ -13,6 +13,8 @@ import { Token } from "../utils/token/Token";
 import Error from "./global-error";
 import "./globals.css";
 
+type Props = { children: React.ReactNode };
+
 const notoSans = Noto_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   description: "서울시에서 개최하는 문화행사 정보를 제공합니다.",
 };
 
-const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: Props) => {
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];

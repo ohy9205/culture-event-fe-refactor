@@ -8,6 +8,8 @@ import {
   ORDER_BY,
 } from "@/src/utils/data/eventFilter";
 
+type Props = { query: Record<string, any> };
+
 const { name: locationName, options: locationOptions } = LOCATION;
 const { name: categoryName, options: categoryOptions } = CATEGORY;
 const { name: isFreeName, options: isFreeOptions } = IS_FREE;
@@ -15,7 +17,7 @@ const { name: orderByName, options: orderByOptions } = ORDER_BY;
 
 const SELECT_STYLE = `w-full h-full px-4 py-2 rounded-md bg-slate-100`;
 
-const ControlBox = ({ query }: { query: Record<string, any> }) => {
+const ControlBox = ({ query }: Props) => {
   const { onFilterChange } = useEventFilter(query);
 
   return (

@@ -5,11 +5,11 @@ import FilteredEventList from "@/src/components/event/FilteredEventList";
 import { Cookie } from "@/src/utils/localStore/Cookie";
 import { Token } from "@/src/utils/token/Token";
 
-const Event = async ({
-  searchParams: query,
-}: {
+type Props = {
   searchParams: Record<string, any>;
-}) => {
+};
+
+const Event = async ({ searchParams: query }: Props) => {
   const { allToken } = new Token(new Cookie());
   let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
   const rs = await getFilteredEvents(apiQuery, allToken);

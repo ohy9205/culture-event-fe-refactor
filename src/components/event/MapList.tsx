@@ -8,7 +8,9 @@ import StaticMap from "../UI/common/StaticMap";
 import EventCard from "./EventCard";
 import EventDetailModal from "./EventDetailModal";
 
-const MapList = ({ list }: { list: SimpleEvent[] }) => {
+type Props = { list: SimpleEvent[] };
+
+const MapList = ({ list }: Props) => {
   const {
     data: { curEvent },
     changeCurrentEvent,

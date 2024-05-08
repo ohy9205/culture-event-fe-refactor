@@ -11,6 +11,11 @@ type Props = {
   eventId: number;
 };
 
+type InnerProps = {
+  eventId: number;
+  trigger: React.ReactNode;
+};
+
 const EventDetailModal = ({ trigger, eventId }: Props) => {
   return (
     <ModalProvider>
@@ -19,13 +24,7 @@ const EventDetailModal = ({ trigger, eventId }: Props) => {
   );
 };
 
-const ModalInner = ({
-  eventId,
-  trigger,
-}: {
-  eventId: number;
-  trigger: React.ReactNode;
-}) => {
+const ModalInner = ({ eventId, trigger }: InnerProps) => {
   const {
     open,
     close,

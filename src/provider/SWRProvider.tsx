@@ -2,7 +2,9 @@
 
 import { SWRConfig } from "swr";
 
-const SWRProvider = ({ children }: { children: React.ReactNode }) => {
+type Props = { children: React.ReactNode };
+
+const SWRProvider = ({ children }: Props) => {
   return <SWRConfig>{children}</SWRConfig>;
 };
 

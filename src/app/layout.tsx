@@ -20,11 +20,7 @@ export const metadata: Metadata = {
   description: "서울시에서 개최하는 문화행사 정보를 제공합니다.",
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   // 쿠키에서 토큰 정보확인
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
@@ -60,4 +56,6 @@ export default async function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

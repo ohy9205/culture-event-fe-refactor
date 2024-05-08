@@ -9,29 +9,29 @@ import { Fetch } from "@/src/utils/fetch/Fetch";
 
 const url = API_USER;
 
-export async function getUserMe(
+export const getUserMe = async (
   cookie?: Record<string, any>
-): Promise<APIResponse<UserInfoPayload>> {
+): Promise<APIResponse<UserInfoPayload>> => {
   const apiFetch = new Fetch(cookie);
   const rs = await apiFetch.fetching<UserInfoPayload>(`${url}/me`);
 
   return rs;
-}
+};
 
-export async function getMyLikes(
+export const getMyLikes = async (
   cookie?: Record<string, any>
-): Promise<APIResponse<UserLikesPayload>> {
+): Promise<APIResponse<UserLikesPayload>> => {
   const apiFetch = new Fetch(cookie);
   const rs = await apiFetch.fetching<UserLikesPayload>(`${url}/liked-events`);
 
   return rs;
-}
+};
 
-export async function getMyComments(
+export const getMyComments = async (
   cookie?: Record<string, any>
-): Promise<APIResponse<UserCommentsPayload>> {
+): Promise<APIResponse<UserCommentsPayload>> => {
   const apiFetch = new Fetch(cookie);
   const rs = await apiFetch.fetching<UserCommentsPayload>(`${url}/comments`);
 
   return rs;
-}
+};

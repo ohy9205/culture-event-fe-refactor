@@ -35,7 +35,7 @@ const useEventFilter = (query: Record<string, any>) => {
   };
 };
 
-function clearQuery(query: Record<string, any>): Record<string, any> {
+const clearQuery = (query: Record<string, any>): Record<string, any> => {
   const cleanedQuery: Record<string, any> = {};
   Object.keys(query).forEach((key) => {
     if (query[key] !== "") {
@@ -44,6 +44,6 @@ function clearQuery(query: Record<string, any>): Record<string, any> {
   });
 
   return cleanedQuery;
-}
+};
 
 export default useEventFilter;

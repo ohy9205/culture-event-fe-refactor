@@ -18,11 +18,11 @@ const ErrorPage = ({ params: { status } }: Props) => {
   return <UnknownErrorContent status={status} />;
 };
 
-export function generateStaticParams() {
+export const generateStaticParams = () => {
   const errorStatus = ["404", "403"];
   return errorStatus.map((status) => ({
     status,
   }));
-}
+};
 
 export default ErrorPage;

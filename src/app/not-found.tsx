@@ -1,5 +1,7 @@
 import NotFoundErrorContent from "../components/error/NotFoundErrorContent";
 
-export default async function NotFound() {
+const NotFound = async () => {
   return <NotFoundErrorContent />;
-}
+};
+
+export default NotFound;

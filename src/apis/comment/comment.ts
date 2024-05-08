@@ -10,22 +10,22 @@ import { Fetch } from "@/src/utils/fetch/Fetch";
 const url = API_COMMENT;
 
 // 코멘트 추가
-export async function addComment(
+export const addComment = async (
   content: string,
   eventId: number
-): Promise<APIResponse<AddCommentPayload>> {
+): Promise<APIResponse<AddCommentPayload>> => {
   const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   apiFetch.setBody({ eventId, content });
   const rs = await apiFetch.fetching<AddCommentPayload>(url);
 
   return rs;
-}
+};
 
 // 코멘트 제거
-export async function deleteComment(
+export const deleteComment = async (
   commentId: number
-): Promise<APIResponse<DeleteCommentPayload>> {
+): Promise<APIResponse<DeleteCommentPayload>> => {
   const apiFetch = new Fetch();
   apiFetch.setMethod("DELETE");
   const rs = await apiFetch.fetching<DeleteCommentPayload>(
@@ -33,13 +33,13 @@ export async function deleteComment(
   );
 
   return rs;
-}
+};
 
 // 코멘트 수정
-export async function patchComment(
+export const patchComment = async (
   content: string,
   commentId: number
-): Promise<APIResponse<PatchCommentPayload>> {
+): Promise<APIResponse<PatchCommentPayload>> => {
   const apiFetch = new Fetch();
   apiFetch.setMethod("PATCH");
   apiFetch.setBody({ content });
@@ -48,4 +48,4 @@ export async function patchComment(
   );
 
   return rs;
-}
+};

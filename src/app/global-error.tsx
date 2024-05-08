@@ -8,7 +8,7 @@ type Props = {
   reset: () => void;
 };
 
-function Error({ error, reset }: Props) {
+const Error = ({ error, reset }: Props) => {
   return (
     <>
       <UnknownErrorContent />
@@ -18,6 +18,6 @@ function Error({ error, reset }: Props) {
       </Button>
     </>
   );
-}
+};
 
 export default Error;

@@ -10,9 +10,9 @@ import { Fetch } from "@/src/utils/fetch/Fetch";
 const url = API_V1;
 
 // 최신순
-export async function getRecentEvents(): Promise<
+export const getRecentEvents = async (): Promise<
   APIResponse<EventThumbnail[]>
-> {
+> => {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/latest`);
@@ -26,10 +26,12 @@ export async function getRecentEvents(): Promise<
     ...rs,
     payload: data,
   };
-}
+};
 
 //인기순
-export async function getHotEvents(): Promise<APIResponse<EventThumbnail[]>> {
+export const getHotEvents = async (): Promise<
+  APIResponse<EventThumbnail[]>
+> => {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/likes`);
@@ -43,10 +45,12 @@ export async function getHotEvents(): Promise<APIResponse<EventThumbnail[]>> {
     ...rs,
     payload: data,
   };
-}
+};
 
 //조회순
-export async function getViewEvents(): Promise<APIResponse<EventThumbnail[]>> {
+export const getViewEvents = async (): Promise<
+  APIResponse<EventThumbnail[]>
+> => {
   const apiFetch = new Fetch();
   apiFetch.setRevalidate(21600);
   const rs = await apiFetch.fetching<MainEventsPayload>(`${url}/views`);
@@ -60,14 +64,14 @@ export async function getViewEvents(): Promise<APIResponse<EventThumbnail[]>> {
     ...rs,
     payload: data,
   };
-}
+};
 
 // 상세정보
-export async function getEventDetailWithoutLogin(
+export const getEventDetailWithoutLogin = async (
   id: number
-): Promise<APIResponse<EventDetailPayload>> {
+): Promise<APIResponse<EventDetailPayload>> => {
   const apiFetch = new Fetch();
   const rs = await apiFetch.fetching<EventDetailPayload>(`${url}/${id}`);
 
   return rs;
-}
+};

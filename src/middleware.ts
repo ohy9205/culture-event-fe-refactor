@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { Cookie } from "./utils/localStore/Cookie";
 import { Token } from "./utils/token/Token";
 
-export async function middleware(request: NextRequest) {
+export const middleware = async (request: NextRequest) => {
   const { at, rt } = new Token(new Cookie());
   if (request.nextUrl.pathname === "/signup") {
     if (at && rt) {
@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.rewrite(new URL("/checkAuth", request.url));
     }
   }
-}
+};
 
 export const config = {
   matcher: ["/event/:path*", "/my-page", "/signup"],

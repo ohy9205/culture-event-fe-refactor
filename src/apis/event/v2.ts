@@ -14,10 +14,10 @@ import { Fetch } from "@/src/utils/fetch/Fetch";
 const url = API_V2;
 const PAGE_SIZE = 12;
 //  필터링
-export async function getFilteredEvents(
+export const getFilteredEvents = async (
   queryObj: Record<string, any>,
   cookie?: Record<string, any>
-): Promise<APIResponse<{ events: SimpleEvent[]; totalPage: number }>> {
+): Promise<APIResponse<{ events: SimpleEvent[]; totalPage: number }>> => {
   const apiFetch = new Fetch(cookie);
 
   const rs = await apiFetch.fetching<FilteredEventsPayload>(
@@ -33,34 +33,34 @@ export async function getFilteredEvents(
     ...rs,
     payload,
   };
-}
+};
 
 // 상세정보
-export async function getEventDetailWithLogin(
+export const getEventDetailWithLogin = async (
   id: number
-): Promise<APIResponse<EventDetailPayload>> {
+): Promise<APIResponse<EventDetailPayload>> => {
   const apiFetch = new Fetch();
   const rs = await apiFetch.fetching<EventDetailPayload>(`${url}/${id}`);
 
   return rs;
-}
+};
 
 // 해당 이벤트 코멘트
-export async function getComments(
+export const getComments = async (
   eventId: number
-): Promise<APIResponse<EventCommentsPayload>> {
+): Promise<APIResponse<EventCommentsPayload>> => {
   const apiFetch = new Fetch();
   const rs = await apiFetch.fetching<EventCommentsPayload>(
     `${url}/${eventId}/comments`
   );
 
   return rs;
-}
+};
 
 // 좋아요 토글
-export async function toggleLikes(
+export const toggleLikes = async (
   eventId: number
-): Promise<APIResponse<ToggleLikesPayload>> {
+): Promise<APIResponse<ToggleLikesPayload>> => {
   const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   const rs = await apiFetch.fetching<ToggleLikesPayload>(
@@ -68,4 +68,4 @@ export async function toggleLikes(
   );
 
   return rs;
-}
+};

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function CheckAuthPage() {
+const CheckAuthPage = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -12,4 +12,6 @@ export default function CheckAuthPage() {
   }, [router]);
 
   return <></>;
-}
+};
+
+export default CheckAuthPage;

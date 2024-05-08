@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { LocalStoreAdapter } from "./LocalStoreAdapter";
+import LocalStoreAdapter from "./LocalStoreAdapter";
 
-export class Cookie implements LocalStoreAdapter {
+class Cookie implements LocalStoreAdapter {
   getItem(name: string): string | undefined {
     return cookies().get(name)?.value;
   }
@@ -12,3 +12,5 @@ export class Cookie implements LocalStoreAdapter {
     cookies().delete(name);
   }
 }
+
+export default Cookie;

@@ -5,8 +5,8 @@ import MyComments from "@/src/components/user/MyComments";
 import MyInfo from "@/src/components/user/MyInfo";
 import MyLikes from "@/src/components/user/MyLikes";
 import { MyComment } from "@/src/types/user";
-import { Cookie } from "@/src/utils/localStore/Cookie";
-import { Token } from "@/src/utils/token/Token";
+import Cookie from "@/src/utils/localStore/Cookie";
+import Token from "@/src/utils/token/Token";
 
 const MyPage = async () => {
   const token = new Token(new Cookie()).allToken;
@@ -33,8 +33,6 @@ const MyPage = async () => {
   );
 };
 
-export default MyPage;
-
 // 작성일순으로 댓글 정렬
 const sortByCreatedAt = (comments: MyComment[]) => {
   return comments.sort((a, b) => {
@@ -44,3 +42,5 @@ const sortByCreatedAt = (comments: MyComment[]) => {
     return dateB.getTime() - dateA.getTime(); // 날짜가 빠른 순으로 정렬
   });
 };
+
+export default MyPage;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/src/hooks/useAuth";
+import useAuth from "@/src/hooks/useAuth";
 import useComment from "@/src/hooks/useComment";
 import { Comment as CommentType } from "@/src/types/events";
 import Comment from "./Comment";

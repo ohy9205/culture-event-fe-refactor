@@ -5,7 +5,7 @@ import {
 } from "@/src/types/APIResponse";
 import { Event, EventThumbnail } from "@/src/types/events";
 import { API_V1 } from "@/src/utils/data/apiUrl";
-import { Fetch } from "@/src/utils/fetch/Fetch";
+import Fetch from "@/src/utils/fetch/Fetch";
 
 const url = API_V1;
 

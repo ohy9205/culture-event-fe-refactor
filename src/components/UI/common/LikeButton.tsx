@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/src/hooks/useAuth";
+import useAuth from "@/src/hooks/useAuth";
 import useLikeToggle from "@/src/hooks/useLikeToggle";
 
 type Props = {
@@ -42,8 +42,6 @@ const LikeButton = ({ eventId, children, background }: Props) => {
   );
 };
 
-export default LikeButton;
-
 const style = (background: boolean = false, isLoggedIn: boolean) => {
   const basic = "text-md";
   const bg = background ? "bg-slate-800 rounded-md p-2" : "";
@@ -51,3 +49,5 @@ const style = (background: boolean = false, isLoggedIn: boolean) => {
 
   return `${basic} ${bg} ${cursor}`;
 };
+
+export default LikeButton;

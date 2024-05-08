@@ -1,9 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { GlobalStoreAdapter } from "./Adapter";
+import GlobalStoreAdapter from "./Adapter";
 
-export class ContextStore<T> implements GlobalStoreAdapter<T> {
+class ContextStore<T> implements GlobalStoreAdapter<T> {
   private Context: React.Context<[T, (newState: Partial<T>) => void]>;
 
   // context를 생성함. state 정보, 타입들은 외부에서 받음(제네릭사용)
@@ -37,3 +37,5 @@ export class ContextStore<T> implements GlobalStoreAdapter<T> {
     );
   };
 }
+
+export default ContextStore;

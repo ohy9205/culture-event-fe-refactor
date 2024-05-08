@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { create } from "zustand";
-import { GlobalStoreAdapter } from "./Adapter";
+import GlobalStoreAdapter from "./Adapter";
 
 type State<T> = { state: T; updateState: (newState: Partial<T>) => void };
 
-export class ZustandStore<T> implements GlobalStoreAdapter<T> {
+class ZustandStore<T> implements GlobalStoreAdapter<T> {
   private useStore; // zustnad Create타입이 됨
 
   constructor(initialState: T) {
@@ -44,3 +44,5 @@ export class ZustandStore<T> implements GlobalStoreAdapter<T> {
     return <>{isHydrated ? children : null}</>;
   };
 }
+
+export default ZustandStore;

@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { Cookie } from "./utils/localStore/Cookie";
-import { Token } from "./utils/token/Token";
+import Cookie from "./utils/localStore/Cookie";
+import Token from "./utils/token/Token";
 
-export const middleware = async (request: NextRequest) => {
+const middleware = async (request: NextRequest) => {
   const { at, rt } = new Token(new Cookie());
   if (request.nextUrl.pathname === "/signup") {
     if (at && rt) {
@@ -18,3 +18,5 @@ export const middleware = async (request: NextRequest) => {
 export const config = {
   matcher: ["/event/:path*", "/my-page", "/signup"],
 };
+
+export default middleware;

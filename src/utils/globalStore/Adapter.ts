@@ -1,4 +1,4 @@
-export interface GlobalStoreAdapter<T> {
+interface GlobalStoreAdapter<T> {
   // 1. state사용함수. state와 state를 변경하는 함수를 반환함
   useGlobalState: () => [T, (newState: Partial<T>) => void];
   // 2. provider제공
@@ -10,3 +10,5 @@ export interface GlobalStoreAdapter<T> {
     initialState?: T;
   }) => React.ReactNode;
 }
+
+export default GlobalStoreAdapter;

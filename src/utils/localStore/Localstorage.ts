@@ -1,6 +1,6 @@
-import { LocalStoreAdapter } from "./LocalStoreAdapter";
+import LocalStoreAdapter from "./LocalStoreAdapter";
 
-export class Localstorage implements LocalStoreAdapter {
+class Localstorage implements LocalStoreAdapter {
   getItem(name: string): string | null {
     return localStorage.getItem(name);
   }
@@ -11,3 +11,5 @@ export class Localstorage implements LocalStoreAdapter {
     localStorage.removeItem(name);
   }
 }
+
+export default Localstorage;

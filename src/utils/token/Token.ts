@@ -1,5 +1,5 @@
-import { Cookie } from "@/src/utils/localStore/Cookie";
-import { Localstorage } from "../localStore/Localstorage";
+import Cookie from "../localStore/Cookie";
+import Localstorage from "../localStore/Localstorage";
 
 type Adapter = Cookie | Localstorage;
 type TokenItme = string | null | undefined;
@@ -8,7 +8,7 @@ type Tokens = {
   rt: TokenItme;
 };
 
-export class Token {
+class Token {
   private adapter: Adapter;
   private token: Tokens;
   constructor(classAdapter: Cookie | Localstorage) {
@@ -39,3 +39,5 @@ export class Token {
     this.token.rt = tokens.rt;
   }
 }
+
+export default Token;

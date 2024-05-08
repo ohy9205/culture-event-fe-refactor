@@ -1,6 +1,6 @@
-import { ZustandStore } from "./ZustandStore";
+import ZustandStore from "./ZustandStore";
 
-export class ZustandSingletone {
+class ZustandSingletone {
   private static instances: Map<string, ZustandStore<any>> = new Map();
 
   static create<T>(key: string, initialState: T): ZustandStore<T> {
@@ -10,3 +10,5 @@ export class ZustandSingletone {
     return this.instances.get(key) as ZustandStore<T>;
   }
 }
+
+export default ZustandSingletone;

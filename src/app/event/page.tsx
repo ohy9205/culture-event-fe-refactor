@@ -2,8 +2,8 @@ import { getFilteredEvents } from "@/src/apis/event/v2";
 import Pagination from "@/src/components/UI/common/Pagination";
 import ControlBox from "@/src/components/event/ControlBox";
 import FilteredEventList from "@/src/components/event/FilteredEventList";
-import { Cookie } from "@/src/utils/localStore/Cookie";
-import { Token } from "@/src/utils/token/Token";
+import Cookie from "@/src/utils/localStore/Cookie";
+import Token from "@/src/utils/token/Token";
 
 type Props = {
   searchParams: Record<string, any>;

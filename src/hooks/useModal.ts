@@ -1,14 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
+import ZustandSingletone from "../utils/globalStore/ZustandSingletone";
 
 type State = {
   isOpen: boolean;
   activeModalId: string | null;
 };
 
-export const useModal = () => {
+const useModal = () => {
   const modalState = ZustandSingletone.create<State>("modal", {
     isOpen: false,
     activeModalId: null,
@@ -32,3 +32,5 @@ export const useModal = () => {
     Provider: modalState.StoreProvider,
   };
 };
+
+export default useModal;

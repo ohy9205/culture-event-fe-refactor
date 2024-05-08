@@ -6,7 +6,7 @@ import {
 } from "../apis/comment/comment";
 import { getComments } from "../apis/event/v2";
 import { Comment } from "../types/events";
-import { responseHandler } from "../utils/common/responseHandler";
+import responseHandler from "../utils/common/responseHandler";
 
 const useComment = (eventId: number, initComments?: Comment[]) => {
   const [comments, setComments] = useState<Comment[] | undefined>(initComments);

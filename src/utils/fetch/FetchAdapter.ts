@@ -1,6 +1,6 @@
 import { APIResponse } from "@/src/types/APIResponse";
 
-export interface FetchAdapter {
+interface FetchAdapter {
   setMethod(method: string): void;
   setBody(body: Record<string, any>): void;
   setCredentials(credentials: string): void;
@@ -9,3 +9,5 @@ export interface FetchAdapter {
   setCache(cache: RequestCache): void;
   fetching<T>(url: string): Promise<APIResponse<T> | undefined>;
 }
+
+export default FetchAdapter;

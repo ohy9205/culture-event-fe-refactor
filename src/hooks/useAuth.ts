@@ -3,15 +3,14 @@
 import { postSignin, postSignout, postSignup } from "../apis/auth/auth";
 import { Signin, Signup } from "../types/APIRequest";
 import { AuthStatus } from "../types/user";
-import {
+import responseHandler, {
   ResponseHandler,
-  responseHandler,
 } from "../utils/common/responseHandler";
-import { ZustandSingletone } from "../utils/globalStore/ZustandSingletone";
+import ZustandSingletone from "../utils/globalStore/ZustandSingletone";
 
 type State = AuthStatus | undefined;
 
-export const useAuth = (initialValue?: AuthStatus) => {
+const useAuth = (initialValue?: AuthStatus) => {
   const authStore = ZustandSingletone.create<State>("auth", initialValue);
   const [state, updateState] = authStore.useGlobalState();
 
@@ -65,3 +64,5 @@ export const useAuth = (initialValue?: AuthStatus) => {
     Provider: authStore.StoreProvider,
   };
 };
+
+export default useAuth;

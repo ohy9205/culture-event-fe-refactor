@@ -2,7 +2,7 @@
 
 import { Signin } from "../types/APIRequest";
 import { APIResponse } from "../types/APIResponse";
-import { useAuth } from "./useAuth";
+import useAuth from "./useAuth";
 import useForm from "./useForm";
 
 const useSignin = () => {

@@ -4,12 +4,12 @@ import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
 import { getMyLikes, getUserMe } from "../apis/user/user";
 import Header from "../components/UI/layout/Header";
-import { AuthProvider } from "../provider/AuthProvider";
-import { MyLikesProvider } from "../provider/MyLikesProvider";
+import AuthProvider from "../provider/AuthProvider";
+import MyLikesProvider from "../provider/MyLikesProvider";
 import SWRProvider from "../provider/SWRProvider";
 import { MyFavoriteEvent, User } from "../types/user";
-import { Cookie } from "../utils/localStore/Cookie";
-import { Token } from "../utils/token/Token";
+import Cookie from "../utils/localStore/Cookie";
+import Token from "../utils/token/Token";
 import Error from "./global-error";
 import "./globals.css";
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent } from "react";
 import { Signup } from "../types/APIRequest";
 import { APIResponse } from "../types/APIResponse";
-import { useAuth } from "./useAuth";
+import useAuth from "./useAuth";
 import useForm from "./useForm";
 
 const useSignup = () => {

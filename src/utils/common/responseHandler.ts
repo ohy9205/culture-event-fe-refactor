@@ -8,10 +8,7 @@ export type ResponseHandler = {
 };
 
 // response handler
-export const responseHandler = <T>(
-  rs: APIResponse<T>,
-  handler: ResponseHandler
-) => {
+const responseHandler = <T>(rs: APIResponse<T>, handler: ResponseHandler) => {
   if (rs.status === 200 || rs.status === 201) {
     if (handler.success) {
       handler.success(rs);
@@ -36,3 +33,5 @@ export const responseHandler = <T>(
     window.location.replace(`/error/${rs.status}`);
   }
 };
+
+export default responseHandler;

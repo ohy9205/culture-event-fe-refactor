@@ -1,8 +1,8 @@
 import { APIResponse } from "@/src/types/APIResponse";
 import { objectToQueryString } from "@/src/utils/common/objectController";
-import { FetchAdapter } from "./FetchAdapter";
+import FetchAdapter from "./FetchAdapter";
 
-export class Fetch implements FetchAdapter {
+class Fetch implements FetchAdapter {
   private fetchOptions: RequestInit;
 
   // fetch 초기설정
@@ -73,3 +73,5 @@ export class Fetch implements FetchAdapter {
     }
   }
 }
+
+export default Fetch;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import { User } from "../types/user";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   initialValue?: User;
 };
 
-export const AuthProvider = ({
+const AuthProvider = ({
   children,
   initialValue, // {email, nick, id ...}
 }: Props) => {
@@ -26,3 +26,5 @@ export const AuthProvider = ({
 
   return <Provider initialState={initialState}>{children}</Provider>;
 };
+
+export default AuthProvider;

@@ -9,7 +9,7 @@ import { SimpleEvent } from "@/src/types/events";
 
 import { objectToQueryString } from "@/src/utils/common/objectController";
 import { API_V2 } from "@/src/utils/data/apiUrl";
-import { Fetch } from "@/src/utils/fetch/fetchAdapter";
+import { Fetch } from "@/src/utils/fetch/Fetch";
 
 const url = API_V2;
 const PAGE_SIZE = 12;

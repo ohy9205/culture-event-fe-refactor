@@ -6,7 +6,7 @@ import {
   SignupPayload,
 } from "@/src/types/APIResponse";
 import { API_AUTH } from "@/src/utils/data/apiUrl";
-import { Fetch } from "@/src/utils/fetch/fetchAdapter";
+import { Fetch } from "@/src/utils/fetch/Fetch";
 
 const url = API_AUTH;
 

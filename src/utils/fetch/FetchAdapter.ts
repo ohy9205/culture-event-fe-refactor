@@ -1,6 +1,6 @@
 import { APIResponse } from "@/src/types/APIResponse";
 
-export interface APIAdapter {
+export interface FetchAdapter {
   setMethod(method: string): void;
   setBody(body: Record<string, any>): void;
   setCredentials(credentials: string): void;

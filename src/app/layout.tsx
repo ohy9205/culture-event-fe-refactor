@@ -8,7 +8,7 @@ import { AuthProvider } from "../provider/AuthProvider";
 import { MyLikesProvider } from "../provider/MyLikesProvider";
 import SWRProvider from "../provider/SWRProvider";
 import { MyFavoriteEvent, User } from "../types/user";
-import { Cookie } from "../utils/store/cookieAdapter";
+import { Cookie } from "../utils/localStore/Cookie";
 import { Token } from "../utils/token/token";
 import Error from "./global-error";
 import "./globals.css";

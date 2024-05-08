@@ -1,6 +1,6 @@
-import { StoreAdapter } from "./adapter";
+import { LocalStoreAdapter } from "./LocalStoreAdapter";
 
-export class Localstorage implements StoreAdapter {
+export class Localstorage implements LocalStoreAdapter {
   getItem(name: string): string | null {
     return localStorage.getItem(name);
   }

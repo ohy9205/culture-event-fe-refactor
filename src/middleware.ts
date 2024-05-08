@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { Cookie } from "./utils/store/cookieAdapter";
+import { Cookie } from "./utils/localStore/Cookie";
 import { Token } from "./utils/token/token";
 
 export async function middleware(request: NextRequest) {

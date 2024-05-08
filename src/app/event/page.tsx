@@ -2,7 +2,7 @@ import { getFilteredEvents } from "@/src/apis/event/v2";
 import Pagination from "@/src/components/UI/common/Pagination";
 import ControlBox from "@/src/components/event/ControlBox";
 import FilteredEventList from "@/src/components/event/FilteredEventList";
-import { Cookie } from "@/src/utils/store/cookieAdapter";
+import { Cookie } from "@/src/utils/localStore/Cookie";
 import { Token } from "@/src/utils/token/token";
 
 export default async function Event({

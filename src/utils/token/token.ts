@@ -1,5 +1,5 @@
-import { Cookie } from "@/src/utils/store/cookieAdapter";
-import { Localstorage } from "../store/localstorageAdapter";
+import { Cookie } from "@/src/utils/localStore/Cookie";
+import { Localstorage } from "../localStore/Localstorage";
 
 type Adapter = Cookie | Localstorage;
 type TokenItme = string | null | undefined;

@@ -6,7 +6,7 @@ import MyInfo from "@/src/components/user/MyInfo";
 import MyLikes from "@/src/components/user/MyLikes";
 import { MyComment } from "@/src/types/user";
 import { Cookie } from "@/src/utils/localStore/Cookie";
-import { Token } from "@/src/utils/token/token";
+import { Token } from "@/src/utils/token/Token";
 
 const MyPage = async () => {
   const token = new Token(new Cookie()).allToken;

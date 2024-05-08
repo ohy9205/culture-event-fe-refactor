@@ -3,7 +3,7 @@ import Pagination from "@/src/components/UI/common/Pagination";
 import ControlBox from "@/src/components/event/ControlBox";
 import FilteredEventList from "@/src/components/event/FilteredEventList";
 import { Cookie } from "@/src/utils/localStore/Cookie";
-import { Token } from "@/src/utils/token/token";
+import { Token } from "@/src/utils/token/Token";
 
 export default async function Event({
   searchParams: query,

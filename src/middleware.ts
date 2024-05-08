@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { Cookie } from "./utils/localStore/Cookie";
-import { Token } from "./utils/token/token";
+import { Token } from "./utils/token/Token";
 
 export async function middleware(request: NextRequest) {
   const { at, rt } = new Token(new Cookie());

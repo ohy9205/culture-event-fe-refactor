@@ -1,4 +1,4 @@
-import NotFoundErrorContent from "../components/error/NotFoundErrorContent";
+import NotFoundErrorContent from "@/src/components/error/NotFoundErrorContent";
 
 const NotFound = async () => {
   return <NotFoundErrorContent />;

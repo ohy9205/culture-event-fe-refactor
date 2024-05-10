@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
-import { getMyLikes, getUserMe } from "../apis/user/user";
-import Header from "../components/UI/layout/Header";
-import AuthProvider from "../provider/AuthProvider";
-import MyLikesProvider from "../provider/MyLikesProvider";
-import SWRProvider from "../provider/SWRProvider";
-import { MyFavoriteEvent, User } from "../types/user";
-import Cookie from "../utils/localStore/Cookie";
-import Token from "../utils/token/Token";
+
+import { getMyLikes, getUserMe } from "@/src/apis/user/user";
+import Header from "@/src/components/UI/layout/Header";
+import AuthProvider from "@/src/provider/AuthProvider";
+import MyLikesProvider from "@/src/provider/MyLikesProvider";
+import SWRProvider from "@/src/provider/SWRProvider";
+import { MyFavoriteEvent, User } from "@/src/types/user";
+import Cookie from "@/src/utils/localStore/Cookie";
+import Token from "@/src/utils/token/Token";
 import Error from "./global-error";
 import "./globals.css";
 

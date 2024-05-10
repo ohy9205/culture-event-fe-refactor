@@ -1,9 +1,9 @@
 import { getMyComments } from "@/src/apis/user/user";
 import SectionHeader from "@/src/components/UI/common/SectionHeader";
 import SignoutButton from "@/src/components/auth/SignoutButton";
-import MyComments from "@/src/components/user/MyComments";
-import MyInfo from "@/src/components/user/MyInfo";
-import MyLikes from "@/src/components/user/MyLikes";
+import MyComments from "@/src/entities/user/MyComments";
+import MyInfo from "@/src/entities/user/MyInfo";
+import MyLikes from "@/src/entities/user/MyLikes";
 import { MyComment } from "@/src/types/user";
 import Cookie from "@/src/utils/localStore/Cookie";
 import Token from "@/src/utils/token/Token";

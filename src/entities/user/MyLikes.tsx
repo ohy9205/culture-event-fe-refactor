@@ -2,7 +2,7 @@
 
 import useMyLikes from "@/src/hooks/useMyLikes";
 import { MyFavoriteEvent } from "@/src/types/user";
-import GridContainer from "../UI/container/GridContainer";
+import GridContainer from "../../components/UI/container/GridContainer";
 import EventCard from "../event/EventCard";
 import EventDetailModal from "../event/EventDetailModal";
 

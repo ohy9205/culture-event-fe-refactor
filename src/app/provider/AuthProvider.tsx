@@ -1,7 +1,7 @@
 "use client";
 
-import useAuth from "../hooks/useAuth";
-import { User } from "../types/user";
+import useAuth from "../../hooks/useAuth";
+import { User } from "../../types/user";
 
 type Props = {
   children: React.ReactNode;

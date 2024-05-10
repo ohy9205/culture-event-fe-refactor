@@ -1,7 +1,7 @@
 "use client";
 
-import useMyLikes from "../hooks/useMyLikes";
-import { MyFavoriteEvent } from "../types/user";
+import useMyLikes from "../../hooks/useMyLikes";
+import { MyFavoriteEvent } from "../../types/user";
 
 type Props = {
   children: React.ReactNode;

@@ -90,18 +90,14 @@ const ControlBox = ({ query }: Props) => {
           <label htmlFor="orderBy" className="sr-only">
             정렬
           </label>
-          <select
+          <Select
             onChange={onFilterChange}
             name="orderBy"
-            id="orderBy"
-            className={SELECT_STYLE}
             value={query[orderByName] || orderByOptions[0].text}>
             {orderByOptions.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
+              <Select.Option key={it.text} text={it.text} value={it.value} />
             ))}
-          </select>
+          </Select>
         </div>
         <input
           type="search"

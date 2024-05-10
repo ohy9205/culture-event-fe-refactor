@@ -1,4 +1,4 @@
-import { APIResponse } from "@/src/types/APIResponse";
+import { APIResponse } from "@/src/shared/types/APIResponse";
 import { objectToQueryString } from "@/src/utils/common/objectController";
 import FetchAdapter from "./FetchAdapter";
 

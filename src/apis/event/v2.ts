@@ -4,8 +4,8 @@ import {
   EventDetailPayload,
   FilteredEventsPayload,
   ToggleLikesPayload,
-} from "@/src/types/APIResponse";
-import { SimpleEvent } from "@/src/types/events";
+} from "@/src/shared/types/APIResponse";
+import { SimpleEvent } from "@/src/shared/types/events";
 
 import { objectToQueryString } from "@/src/utils/common/objectController";
 import { API_V2 } from "@/src/utils/data/apiUrl";

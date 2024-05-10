@@ -1,6 +1,6 @@
 "use client";
 
-import useAuth from "@/src/hooks/useAuth";
+import useAuth from "@/src/shared/hooks/useAuth";
 import Button from "../UI/common/Button";
 
 const SignoutButton = () => {

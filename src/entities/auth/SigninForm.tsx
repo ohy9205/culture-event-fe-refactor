@@ -1,6 +1,6 @@
 "use client";
 
-import useSignin from "@/src/hooks/useSignin";
+import useSignin from "@/src/shared/hooks/useSignin";
 
 const SigninForm = () => {
   const {

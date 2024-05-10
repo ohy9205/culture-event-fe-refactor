@@ -1,4 +1,4 @@
-import { EventThumbnail } from "@/src/types/events";
+import { EventThumbnail } from "@/src/shared/types/events";
 import Image from "next/image";
 import { getHotEvents } from "../../apis/event/v1";
 import SectionHeader from "../UI/common/SectionHeader";

@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { objectToQueryString } from "../utils/common/objectController";
+import { objectToQueryString } from "../../utils/common/objectController";
 import useDebounce from "./useDebounce";
 
 const useEventFilter = (query: Record<string, any>) => {

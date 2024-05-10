@@ -1,6 +1,6 @@
 "use client";
 
-import useSignup from "@/src/hooks/useSignup";
+import useSignup from "@/src/shared/hooks/useSignup";
 
 const SignupForm = () => {
   const {
@@ -63,8 +63,7 @@ const SignupForm = () => {
         className={`w-full font-semibold text-xl border rounded-md py-[12px] ${
           validForm(form) ? "bg-slate-900 text-white" : "bg-white"
         }`}
-        disabled={!validForm(form)}
-      >
+        disabled={!validForm(form)}>
         회원가입
       </button>
     </form>

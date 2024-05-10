@@ -2,8 +2,8 @@ import {
   APIResponse,
   EventDetailPayload,
   MainEventsPayload,
-} from "@/src/types/APIResponse";
-import { Event, EventThumbnail } from "@/src/types/events";
+} from "@/src/shared/types/APIResponse";
+import { Event, EventThumbnail } from "@/src/shared/types/events";
 import { API_V1 } from "@/src/utils/data/apiUrl";
 import Fetch from "@/src/utils/fetch/Fetch";
 

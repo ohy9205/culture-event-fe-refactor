@@ -8,7 +8,7 @@ import AuthProvider from "@/src/app/provider/AuthProvider";
 import MyLikesProvider from "@/src/app/provider/MyLikesProvider";
 import SWRProvider from "@/src/app/provider/SWRProvider";
 import Header from "@/src/components/UI/layout/Header";
-import { MyFavoriteEvent, User } from "@/src/types/user";
+import { MyFavoriteEvent, User } from "@/src/shared/types/user";
 import Cookie from "@/src/utils/localStore/Cookie";
 import Token from "@/src/utils/token/Token";
 import Error from "./global-error";

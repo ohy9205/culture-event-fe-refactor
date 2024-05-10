@@ -1,4 +1,4 @@
-import { SimpleEvent } from "@/src/types/events";
+import { SimpleEvent } from "@/src/shared/types/events";
 import LikeButton from "../UI/common/LikeButton";
 import GridContainer from "../UI/container/GridContainer";
 import EventCard from "./EventCard";

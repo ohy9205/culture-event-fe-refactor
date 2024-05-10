@@ -1,6 +1,6 @@
 "use client";
 
-import useStaticMap from "@/src/hooks/useStaticMap";
+import useStaticMap from "@/src/shared/hooks/useStaticMap";
 
 type Props = {
   latitude: string;

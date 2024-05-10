@@ -1,6 +1,6 @@
 "use client";
 
-import useForm from "@/src/hooks/useForm";
+import useForm from "@/src/shared/hooks/useForm";
 import convertKRTime from "@/src/utils/common/convertKRTime";
 import Button from "../UI/common/Button";
 

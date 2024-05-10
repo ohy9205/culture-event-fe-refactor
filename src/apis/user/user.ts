@@ -3,7 +3,7 @@ import {
   UserCommentsPayload,
   UserInfoPayload,
   UserLikesPayload,
-} from "@/src/types/APIResponse";
+} from "@/src/shared/types/APIResponse";
 import { API_USER } from "@/src/utils/data/apiUrl";
 import Fetch from "@/src/utils/fetch/Fetch";
 

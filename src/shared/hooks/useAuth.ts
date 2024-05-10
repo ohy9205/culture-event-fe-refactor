@@ -1,12 +1,12 @@
 "use client";
 
-import { postSignin, postSignout, postSignup } from "../apis/auth/auth";
-import { Signin, Signup } from "../types/APIRequest";
-import { AuthStatus } from "../types/user";
+import { postSignin, postSignout, postSignup } from "../../apis/auth/auth";
 import responseHandler, {
   ResponseHandler,
-} from "../utils/common/responseHandler";
-import ZustandSingletone from "../utils/globalStore/ZustandSingletone";
+} from "../../utils/common/responseHandler";
+import ZustandSingletone from "../../utils/globalStore/ZustandSingletone";
+import { Signin, Signup } from "../types/APIRequest";
+import { AuthStatus } from "../types/user";
 
 type State = AuthStatus | undefined;
 

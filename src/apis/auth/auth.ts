@@ -1,10 +1,10 @@
-import { Signin, Signup } from "@/src/types/APIRequest";
+import { Signin, Signup } from "@/src/shared/types/APIRequest";
 import {
   APIResponse,
   SigninPayload,
   SignoutPayload,
   SignupPayload,
-} from "@/src/types/APIResponse";
+} from "@/src/shared/types/APIResponse";
 import { API_AUTH } from "@/src/utils/data/apiUrl";
 import Fetch from "@/src/utils/fetch/Fetch";
 

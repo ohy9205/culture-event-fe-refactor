@@ -1,4 +1,4 @@
-import { APIResponse } from "@/src/types/APIResponse";
+import { APIResponse } from "@/src/shared/types/APIResponse";
 
 export type ResponseHandler = {
   success?: (rs: APIResponse<any>) => void;

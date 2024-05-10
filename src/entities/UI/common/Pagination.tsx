@@ -1,6 +1,6 @@
 "use client";
 
-import usePagination from "@/src/hooks/usePagination";
+import usePagination from "@/src/shared/hooks/usePagination";
 
 type Props = {
   totalPage: number;

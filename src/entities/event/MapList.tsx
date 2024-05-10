@@ -1,7 +1,7 @@
 "use client";
 
-import useMapList from "@/src/hooks/useMapList";
-import { SimpleEvent } from "@/src/types/events";
+import useMapList from "@/src/shared/hooks/useMapList";
+import { SimpleEvent } from "@/src/shared/types/events";
 import Button from "../UI/common/Button";
 import LikeButton from "../UI/common/LikeButton";
 import StaticMap from "../UI/common/StaticMap";

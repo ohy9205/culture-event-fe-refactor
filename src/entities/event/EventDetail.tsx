@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useEventDetail from "../../hooks/useEventDetail";
+import useEventDetail from "../../shared/hooks/useEventDetail";
 import Button from "../UI/common/Button";
 import LikeButton from "../UI/common/LikeButton";
 import StaticMap from "../UI/common/StaticMap";

@@ -1,6 +1,6 @@
 "use client";
 
-import { MyComment } from "@/src/types/user";
+import { MyComment } from "@/src/shared/types/user";
 import Image from "next/image";
 import Comment from "../event/Comment";
 import EventDetailModal from "../event/EventDetailModal";

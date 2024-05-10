@@ -1,6 +1,6 @@
 "use client";
 
-import { SimpleEvent } from "@/src/types/events";
+import { SimpleEvent } from "@/src/shared/types/events";
 import { useState } from "react";
 import Button from "../UI/common/Button";
 import MapList from "./MapList";

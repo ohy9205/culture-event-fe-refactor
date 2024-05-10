@@ -4,7 +4,7 @@ import SignoutButton from "@/src/components/auth/SignoutButton";
 import MyComments from "@/src/entities/user/MyComments";
 import MyInfo from "@/src/entities/user/MyInfo";
 import MyLikes from "@/src/entities/user/MyLikes";
-import { MyComment } from "@/src/types/user";
+import { MyComment } from "@/src/shared/types/user";
 import Cookie from "@/src/utils/localStore/Cookie";
 import Token from "@/src/utils/token/Token";
 

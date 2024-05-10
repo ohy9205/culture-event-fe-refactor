@@ -1,4 +1,4 @@
-import { APIResponse } from "@/src/types/APIResponse";
+import { APIResponse } from "@/src/shared/types/APIResponse";
 
 interface FetchAdapter {
   setMethod(method: string): void;

@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { objectToQueryString } from "../utils/common/objectController";
+import { objectToQueryString } from "../../utils/common/objectController";
 
 const PAGE_BUTTON_SIZE = 5;
 

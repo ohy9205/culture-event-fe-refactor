@@ -1,6 +1,6 @@
 "use client";
 
-import useEventFilter from "@/src/hooks/useEventFilter";
+import useEventFilter from "@/src/shared/hooks/useEventFilter";
 import {
   CATEGORY,
   IS_FREE,

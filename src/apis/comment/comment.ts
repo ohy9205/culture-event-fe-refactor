@@ -3,7 +3,7 @@ import {
   AddCommentPayload,
   DeleteCommentPayload,
   PatchCommentPayload,
-} from "@/src/types/APIResponse";
+} from "@/src/shared/types/APIResponse";
 import { API_COMMENT } from "@/src/utils/data/apiUrl";
 import Fetch from "@/src/utils/fetch/Fetch";
 

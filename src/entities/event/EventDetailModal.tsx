@@ -1,7 +1,7 @@
 "use client";
 
 import ModalProvider from "@/src/app/provider/ModalProvider";
-import useModal from "@/src/hooks/useModal";
+import useModal from "@/src/shared/hooks/useModal";
 import { ReactNode } from "react";
 import Modal from "../UI/container/Modal";
 import EventDetail from "./EventDetail";

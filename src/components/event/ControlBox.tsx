@@ -7,6 +7,7 @@ import {
   LOCATION,
   ORDER_BY,
 } from "@/src/utils/data/eventFilter";
+import Select from "../UI/common/Select";
 
 type Props = { query: Record<string, any> };
 
@@ -27,18 +28,14 @@ const ControlBox = ({ query }: Props) => {
           <label htmlFor="location" className="sr-only">
             지역구
           </label>
-          <select
-            onChange={onFilterChange}
+          <Select
             name="location"
-            id="location"
-            className={SELECT_STYLE}
+            onChange={onFilterChange}
             value={query[locationName] || locationOptions[0].text}>
             {locationOptions.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
+              <Select.Option key={it.text} text={it.text} value={it.value} />
             ))}
-          </select>
+          </Select>
           <label htmlFor="category" className="sr-only">
             분야 카테고리
           </label>

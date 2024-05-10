@@ -50,18 +50,14 @@ const ControlBox = ({ query }: Props) => {
           <label htmlFor="isFree" className="sr-only">
             비용
           </label>
-          <select
+          <Select
             onChange={onFilterChange}
             name="isFree"
-            id="isFree"
-            className={SELECT_STYLE}
             value={query[isFreeName] || isFreeOptions[0].text}>
             {isFreeOptions.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
+              <Select.Option key={it.text} text={it.text} value={it.value} />
             ))}
-          </select>
+          </Select>
         </div>
         <div className="flex gap-2 items-center">
           <label htmlFor="start" className="sr-only">

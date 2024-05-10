@@ -39,18 +39,14 @@ const ControlBox = ({ query }: Props) => {
           <label htmlFor="category" className="sr-only">
             분야 카테고리
           </label>
-          <select
-            onChange={onFilterChange}
+          <Select
             name="category"
-            id="category"
-            className={SELECT_STYLE}
+            onChange={onFilterChange}
             value={query[categoryName] || categoryOptions[0].text}>
             {categoryOptions.map((it) => (
-              <option key={it.text} value={it.value}>
-                {it.text}
-              </option>
+              <Select.Option key={it.text} text={it.text} value={it.value} />
             ))}
-          </select>
+          </Select>
           <label htmlFor="isFree" className="sr-only">
             비용
           </label>

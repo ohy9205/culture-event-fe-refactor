@@ -1,7 +1,7 @@
 "use client";
 
 import useForm from "@/src/shared/hooks/useForm";
-import convertKRTime from "@/src/utils/common/convertKRTime";
+import convertKRTime from "@/src/shared/utils/common/convertKRTime";
 import Button from "./Button";
 
 type Props = {

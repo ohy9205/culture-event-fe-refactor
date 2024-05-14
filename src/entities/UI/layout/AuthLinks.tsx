@@ -2,7 +2,7 @@
 
 import useAuth from "@/src/shared/hooks/useAuth";
 import Link from "next/link";
-import SignoutButton from "../../auth/components/SignoutButton";
+import { SignoutButton } from "../../auth/components";
 
 const AuthLinks = () => {
   const {

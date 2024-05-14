@@ -1,7 +1,7 @@
-import { toggleLikes } from "../../entities/event/api/v2";
-import responseHandler from "../../utils/common/responseHandler";
-import ZustandSingletone from "../../utils/globalStore/ZustandSingletone";
+import { toggleLikes } from "@/src/entities/favoritButton/api";
 import { MyFavoriteEvent } from "../types/user";
+import responseHandler from "../utils/common/responseHandler";
+import ZustandSingletone from "../utils/globalStore/ZustandSingletone";
 import useAuth from "./useAuth";
 
 type State = { myLikes?: MyFavoriteEvent[] };

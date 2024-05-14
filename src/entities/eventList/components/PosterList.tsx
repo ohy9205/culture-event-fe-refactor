@@ -1,8 +1,8 @@
 import { SimpleEvent } from "@/src/shared/types/events";
-import EventCard from "../../UI/common/EventCard";
-import LikeButton from "../../UI/common/LikeButton";
-import GridContainer from "../../UI/container/GridContainer";
-import EventDetailModal from "../../eventDetail/components/EventDetailModal";
+import { EventCard } from "../../UI/common";
+import { GridContainer } from "../../UI/container";
+import { EventDetailModal } from "../../eventDetail/components";
+import { LikeButton } from "../../favoritButton/components";
 
 type Props = {
   list: SimpleEvent[];

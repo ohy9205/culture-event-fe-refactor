@@ -2,10 +2,9 @@
 
 import { SimpleEvent } from "@/src/shared/types/events";
 import { useState } from "react";
-import Button from "../UI/common/Button";
+import { Button } from "../../UI/common";
 import MapList from "./MapList";
 import PosterList from "./PosterList";
-
 type Props = {
   events: SimpleEvent[];
 };

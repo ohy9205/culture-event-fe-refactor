@@ -1,12 +1,10 @@
-import SectionHeader from "@/src/components/UI/common/SectionHeader";
-import SignoutButton from "@/src/components/auth/SignoutButton";
+import { SectionHeader } from "@/src/entities/UI/common";
+import { SignoutButton } from "@/src/entities/auth/components";
 import { getMyComments } from "@/src/entities/user/api";
-import MyComments from "@/src/entities/user/components/MyComments";
-import MyInfo from "@/src/entities/user/components/MyInfo";
-import MyLikes from "@/src/entities/user/components/MyLikes";
+import { MyComments, MyInfo, MyLikes } from "@/src/entities/user/components";
 import { MyComment } from "@/src/shared/types/user";
-import Cookie from "@/src/utils/localStore/Cookie";
-import Token from "@/src/utils/token/Token";
+import Cookie from "@/src/shared/utils/localStore/Cookie";
+import Token from "@/src/shared/utils/token/Token";
 
 const MyPage = async () => {
   const token = new Token(new Cookie()).allToken;

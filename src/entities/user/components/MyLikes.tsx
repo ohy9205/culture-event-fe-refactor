@@ -2,9 +2,9 @@
 
 import useMyLikes from "@/src/shared/hooks/useMyLikes";
 import { MyFavoriteEvent } from "@/src/shared/types/user";
-import EventCard from "../../UI/common/EventCard";
-import GridContainer from "../../components/UI/container/GridContainer";
-import EventDetailModal from "../../eventDetail/components/EventDetailModal";
+import { EventCard } from "../../UI/common";
+import { GridContainer } from "../../UI/container";
+import { EventDetailModal } from "../../eventDetail/components";
 
 const MyLikes = () => {
   const {

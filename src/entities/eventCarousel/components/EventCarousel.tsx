@@ -2,9 +2,9 @@
 
 import "react-multi-carousel/lib/styles.css";
 import { EventThumbnail } from "../../../shared/types/events";
-import EventCard from "../../UI/common/EventCard";
-import MultiCarousel from "../../UI/container/MultiCarousel";
-import EventDetailModal from "../../eventDetail/components/EventDetailModal";
+import { EventCard } from "../../UI/common";
+import { MultiCarousel } from "../../UI/container";
+import { EventDetailModal } from "../../eventDetail/components";
 
 type Props = {
   events?: EventThumbnail[];

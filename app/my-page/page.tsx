@@ -1,6 +1,6 @@
 import SectionHeader from "@/src/components/UI/common/SectionHeader";
 import SignoutButton from "@/src/components/auth/SignoutButton";
-import { getMyComments } from "@/src/entities/user/api/user";
+import { getMyComments } from "@/src/entities/user/api";
 import MyComments from "@/src/entities/user/components/MyComments";
 import MyInfo from "@/src/entities/user/components/MyInfo";
 import MyLikes from "@/src/entities/user/components/MyLikes";

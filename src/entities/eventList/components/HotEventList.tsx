@@ -1,8 +1,8 @@
 import { EventThumbnail } from "@/src/shared/types/events";
 import Image from "next/image";
+import EventDetailModal from "../../eventDetail/components/EventDetailModal";
 import SectionHeader from "../UI/common/SectionHeader";
 import GridContainer from "../UI/container/GridContainer";
-import EventDetailModal from "./EventDetailModal";
 import { getHotEvents } from "./api/v1";
 
 const HotEventList = async () => {

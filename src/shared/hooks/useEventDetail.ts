@@ -1,6 +1,5 @@
+import { getEventDetail } from "@/src/entities/eventDetail/api";
 import useSWR from "swr";
-import { getEventDetailWithoutLogin } from "../../entities/event/api/v1";
-import { getEventDetailWithLogin } from "../../entities/event/api/v2";
 import responseHandler from "../../utils/common/responseHandler";
 import useAuth from "./useAuth";
 
@@ -10,12 +9,17 @@ const useEventDetail = (eventId: number) => {
   } = useAuth();
   const { data } = useSWR(
     `eventDetail/${eventId}`,
-    () =>
-      isLoggedIn
-        ? getEventDetailWithLogin(eventId)
-        : getEventDetailWithoutLogin(eventId),
+    () => getEventDetail(eventId),
     { revalidateOnFocus: false }
   );
+  // const { data } = useSWR(
+  //   `eventDetail/${eventId}`,
+  //   () =>
+  //     isLoggedIn
+  //       ? getEventDetailWithLogin(eventId)
+  //       : getEventDetailWithoutLogin(eventId),
+  //   { revalidateOnFocus: false }
+  // );
 
   if (data) {
     responseHandler(data, {});

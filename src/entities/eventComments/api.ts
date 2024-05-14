@@ -2,12 +2,14 @@ import {
   APIResponse,
   AddCommentPayload,
   DeleteCommentPayload,
+  EventCommentsPayload,
   PatchCommentPayload,
 } from "@/src/shared/types/APIResponse";
-import { API_COMMENT } from "@/src/utils/data/apiUrl";
-import Fetch from "@/src/utils/fetch/Fetch";
+import { API_COMMENT, API_V2 } from "@/src/shared/utils/data/apiUrl";
+import Fetch from "@/src/shared/utils/fetch/Fetch";
 
-const url = API_COMMENT;
+const comment_url = API_COMMENT;
+const v2_url = API_V2;
 
 // 코멘트 추가
 export const addComment = async (
@@ -17,7 +19,7 @@ export const addComment = async (
   const apiFetch = new Fetch();
   apiFetch.setMethod("POST");
   apiFetch.setBody({ eventId, content });
-  const rs = await apiFetch.fetching<AddCommentPayload>(url);
+  const rs = await apiFetch.fetching<AddCommentPayload>(comment_url);
 
   return rs;
 };
@@ -29,7 +31,7 @@ export const deleteComment = async (
   const apiFetch = new Fetch();
   apiFetch.setMethod("DELETE");
   const rs = await apiFetch.fetching<DeleteCommentPayload>(
-    `${url}/${commentId}`
+    `${comment_url}/${commentId}`
   );
 
   return rs;
@@ -44,7 +46,19 @@ export const patchComment = async (
   apiFetch.setMethod("PATCH");
   apiFetch.setBody({ content });
   const rs = await apiFetch.fetching<PatchCommentPayload>(
-    `${url}/${commentId}`
+    `${comment_url}/${commentId}`
+  );
+
+  return rs;
+};
+
+// 해당 이벤트 코멘트
+export const getComments = async (
+  eventId: number
+): Promise<APIResponse<EventCommentsPayload>> => {
+  const apiFetch = new Fetch();
+  const rs = await apiFetch.fetching<EventCommentsPayload>(
+    `${v2_url}/${eventId}/comments`
   );
 
   return rs;

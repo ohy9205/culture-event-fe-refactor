@@ -1,6 +1,6 @@
 import SectionHeader from "../../UI/common/SectionHeader";
-import { getViewEvents } from "../api/v1";
-import EventCarousel from "./EventCarousel";
+import { getViewEvents } from "../../event/api/v1";
+import EventCarousel from "../../eventCarousel/components/EventCarousel";
 
 const ViewEventList = async () => {
   const viewEvents = await getViewEvents();

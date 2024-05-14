@@ -2,11 +2,11 @@
 
 import useMapList from "@/src/shared/hooks/useMapList";
 import { SimpleEvent } from "@/src/shared/types/events";
+import EventCard from "../../UI/common/EventCard";
+import EventDetailModal from "../../eventDetail/components/EventDetailModal";
 import Button from "../UI/common/Button";
 import LikeButton from "../UI/common/LikeButton";
 import StaticMap from "../UI/common/StaticMap";
-import EventCard from "./EventCard";
-import EventDetailModal from "./EventDetailModal";
 
 type Props = { list: SimpleEvent[] };
 

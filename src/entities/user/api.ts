@@ -2,7 +2,6 @@ import {
   APIResponse,
   UserCommentsPayload,
   UserInfoPayload,
-  UserLikesPayload,
 } from "@/src/shared/types/APIResponse";
 import { API_USER } from "@/src/utils/data/apiUrl";
 import Fetch from "@/src/utils/fetch/Fetch";
@@ -18,14 +17,14 @@ export const getUserMe = async (
   return rs;
 };
 
-export const getMyLikes = async (
-  cookie?: Record<string, any>
-): Promise<APIResponse<UserLikesPayload>> => {
-  const apiFetch = new Fetch(cookie);
-  const rs = await apiFetch.fetching<UserLikesPayload>(`${url}/liked-events`);
+// export const getMyLikes = async (
+//   cookie?: Record<string, any>
+// ): Promise<APIResponse<UserLikesPayload>> => {
+//   const apiFetch = new Fetch(cookie);
+//   const rs = await apiFetch.fetching<UserLikesPayload>(`${url}/liked-events`);
 
-  return rs;
-};
+//   return rs;
+// };
 
 export const getMyComments = async (
   cookie?: Record<string, any>

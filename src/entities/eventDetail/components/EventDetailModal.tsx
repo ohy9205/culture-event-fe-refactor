@@ -1,22 +1,66 @@
 "use client";
 
+import ModalProvider from "@/src/app/provider/ModalProvider";
+import useEventDetail from "@/src/shared/hooks/useEventDetail";
+import useModal from "@/src/shared/hooks/useModal";
 import Image from "next/image";
 import Link from "next/link";
-import useEventDetail from "../../shared/hooks/useEventDetail";
-import Button from "../UI/common/Button";
-import LikeButton from "../UI/common/LikeButton";
-import StaticMap from "../UI/common/StaticMap";
-import EventCommentList from "./EventCommentList";
+import { ReactNode } from "react";
+import Button from "../../UI/common/Button";
+import StaticMap from "../../UI/common/StaticMap";
+import Modal from "../../UI/container/Modal";
+import EventCommentList from "../../eventComments/components/EventCommentList";
+import LikeButton from "../../favoritButton/components/LikeButton";
 
 type Props = {
+  trigger: ReactNode;
+  eventId: number;
+};
+
+type InnerProps = {
+  eventId: number;
+  trigger: React.ReactNode;
+};
+
+type EventDetailProps = {
   id: number;
+};
+
+const EventDetailModal = ({ trigger, eventId }: Props) => {
+  return (
+    <ModalProvider>
+      <ModalInner eventId={eventId} trigger={trigger} />
+    </ModalProvider>
+  );
+};
+
+const ModalInner = ({ eventId, trigger }: InnerProps) => {
+  const {
+    open,
+    close,
+    data: { isOpen, modalId, activeModalId },
+  } = useModal();
+
+  return (
+    <>
+      <Modal.Trigger onEvent={() => open(modalId)}>{trigger}</Modal.Trigger>
+      {isOpen && activeModalId === modalId && (
+        <Modal>
+          <Modal.Background onEvent={() => close()} />
+          <Modal.Content>
+            <EventDetail id={eventId} />
+          </Modal.Content>
+        </Modal>
+      )}
+    </>
+  );
 };
 
 const LIST_STYLE = "w-full flex flex-col md:flex-row md:gap-4";
 const LABEL_STYLE = "min-w-[64px] p-4 bg-slate-200 font-bold";
 const INFO_STYLE = "flex items-center";
 
-const EventDetail = ({ id }: Props) => {
+const EventDetail = ({ id }: EventDetailProps) => {
   const {
     data: { eventDetail },
   } = useEventDetail(id);
@@ -120,4 +164,4 @@ const EventDetail = ({ id }: Props) => {
   }
 };
 
-export default EventDetail;
+export default EventDetailModal;

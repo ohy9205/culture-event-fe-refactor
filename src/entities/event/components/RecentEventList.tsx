@@ -1,5 +1,5 @@
-import { getRecentEvents } from "../../apis/event/v1";
-import SectionHeader from "../UI/common/SectionHeader";
+import SectionHeader from "../../UI/common/SectionHeader";
+import { getRecentEvents } from "../api/v1";
 import EventCarousel from "./EventCarousel";
 
 const RecentEventList = async () => {
@@ -11,8 +11,9 @@ const RecentEventList = async () => {
         <SectionHeader.Title>최신순</SectionHeader.Title>
         <SectionHeader.LinkButton
           pathname="/event"
-          query={{ orderBy: "latest" }}
-        >{`최신순 전체보기 >`}</SectionHeader.LinkButton>
+          query={{
+            orderBy: "latest",
+          }}>{`최신순 전체보기 >`}</SectionHeader.LinkButton>
       </SectionHeader>
       <EventCarousel events={recentEvents.payload} />
     </section>

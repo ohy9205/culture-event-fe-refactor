@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { getEventDetailWithoutLogin } from "../../apis/event/v1";
-import { getEventDetailWithLogin } from "../../apis/event/v2";
+import { getEventDetailWithoutLogin } from "../../entities/event/api/v1";
+import { getEventDetailWithLogin } from "../../entities/event/api/v2";
 import responseHandler from "../../utils/common/responseHandler";
 import useAuth from "./useAuth";
 

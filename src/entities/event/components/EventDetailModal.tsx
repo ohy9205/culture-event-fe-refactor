@@ -3,7 +3,7 @@
 import ModalProvider from "@/src/app/provider/ModalProvider";
 import useModal from "@/src/shared/hooks/useModal";
 import { ReactNode } from "react";
-import Modal from "../UI/container/Modal";
+import Modal from "../../UI/container/Modal";
 import EventDetail from "./EventDetail";
 
 type Props = {

@@ -1,8 +1,8 @@
 "use client";
 
 import "react-multi-carousel/lib/styles.css";
-import { EventThumbnail } from "../../shared/types/events";
-import MultiCarousel from "../UI/container/MultiCarousel";
+import { EventThumbnail } from "../../../shared/types/events";
+import MultiCarousel from "../../UI/container/MultiCarousel";
 import EventCard from "./EventCard";
 import EventDetailModal from "./EventDetailModal";
 

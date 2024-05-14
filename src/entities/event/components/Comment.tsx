@@ -2,7 +2,7 @@
 
 import useForm from "@/src/shared/hooks/useForm";
 import convertKRTime from "@/src/utils/common/convertKRTime";
-import Button from "../UI/common/Button";
+import Button from "../../UI/common/Button";
 
 type Props = {
   children: React.ReactNode;

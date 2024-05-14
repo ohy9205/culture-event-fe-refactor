@@ -4,7 +4,7 @@ import {
   deleteComment,
   patchComment,
 } from "../../apis/comment/comment";
-import { getComments } from "../../apis/event/v2";
+import { getComments } from "../../entities/event/api/v2";
 import responseHandler from "../../utils/common/responseHandler";
 import { Comment } from "../types/events";
 

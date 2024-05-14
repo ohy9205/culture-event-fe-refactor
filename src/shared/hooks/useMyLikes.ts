@@ -1,4 +1,4 @@
-import { toggleLikes } from "../../apis/event/v2";
+import { toggleLikes } from "../../entities/event/api/v2";
 import responseHandler from "../../utils/common/responseHandler";
 import ZustandSingletone from "../../utils/globalStore/ZustandSingletone";
 import { MyFavoriteEvent } from "../types/user";

@@ -1,5 +1,5 @@
-import { getViewEvents } from "../../apis/event/v1";
-import SectionHeader from "../UI/common/SectionHeader";
+import SectionHeader from "../../UI/common/SectionHeader";
+import { getViewEvents } from "../api/v1";
 import EventCarousel from "./EventCarousel";
 
 const ViewEventList = async () => {
@@ -11,8 +11,9 @@ const ViewEventList = async () => {
         <SectionHeader.Title>조회순</SectionHeader.Title>
         <SectionHeader.LinkButton
           pathname="/event"
-          query={{ orderBy: "views" }}
-        >{`조회순 전체보기 >`}</SectionHeader.LinkButton>
+          query={{
+            orderBy: "views",
+          }}>{`조회순 전체보기 >`}</SectionHeader.LinkButton>
       </SectionHeader>
       <EventCarousel events={viewEvents.payload} />
     </section>

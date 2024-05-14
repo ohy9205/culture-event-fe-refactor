@@ -1,7 +1,7 @@
-import { getFilteredEvents } from "@/src/apis/event/v2";
 import Pagination from "@/src/components/UI/common/Pagination";
 import ControlBox from "@/src/components/event/ControlBox";
 import FilteredEventList from "@/src/components/event/FilteredEventList";
+import { getFilteredEvents } from "@/src/entities/event/api/v2";
 import Cookie from "@/src/utils/localStore/Cookie";
 import Token from "@/src/utils/token/Token";
 

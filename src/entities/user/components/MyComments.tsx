@@ -2,8 +2,8 @@
 
 import { MyComment } from "@/src/shared/types/user";
 import Image from "next/image";
-import Comment from "../event/Comment";
-import EventDetailModal from "../event/EventDetailModal";
+import Comment from "../../event/Comment";
+import EventDetailModal from "../../event/EventDetailModal";
 
 type Props = {
   comments: MyComment[];

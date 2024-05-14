@@ -3,11 +3,11 @@ import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Noto_Sans } from "next/font/google";
 import Script from "next/script";
 
-import { getMyLikes, getUserMe } from "@/src/apis/user/user";
 import AuthProvider from "@/src/app/provider/AuthProvider";
 import MyLikesProvider from "@/src/app/provider/MyLikesProvider";
 import SWRProvider from "@/src/app/provider/SWRProvider";
 import Header from "@/src/components/UI/layout/Header";
+import { getMyLikes, getUserMe } from "@/src/entities/user/api/user";
 import { MyFavoriteEvent, User } from "@/src/shared/types/user";
 import Cookie from "@/src/utils/localStore/Cookie";
 import Token from "@/src/utils/token/Token";

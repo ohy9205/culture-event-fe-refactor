@@ -1,10 +1,9 @@
 "use client";
 
-import useMyLikes from "@/src/shared/hooks/useMyLikes";
-import { MyFavoriteEvent } from "@/src/shared/types/user";
-import { EventCard } from "../../UI/common";
-import { GridContainer } from "../../UI/container";
-import { EventDetailModal } from "../../eventDetail/components";
+import { EventCard, GridContainer } from "@/src/shared/components";
+import { useMyLikes } from "..";
+import { EventDetailModal } from "../../eventDetail";
+import { MyFavoriteEvent } from "../types";
 
 const MyLikes = () => {
   const {

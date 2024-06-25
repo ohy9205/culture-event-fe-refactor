@@ -1,6 +1,8 @@
-import NotAllowedErrorContent from "@/src/components/error/NotAllowedErrorContent";
-import NotFoundErrorContent from "@/src/components/error/NotFoundErrorContent";
-import UnknownErrorContent from "@/src/components/error/UnknownErrorContent";
+import {
+  NotAllowedErrorContent,
+  NotFoundErrorContent,
+  UnknownErrorContent,
+} from "@/src/entities/error";
 
 type Props = {
   params: {

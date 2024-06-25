@@ -1,11 +1,9 @@
 import { useRouter } from "next/navigation";
-import { objectToQueryString } from "../../utils/common/objectController";
+import { objectToQueryString } from "../lib";
 
 const PAGE_BUTTON_SIZE = 5;
 
 const usePagination = (totalPage: number, query: Record<string, any>) => {
-  // return useContext(PaginationContext);
-
   const curPageIndex = Number(query.pageIndex) || 1;
   const totalPageGroupCount =
     totalPage % PAGE_BUTTON_SIZE !== 0

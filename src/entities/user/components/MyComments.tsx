@@ -1,9 +1,9 @@
 "use client";
 
-import { MyComment } from "@/src/shared/types/user";
+import { Comment } from "@/src/shared/components";
 import Image from "next/image";
-import { Comment } from "../../UI/common";
-import { EventDetailModal } from "../../eventDetail/components";
+import { EventDetailModal } from "../../eventDetail";
+import { MyComment } from "../types";
 
 type Props = {
   comments: MyComment[];

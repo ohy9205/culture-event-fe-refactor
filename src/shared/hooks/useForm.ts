@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 const useForm = <T extends Record<string, any>>(initialValues: T) => {

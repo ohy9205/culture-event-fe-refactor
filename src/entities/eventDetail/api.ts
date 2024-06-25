@@ -1,9 +1,11 @@
-import {
-  APIResponse,
-  EventDetailPayload,
-} from "@/src/shared/types/APIResponse";
-import { API_V1 } from "@/src/shared/utils/data/apiUrl";
-import Fetch from "@/src/shared/utils/fetch/Fetch";
+import { API_V1 } from "@/src/shared/consts";
+import { Fetch } from "@/src/shared/fetch";
+import { APIResponse } from "@/src/shared/types";
+import { DetailEvent } from "../eventList/types";
+
+type EventDetailPayload = {
+  event: DetailEvent;
+};
 
 const url = API_V1;
 

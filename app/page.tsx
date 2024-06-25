@@ -1,6 +1,8 @@
-import HotEventList from "@/src/components/event/HotEventList";
-import RecentEventList from "@/src/components/event/RecentEventList";
-import ViewEventList from "@/src/components/event/ViewEventList";
+import {
+  HotEventList,
+  RecentEventList,
+  ViewEventList,
+} from "@/src/entities/eventList";
 
 const Home = () => {
   return (

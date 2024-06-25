@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/src/entities/UI/common";
-import { UnknownErrorContent } from "@/src/entities/error/components";
+import { UnknownErrorContent } from "@/src/entities/error";
+import { Button } from "@/src/shared/components";
 
 type Props = {
   error: Error;

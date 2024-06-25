@@ -1,7 +1,7 @@
 "use client";
 
-import useAuth from "@/src/shared/hooks/useAuth";
-import useLikeToggle from "@/src/shared/hooks/useLikeToggle";
+import { useAuth } from "../../auth";
+import useLikeToggle from "../hooks/useLikeToggle";
 
 type Props = {
   eventId: number;

@@ -1,10 +1,11 @@
 "use client";
 
-import { SimpleEvent } from "@/src/shared/types/events";
+import { Button } from "@/src/shared/components";
 import { useState } from "react";
-import { Button } from "../../UI/common";
+import { SimpleEvent } from "../types";
 import MapList from "./MapList";
 import PosterList from "./PosterList";
+
 type Props = {
   events: SimpleEvent[];
 };

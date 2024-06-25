@@ -1,8 +1,8 @@
 "use client";
 
-import useEventFilter from "@/src/shared/hooks/useEventFilter";
-import { Select } from "../../UI/common";
+import { Select } from "../../../shared/components";
 import { CATEGORY, IS_FREE, LOCATION, ORDER_BY } from "../consts";
+import useEventFilter from "../hooks/useEventFilter";
 
 type Props = { query: Record<string, any> };
 

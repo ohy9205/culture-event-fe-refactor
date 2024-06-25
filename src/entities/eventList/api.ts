@@ -1,15 +1,24 @@
-import {
-  APIResponse,
-  FilteredEventsPayload,
-  MainEventsPayload,
-} from "../../shared/types/APIResponse";
-import { Event, EventThumbnail, SimpleEvent } from "../../shared/types/events";
-import { objectToQueryString } from "../../shared/utils/common/objectController";
-import { API_V1, API_V2 } from "../../shared/utils/data/apiUrl";
-import Fetch from "../../shared/utils/fetch/Fetch";
+import { Fetch } from "@/src/shared/fetch";
+import { objectToQueryString } from "@/src/shared/lib";
+import { APIResponse } from "@/src/shared/types";
+import { API_V1, API_V2 } from "../../shared/consts/consts";
+import { Event, EventThumbnail, SimpleEvent } from "./types";
+
+type FilteredEventsPayload = {
+  events: { rows: SimpleEvent[]; count: number };
+  totalPage: number;
+};
+
+type MainEventsPayload = {
+  events: {
+    count: number;
+    rows: Event[];
+  };
+};
 
 const v1_url = API_V1;
 const v2_url = API_V2;
+
 const PAGE_SIZE = 12;
 
 //  필터링

@@ -1,10 +1,9 @@
 "use client";
 
+import { EventCard, MultiCarousel } from "@/src/shared/components";
 import "react-multi-carousel/lib/styles.css";
-import { EventThumbnail } from "../../../shared/types/events";
-import { EventCard } from "../../UI/common";
-import { MultiCarousel } from "../../UI/container";
-import { EventDetailModal } from "../../eventDetail/components";
+import { EventDetailModal } from "../../eventDetail";
+import { EventThumbnail } from "../../eventList";
 
 type Props = {
   events?: EventThumbnail[];

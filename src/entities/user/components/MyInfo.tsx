@@ -1,6 +1,6 @@
 "use client";
 
-import useAuth from "@/src/shared/hooks/useAuth";
+import { useAuth } from "../../auth";
 
 const MyInfo = () => {
   const {

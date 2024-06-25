@@ -1,11 +1,11 @@
 "use client";
 
-import useEventDetail from "@/src/shared/hooks/useEventDetail";
+import { Button, StaticMap } from "@/src/shared/components";
 import Image from "next/image";
 import Link from "next/link";
-import { Button, StaticMap } from "../../UI/common";
-import EventCommentList from "../../eventComments/components/EventCommentList";
-import { LikeButton } from "../../favoritButton/components";
+import { EventCommentList } from "../../eventComments";
+import { LikeButton } from "../../favoritButton";
+import useEventDetail from "../hooks/useEventDetail";
 
 type Props = {
   id: number;

@@ -1,9 +1,13 @@
 import { AuthProvider, MyLikesProvider, SWRProvider } from "@/src/app/provider";
-import { Header } from "@/src/entities/UI/layout";
-import { getMyLikes, getUserMe } from "@/src/entities/user/api";
-import { MyFavoriteEvent, User } from "@/src/shared/types/user";
-import Cookie from "@/src/shared/utils/localStore/Cookie";
-import Token from "@/src/shared/utils/token/Token";
+import {
+  MyFavoriteEvent,
+  User,
+  getMyLikes,
+  getUserMe,
+} from "@/src/entities/user";
+import { Header } from "@/src/shared/components";
+import { Cookie } from "@/src/shared/store";
+import { Token } from "@/src/shared/token";
 import { Metadata } from "next";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Noto_Sans } from "next/font/google";
@@ -25,8 +29,9 @@ const RootLayout = async ({ children }: Props) => {
   const { allToken } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
   let userInfo: User | undefined = undefined;
+  const isLoggedIn = allToken.at && allToken.rt ? true : false;
 
-  if (allToken.at && allToken.rt) {
+  if (isLoggedIn) {
     // likesEvent 데이터
     likesEvent = (await getMyLikes(allToken))?.payload.data || [];
     // auth 데이터

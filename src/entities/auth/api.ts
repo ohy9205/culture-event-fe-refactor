@@ -1,12 +1,16 @@
-import { Signin, Signup } from "@/src/shared/types/APIRequest";
-import {
-  APIResponse,
-  SigninPayload,
-  SignoutPayload,
-  SignupPayload,
-} from "@/src/shared/types/APIResponse";
-import { API_AUTH } from "@/src/utils/data/apiUrl";
-import Fetch from "@/src/utils/fetch/Fetch";
+import { API_AUTH } from "@/src/shared/consts";
+import { Fetch } from "@/src/shared/fetch";
+import { APIResponse } from "@/src/shared/types";
+import { User } from "../user/types";
+import { Signin, Signup } from "./types";
+
+export type SigninPayload = User;
+
+export type SignupPayload = {
+  email: string;
+};
+
+export type SignoutPayload = {};
 
 const url = API_AUTH;
 

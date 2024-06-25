@@ -1,9 +1,9 @@
 "use client";
 
-import useAuth from "@/src/shared/hooks/useAuth";
-import useComment from "@/src/shared/hooks/useComment";
-import { Comment as CommentType } from "@/src/shared/types/events";
-import { Comment } from "../../UI/common";
+import { Comment } from "@/src/shared/components";
+import { useAuth } from "../../auth";
+import useComment from "../hooks/useComment";
+import { Comment as CommentType } from "../types";
 
 type Props = {
   eventId: number;

@@ -1,4 +1,4 @@
-import { SignupForm } from "@/src/entities/auth/components";
+import { SignupForm } from "@/src/entities/auth";
 
 const SignupPage = async () => {
   return (

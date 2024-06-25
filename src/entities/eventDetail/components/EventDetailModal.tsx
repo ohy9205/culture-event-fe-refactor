@@ -1,9 +1,9 @@
 "use client";
 
 import { ModalProvider } from "@/src/app/provider";
-import useModal from "@/src/shared/hooks/useModal";
+import { Modal } from "@/src/shared/components";
+import { useModal } from "@/src/shared/hooks";
 import { ReactNode } from "react";
-import { Modal } from "../../UI/container";
 import EventDetail from "./EventDetail";
 
 type Props = {

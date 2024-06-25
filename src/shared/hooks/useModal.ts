@@ -1,7 +1,7 @@
 "use client";
 
+import { ZustandSingletone } from "@/src/shared/store";
 import { useRef } from "react";
-import ZustandSingletone from "../../utils/globalStore/ZustandSingletone";
 
 type State = {
   isOpen: boolean;

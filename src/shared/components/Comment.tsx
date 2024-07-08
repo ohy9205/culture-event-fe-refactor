@@ -1,5 +1,5 @@
 import { useForm } from "../hooks";
-import convertKRTime from "../lib/convertKRTime";
+import { convertKRTime } from "../lib";
 import Button from "./Button";
 
 type Props = {

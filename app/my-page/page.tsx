@@ -11,8 +11,9 @@ import { Cookie } from "@/src/shared/store";
 import { Token } from "@/src/shared/token";
 
 const MyPage = async () => {
-  const token = new Token(new Cookie()).allToken;
-  const myComments = (await getMyComments(token))?.payload.commentsWithEvents;
+  const { at, rt } = new Token(new Cookie());
+  const myComments = (await getMyComments({ at, rt }))?.payload
+    .commentsWithEvents;
 
   return (
     <div className="flex flex-col max-w-[1200px] px-4 w-full items-center gap-10 my-[100px]">

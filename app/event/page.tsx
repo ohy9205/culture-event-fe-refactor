@@ -9,9 +9,9 @@ type Props = {
 };
 
 const Event = async ({ searchParams: query }: Props) => {
-  const { allToken } = new Token(new Cookie());
+  const { at, rt } = new Token(new Cookie());
   let apiQuery = query.pageIndex ? query : { ...query, pageIndex: 1 };
-  const rs = await getFilteredEvents(apiQuery, allToken);
+  const rs = await getFilteredEvents(apiQuery, { at, rt });
 
   const hasEvents = rs.payload.events.length > 0;
   const hasPage = rs.payload.totalPage >= (query.pageIndex || 1);

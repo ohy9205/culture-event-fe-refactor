@@ -26,16 +26,16 @@ export const metadata: Metadata = {
 
 const RootLayout = async ({ children }: Props) => {
   // 쿠키에서 토큰 정보확인
-  const { allToken } = new Token(new Cookie());
+  const { at, rt } = new Token(new Cookie());
   let likesEvent: MyFavoriteEvent[] | [] = [];
   let userInfo: User | undefined = undefined;
-  const isLoggedIn = allToken.at && allToken.rt ? true : false;
+  const isLoggedIn = at && rt ? true : false;
 
   if (isLoggedIn) {
     // likesEvent 데이터
-    likesEvent = (await getMyLikes(allToken))?.payload.data || [];
+    likesEvent = (await getMyLikes({ at, rt }))?.payload.data || [];
     // auth 데이터
-    userInfo = (await getUserMe(allToken))?.payload.user;
+    userInfo = (await getUserMe({ at, rt }))?.payload.user;
   }
 
   return (

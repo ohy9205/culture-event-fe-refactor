@@ -1,15 +1,9 @@
 "use client";
 
 import { ZustandStore } from "@/src/shared/store";
+import { ModalState } from "..";
 
-type State = {
-  modal: {
-    isOpen: boolean;
-    content: React.ReactNode | null;
-  };
-};
-
-const modalState = new ZustandStore<State>({
+const modalState = new ZustandStore<ModalState>({
   modal: {
     isOpen: false,
     content: null,

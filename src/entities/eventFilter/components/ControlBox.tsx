@@ -1,6 +1,6 @@
 "use client";
 
-import { Select } from "../../../shared/components";
+import { Select } from "@/src/shared/components";
 import { CATEGORY, IS_FREE, LOCATION, ORDER_BY } from "../consts";
 import useEventFilter from "../hooks/useEventFilter";
 

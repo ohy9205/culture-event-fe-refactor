@@ -1,8 +1,8 @@
 "use client";
 
+import { EventDetail } from "@/src/entities/eventDetail";
+import { LikeButton } from "@/src/entities/favoritButton";
 import { Button, EventCard, StaticMap } from "@/src/shared/components";
-import { EventDetailModal } from "../../eventDetail";
-import { LikeButton } from "../../favoritButton";
 import useMapList from "../hooks/useMapList";
 import { SimpleEvent } from "../types";
 
@@ -12,6 +12,7 @@ const MapList = ({ list }: Props) => {
   const {
     data: { curEvent },
     changeCurrentEvent,
+    openEventDetail,
   } = useMapList(list[0]);
 
   return (
@@ -38,12 +39,12 @@ const MapList = ({ list }: Props) => {
                   <EventCard.Title>{event.title}</EventCard.Title>
                   <EventCard.Period>{event.eventPeriod}</EventCard.Period>
                   <EventCard.Views>{event.views}</EventCard.Views>
-                  <EventDetailModal
-                    eventId={event.id}
-                    trigger={
-                      <Button size="sm" color="dark">{`상세정보`}</Button>
-                    }
-                  />
+                  <Button
+                    size="sm"
+                    color="dark"
+                    onClick={() =>
+                      openEventDetail(<EventDetail id={event.id} />)
+                    }>{`상세정보`}</Button>
                 </div>
               </div>
             </EventCard>

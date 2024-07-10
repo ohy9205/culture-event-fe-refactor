@@ -1,11 +1,11 @@
 "use client";
 
+import { useAuth } from "@/src/entities/auth";
 import { useForm } from "@/src/shared/hooks";
 import { APIResponse } from "@/src/shared/types";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent } from "react";
 import { Signup } from "../types";
-import useAuth from "./useAuth";
 
 const useSignup = () => {
   const {

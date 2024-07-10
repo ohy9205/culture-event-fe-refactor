@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { SignoutButton, useAuth } from "..";
+import { SignoutButton } from "..";
 
-const Header = () => {
-  const {
-    data: { isLoggedIn },
-  } = useAuth();
-
+type Props = {
+  isLoggedIn: boolean;
+};
+const Header = ({ isLoggedIn }: Props) => {
   return (
     <header className="bg-slate-200 w-full h-[50px] flex justify-center items-center">
       <nav className="flex justify-between gap-16 flex-none">

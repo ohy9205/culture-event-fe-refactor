@@ -1,7 +1,7 @@
+import { User } from "@/src/entities/user";
 import { API_AUTH } from "@/src/shared/consts";
 import { Fetch } from "@/src/shared/fetch";
 import { APIResponse } from "@/src/shared/types";
-import { User } from "../user/types";
 import { Signin, Signup } from "./types";
 
 export type SigninPayload = User;

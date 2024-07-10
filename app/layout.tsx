@@ -1,10 +1,12 @@
-import { AuthProvider, MyLikesProvider, SWRProvider } from "@/src/app/provider";
 import {
-  MyFavoriteEvent,
-  User,
-  getMyLikes,
-  getUserMe,
-} from "@/src/entities/user";
+  AuthProvider,
+  ModalProvider,
+  MyLikesProvider,
+  SWRProvider,
+} from "@/src/app/provider";
+import { AuthState } from "@/src/entities/auth";
+import { Modal } from "@/src/entities/modal";
+import { MyFavoriteEvent, getMyLikes, getUserMe } from "@/src/entities/user";
 import { Header } from "@/src/shared/components";
 import { Cookie } from "@/src/shared/store";
 import { Token } from "@/src/shared/token";
@@ -27,16 +29,34 @@ export const metadata: Metadata = {
 const RootLayout = async ({ children }: Props) => {
   // 쿠키에서 토큰 정보확인
   const { at, rt } = new Token(new Cookie());
-  let likesEvent: MyFavoriteEvent[] | [] = [];
-  let userInfo: User | undefined = undefined;
   const isLoggedIn = at && rt ? true : false;
+
+  let likesEvent: MyFavoriteEvent[] = [];
+  let authState: AuthState = {
+    auth: {
+      isLoggedIn: false,
+      user: {
+        email: null,
+        nick: null,
+      },
+    },
+  };
 
   if (isLoggedIn) {
     // likesEvent 데이터
-    likesEvent = (await getMyLikes({ at, rt }))?.payload.data || [];
+    likesEvent = (await getMyLikes({ at, rt }))?.payload.data;
     // auth 데이터
-    userInfo = (await getUserMe({ at, rt }))?.payload.user;
-  }
+    const userData = (await getUserMe({ at, rt }))?.payload.user;
+    authState = {
+      auth: {
+        isLoggedIn: true,
+        user: {
+          email: userData.email,
+          nick: userData.nick,
+        },
+      },
+    };
+  } 
 
   return (
     <html lang="ko">
@@ -49,13 +69,15 @@ const RootLayout = async ({ children }: Props) => {
         className={`${notoSans.className} flex flex-col justify-center items-center`}>
         <ErrorBoundary errorComponent={Error}>
           <SWRProvider>
-            <AuthProvider initialValue={userInfo}>
-              <MyLikesProvider initialValue={likesEvent}>
-                <div id="modal"></div>
-                <Header />
-                {children}
-              </MyLikesProvider>
-            </AuthProvider>
+            <ModalProvider>
+              <AuthProvider initialValue={authState}>
+                <MyLikesProvider initialValue={likesEvent}>
+                  <Modal />
+                  <Header isLoggedIn={isLoggedIn} />
+                  {children}
+                </MyLikesProvider>
+              </AuthProvider>
+            </ModalProvider>
           </SWRProvider>
         </ErrorBoundary>
       </body>

@@ -25,11 +25,3 @@ export type MyFavoriteEvent = {
   thumbnail: string;
   title: string;
 };
-
-export type AuthStatus = {
-  isLoggedIn: boolean;
-  user: {
-    email: string;
-    nick: string;
-  };
-};

@@ -1,9 +1,9 @@
 "use client";
 
+import { useAuth } from "@/src/entities/auth";
 import { useForm } from "@/src/shared/hooks";
 import { APIResponse } from "@/src/shared/types";
 import { Signin } from "../types";
-import useAuth from "./useAuth";
 
 const useSignin = () => {
   const {

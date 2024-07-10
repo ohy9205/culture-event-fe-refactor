@@ -9,9 +9,9 @@ type State<T> = { state: T; updateState: (newState: Partial<T>) => void };
 class ZustandStore<T> implements GlobalStoreAdapter<T> {
   private useStore; // zustnad Create타입이 됨
 
-  constructor(initialState: T) {
+  constructor(private initialState: T) {
     this.useStore = create<State<T>>((set: any) => ({
-      state: initialState,
+      state: this.initialState,
       updateState: (newState: Partial<T>) =>
         set((prevState: State<T>) => ({
           state: { ...prevState.state, ...newState },
@@ -35,9 +35,11 @@ class ZustandStore<T> implements GlobalStoreAdapter<T> {
     initialState?: T;
   }) => {
     const [isHydrated, setIsHydrated] = useState(false);
+    const updateState = this.useStore((state: State<T>) => state.updateState);
 
     // Wait till Next.js rehydration completes
     useEffect(() => {
+      updateState(initialState || this.initialState);
       setIsHydrated(true);
     }, []);
 

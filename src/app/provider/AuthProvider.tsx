@@ -1,30 +1,16 @@
 "use client";
 
-import { useAuth } from "@/src/entities/auth";
-import { User } from "@/src/entities/user";
+import { AuthState, useAuth } from "@/src/entities/auth";
 
 type Props = {
   children: React.ReactNode;
-  initialValue?: User;
+  initialValue?: AuthState;
 };
 
-const AuthProvider = ({
-  children,
-  initialValue, // {email, nick, id ...}
-}: Props) => {
-  const initialState = initialValue
-    ? {
-        isLoggedIn: true,
-        user: {
-          email: initialValue?.email,
-          nick: initialValue?.nick,
-        },
-      }
-    : undefined;
+const AuthProvider = ({ children, initialValue }: Props) => {
+  const { Provider } = useAuth();
 
-  const { Provider } = useAuth(initialState);
-
-  return <Provider initialState={initialState}>{children}</Provider>;
+  return <Provider initialState={initialValue}>{children}</Provider>;
 };
 
 export default AuthProvider;

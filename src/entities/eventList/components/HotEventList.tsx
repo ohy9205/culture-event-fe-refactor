@@ -1,66 +1,51 @@
-import { GridContainer, SectionHeader } from "@/src/shared/components";
+"use client";
+
+import { GridContainer } from "@/src/shared/components";
 import Image from "next/image";
-import { EventDetailModal } from "../../eventDetail";
-import { getHotEvents } from "../api";
+import { EventDetail } from "../../eventDetail";
+import { useModal } from "../../modal";
 import { EventThumbnail } from "../types";
 
-const HotEventList = async () => {
-  const hotEvents = await getHotEvents();
-  const hottestEvent = hotEvents.payload[0];
-  const otherEvents = hotEvents.payload.splice(1);
+type Props = {
+  list: EventThumbnail[];
+};
+
+const HotEventList = ({ list }: Props) => {
+  const { open } = useModal();
 
   return (
-    <section className="flex flex-col justify-center gap-3">
-      <SectionHeader>
-        <SectionHeader.Title>인기순</SectionHeader.Title>
-        <SectionHeader.LinkButton
-          pathname="/event"
-          query={{
-            orderBy: "likes",
-          }}>{`인기순 전체보기 >`}</SectionHeader.LinkButton>
-      </SectionHeader>
-
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="w-full sm:w-2/5 h-[550px] relative">
-          <EventDetailModal
-            trigger={
-              <Image
-                src={hottestEvent?.thumbnail || ""}
-                alt={hottestEvent?.title || "포스터"}
-                style={{ objectFit: "cover" }}
-                sizes="500px"
-                fill
-                priority
-              />
-            }
-            eventId={hottestEvent?.id}
-          />
-        </div>
-
-        <div className="flex-grow">
-          <GridContainer isReponsive={false}>
-            {otherEvents?.map((event: EventThumbnail) => (
-              <EventDetailModal
-                key={event.id}
-                trigger={
-                  <div className="relative h-[267px]">
-                    <Image
-                      key={event.id}
-                      src={event.thumbnail}
-                      alt={event.title}
-                      style={{ objectFit: "cover" }}
-                      sizes="200px"
-                      fill
-                    />
-                  </div>
-                }
-                eventId={event.id}
-              />
-            ))}
-          </GridContainer>
-        </div>
+    <div className="flex flex-col sm:flex-row gap-4">
+      <div className="w-full sm:w-2/5 h-[550px] relative">
+        <Image
+          src={list[0]?.thumbnail || ""}
+          alt={list[0]?.title || "포스터"}
+          style={{ objectFit: "cover" }}
+          sizes="500px"
+          fill
+          priority
+          onClick={() => {
+            open(<EventDetail id={list[0].id} />);
+          }}
+        />
       </div>
-    </section>
+
+      <div className="flex-grow">
+        <GridContainer isReponsive={false}>
+          {list?.slice(1).map((event: EventThumbnail) => (
+            <div key={event.id} className="relative h-[267px]">
+              <Image
+                src={event.thumbnail}
+                alt={event.title}
+                style={{ objectFit: "cover" }}
+                sizes="200px"
+                fill
+                onClick={() => open(<EventDetail id={event.id} />)}
+              />
+            </div>
+          ))}
+        </GridContainer>
+      </div>
+    </div>
   );
 };
 

@@ -1,1 +1,1 @@
-export { default as EventDetailModal } from "./components/EventDetailModal";
+export { default as EventDetail } from "../eventDetail/components/EventDetail";

@@ -1,13 +1,14 @@
 "use client";
 
+import { useMyLikes } from "@/src/entities/user";
 import { useState } from "react";
-import { useMyLikes } from "../../user";
 
 const useLikeToggle = () => {
   const {
     toggleLike,
     data: { myLikes },
   } = useMyLikes();
+
   const [count, setCount] = useState<undefined | number>();
 
   const checkIsMyLike = (eventId: number) => {

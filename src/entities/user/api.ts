@@ -1,14 +1,14 @@
 import { API_USER, API_V2 } from "@/src/shared/consts";
 import { Fetch } from "@/src/shared/fetch";
 import { APIResponse } from "@/src/shared/types";
-import { MyComment, MyFavoriteEvent, User } from "./types";
+import { FavoriteEvent, MyComment, User } from "./types";
 
 type UserInfoPayload = {
   user: User;
 };
 
 type UserLikesPayload = {
-  data: MyFavoriteEvent[];
+  data: FavoriteEvent[];
 };
 
 type UserCommentsPayload = {
@@ -17,7 +17,7 @@ type UserCommentsPayload = {
 
 export type ToggleLikesPayload = {
   action: "add" | "remove";
-  event: MyFavoriteEvent;
+  event: FavoriteEvent;
   eventLikesCount: number;
 };
 

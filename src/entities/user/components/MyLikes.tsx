@@ -1,7 +1,7 @@
 "use client";
 
 import { EventDetail } from "@/src/entities/eventDetail";
-import { MyFavoriteEvent, useMyLikes } from "@/src/entities/user";
+import { FavoriteEvent, useMyLikes } from "@/src/entities/user";
 import { EventCard, GridContainer } from "@/src/shared/components";
 
 const MyLikes = () => {
@@ -12,7 +12,7 @@ const MyLikes = () => {
 
   return (
     <GridContainer>
-      {myLikes?.map(({ id, thumbnail, title, period }: MyFavoriteEvent) => (
+      {myLikes?.map(({ id, thumbnail, title, period }: FavoriteEvent) => (
         <EventCard key={id}>
           <div
             onClick={() => {

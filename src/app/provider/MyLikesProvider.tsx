@@ -1,17 +1,16 @@
 "use client";
 
-import { MyFavoriteEvent, useMyLikes } from "@/src/entities/user";
+import { MyLikesState, useMyLikes } from "@/src/entities/user";
 
 type Props = {
   children: React.ReactNode;
-  initialValue?: MyFavoriteEvent[];
+  initialValue?: MyLikesState;
 };
 
 const MyLikesProvider = ({ children, initialValue }: Props) => {
-  const initialState = initialValue ? { myLikes: initialValue } : undefined;
-  const { Provider } = useMyLikes(initialState);
+  const { Provider } = useMyLikes();
 
-  return <Provider initialState={initialState}>{children}</Provider>;
+  return <Provider initialState={initialValue}>{children}</Provider>;
 };
 
 export default MyLikesProvider;

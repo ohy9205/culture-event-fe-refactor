@@ -19,9 +19,13 @@ export type MyComment = {
   updatedAt: string;
 };
 
-export type MyFavoriteEvent = {
+export type FavoriteEvent = {
   id: number;
   period: string;
   thumbnail: string;
   title: string;
+};
+
+export type MyLikesState = {
+  myLikes: FavoriteEvent[];
 };

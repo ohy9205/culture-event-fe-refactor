@@ -6,7 +6,7 @@ import {
 } from "@/src/app/provider";
 import { AuthState } from "@/src/entities/auth";
 import { Modal } from "@/src/entities/modal";
-import { MyFavoriteEvent, getMyLikes, getUserMe } from "@/src/entities/user";
+import { MyLikesState, getMyLikes, getUserMe } from "@/src/entities/user";
 import { Header } from "@/src/shared/components";
 import { Cookie } from "@/src/shared/store";
 import { Token } from "@/src/shared/token";
@@ -31,8 +31,8 @@ const RootLayout = async ({ children }: Props) => {
   const { at, rt } = new Token(new Cookie());
   const isLoggedIn = at && rt ? true : false;
 
-  let likesEvent: MyFavoriteEvent[] = [];
-  let authState: AuthState = {
+  const myLikesState: MyLikesState = { myLikes: [] };
+  const authState: AuthState = {
     auth: {
       isLoggedIn: false,
       user: {
@@ -44,19 +44,15 @@ const RootLayout = async ({ children }: Props) => {
 
   if (isLoggedIn) {
     // likesEvent 데이터
-    likesEvent = (await getMyLikes({ at, rt }))?.payload.data;
+    const likeEvents = (await getMyLikes({ at, rt }))?.payload.data;
+    myLikesState.myLikes = likeEvents;
+
     // auth 데이터
     const userData = (await getUserMe({ at, rt }))?.payload.user;
-    authState = {
-      auth: {
-        isLoggedIn: true,
-        user: {
-          email: userData.email,
-          nick: userData.nick,
-        },
-      },
-    };
-  } 
+    authState.auth.isLoggedIn = true;
+    authState.auth.user.email = userData.email;
+    authState.auth.user.nick = userData.nick;
+  }
 
   return (
     <html lang="ko">
@@ -71,7 +67,7 @@ const RootLayout = async ({ children }: Props) => {
           <SWRProvider>
             <ModalProvider>
               <AuthProvider initialValue={authState}>
-                <MyLikesProvider initialValue={likesEvent}>
+                <MyLikesProvider initialValue={myLikesState}>
                   <Modal />
                   <Header isLoggedIn={isLoggedIn} />
                   {children}

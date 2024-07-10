@@ -1,22 +1,20 @@
 import { useAuth } from "@/src/entities/auth";
 import { useModal } from "@/src/entities/modal";
-import { MyFavoriteEvent } from "@/src/entities/user";
+import { FavoriteEvent, MyLikesState } from "@/src/entities/user";
 import { responseHandler } from "@/src/shared/lib";
-import { ZustandSingletone } from "@/src/shared/store";
+import { ContextStore } from "@/src/shared/store";
 import { toggleLikes } from "../api";
 
-type State = { myLikes?: MyFavoriteEvent[] };
+const myLikesState = new ContextStore<MyLikesState>({
+  myLikes: [],
+});
 
-const useMyLikes = (initialState?: State) => {
+const useMyLikes = () => {
   const {
     data: { isLoggedIn },
   } = useAuth();
   const { open } = useModal();
 
-  const myLikesState = ZustandSingletone.create<State | undefined>(
-    "myLikes",
-    initialState
-  );
   const [state, updateState] = myLikesState.useGlobalState();
 
   const toggleLike = async (eventId: number) => {
@@ -54,7 +52,7 @@ const useMyLikes = (initialState?: State) => {
   };
 };
 
-const addLike = (newEvent: MyFavoriteEvent, likes?: MyFavoriteEvent[]) => {
+const addLike = (newEvent: FavoriteEvent, likes?: FavoriteEvent[]) => {
   if (!likes) {
     return [newEvent];
   } else {
@@ -62,7 +60,7 @@ const addLike = (newEvent: MyFavoriteEvent, likes?: MyFavoriteEvent[]) => {
   }
 };
 
-const removeLike = (removeEvent: MyFavoriteEvent, likes: MyFavoriteEvent[]) => {
+const removeLike = (removeEvent: FavoriteEvent, likes: FavoriteEvent[]) => {
   return likes.filter((it) => it.id !== removeEvent.id);
 };
 

@@ -1,6 +1,6 @@
-import LocalStoreAdapter from "../../store/localStore/LocalStoreAdapter";
+import LocalStoreAdapter from "../../../store/localStore/LocalStoreAdapter";
 
-class MockStorage implements LocalStoreAdapter {
+class MockStore implements LocalStoreAdapter {
   private store: { [key: string]: string } = {};
 
   getItem(name: string): string | undefined {
@@ -16,4 +16,4 @@ class MockStorage implements LocalStoreAdapter {
   }
 }
 
-export default MockStorage;
+export default MockStore;

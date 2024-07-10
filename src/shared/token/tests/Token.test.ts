@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { Token } from "..";
-import MockStorage from "./mocks/MockStorage";
+import MockStore from "./mocks/MockStore";
 
 // 토큰 관리 로직에서 Cookie, Localstorage의 함수들을 활용하지 못하고 있는걸 파악
 // Token관리 로직에서 저장소에서 토큰을 get/set할 때 해당 스토어의 인터페이스를 사용하도록 함
@@ -11,7 +11,7 @@ import MockStorage from "./mocks/MockStorage";
 describe("Token", () => {
   let token: Token;
   beforeEach(() => {
-    token = new Token(new MockStorage());
+    token = new Token(new MockStore());
   });
 
   it("스토리지에서 at, rt를 저장하고, 저장한 값을 꺼내온다.", () => {

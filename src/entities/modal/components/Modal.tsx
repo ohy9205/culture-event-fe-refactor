@@ -2,7 +2,7 @@
 
 import useModal from "../hook/useModal";
 
-const EventDetailModal = () => {
+const Modal = () => {
   const {
     data: { isOpen, content },
     close,
@@ -22,4 +22,4 @@ const EventDetailModal = () => {
   );
 };
 
-export default EventDetailModal;
+export default Modal;

@@ -1,7 +1,7 @@
 "use client";
 
+import { useAuth } from "@/src/entities/auth";
 import { Button } from "@/src/shared/components";
-import { useAuth } from "..";
 
 const SignoutButton = () => {
   const { signout } = useAuth();

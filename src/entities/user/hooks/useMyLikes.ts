@@ -1,21 +1,23 @@
+import { useAuth } from "@/src/entities/auth";
+import { useModal } from "@/src/entities/modal";
+import { MyFavoriteEvent } from "@/src/entities/user";
 import { responseHandler } from "@/src/shared/lib";
 import { ZustandSingletone } from "@/src/shared/store";
-import { useAuth } from "../../auth";
 import { toggleLikes } from "../api";
-import { MyFavoriteEvent } from "../types";
 
 type State = { myLikes?: MyFavoriteEvent[] };
 
 const useMyLikes = (initialState?: State) => {
+  const {
+    data: { isLoggedIn },
+  } = useAuth();
+  const { open } = useModal();
+
   const myLikesState = ZustandSingletone.create<State | undefined>(
     "myLikes",
     initialState
   );
   const [state, updateState] = myLikesState.useGlobalState();
-
-  const {
-    data: { isLoggedIn },
-  } = useAuth();
 
   const toggleLike = async (eventId: number) => {
     if (!isLoggedIn) {
@@ -47,6 +49,7 @@ const useMyLikes = (initialState?: State) => {
   return {
     data: { myLikes: state?.myLikes },
     toggleLike,
+    openEventDetail: open,
     Provider: myLikesState.StoreProvider,
   };
 };

@@ -1,6 +1,5 @@
 "use client";
-
-import { useAuth } from "../../auth";
+import { useAuth } from "@/src/entities/auth";
 
 const MyInfo = () => {
   const {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useModal } from "@/src/shared/hooks";
+import { useModal } from "@/src/entities/modal";
 
 type Props = {
   children: React.ReactNode;

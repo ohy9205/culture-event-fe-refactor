@@ -1,3 +1,5 @@
+"use client";
+
 import { useAuth } from "@/src/entities/auth";
 import { useModal } from "@/src/entities/modal";
 import { FavoriteEvent, MyLikesState } from "@/src/entities/user";

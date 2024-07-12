@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 // totalPage: 총 나와야 하는 페이지
@@ -6,7 +8,9 @@ const usePagination = (
   totalPage: number,
   pageButtonCount: number
 ) => {
-  const [curPaging, setCurPaging] = useState(getCurPaging(1, pageButtonCount));
+  const [curPaging, setCurPaging] = useState(
+    getCurPaging(initPage, pageButtonCount)
+  );
   const totalRow =
     totalPage % pageButtonCount > 0
       ? Math.ceil(totalPage / pageButtonCount)
@@ -40,8 +44,7 @@ const usePagination = (
     );
   };
 
-  // 페이지 버튼 렌더링
-
+  // 페이지 버튼 넘버 생성
   const getPageButtonArray = () => {
     let arr = [];
     for (let i = 1; i <= pageButtonCount; i++) {

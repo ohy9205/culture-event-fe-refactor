@@ -1,6 +1,6 @@
 import { ControlBox } from "@/src/entities/eventFilter";
 import { FilteredEventList, getFilteredEvents } from "@/src/entities/eventList";
-import { Pagination } from "@/src/shared/components";
+import { Pagination } from "@/src/entities/eventPagination";
 import { Cookie } from "@/src/shared/store";
 import { Token } from "@/src/shared/token";
 
@@ -22,7 +22,7 @@ const Event = async ({ searchParams: query }: Props) => {
       {hasEvents && hasPage ? (
         <>
           <FilteredEventList events={rs.payload.events} />
-          <Pagination query={query} totalPage={rs.payload.totalPage} />
+          <Pagination query={apiQuery} totalPage={rs.payload.totalPage} />
         </>
       ) : (
         <div>이벤트 정보가 없습니다.</div>

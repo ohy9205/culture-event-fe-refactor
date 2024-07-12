@@ -4,7 +4,7 @@ import { useState } from "react";
 
 // totalPage: 총 나와야 하는 페이지
 const usePagination = (
-  initPage: number = 1,
+  initPage: number,
   totalPage: number,
   pageButtonCount: number
 ) => {

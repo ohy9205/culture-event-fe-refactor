@@ -1,16 +1,23 @@
 "use client";
 
-import { MyLikesState, useMyLikes } from "@/src/entities/user";
+import { MyLikesState } from "@/src/entities/user";
+import { ZustandStore } from "@/src/shared/store";
 
 type Props = {
   children: React.ReactNode;
   initialValue?: MyLikesState;
 };
 
-const MyLikesProvider = ({ children, initialValue }: Props) => {
-  const { Provider } = useMyLikes();
+export const myLikesStore = new ZustandStore<MyLikesState>({
+  myLikes: [],
+});
 
-  return <Provider initialState={initialValue}>{children}</Provider>;
+const MyLikesProvider = ({ children, initialValue }: Props) => {
+  return (
+    <myLikesStore.StoreProvider initialState={initialValue}>
+      {children}
+    </myLikesStore.StoreProvider>
+  );
 };
 
 export default MyLikesProvider;

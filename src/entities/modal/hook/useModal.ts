@@ -1,17 +1,9 @@
 "use client";
 
-import { ZustandStore } from "@/src/shared/store";
-import { ModalState } from "..";
-
-const modalState = new ZustandStore<ModalState>({
-  modal: {
-    isOpen: false,
-    content: null,
-  },
-});
+import { modalStore } from "@/src/app/provider";
 
 const useModal = () => {
-  const [state, updateState] = modalState.useGlobalState(); // 선언할 때 할당한 context State가 내부에서 자동으로 인자로 들어감
+  const [state, updateState] = modalStore.useGlobalState(); // 선언할 때 할당한 context State가 내부에서 자동으로 인자로 들어감
 
   return {
     data: { ...state.modal },
@@ -24,7 +16,6 @@ const useModal = () => {
       updateState({ modal: { isOpen: false, content: null } });
       document.body.style.overflow = "scroll";
     },
-    Provider: modalState.StoreProvider,
   };
 };
 

@@ -1,15 +1,11 @@
 "use client";
 
+import { myLikesStore } from "@/src/app/provider";
 import { useAuth } from "@/src/entities/auth";
 import { useModal } from "@/src/entities/modal";
-import { FavoriteEvent, MyLikesState } from "@/src/entities/user";
+import { FavoriteEvent } from "@/src/entities/user";
 import { responseHandler } from "@/src/shared/lib";
-import { ContextStore } from "@/src/shared/store";
 import { toggleLikes } from "../api";
-
-const myLikesState = new ContextStore<MyLikesState>({
-  myLikes: [],
-});
 
 const useMyLikes = () => {
   const {
@@ -17,7 +13,7 @@ const useMyLikes = () => {
   } = useAuth();
   const { open } = useModal();
 
-  const [state, updateState] = myLikesState.useGlobalState();
+  const [state, updateState] = myLikesStore.useGlobalState();
 
   const toggleLike = async (eventId: number) => {
     if (!isLoggedIn) {
@@ -50,7 +46,6 @@ const useMyLikes = () => {
     data: { myLikes: state?.myLikes },
     toggleLike,
     openEventDetail: open,
-    Provider: myLikesState.StoreProvider,
   };
 };
 

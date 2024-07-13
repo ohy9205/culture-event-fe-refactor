@@ -1,16 +1,29 @@
 "use client";
 
-import { AuthState, useAuth } from "@/src/entities/auth";
+import { AuthState } from "@/src/entities/auth";
+import { ZustandStore } from "@/src/shared/store";
 
 type Props = {
   children: React.ReactNode;
   initialValue?: AuthState;
 };
 
-const AuthProvider = ({ children, initialValue }: Props) => {
-  const { Provider } = useAuth();
+export const authStore = new ZustandStore<AuthState>({
+  auth: {
+    isLoggedIn: false,
+    user: {
+      email: null,
+      nick: null,
+    },
+  },
+});
 
-  return <Provider initialState={initialValue}>{children}</Provider>;
+const AuthProvider = ({ children, initialValue }: Props) => {
+  return (
+    <authStore.StoreProvider initialState={initialValue}>
+      {children}
+    </authStore.StoreProvider>
+  );
 };
 
 export default AuthProvider;

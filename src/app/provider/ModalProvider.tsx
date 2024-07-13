@@ -1,15 +1,21 @@
 "use client";
 
-import { useModal } from "@/src/entities/modal";
+import { ModalState } from "@/src/entities/modal";
+import { ZustandStore } from "@/src/shared/store";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const ModalProvider = ({ children }: Props) => {
-  const { Provider } = useModal();
+export const modalStore = new ZustandStore<ModalState>({
+  modal: {
+    isOpen: false,
+    content: null,
+  },
+});
 
-  return <Provider>{children}</Provider>;
+const ModalProvider = ({ children }: Props) => {
+  return <modalStore.StoreProvider>{children}</modalStore.StoreProvider>;
 };
 
 export default ModalProvider;

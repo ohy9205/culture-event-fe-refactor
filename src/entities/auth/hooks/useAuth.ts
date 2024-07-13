@@ -1,20 +1,10 @@
 "use client";
 
+import { authStore } from "@/src/app/provider";
 import { responseHandler } from "@/src/shared/lib";
-import { ContextStore } from "@/src/shared/store";
 import { ResponseHandler } from "@/src/shared/types";
 import { postSignin, postSignout, postSignup } from "../api";
-import { AuthState, Signin, Signup } from "../types";
-
-const authStore = new ContextStore<AuthState>({
-  auth: {
-    isLoggedIn: false,
-    user: {
-      email: null,
-      nick: null,
-    },
-  },
-});
+import { Signin, Signup } from "../types";
 
 const useAuth = () => {
   const [state, updateState] = authStore.useGlobalState();
@@ -67,7 +57,6 @@ const useAuth = () => {
     signin,
     signup,
     signout,
-    Provider: authStore.StoreProvider,
   };
 };
 

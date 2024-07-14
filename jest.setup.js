@@ -1,5 +1,6 @@
 import { afterAll, afterEach, beforeAll, jest } from "@jest/globals";
 import "@testing-library/jest-dom";
+import "whatwg-fetch";
 import { server } from "./src/__mocks__/node";
 
 beforeAll(() => {

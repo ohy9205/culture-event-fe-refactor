@@ -17,3 +17,9 @@ afterAll(() => {
   jest.resetAllMocks();
   jest.useRealTimers();
 });
+
+Object.defineProperty(window, "location", {
+  value: {
+    href: "",
+  },
+});

@@ -13,6 +13,7 @@ export const authHandler = [
         ctx.json({
           result: "fail",
           status: 403,
+          message: "올바르지 않은 이메일 형식입니다.",
         })
       );
     }
@@ -22,8 +23,8 @@ export const authHandler = [
       return res(
         ctx.status(409),
         ctx.json({
+          message: "로그인에 실패하였습니다.",
           result: "fail",
-          status: 409,
         })
       );
     }
@@ -33,9 +34,16 @@ export const authHandler = [
       ctx.status(200),
       ctx.json({
         result: "success",
-        status: 200,
         payload: response.signin,
       })
     );
+  }),
+
+  rest.post(`${API_AUTH}/signOut`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ result: "success" }));
+  }),
+
+  rest.post(`${API_AUTH}/signUp`, async (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ result: "success" }));
   }),
 ];

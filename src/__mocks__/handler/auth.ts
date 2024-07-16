@@ -1,3 +1,4 @@
+import { Signup } from "@/src/entities/auth/types";
 import { API_AUTH } from "@/src/shared/consts";
 import { rest } from "msw";
 import response from "../response";
@@ -39,11 +40,25 @@ export const authHandler = [
     );
   }),
 
-  rest.post(`${API_AUTH}/signOut`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ result: "success" }));
+  rest.post(`${API_AUTH}/signUp`, async (req, res, ctx) => {
+    const { email, nick, password, passwordConfirm }: Signup = await req.json();
+    if (email === "status403@test.com") {
+      return res(
+        ctx.status(403),
+        ctx.json({ result: "fail", message: "403에러" })
+      );
+    }
+    if (email === "status409@test.com") {
+      return res(
+        ctx.status(409),
+        ctx.json({ result: "fail", message: "409에러" })
+      );
+    }
+
+    return res(ctx.json(200), ctx.json({ result: "success", message: "성공" }));
   }),
 
-  rest.post(`${API_AUTH}/signUp`, async (req, res, ctx) => {
+  rest.post(`${API_AUTH}/signOut`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ result: "success" }));
   }),
 ];

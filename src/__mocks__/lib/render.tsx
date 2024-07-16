@@ -20,6 +20,7 @@ export default async (
 
   return {
     user,
+    router,
     ...render(
       <AppRouterContextProviderMock router={router}>
         {ui}

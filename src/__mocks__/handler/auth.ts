@@ -3,7 +3,7 @@ import { API_AUTH } from "@/src/shared/consts";
 import { rest } from "msw";
 import response from "../response";
 
-export const authHandler = [
+export const auth = [
   rest.post(`${API_AUTH}/signIn`, async (req, res, ctx) => {
     const { email, password } = await req.json();
 

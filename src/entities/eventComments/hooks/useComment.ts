@@ -1,10 +1,12 @@
 import { responseHandler } from "@/src/shared/lib";
 import { useState } from "react";
+import { EventComment } from "..";
 import { addComment, deleteComment, getComments, patchComment } from "../api";
-import { Comment } from "../types";
 
-const useComment = (eventId: number, initComments?: Comment[]) => {
-  const [comments, setComments] = useState<Comment[] | undefined>(initComments);
+const useComment = (eventId: number, initComments?: EventComment[]) => {
+  const [comments, setComments] = useState<EventComment[] | undefined>(
+    initComments
+  );
   const [isModifyMode, setIsModify] = useState({
     status: false,
     commentId: -1,
@@ -23,7 +25,7 @@ const useComment = (eventId: number, initComments?: Comment[]) => {
     get: async () => {
       const rs = await getComments(eventId);
       const sortedComments = rs.payload.comments.sort(
-        (a: Comment, b: Comment) =>
+        (a: EventComment, b: EventComment) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
 

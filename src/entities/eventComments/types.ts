@@ -1,6 +1,6 @@
 import { User } from "../user/types";
 
-export type Comment = {
+export type EventComment = {
   id: number;
   content: string;
   createdAt: string;

@@ -1,13 +1,13 @@
 "use client";
 
+import { useAuth } from "@/src/entities/auth";
 import { Comment } from "@/src/shared/components";
-import { useAuth } from "../../auth";
+import { EventComment } from "..";
 import useComment from "../hooks/useComment";
-import { Comment as CommentType } from "../types";
 
 type Props = {
   eventId: number;
-  initComments: CommentType[];
+  initComments: EventComment[];
 };
 
 const EventCommentList = ({ eventId, initComments }: Props) => {

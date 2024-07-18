@@ -1,3 +1,4 @@
+import { SWRProvider } from "@/src/app/provider";
 import { jest } from "@jest/globals";
 import { RenderOptions, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -23,7 +24,7 @@ export default async (
     router,
     ...render(
       <AppRouterContextProviderMock router={router}>
-        {ui}
+        <SWRProvider>{ui}</SWRProvider>
       </AppRouterContextProviderMock>,
       options
     ),

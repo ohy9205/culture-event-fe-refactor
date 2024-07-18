@@ -1,1 +1,2 @@
-export { authHandler } from "./auth";
+export { auth } from "./auth";
+export { eventDetail } from "./eventDetail";

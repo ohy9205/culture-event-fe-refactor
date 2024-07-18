@@ -1,0 +1,87 @@
+{
+  "event": {
+    "id": 4,
+    "category": "전시/미술",
+    "location": "광진구",
+    "title": "[서울상상나라] 우리, 캠핑 가요!",
+    "eventPeriod": "2023-10-31~2024-12-31",
+    "place": "서울상상나라 3층 문화놀이",
+    "hostOrganization": "서울상상나라",
+    "targetAudience": "서울상상나라 관람객",
+    "fee": "무료(입장권 4,000원 별도)",
+    "performerInfo": "",
+    "programInfo": "",
+    "otherInfo": "",
+    "homePage": "https://www.seoulchildrensmuseum.org/display/displayAll.do",
+    "latitude": "127.077569",
+    "longitude": "37.550550",
+    "isFree": true,
+    "thumbnail": "https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=cb2af3a9757741aa996b416188cbffcf&thumb=Y",
+    "startDate": "2023-10-31",
+    "endDate": "2024-12-31",
+    "views": 231,
+    "likes": 2,
+    "createdAt": "2024-02-02T17:35:01.000Z",
+    "updatedAt": "2024-04-24T15:03:31.000Z",
+    "Comments": [
+      {
+        "id": 33,
+        "content": "재밌겠다.",
+        "createdAt": "2024-02-04T15:19:10.000Z",
+        "updatedAt": "2024-03-30T07:24:52.000Z",
+        "eventId": 257,
+        "commenter": 1,
+        "User": {
+          "email": "test@test.com",
+          "nick": "티모"
+        }
+      },
+      {
+        "id": 34,
+        "content": "나도가야지",
+        "createdAt": "2024-02-06T16:03:07.000Z",
+        "updatedAt": "2024-02-06T16:03:07.000Z",
+        "eventId": 257,
+        "commenter": 1,
+        "User": {
+          "email": "test@test.com",
+          "nick": "티모"
+        }
+      },
+      {
+        "id": 36,
+        "content": "울랄라",
+        "createdAt": "2024-03-30T07:10:12.000Z",
+        "updatedAt": "2024-03-30T07:10:22.000Z",
+        "eventId": 257,
+        "commenter": 1,
+        "User": {
+          "email": "yoen@test.com",
+          "nick": "yeon"
+        }
+      }
+    ],
+    "Users": [
+      {
+        "email": "test@test.com",
+        "nick": "티모",
+        "favoriteEvent": {
+          "createdAt": "2024-07-13T17:19:02.000Z",
+          "updatedAt": "2024-07-13T17:19:02.000Z",
+          "eventId": 4,
+          "userId": 1
+        }
+      },
+      {
+        "email": "yeon@test.com",
+        "nick": "yeon",
+        "favoriteEvent": {
+          "createdAt": "2024-07-13T17:19:02.000Z",
+          "updatedAt": "2024-07-13T17:19:02.000Z",
+          "eventId": 4,
+          "userId": 1
+        }
+      }
+    ]
+  }
+}

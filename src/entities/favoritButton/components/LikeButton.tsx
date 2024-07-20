@@ -24,30 +24,23 @@ const LikeButton = ({ eventId, children, background }: Props) => {
 
   return (
     <>
-      {isLoggedIn ? (
-        <button
-          className={style(background, isLoggedIn)}
-          onClick={() => toggleButton(eventId)}>
-          {checkIsMyLike(eventId) ? "❤️" : "🤍"}
-        </button>
-      ) : (
-        <button
-          className={style(background, isLoggedIn)}
-          onClick={() => toggleButton(eventId)}>
-          🤍
-        </button>
-      )}
+      <button
+        className={style(background)}
+        onClick={() => toggleButton(eventId)}
+        data-testid="like-button"
+        disabled={isLoggedIn ? false : true}>
+        {checkIsMyLike(eventId) ? "❤️" : "🤍"}
+      </button>
       {toRender}
     </>
   );
 };
 
-const style = (background: boolean = false, isLoggedIn: boolean) => {
-  const basic = "text-md";
+const style = (background: boolean = false) => {
+  const basic = "text-md cusor-pointer";
   const bg = background ? "bg-slate-800 rounded-md p-2" : "";
-  const cursor = isLoggedIn ? "cursor-pointer" : "cursor-auto";
 
-  return `${basic} ${bg} ${cursor}`;
+  return `${basic} ${bg}`;
 };
 
 export default LikeButton;

@@ -27,7 +27,6 @@ const LikeButton = ({ eventId, children, background }: Props) => {
       <button
         className={style(background)}
         onClick={() => toggleButton(eventId)}
-        data-testid="like-button"
         disabled={isLoggedIn ? false : true}>
         {checkIsMyLike(eventId) ? "❤️" : "🤍"}
       </button>

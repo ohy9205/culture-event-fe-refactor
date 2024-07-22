@@ -63,16 +63,6 @@
     ],
     "Users": [
       {
-        "email": "test@test.com",
-        "nick": "티모",
-        "favoriteEvent": {
-          "createdAt": "2024-07-13T17:19:02.000Z",
-          "updatedAt": "2024-07-13T17:19:02.000Z",
-          "eventId": 4,
-          "userId": 1
-        }
-      },
-      {
         "email": "yeon@test.com",
         "nick": "yeon",
         "favoriteEvent": {

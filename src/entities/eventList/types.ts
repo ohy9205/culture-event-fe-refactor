@@ -1,5 +1,5 @@
-import { Comment } from "../eventComments";
-import { User } from "../user/types";
+import { EventComment } from "@/src/entities/eventComments";
+import { User } from "@/src/entities/user";
 
 export type Event = {
   id: number;
@@ -24,7 +24,7 @@ export type Event = {
   views: number;
   createdAt: string;
   updatedAt: string;
-  Comments: Comment[];
+  Comments: EventComment[];
 };
 
 export type SimpleEvent = Pick<

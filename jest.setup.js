@@ -26,8 +26,9 @@ afterAll(() => {
   jest.useRealTimers();
 });
 
-Object.defineProperty(window, "location", {
+Object.defineProperty(global, "location", {
   value: {
     href: "",
+    replace: jest.fn((url) => {}),
   },
 });

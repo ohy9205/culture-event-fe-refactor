@@ -59,7 +59,7 @@ const EventDetail = ({ id }: Props) => {
                   <LikeButton eventId={id} background>
                     {(count) => {
                       return (
-                        <span>
+                        <span data-testid="like-count">
                           {count !== undefined ? count : likesUsers.length}
                         </span>
                       );

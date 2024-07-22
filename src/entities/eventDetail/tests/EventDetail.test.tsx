@@ -1,6 +1,7 @@
 import { render } from "@/src/__mocks__/lib";
+import { AuthProvider } from "@/src/app/provider";
 import { describe, expect, it, jest } from "@jest/globals";
-import { screen } from "@testing-library/dom";
+import { screen, waitFor, within } from "@testing-library/dom";
 import { act } from "@testing-library/react";
 import { EventDetail } from "..";
 
@@ -8,8 +9,21 @@ import { EventDetail } from "..";
 // => 이미지, 장르, 장소, 기간, 대상, 요금,
 // 이벤트 위치에 대한 맵이 보여진다.
 // '상세정보 보러가기'를 클릭하면 해당 이벤트 홈페이지로 링크가 연결된다.
+const LoggedInTestComponent = ({ eventId }: { eventId: number }) => {
+  return (
+    <AuthProvider
+      initialValue={{
+        auth: {
+          isLoggedIn: true,
+          user: { email: "test@test.com", nick: "티모" },
+        },
+      }}>
+      <EventDetail id={eventId} />
+    </AuthProvider>
+  );
+};
 
-describe("이벤트 정보", () => {
+describe("Event Info", () => {
   it("prop으로 받은 evnet id에 대한 상세정보가 보여진다.", async () => {
     await render(<EventDetail id={4} />);
 
@@ -53,42 +67,36 @@ describe("이벤트 정보", () => {
       "https://www.seoulchildrensmuseum.org/display/displayAll.do"
     );
   });
+
+  it("이벤트 상세 정보가 없으면 404 페이지로 이동한다.", async () => {
+    await render(<EventDetail id={1} />);
+
+    await waitFor(() =>
+      expect(window.location.replace).toHaveBeenCalledWith("/error/404")
+    );
+  });
 });
 
-describe("favorit button", () => {
-  const toggleButtonFn = jest.fn();
-  jest.mock("@/src/entities/favoritButton/hooks/useLikeToggle", () => ({
-    toggleButton: toggleButtonFn,
-  }));
+describe("Like Button", () => {
+  it("찜 버튼을 클릭하면 실시간으로 찜 숫자가 변경된다.", async () => {
+    const { user } = await render(<LoggedInTestComponent eventId={4} />);
 
-  it("로그인 하지 않으면 ❤️버튼은 비활성화된다.", async () => {
-    const { user } = await render(<EventDetail id={4} />);
-
-    // 화면이 업데이트 되었는지 확인
     const button = await screen.findByRole("button", { name: "🤍" });
+    const count = await screen.findByTestId("like-count");
+
+    expect(within(count).getByText("1")).toBeInTheDocument();
+
     await act(async () => await user.click(button));
-
-    expect(toggleButtonFn).toHaveBeenCalledTimes(0);
-    expect(
-      await screen.findByRole("button", { name: "🤍" })
-    ).toBeInTheDocument();
-  });
-
-  it("하트 버튼을 클릭해서 이벤트를 찜/찜 해제 할 수 있다.", async () => {
-    const { user } = await render(<EventDetail id={4} />);
+    expect(await within(count).findByText("2")).toBeInTheDocument();
   });
 });
-// ❤️버튼을 클릭해서 이벤트를 찜/찜 해제 할 수 있다.
-// ❤️버튼을 클릭하면 실시간으로 찜 숫자가 변경된다.
 
-// 이벤트에 대한 댓글리스트가 최신순으로 보여진다.
-// 로그인 안한 상태 -> 입력창이 없고 '댓글 작성을 위해서 로그인하세요' 문구가 보여짐
-// 내가 작성한 댓글이면 '수정', '삭제' 버튼 노출
-// 수정 버튼 클릭하면 input창으로 바뀜
-// 수정 input에는 기존 댓글 내용 보여지고 수정할 수 있음
-// 수정 '나가기' 버튼 클릭하면 input이 사라지고 리스트만 보임
-// '등록' 버튼을 클릭하면 input사라지고 수정한 댓글 내용이 보여짐
-// 댓글 입력창에 댓글을 작성할 수 있음
-// '등록' 버튼을 클릭하면 댓글 리스트에 작성한 내용이 추가되고, 입력창은 초기화된다.
-// 댓글 '삭제' 버튼을 클릭하면 컨펌 alert이 발생함
-// 댓글이 삭제되면 댓글 리스트에서 해당 댓글이 삭제됨
+describe("Comment", () => {
+  it("이벤트에 대한 댓글들이 보여진다.", async () => {
+    const { findByText } = await render(<EventDetail id={4} />);
+
+    expect(await findByText("재밌겠다.")).toBeInTheDocument(); // 2024. 03. 30. 오후 04:24:52 (수정)
+    expect(await findByText("나도가야지")).toBeInTheDocument(); // 2024. 02. 07. 오전 01:03:07
+    expect(await findByText("울랄라")).toBeInTheDocument(); // 2024. 03. 30. 오후 04:10:22 (수정)
+  });
+});

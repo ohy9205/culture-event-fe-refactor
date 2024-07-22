@@ -1,8 +1,8 @@
 "use client";
 
 import { useAuth } from "@/src/entities/auth";
+import { EventComment } from "@/src/entities/eventComments";
 import { Comment } from "@/src/shared/components";
-import { EventComment } from "..";
 import useComment from "../hooks/useComment";
 
 type Props = {

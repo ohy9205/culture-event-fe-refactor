@@ -1,3 +1,8 @@
-import { auth, eventDetail, toggleFavoritEvent } from "./handler";
+import { auth, comment, eventDetail, toggleFavoritEvent } from "./handler";
 
-export const handlers = [...auth, ...eventDetail, ...toggleFavoritEvent];
+export const handlers = [
+  ...auth,
+  ...eventDetail,
+  ...toggleFavoritEvent,
+  ...comment,
+];

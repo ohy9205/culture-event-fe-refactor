@@ -1,10 +1,10 @@
 import { API_COMMENT, API_V2 } from "@/src/shared/consts";
 import { Fetch } from "@/src/shared/fetch";
 import { APIResponse } from "@/src/shared/types";
-import { Comment } from "./types";
+import { EventComment } from ".";
 
 type EventCommentsPayload = {
-  comments: Comment[];
+  comments: EventComment[];
 };
 
 type AddCommentPayload = {

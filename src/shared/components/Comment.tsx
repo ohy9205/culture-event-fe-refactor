@@ -71,7 +71,8 @@ const CommentInput = ({ initContent, children }: InputProps) => {
         id="comment"
         value={form.comment}
         className="w-full h-[100px] border resize-none"
-        maxLength={500}>
+        maxLength={500}
+        data-testid="modify-textarea">
         {form.comment}
       </textarea>
 

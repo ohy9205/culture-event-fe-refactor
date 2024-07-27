@@ -1,4 +1,3 @@
-import { expect, it } from "@jest/globals";
 import { deleteObjectKeys, objectToQueryString, replaceObjectKey } from "..";
 
 it("인자로 받은 key값에 해당하는 데이터를 변경한다", () => {

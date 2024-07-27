@@ -1,6 +1,5 @@
 // app-router-context-provider-mock.tsx
 
-import { jest } from "@jest/globals";
 import {
   AppRouterContext,
   AppRouterInstance,

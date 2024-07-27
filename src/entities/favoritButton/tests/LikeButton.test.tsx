@@ -1,6 +1,5 @@
 import { render } from "@/src/__mocks__/lib";
 import { AuthProvider, MyLikesProvider } from "@/src/app/provider";
-import { describe, expect, it } from "@jest/globals";
 import { screen } from "@testing-library/dom";
 import { act } from "@testing-library/react";
 import { LikeButton } from "..";

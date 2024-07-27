@@ -1,7 +1,6 @@
 import { render } from "@/src/__mocks__/lib";
 import { AuthProvider } from "@/src/app/provider";
 import { EventCommentList } from "@/src/entities/eventComments";
-import { describe, expect, it, jest } from "@jest/globals";
 import { screen, waitFor, within } from "@testing-library/dom";
 import { act } from "@testing-library/react";
 

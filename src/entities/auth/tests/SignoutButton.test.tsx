@@ -1,5 +1,4 @@
 import { render } from "@/src/__mocks__/lib";
-import { expect, it } from "@jest/globals";
 import { screen, waitFor } from "@testing-library/dom";
 import { SignoutButton } from "..";
 

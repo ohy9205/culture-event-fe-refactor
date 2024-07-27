@@ -1,6 +1,5 @@
 import { render } from "@/src/__mocks__/lib";
 import { SignupForm } from "@/src/entities/auth";
-import { expect, it, jest } from "@jest/globals";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 

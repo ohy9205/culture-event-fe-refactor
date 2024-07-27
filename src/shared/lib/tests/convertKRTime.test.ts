@@ -1,4 +1,3 @@
-import { expect, it } from "@jest/globals";
 import { convertKRTime } from "..";
 
 // converKRTime으로 인자를 전달할 때 데이터 포맷에 따라 서로 다른 결과가 노출되는걸 확인

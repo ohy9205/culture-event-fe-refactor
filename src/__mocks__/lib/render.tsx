@@ -1,5 +1,4 @@
 import { SWRProvider } from "@/src/app/provider";
-import { jest } from "@jest/globals";
 import { RenderOptions, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppRouterContextProviderMock } from "./app-router-context-provider-mock";

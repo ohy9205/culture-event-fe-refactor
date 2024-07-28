@@ -26,7 +26,8 @@ const ControlBox = ({ query }: Props) => {
           <Select
             name="location"
             onChange={onFilterChange}
-            value={query[locationName] || locationOptions[0].text}>
+            value={query[locationName] || locationOptions[0].text}
+            data-testid="location-select">
             {locationOptions.map((it) => (
               <Select.Option key={it.text} text={it.text} value={it.value} />
             ))}
@@ -65,6 +66,7 @@ const ControlBox = ({ query }: Props) => {
             onChange={onFilterChange}
             value={query.start || ""}
             className={SELECT_STYLE}
+            data-testid="start-filter"
           />
           <div>-</div>
           <label htmlFor="end" className="sr-only">
@@ -78,6 +80,7 @@ const ControlBox = ({ query }: Props) => {
             value={query.end || ""}
             className={SELECT_STYLE}
             min={query.start || getTodayDate()}
+            data-testid="end-filter"
           />
         </div>
 
@@ -100,6 +103,7 @@ const ControlBox = ({ query }: Props) => {
           onChange={onFilterChange}
           placeholder="검색어를 입력하세요"
           className="px-4 py-2 rounded-md border"
+          defaultValue={query.keyword}
         />
       </div>
       <div></div>

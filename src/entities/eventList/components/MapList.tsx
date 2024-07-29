@@ -16,7 +16,9 @@ const MapList = ({ list }: Props) => {
   } = useMapList(list[0]);
 
   return (
-    <div className="w-full flex flex-col md:flex-row gap-5">
+    <div
+      className="w-full flex flex-col md:flex-row gap-5"
+      data-testid="map-list">
       <ul className="w-full md:w-3/5 flex flex-col gap-4 md:h-[800px] overflow-scroll py-2 md:pr-5">
         {list.map((event) => (
           <li key={event.id}>

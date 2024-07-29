@@ -14,7 +14,7 @@ const PosterList = ({ list }: Props) => {
   const { open } = useModal();
 
   return (
-    <div className="w-full flex flex-col gap-5">
+    <div className="w-full flex flex-col gap-5" data-testid="poster-list">
       <GridContainer>
         {list.map(({ eventPeriod, id, thumbnail, title, views }) => {
           return (

@@ -1,4 +1,4 @@
-export const mockEventlist = [
+export const mockEventlistData = [
   {
     id: 257,
     category: "전시/미술",

@@ -52,10 +52,6 @@ describe("Event Info", () => {
   });
 
   it("'상세정보 보러가기'를 클릭하면 해당 이벤트 홈페이지로 링크가 연결된다.", async () => {
-    jest.mock("next/link", () => ({ href }: { href: string }) => (
-      <link href={href}></link>
-    ));
-
     await render(<EventDetail id={4} />);
 
     const link = await screen.findByRole("link");

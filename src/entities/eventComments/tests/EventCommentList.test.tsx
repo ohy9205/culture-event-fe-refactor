@@ -114,8 +114,6 @@ describe("render", () => {
 });
 
 describe("modify", () => {
-  // jest.spyOn(window, "confirm").mockImplementation(() => true);
-
   it("수정 버튼 클릭하면 해당 댓글이 입력란으로 변경되며 댓글 내용이 기본값으로 입력되어 있다.", async () => {
     const { user } = await render(<TestComponent eventId={2} />);
 
@@ -135,24 +133,28 @@ describe("modify", () => {
 
     const comment = screen.getAllByRole("listitem")[0];
 
-    await act(async () => await user.click(within(comment).getByText("수정")));
+    await act(async () => {
+      await user.click(within(comment).getByText("수정"));
+    });
 
     const textarea = within(comment).getByTestId("modify-textarea");
 
     await user.clear(textarea);
     await user.type(textarea, "댓글을 수정했습니다.");
-    await act(async () => {
-      await user.click(within(comment).getByText("등록"));
-    });
+    await user.click(within(comment).getByText("등록"));
 
-    expect(confirmFn).toHaveBeenCalledTimes(1);
-    expect(confirmFn).toHaveBeenCalledWith("댓글을 수정 하시겠습니까?");
+    await waitFor(async () => {
+      expect(confirmFn).toHaveBeenCalledTimes(1);
+      expect(confirmFn).toHaveBeenCalledWith("댓글을 수정 하시겠습니까?");
 
-    expect(
-      within(comment).queryByTestId("modify-textarea")
-    ).not.toBeInTheDocument();
-    expect(await screen.findByText("댓글을 수정했습니다.")).toBeInTheDocument();
-    await waitFor(() => {
+      expect(
+        await screen.findByText("댓글을 수정했습니다.")
+      ).toBeInTheDocument();
+
+      expect(
+        within(comment).queryByTestId("modify-textarea")
+      ).not.toBeInTheDocument();
+
       expect(screen.queryByText("와 재미있겠다.")).not.toBeInTheDocument();
     });
   });
@@ -194,14 +196,15 @@ describe("add", () => {
     const textarea = await screen.findByRole("textbox");
 
     await user.type(textarea, "새로운 댓글을 추가합니다.");
-    await act(
-      async () => await user.click(screen.getByRole("button", { name: "등록" }))
-    );
+    await user.click(screen.getByRole("button", { name: "등록" }));
 
-    expect(
-      await screen.findByText("새로운 댓글을 추가합니다.")
-    ).toBeInTheDocument();
-    expect(await screen.findByRole("textbox")).toHaveValue("");
+    await waitFor(async () => {
+      expect(
+        await screen.findByText("새로운 댓글을 추가합니다.")
+      ).toBeInTheDocument();
+
+      expect(await screen.findByRole("textbox")).toHaveValue("");
+    });
   });
 });
 
@@ -211,15 +214,12 @@ describe("delete", () => {
 
     const comment = screen.getAllByRole("listitem")[0];
 
-    await act(async () => await user.click(within(comment).getByText("삭제")));
+    await user.click(within(comment).getByText("삭제"));
 
-    screen.debug();
-    expect(confirmFn).toHaveBeenCalledWith("정말 댓글을 삭제 하시겠습니까?");
-    await waitFor(() => {
+    await waitFor(async () => {
+      expect(confirmFn).toHaveBeenCalledWith("정말 댓글을 삭제 하시겠습니까?");
+
       expect(screen.queryByText("와 재미있겠다.")).not.toBeInTheDocument();
     });
   });
 });
-
-// 댓글 '삭제' 버튼을 클릭하면 컨펌 alert이 발생함
-// 댓글이 삭제되면 댓글 리스트에서 해당 댓글이 삭제됨

@@ -1,7 +1,6 @@
 import { render } from "@/src/__mocks__/lib";
 import { AuthProvider, MyLikesProvider } from "@/src/app/provider";
 import { screen } from "@testing-library/dom";
-import { act } from "@testing-library/react";
 import { LikeButton } from "..";
 import { MyLikesState } from "../../user";
 // 로그인 하지 않으면 ❤️버튼은 비활성화된다.
@@ -59,7 +58,8 @@ describe("로그인 상태", () => {
     // 화면이 업데이트 되었는지 확인
     const button = await screen.findByRole("button", { name: "🤍" });
 
-    await act(async () => await user.click(button));
+    await user.click(button);
+
     expect(await screen.findByText("❤️")).toBeInTheDocument();
   });
 
@@ -85,7 +85,8 @@ describe("로그인 상태", () => {
     expect(button).toBeInTheDocument();
 
     await user.click(button);
-    await expect(
+
+    expect(
       await screen.findByRole("button", { name: "🤍" })
     ).toBeInTheDocument();
   });

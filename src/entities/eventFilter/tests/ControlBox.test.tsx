@@ -45,7 +45,6 @@ it("prop으로 전달받은 쿼리가 있으면 필터 항목에 기본 적용�
     screen.getByRole("option", { name: "곧 시작할 순", selected: true })
   ).toBeInTheDocument();
 
-  screen.debug();
   expect(screen.getByPlaceholderText("검색어를 입력하세요")).toHaveValue(
     "행사"
   );

@@ -22,7 +22,6 @@ it("usePagination(1,8,5)를 호출하면 totalRow는 2가 된다", () => {
 it("usePagination(8,8,5)를 호출하면 pageButtonArray는 [6,7,8]이 된다", () => {
   const { result } = renderHook(() => usePagination(8, 8, 5));
 
-  console.log(result.current.data.pageButtonArray);
   expect(result.current.data.pageButtonArray).toEqual([6, 7, 8]);
 });
 

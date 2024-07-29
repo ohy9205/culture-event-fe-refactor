@@ -1,7 +1,6 @@
 import { render } from "@/src/__mocks__/lib";
 import { AuthProvider } from "@/src/app/provider";
 import { screen, waitFor, within } from "@testing-library/dom";
-import { act } from "@testing-library/react";
 import { EventDetail } from "..";
 
 // prop으로 받은 event id에 대한 상세정보가 보여진다.
@@ -60,7 +59,6 @@ describe("Event Info", () => {
     await render(<EventDetail id={4} />);
 
     const link = await screen.findByRole("link");
-    console.log(link);
     expect(link).toHaveAttribute(
       "href",
       "https://www.seoulchildrensmuseum.org/display/displayAll.do"
@@ -85,7 +83,8 @@ describe("Like Button", () => {
 
     expect(within(count).getByText("1")).toBeInTheDocument();
 
-    await act(async () => await user.click(button));
+    await user.click(button);
+
     expect(await within(count).findByText("2")).toBeInTheDocument();
   });
 });

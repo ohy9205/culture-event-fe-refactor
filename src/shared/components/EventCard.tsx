@@ -22,7 +22,8 @@ const EventCard = ({ children, height, width }: CardProps) => {
   return (
     <div
       className="shadow-md rounded-lg overflow-hidden"
-      style={{ height: `${height}`, width: `${width}` }}>
+      style={{ height: `${height}`, width: `${width}` }}
+      data-testid="event-card">
       {children}
     </div>
   );
